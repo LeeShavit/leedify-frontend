@@ -10,7 +10,7 @@ export const stationService = {
     getById,
     save,
     remove,
-    addStationSong
+    addStationSong,
 }
 window.ss = stationService
 
@@ -84,4 +84,8 @@ async function addStationMsg(stationId, txt) {
     await storageService.put(STORAGE_KEY, station)
 
     return msg
+}
+
+async function addStationSong(songId) {
+    
 }
