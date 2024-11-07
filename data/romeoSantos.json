@@ -1,0 +1,833 @@
+{
+    "tracks": [
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/17HsiXfqKUPoTP6Y5ebs1L"
+                },
+                "href": "https://api.spotify.com/v1/albums/17HsiXfqKUPoTP6Y5ebs1L",
+                "id": "17HsiXfqKUPoTP6Y5ebs1L",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02e9da42890bbd629df1e8f640",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851e9da42890bbd629df1e8f640",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Fórmula, Vol. 2 (Deluxe Edition)",
+                "release_date": "2014-02-25",
+                "release_date_precision": "day",
+                "total_tracks": 19,
+                "type": "album",
+                "uri": "spotify:album:17HsiXfqKUPoTP6Y5ebs1L"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 235133,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11300197"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/5PycBIeabfvX3n9ILG7Vrv"
+            },
+            "href": "https://api.spotify.com/v1/tracks/5PycBIeabfvX3n9ILG7Vrv",
+            "id": "5PycBIeabfvX3n9ILG7Vrv",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Propuesta Indecente",
+            "popularity": 80,
+            "preview_url": "https://p.scdn.co/mp3-preview/517abecfde814f6ecb4459b4d2ff4c250ed80ec5?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 13,
+            "type": "track",
+            "uri": "spotify:track:5PycBIeabfvX3n9ILG7Vrv"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/17HsiXfqKUPoTP6Y5ebs1L"
+                },
+                "href": "https://api.spotify.com/v1/albums/17HsiXfqKUPoTP6Y5ebs1L",
+                "id": "17HsiXfqKUPoTP6Y5ebs1L",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02e9da42890bbd629df1e8f640",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851e9da42890bbd629df1e8f640",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Fórmula, Vol. 2 (Deluxe Edition)",
+                "release_date": "2014-02-25",
+                "release_date_precision": "day",
+                "total_tracks": 19,
+                "type": "album",
+                "uri": "spotify:album:17HsiXfqKUPoTP6Y5ebs1L"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 250640,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11300464"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/6I86RF3odBlcuZA9Vfjzeq"
+            },
+            "href": "https://api.spotify.com/v1/tracks/6I86RF3odBlcuZA9Vfjzeq",
+            "id": "6I86RF3odBlcuZA9Vfjzeq",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Eres Mía",
+            "popularity": 80,
+            "preview_url": "https://p.scdn.co/mp3-preview/44a24690cd4e62df30d121bf648f0685c2acbf56?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 6,
+            "type": "track",
+            "uri": "spotify:track:6I86RF3odBlcuZA9Vfjzeq"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4kS7bSuU0Jm9LYMosFU2x5"
+                },
+                "href": "https://api.spotify.com/v1/albums/4kS7bSuU0Jm9LYMosFU2x5",
+                "id": "4kS7bSuU0Jm9LYMosFU2x5",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27382de1ca074ae63cb18fce335",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0282de1ca074ae63cb18fce335",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485182de1ca074ae63cb18fce335",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO",
+                "release_date": "2023-02-24",
+                "release_date_precision": "day",
+                "total_tracks": 17,
+                "type": "album",
+                "uri": "spotify:album:4kS7bSuU0Jm9LYMosFU2x5"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 200120,
+            "explicit": true,
+            "external_ids": {
+                "isrc": "USUM72222547"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/4NoOME4Dhf4xgxbHDT7VGe"
+            },
+            "href": "https://api.spotify.com/v1/tracks/4NoOME4Dhf4xgxbHDT7VGe",
+            "id": "4NoOME4Dhf4xgxbHDT7VGe",
+            "is_local": false,
+            "is_playable": true,
+            "name": "X SI VOLVEMOS",
+            "popularity": 77,
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:4NoOME4Dhf4xgxbHDT7VGe"
+        },
+        {
+            "album": {
+                "album_type": "single",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/6XkjpgcEsYab502Vr1bBeW"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/6XkjpgcEsYab502Vr1bBeW",
+                        "id": "6XkjpgcEsYab502Vr1bBeW",
+                        "name": "Grupo Frontera",
+                        "type": "artist",
+                        "uri": "spotify:artist:6XkjpgcEsYab502Vr1bBeW"
+                    },
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/2iiR2powAnVyARFx7deWZT"
+                },
+                "href": "https://api.spotify.com/v1/albums/2iiR2powAnVyARFx7deWZT",
+                "id": "2iiR2powAnVyARFx7deWZT",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b2739c4e9ea9ee21ecf769b9a5d2",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e029c4e9ea9ee21ecf769b9a5d2",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d000048519c4e9ea9ee21ecf769b9a5d2",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "ÁNGEL",
+                "release_date": "2024-07-25",
+                "release_date_precision": "day",
+                "total_tracks": 1,
+                "type": "album",
+                "uri": "spotify:album:2iiR2powAnVyARFx7deWZT"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/6XkjpgcEsYab502Vr1bBeW"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/6XkjpgcEsYab502Vr1bBeW",
+                    "id": "6XkjpgcEsYab502Vr1bBeW",
+                    "name": "Grupo Frontera",
+                    "type": "artist",
+                    "uri": "spotify:artist:6XkjpgcEsYab502Vr1bBeW"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 184095,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "DGA082404215"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/4JtKlgBLKHtRTqixKHrrw8"
+            },
+            "href": "https://api.spotify.com/v1/tracks/4JtKlgBLKHtRTqixKHrrw8",
+            "id": "4JtKlgBLKHtRTqixKHrrw8",
+            "is_local": false,
+            "is_playable": true,
+            "name": "ÁNGEL",
+            "popularity": 78,
+            "preview_url": "https://p.scdn.co/mp3-preview/e572acfa4502e8301b548f700a32980b82d6557b?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:4JtKlgBLKHtRTqixKHrrw8"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/6bm9EpUNvQ9xMglBJGRmgS"
+                },
+                "href": "https://api.spotify.com/v1/albums/6bm9EpUNvQ9xMglBJGRmgS",
+                "id": "6bm9EpUNvQ9xMglBJGRmgS",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273827d0777f8cccdf5b7481442",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02827d0777f8cccdf5b7481442",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851827d0777f8cccdf5b7481442",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Golden",
+                "release_date": "2017-07-21",
+                "release_date_precision": "day",
+                "total_tracks": 18,
+                "type": "album",
+                "uri": "spotify:album:6bm9EpUNvQ9xMglBJGRmgS"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 234828,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11700288"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/6r46lnXFbE9fr2d3KNaGbe"
+            },
+            "href": "https://api.spotify.com/v1/tracks/6r46lnXFbE9fr2d3KNaGbe",
+            "id": "6r46lnXFbE9fr2d3KNaGbe",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Imitadora",
+            "popularity": 76,
+            "preview_url": "https://p.scdn.co/mp3-preview/27a165c3608323cd8ccfd755d79c9eff6faf0645?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 16,
+            "type": "track",
+            "uri": "spotify:track:6r46lnXFbE9fr2d3KNaGbe"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/17HsiXfqKUPoTP6Y5ebs1L"
+                },
+                "href": "https://api.spotify.com/v1/albums/17HsiXfqKUPoTP6Y5ebs1L",
+                "id": "17HsiXfqKUPoTP6Y5ebs1L",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02e9da42890bbd629df1e8f640",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851e9da42890bbd629df1e8f640",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Fórmula, Vol. 2 (Deluxe Edition)",
+                "release_date": "2014-02-25",
+                "release_date_precision": "day",
+                "total_tracks": 19,
+                "type": "album",
+                "uri": "spotify:album:17HsiXfqKUPoTP6Y5ebs1L"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/3TVXtAsR1Inumwj472S9r4",
+                    "id": "3TVXtAsR1Inumwj472S9r4",
+                    "name": "Drake",
+                    "type": "artist",
+                    "uri": "spotify:artist:3TVXtAsR1Inumwj472S9r4"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 225000,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11300465"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/1iLv1ieT9BZ3qsti9yTCnG"
+            },
+            "href": "https://api.spotify.com/v1/tracks/1iLv1ieT9BZ3qsti9yTCnG",
+            "id": "1iLv1ieT9BZ3qsti9yTCnG",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Odio (feat. Drake)",
+            "popularity": 76,
+            "preview_url": "https://p.scdn.co/mp3-preview/5746769fb87d59fbbe30faa713965f8de5a44b4a?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 7,
+            "type": "track",
+            "uri": "spotify:track:1iLv1ieT9BZ3qsti9yTCnG"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/17HsiXfqKUPoTP6Y5ebs1L"
+                },
+                "href": "https://api.spotify.com/v1/albums/17HsiXfqKUPoTP6Y5ebs1L",
+                "id": "17HsiXfqKUPoTP6Y5ebs1L",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02e9da42890bbd629df1e8f640",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851e9da42890bbd629df1e8f640",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Fórmula, Vol. 2 (Deluxe Edition)",
+                "release_date": "2014-02-25",
+                "release_date_precision": "day",
+                "total_tracks": 19,
+                "type": "album",
+                "uri": "spotify:album:17HsiXfqKUPoTP6Y5ebs1L"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 237093,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11300463"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/6bcdiJvYNX115yvbh3wASz"
+            },
+            "href": "https://api.spotify.com/v1/tracks/6bcdiJvYNX115yvbh3wASz",
+            "id": "6bcdiJvYNX115yvbh3wASz",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Cancioncitas de Amor",
+            "popularity": 74,
+            "preview_url": "https://p.scdn.co/mp3-preview/c8179daf05c1d9e2b55c6683a0a5f24e0413f789?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 5,
+            "type": "track",
+            "uri": "spotify:track:6bcdiJvYNX115yvbh3wASz"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/17HsiXfqKUPoTP6Y5ebs1L"
+                },
+                "href": "https://api.spotify.com/v1/albums/17HsiXfqKUPoTP6Y5ebs1L",
+                "id": "17HsiXfqKUPoTP6Y5ebs1L",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02e9da42890bbd629df1e8f640",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851e9da42890bbd629df1e8f640",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Fórmula, Vol. 2 (Deluxe Edition)",
+                "release_date": "2014-02-25",
+                "release_date_precision": "day",
+                "total_tracks": 19,
+                "type": "album",
+                "uri": "spotify:album:17HsiXfqKUPoTP6Y5ebs1L"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/0MsXN56oNCyqorqEPViWgQ"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/0MsXN56oNCyqorqEPViWgQ",
+                    "id": "0MsXN56oNCyqorqEPViWgQ",
+                    "name": "Carlos Santana",
+                    "type": "artist",
+                    "uri": "spotify:artist:0MsXN56oNCyqorqEPViWgQ"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 264266,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11300471"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/3DKWF8is9hzp84aSxnhlag"
+            },
+            "href": "https://api.spotify.com/v1/tracks/3DKWF8is9hzp84aSxnhlag",
+            "id": "3DKWF8is9hzp84aSxnhlag",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Necio (feat. Carlos Santana)",
+            "popularity": 73,
+            "preview_url": "https://p.scdn.co/mp3-preview/0ae01830651d9849bad12f9d8fcbd2caf3cd591d?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 3,
+            "type": "track",
+            "uri": "spotify:track:3DKWF8is9hzp84aSxnhlag"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/6a3RDPcFamZvFCi8VeXWkK"
+                },
+                "href": "https://api.spotify.com/v1/albums/6a3RDPcFamZvFCi8VeXWkK",
+                "id": "6a3RDPcFamZvFCi8VeXWkK",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b2731d6d3d544ca5b46453fafbb6",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e021d6d3d544ca5b46453fafbb6",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d000048511d6d3d544ca5b46453fafbb6",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Fórmula Vol. 1 (Deluxe Edition)",
+                "release_date": "2012-08-27",
+                "release_date_precision": "day",
+                "total_tracks": 20,
+                "type": "album",
+                "uri": "spotify:album:6a3RDPcFamZvFCi8VeXWkK"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 239026,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11100311"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/252UPuQsncbBFhTrx4Ytcc"
+            },
+            "href": "https://api.spotify.com/v1/tracks/252UPuQsncbBFhTrx4Ytcc",
+            "id": "252UPuQsncbBFhTrx4Ytcc",
+            "is_local": false,
+            "is_playable": true,
+            "name": "La Diabla",
+            "popularity": 73,
+            "preview_url": "https://p.scdn.co/mp3-preview/f8c59f5fde813d119078c4f4a6ffea883a0948b6?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:252UPuQsncbBFhTrx4Ytcc"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                        "id": "5lwmRuXgjX8xIwlnauTZIP",
+                        "name": "Romeo Santos",
+                        "type": "artist",
+                        "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/6bm9EpUNvQ9xMglBJGRmgS"
+                },
+                "href": "https://api.spotify.com/v1/albums/6bm9EpUNvQ9xMglBJGRmgS",
+                "id": "6bm9EpUNvQ9xMglBJGRmgS",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273827d0777f8cccdf5b7481442",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02827d0777f8cccdf5b7481442",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851827d0777f8cccdf5b7481442",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Golden",
+                "release_date": "2017-07-21",
+                "release_date_precision": "day",
+                "total_tracks": 18,
+                "type": "album",
+                "uri": "spotify:album:6bm9EpUNvQ9xMglBJGRmgS"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/1i8SpTcr7yvPOmcqrbnVXY"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/1i8SpTcr7yvPOmcqrbnVXY",
+                    "id": "1i8SpTcr7yvPOmcqrbnVXY",
+                    "name": "Ozuna",
+                    "type": "artist",
+                    "uri": "spotify:artist:1i8SpTcr7yvPOmcqrbnVXY"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 198332,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USSD11700341"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/1WbXIpiGBJkCiv3hn40iPB"
+            },
+            "href": "https://api.spotify.com/v1/tracks/1WbXIpiGBJkCiv3hn40iPB",
+            "id": "1WbXIpiGBJkCiv3hn40iPB",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Sobredosis (feat. Ozuna)",
+            "popularity": 73,
+            "preview_url": "https://p.scdn.co/mp3-preview/db9b6e87276b245209c93c183bde5dfd6c216bd2?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 7,
+            "type": "track",
+            "uri": "spotify:track:1WbXIpiGBJkCiv3hn40iPB"
+        }
+    ]
+}

@@ -1,0 +1,825 @@
+{
+    "tracks": [
+        {
+            "album": {
+                "album_type": "single",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/5ylbxH7EqpsmHZCRuiYewS"
+                },
+                "href": "https://api.spotify.com/v1/albums/5ylbxH7EqpsmHZCRuiYewS",
+                "id": "5ylbxH7EqpsmHZCRuiYewS",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02491678beaffcefac517a699e",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851491678beaffcefac517a699e",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "Si Antes Te Hubiera Conocido",
+                "release_date": "2024-06-21",
+                "release_date_precision": "day",
+                "total_tracks": 1,
+                "type": "album",
+                "uri": "spotify:album:5ylbxH7EqpsmHZCRuiYewS"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 195824,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USUG12400968"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/6WatFBLVB0x077xWeoVc2k"
+            },
+            "href": "https://api.spotify.com/v1/tracks/6WatFBLVB0x077xWeoVc2k",
+            "id": "6WatFBLVB0x077xWeoVc2k",
+            "is_local": false,
+            "is_playable": true,
+            "name": "Si Antes Te Hubiera Conocido",
+            "popularity": 93,
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:6WatFBLVB0x077xWeoVc2k"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/0FqAaUEyKCyUNFE1uQPZ7i"
+                },
+                "href": "https://api.spotify.com/v1/albums/0FqAaUEyKCyUNFE1uQPZ7i",
+                "id": "0FqAaUEyKCyUNFE1uQPZ7i",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273d026bf9d7780f6a1267b4d03",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02d026bf9d7780f6a1267b4d03",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851d026bf9d7780f6a1267b4d03",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO (BICHOTA SEASON)",
+                "release_date": "2023-08-10",
+                "release_date_precision": "day",
+                "total_tracks": 9,
+                "type": "album",
+                "uri": "spotify:album:0FqAaUEyKCyUNFE1uQPZ7i"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/12GqGscKJx3aE4t07u7eVZ"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/12GqGscKJx3aE4t07u7eVZ",
+                    "id": "12GqGscKJx3aE4t07u7eVZ",
+                    "name": "Peso Pluma",
+                    "type": "artist",
+                    "uri": "spotify:artist:12GqGscKJx3aE4t07u7eVZ"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 172797,
+            "explicit": true,
+            "external_ids": {
+                "isrc": "USUG12305257"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/5RqSsdzTNPX1uzkmlHCFvK"
+            },
+            "href": "https://api.spotify.com/v1/tracks/5RqSsdzTNPX1uzkmlHCFvK",
+            "id": "5RqSsdzTNPX1uzkmlHCFvK",
+            "is_local": false,
+            "is_playable": true,
+            "name": "QLONA",
+            "popularity": 84,
+            "track_number": 5,
+            "type": "track",
+            "uri": "spotify:track:5RqSsdzTNPX1uzkmlHCFvK"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4kS7bSuU0Jm9LYMosFU2x5"
+                },
+                "href": "https://api.spotify.com/v1/albums/4kS7bSuU0Jm9LYMosFU2x5",
+                "id": "4kS7bSuU0Jm9LYMosFU2x5",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27382de1ca074ae63cb18fce335",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0282de1ca074ae63cb18fce335",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485182de1ca074ae63cb18fce335",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO",
+                "release_date": "2023-02-24",
+                "release_date_precision": "day",
+                "total_tracks": 17,
+                "type": "album",
+                "uri": "spotify:album:4kS7bSuU0Jm9LYMosFU2x5"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 170480,
+            "explicit": true,
+            "external_ids": {
+                "isrc": "USUM72222552"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/505v13epFXodT9fVAJ6h8k"
+            },
+            "href": "https://api.spotify.com/v1/tracks/505v13epFXodT9fVAJ6h8k",
+            "id": "505v13epFXodT9fVAJ6h8k",
+            "is_local": false,
+            "is_playable": true,
+            "name": "AMARGURA",
+            "popularity": 84,
+            "track_number": 15,
+            "type": "track",
+            "uri": "spotify:track:505v13epFXodT9fVAJ6h8k"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/0FqAaUEyKCyUNFE1uQPZ7i"
+                },
+                "href": "https://api.spotify.com/v1/albums/0FqAaUEyKCyUNFE1uQPZ7i",
+                "id": "0FqAaUEyKCyUNFE1uQPZ7i",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273d026bf9d7780f6a1267b4d03",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02d026bf9d7780f6a1267b4d03",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851d026bf9d7780f6a1267b4d03",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO (BICHOTA SEASON)",
+                "release_date": "2023-08-10",
+                "release_date_precision": "day",
+                "total_tracks": 9,
+                "type": "album",
+                "uri": "spotify:album:0FqAaUEyKCyUNFE1uQPZ7i"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 154374,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USUG12305253"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/54zcJnb3tp9c5OVKREZ1Is"
+            },
+            "href": "https://api.spotify.com/v1/tracks/54zcJnb3tp9c5OVKREZ1Is",
+            "id": "54zcJnb3tp9c5OVKREZ1Is",
+            "is_local": false,
+            "is_playable": true,
+            "name": "MI EX TENÍA RAZÓN",
+            "popularity": 83,
+            "track_number": 3,
+            "type": "track",
+            "uri": "spotify:track:54zcJnb3tp9c5OVKREZ1Is"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4kS7bSuU0Jm9LYMosFU2x5"
+                },
+                "href": "https://api.spotify.com/v1/albums/4kS7bSuU0Jm9LYMosFU2x5",
+                "id": "4kS7bSuU0Jm9LYMosFU2x5",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27382de1ca074ae63cb18fce335",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0282de1ca074ae63cb18fce335",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485182de1ca074ae63cb18fce335",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO",
+                "release_date": "2023-02-24",
+                "release_date_precision": "day",
+                "total_tracks": 17,
+                "type": "album",
+                "uri": "spotify:album:4kS7bSuU0Jm9LYMosFU2x5"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 207626,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USUM72205906"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/3HqcNJdZ2seoGxhn0wVNDK"
+            },
+            "href": "https://api.spotify.com/v1/tracks/3HqcNJdZ2seoGxhn0wVNDK",
+            "id": "3HqcNJdZ2seoGxhn0wVNDK",
+            "is_local": false,
+            "is_playable": true,
+            "name": "PROVENZA",
+            "popularity": 80,
+            "track_number": 12,
+            "type": "track",
+            "uri": "spotify:track:3HqcNJdZ2seoGxhn0wVNDK"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4kS7bSuU0Jm9LYMosFU2x5"
+                },
+                "href": "https://api.spotify.com/v1/albums/4kS7bSuU0Jm9LYMosFU2x5",
+                "id": "4kS7bSuU0Jm9LYMosFU2x5",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27382de1ca074ae63cb18fce335",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0282de1ca074ae63cb18fce335",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485182de1ca074ae63cb18fce335",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO",
+                "release_date": "2023-02-24",
+                "release_date_precision": "day",
+                "total_tracks": 17,
+                "type": "album",
+                "uri": "spotify:album:4kS7bSuU0Jm9LYMosFU2x5"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/0EmeFodog0BfCgMzAIvKQp"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/0EmeFodog0BfCgMzAIvKQp",
+                    "id": "0EmeFodog0BfCgMzAIvKQp",
+                    "name": "Shakira",
+                    "type": "artist",
+                    "uri": "spotify:artist:0EmeFodog0BfCgMzAIvKQp"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 197933,
+            "explicit": true,
+            "external_ids": {
+                "isrc": "USUM72222541"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/0DWdj2oZMBFSzRsi2Cvfzf"
+            },
+            "href": "https://api.spotify.com/v1/tracks/0DWdj2oZMBFSzRsi2Cvfzf",
+            "id": "0DWdj2oZMBFSzRsi2Cvfzf",
+            "is_local": false,
+            "is_playable": true,
+            "name": "TQG",
+            "popularity": 81,
+            "track_number": 6,
+            "type": "track",
+            "uri": "spotify:track:0DWdj2oZMBFSzRsi2Cvfzf"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/4obzFoKoKRHIphyHzJ35G3"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/4obzFoKoKRHIphyHzJ35G3",
+                        "id": "4obzFoKoKRHIphyHzJ35G3",
+                        "name": "Becky G",
+                        "type": "artist",
+                        "uri": "spotify:artist:4obzFoKoKRHIphyHzJ35G3"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/7eC4wtMG1I2Jtk4FDWbkKC"
+                },
+                "href": "https://api.spotify.com/v1/albums/7eC4wtMG1I2Jtk4FDWbkKC",
+                "id": "7eC4wtMG1I2Jtk4FDWbkKC",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273518859dcb13382116f450073",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02518859dcb13382116f450073",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851518859dcb13382116f450073",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "ESQUEMAS",
+                "release_date": "2022-05-13",
+                "release_date_precision": "day",
+                "total_tracks": 14,
+                "type": "album",
+                "uri": "spotify:album:7eC4wtMG1I2Jtk4FDWbkKC"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/4obzFoKoKRHIphyHzJ35G3"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/4obzFoKoKRHIphyHzJ35G3",
+                    "id": "4obzFoKoKRHIphyHzJ35G3",
+                    "name": "Becky G",
+                    "type": "artist",
+                    "uri": "spotify:artist:4obzFoKoKRHIphyHzJ35G3"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 226093,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USRC12200425"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/7FlQk2gJ6TBrHHiidvdR2O"
+            },
+            "href": "https://api.spotify.com/v1/tracks/7FlQk2gJ6TBrHHiidvdR2O",
+            "id": "7FlQk2gJ6TBrHHiidvdR2O",
+            "is_local": false,
+            "is_playable": true,
+            "name": "MAMIII",
+            "popularity": 78,
+            "preview_url": "https://p.scdn.co/mp3-preview/0a699c30d354c4cb36439d03522e65b377ac0fd8?cid=859eade2dd9242609de4212aba2e6047",
+            "track_number": 14,
+            "type": "track",
+            "uri": "spotify:track:7FlQk2gJ6TBrHHiidvdR2O"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4kS7bSuU0Jm9LYMosFU2x5"
+                },
+                "href": "https://api.spotify.com/v1/albums/4kS7bSuU0Jm9LYMosFU2x5",
+                "id": "4kS7bSuU0Jm9LYMosFU2x5",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27382de1ca074ae63cb18fce335",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0282de1ca074ae63cb18fce335",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485182de1ca074ae63cb18fce335",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO",
+                "release_date": "2023-02-24",
+                "release_date_precision": "day",
+                "total_tracks": 17,
+                "type": "album",
+                "uri": "spotify:album:4kS7bSuU0Jm9LYMosFU2x5"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 164386,
+            "explicit": false,
+            "external_ids": {
+                "isrc": "USUM72300862"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/6otePxalBK8AVa20xhZYVQ"
+            },
+            "href": "https://api.spotify.com/v1/tracks/6otePxalBK8AVa20xhZYVQ",
+            "id": "6otePxalBK8AVa20xhZYVQ",
+            "is_local": false,
+            "is_playable": true,
+            "name": "MIENTRAS ME CURO DEL CORA",
+            "popularity": 79,
+            "track_number": 1,
+            "type": "track",
+            "uri": "spotify:track:6otePxalBK8AVa20xhZYVQ"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/4kS7bSuU0Jm9LYMosFU2x5"
+                },
+                "href": "https://api.spotify.com/v1/albums/4kS7bSuU0Jm9LYMosFU2x5",
+                "id": "4kS7bSuU0Jm9LYMosFU2x5",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b27382de1ca074ae63cb18fce335",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e0282de1ca074ae63cb18fce335",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000485182de1ca074ae63cb18fce335",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO",
+                "release_date": "2023-02-24",
+                "release_date_precision": "day",
+                "total_tracks": 17,
+                "type": "album",
+                "uri": "spotify:album:4kS7bSuU0Jm9LYMosFU2x5"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/5lwmRuXgjX8xIwlnauTZIP"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/5lwmRuXgjX8xIwlnauTZIP",
+                    "id": "5lwmRuXgjX8xIwlnauTZIP",
+                    "name": "Romeo Santos",
+                    "type": "artist",
+                    "uri": "spotify:artist:5lwmRuXgjX8xIwlnauTZIP"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 200120,
+            "explicit": true,
+            "external_ids": {
+                "isrc": "USUM72222547"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/4NoOME4Dhf4xgxbHDT7VGe"
+            },
+            "href": "https://api.spotify.com/v1/tracks/4NoOME4Dhf4xgxbHDT7VGe",
+            "id": "4NoOME4Dhf4xgxbHDT7VGe",
+            "is_local": false,
+            "is_playable": true,
+            "name": "X SI VOLVEMOS",
+            "popularity": 77,
+            "track_number": 2,
+            "type": "track",
+            "uri": "spotify:track:4NoOME4Dhf4xgxbHDT7VGe"
+        },
+        {
+            "album": {
+                "album_type": "album",
+                "artists": [
+                    {
+                        "external_urls": {
+                            "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                        },
+                        "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                        "id": "790FomKkXshlbRYZFtlgla",
+                        "name": "KAROL G",
+                        "type": "artist",
+                        "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                    }
+                ],
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/album/0FqAaUEyKCyUNFE1uQPZ7i"
+                },
+                "href": "https://api.spotify.com/v1/albums/0FqAaUEyKCyUNFE1uQPZ7i",
+                "id": "0FqAaUEyKCyUNFE1uQPZ7i",
+                "images": [
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d0000b273d026bf9d7780f6a1267b4d03",
+                        "width": 640,
+                        "height": 640
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00001e02d026bf9d7780f6a1267b4d03",
+                        "width": 300,
+                        "height": 300
+                    },
+                    {
+                        "url": "https://i.scdn.co/image/ab67616d00004851d026bf9d7780f6a1267b4d03",
+                        "width": 64,
+                        "height": 64
+                    }
+                ],
+                "is_playable": true,
+                "name": "MAÑANA SERÁ BONITO (BICHOTA SEASON)",
+                "release_date": "2023-08-10",
+                "release_date_precision": "day",
+                "total_tracks": 9,
+                "type": "album",
+                "uri": "spotify:album:0FqAaUEyKCyUNFE1uQPZ7i"
+            },
+            "artists": [
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/790FomKkXshlbRYZFtlgla"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/790FomKkXshlbRYZFtlgla",
+                    "id": "790FomKkXshlbRYZFtlgla",
+                    "name": "KAROL G",
+                    "type": "artist",
+                    "uri": "spotify:artist:790FomKkXshlbRYZFtlgla"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/1Yj5Xey7kTwvZla8sqdsdE"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/1Yj5Xey7kTwvZla8sqdsdE",
+                    "id": "1Yj5Xey7kTwvZla8sqdsdE",
+                    "name": "Cris Mj",
+                    "type": "artist",
+                    "uri": "spotify:artist:1Yj5Xey7kTwvZla8sqdsdE"
+                },
+                {
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/artist/7j6DKwmjbxvpQO8h914uEz"
+                    },
+                    "href": "https://api.spotify.com/v1/artists/7j6DKwmjbxvpQO8h914uEz",
+                    "id": "7j6DKwmjbxvpQO8h914uEz",
+                    "name": "Ryan Castro",
+                    "type": "artist",
+                    "uri": "spotify:artist:7j6DKwmjbxvpQO8h914uEz"
+                }
+            ],
+            "disc_number": 1,
+            "duration_ms": 205144,
+            "explicit": true,
+            "external_ids": {
+                "isrc": "USUG12305258"
+            },
+            "external_urls": {
+                "spotify": "https://open.spotify.com/track/0GJwUAlBMJTbY4VE7iE761"
+            },
+            "href": "https://api.spotify.com/v1/tracks/0GJwUAlBMJTbY4VE7iE761",
+            "id": "0GJwUAlBMJTbY4VE7iE761",
+            "is_local": false,
+            "is_playable": true,
+            "name": "UNA NOCHE EN MEDELLÍN - REMIX",
+            "popularity": 76,
+            "track_number": 6,
+            "type": "track",
+            "uri": "spotify:track:0GJwUAlBMJTbY4VE7iE761"
+        }
+    ]
+}
