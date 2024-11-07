@@ -1,24 +1,24 @@
 import { userService } from '../services/user'
-import { CarPreview } from './CarPreview'
+import { StationPreview } from './StationPreview'
 
-export function CarList({ cars, onRemoveCar, onUpdateCar }) {
+export function StationList({ stations, onRemoveStation, onUpdateStation }) {
     
-    function shouldShowActionBtns(car) {
+    function shouldShowActionBtns(station) {
         const user = userService.getLoggedinUser()
         
         if (!user) return false
         if (user.isAdmin) return true
-        return car.owner?._id === user._id
+        return station.owner?._id === user._id
     }
 
     return <section>
         <ul className="list">
-            {cars.map(car =>
-                <li key={car._id}>
-                    <CarPreview car={car}/>
-                    {shouldShowActionBtns(car) && <div className="actions">
-                        <button onClick={() => onUpdateCar(car)}>Edit</button>
-                        <button onClick={() => onRemoveCar(car._id)}>x</button>
+            {stations.map(station =>
+                <li key={station._id}>
+                    <StationPreview station={station}/>
+                    {shouldShowActionBtns(station) && <div className="actions">
+                        <button onClick={() => onUpdateStation(station)}>Edit</button>
+                        <button onClick={() => onRemoveStation(station._id)}>x</button>
                     </div>}
                 </li>)
             }
