@@ -6,13 +6,28 @@ $clr4: #95adbe;
 $clr5: #dff0ea;
 $clr6: #fff;
 $clr7: #222;
-
 $gray1: #ddd;
 $gray2: #aaa;
 $gray3: #777;
 $gray4: #333;
 
+$primary-color: #1ed760; // Spotify green
+$background-dark: #121212;
+$background-darker: #000000;
+$background-light: #282828;
+$text-primary: #ffffff;
+$text-secondary: #b3b3b3;
+$hover-color: #282828;
+
 // Breakpoints
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
 $normal-breakpoint: 960px;
+
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+$breakpoint-xl: 1280px;
+
+$border-radius: 8px;
+$transition-speed: 0.3s;

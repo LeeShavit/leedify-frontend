@@ -1,47 +1,29 @@
-import { Link, NavLink } from 'react-router-dom'
-import { useNavigate } from 'react-router'
-import { useSelector } from 'react-redux'
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
-import { logout } from '../store/actions/user.actions'
+import { ChevronLeft, ChevronRight, Home, Search, Bell, User } from 'lucide-react'
+import React from 'react'
 
 export function AppHeader() {
-	const user = useSelector(storeState => storeState.userModule.user)
-	const navigate = useNavigate()
+  return (
+    <header className='app-header'>
+      <div className='app-header__logo'></div>
 
-	async function onLogout() {
-		try {
-			await logout()
-			navigate('/')
-			showSuccessMsg(`Bye now`)
-		} catch (err) {
-			showErrorMsg('Cannot logout')
-		}
-	}
+      <div className='app-header__nav'>
+        <button className='app-header__nav-button bg-black/60 rounded-full p-2'>
+          <Home size={20} />
+        </button>
+        <div className='app-header__search'>
+          <Search className='app-header__search-icon' size={20} />
+          <input type='text' placeholder='What do you want to play?' className='app-header__search-input' />
+        </div>
+      </div>
 
-	return (
-		<header className="app-header full">
-			<nav>
-				<NavLink to="/" className="logo">
-					E2E Demo
-				</NavLink>
-				<NavLink to="about">About</NavLink>
-				<NavLink to="station">Stations</NavLink>
-				<NavLink to="chat">Chat</NavLink>
-
-                {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
-
-				{!user && <NavLink to="login" className="login-link">Login</NavLink>}
-				{user && (
-					<div className="user-info">
-						<Link to={`user/${user._id}`}>
-							{/* {user.imgUrl && <img src={user.imgUrl} />} */}
-							{user.fullname}
-						</Link>
-						{/* <span className="score">{user.score?.toLocaleString()}</span> */}
-						<button onClick={onLogout}>logout</button>
-					</div>
-				)}
-			</nav>
-		</header>
-	)
+      <div className='app-header__controls'>
+        <button className='app-header__button'>
+          <Bell size={20} />
+        </button>
+        <button className='app-header__profile-button'>
+          <div className='w-8 h-8 rounded-full bg-[#535353] flex items-center justify-center'>L</div>
+        </button>
+      </div>
+    </header>
+  )
 }
