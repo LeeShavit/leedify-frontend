@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
 import { ytAPIService } from '../services/ytAPI.service.js'
 
-export function SongControls({ songName , playerRef, volume }) {
+export function PlayerControls({ songName , playerRef, volume }) {
 
     const [videoId, setVideoId] = useState(null)
     const [isPlaying, setIsPlaying] = useState(false)
@@ -74,8 +74,8 @@ export function SongControls({ songName , playerRef, volume }) {
     if (!videoId) return null
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-[#181818] border-t border-[#282828] p-4 z-50">
-            <div className="w-1 h-1 overflow-hidden">
+        <div className="player-controls">
+            <div className="yt-player">
                 {videoId && (
                     <YouTube
                         videoId={videoId}
@@ -92,40 +92,39 @@ export function SongControls({ songName , playerRef, volume }) {
                     />
                 )}
             </div>
-            <div className="flex flex-col items-center gap-2">
+            <button>
+                <img src='../assets/img/repeat-icon.svg'/>
+            </button>
+            <div className="player-controls-buttons">
                 <div className="flex items-center gap-4">
-                    <button className="text-[#b3b3b3] hover:text-white p-2 transition-colors">
-                        <img src='src/assets/img/prev-song-icon.svg' />
+                    <button>
+                        <img src='src/assets/img/prev-song-icon.svg' alt='Previous'/>
                     </button>
                     <button
                         onClick={isPlaying ? handlePause : handlePlay}
-                        className={`p-2 rounded-full ${isPlaying ? 'bg-[#1db954]' : 'bg-white'} text-black hover:scale-105 transition-transform`}>
-                        {isPlaying ? (
-                            <img src='src/assets/img/control-button-pause-icon.svg' />
-                        ) : (
-                            <img src='src/assets/img/control-button-play-icon.svg' />
-                        )}
+                        className={`play ${isPlaying ? 'is-playing' : ''}`}>
+                            <img src={`src/assets/img/control-button-${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`}/>
                     </button>
-                    <button className="text-[#b3b3b3] hover:text-white p-2 transition-colors">
+                    <button>
                         <img src='src/assets/img/next-song-icon.svg' />
                     </button>
                 </div>
 
-                <div className="flex items-center gap-2 w-full max-w-[600px]">
-                    <span className="text-[#b3b3b3] text-xs min-w-[40px]">
-                        {formatTime(currentTime)}
+                <div className="progress">
+                    <span className="progress-time">
+                        {playerRef.current && formatTime(currentTime)}
                     </span>
                     <div
-                        className="flex-1 h-1 bg-[#404040] rounded-full cursor-pointer relative group"
+                        className="progress-bar"
                         onClick={handleProgressClick}
                     >
                         <div
-                            className="absolute left-0 top-0 h-full bg-white group-hover:bg-[#1db954] rounded-full transition-colors"
-                            style={{ width: `${(currentTime / playerRef.current.getDuration()) * 100}%` }}
+                            className="progress-bar-fill"
+                            style={playerRef.current && { width: `${(currentTime / playerRef.current.getDuration()) * 100}%` }}
                         />
                     </div>
-                    <span className="text-[#b3b3b3] text-xs min-w-[40px]">
-                        {formatTime(playerRef.current.getDuration())}
+                    <span className="progress-time">
+                        {playerRef.current && formatTime(playerRef.current.getDuration())}
                     </span>
                 </div>
             </div>
