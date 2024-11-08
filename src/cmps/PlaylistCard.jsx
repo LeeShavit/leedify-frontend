@@ -1,5 +1,6 @@
 import React from 'react'
 import { Play } from 'lucide-react'
+
 export default function PlaylistCard({ imageUrl, title, description, aspectSquare = true }) {
   return (
     <div className='playlist-card'>
