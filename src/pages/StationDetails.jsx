@@ -4,40 +4,50 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { loadStation, addStationMsg } from '../store/actions/station.actions'
-
+// import { loadStation, addStationMsg } from '../store/actions/station.actions'
 
 export function StationDetails() {
-
-  const {stationId} = useParams()
-  const station = useSelector(storeState => storeState.stationModule.station)
-
-  useEffect(() => {
-    loadStation(stationId)
-  }, [stationId])
-
-  async function onAddStationSong(stationId) {
-    try {
-        await addStationMsg(stationId, 'bla bla ' + parseInt(Math.random()*10))
-        showSuccessMsg(`Station msg added`)
-    } catch (err) {
-        showErrorMsg('Cannot add station msg')
-    }        
-
-}
-
   return (
-    <section className="station-details">
-      <Link to="/station">Back to list</Link>
-      <h1>Station Details</h1>
-      {station && <div>
-        <h3>{station.vendor}</h3>
-        <h4>${station.price}</h4>
-        <pre> {JSON.stringify(station, null, 2)} </pre>
-      </div>
-      }
-      <button onClick={() => { onAddStationSong(station._id) }}>Add station msg</button>
+    <div className='station-page'>
+      <header className='station-header'>
+        <div className='station-header__cover'>
+          <img
+            src='https://i.scdn.co/image/ab67706f000000021bf9baf065347914ebd54be6'
+            alt='Liked Songs'
+            className='station-header__cover-img'
+          />
+        </div>
 
-    </section>
+        <div className='station-header__info'>
+          <span className='station-header__type'>STATION</span>
+          <h1 className='station-header__title'>Liked Songs</h1>
+          <div className='station-header__meta'>
+            <span className='station-header__owner'>lidornissim</span>
+            <span className='station-header__songs-count'>2,644 songs</span>
+          </div>
+        </div>
+      </header>
+
+      <div className='station-controls'>
+        <div className='station-controls__left'>
+          <button className='station-controls__play'>
+            <span className='station-controls__play-icon'>▶</span>
+          </button>
+          <button className='station-controls__add'>+</button>
+        </div>
+
+        <div className='station-controls__right'>
+          <button className='station-controls__list'>List</button>
+        </div>
+      </div>
+
+      <div className='station-table-header'>
+        <div className='station-table-header__number'>#</div>
+        <div className='station-table-header__title'>Title</div>
+        <div className='station-table-header__album'>Album</div>
+        <div className='station-table-header__date'>Date added</div>
+        <div className='station-table-header__duration'></div>
+      </div>
+    </div>
   )
 }
