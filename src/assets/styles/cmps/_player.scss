@@ -1,8 +1,4 @@
 .player {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   height: 72px;
 
   display: grid;
@@ -46,6 +42,8 @@
     img {
       width: 16px;
       height: 16px;
+      object-fit: contain;
+      flex-shrink: 0;  
       filter: brightness(0) invert(0.7);
       transition: filter 0.2s;
 
@@ -70,16 +68,23 @@
       object-fit: cover;
     }
 
+    & img:last-child{
+      width: 16px;
+      height: 16px;
+      color: $hover-color;
+      background: none;
+    }
+
     &-details {
       display: flex;
       flex-direction: column;
-      gap: 4px;
     }
 
     &-name {
       color: $text-primary;
       font-size: 14px;
       font-weight: 500;
+      margin: 0;
     }
 
     &-artist {
@@ -89,15 +94,22 @@
   }
 
   &-controls {
-    display: flex;
-    // flex-direction: column;
-    align-items: center;
-    gap: 8px;
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
     &-buttons {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
+      flex-flow: row nowrap;
+      width: 100%;
+      margin-bottom: 8px;
+
     }
 
     .progress {
@@ -105,19 +117,35 @@
       align-items: center;
       gap: 8px;
       width: 100%;
+      height: 12px;
       max-width: 600px;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
 
       &-time {
         color: $text-secondary;
-        font-size: 12px;
+        font-size: rem(11px);
         min-width: 40px;
+        text-align: right;
+        border: 0;
+        padding: 0;
+        margin: 0;
+      }
+
+      &-time-right{
+        text-align: left;
+
       }
 
       &-bar {
-        flex: 1;
+        width: 100%;
         height: 4px;
-        background: #404040;
         border-radius: 2px;
+        background: #404040;
         position: relative;
         cursor: pointer;
 

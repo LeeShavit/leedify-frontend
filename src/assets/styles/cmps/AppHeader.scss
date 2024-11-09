@@ -1,16 +1,19 @@
 .app-header {
-  background-color: black;
-  height: 64px;
-  padding: 0 1rem;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
+  gap: 1rem;
+
   position: sticky;
   top: 0;
   z-index: 100;
-  gap: 1rem;
+
+  background-color: black;
+  height: 56px;
+  padding-bottom: 8px;
 
   &__logo {
+    margin: 0 20px;
     padding: 0 0.5rem;
     svg {
       display: block;

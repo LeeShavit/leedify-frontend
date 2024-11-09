@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
 import { ytAPIService } from '../services/ytAPI.service.js'
 
-export function PlayerControls({ songName , playerRef, volume }) {
+export function PlayerControls({ songName, playerRef, volume }) {
 
     const [videoId, setVideoId] = useState(null)
     const [isPlaying, setIsPlaying] = useState(false)
@@ -75,7 +75,7 @@ export function PlayerControls({ songName , playerRef, volume }) {
 
     return (
         <div className="player-controls">
-            <div className="yt-player">
+            <div className="yt-player hidden">
                 {videoId && (
                     <YouTube
                         videoId={videoId}
@@ -92,21 +92,24 @@ export function PlayerControls({ songName , playerRef, volume }) {
                     />
                 )}
             </div>
-            <button>
-                <img src='../assets/img/repeat-icon.svg'/>
-            </button>
-            <div className="player-controls-buttons">
-                <div className="flex items-center gap-4">
+            <div className="player-controls-content">
+                <div className="player-controls-buttons">
                     <button>
-                        <img src='src/assets/img/prev-song-icon.svg' alt='Previous'/>
+                        <img src='src/assets/img/shuffle-icon.svg' />
+                    </button>
+                    <button>
+                        <img src='src/assets/img/prev-song-icon.svg' alt='Previous' />
                     </button>
                     <button
                         onClick={isPlaying ? handlePause : handlePlay}
                         className={`play ${isPlaying ? 'is-playing' : ''}`}>
-                            <img src={`src/assets/img/control-button-${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`}/>
+                        <img src={`src/assets/img/control-button-${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
                     </button>
                     <button>
                         <img src='src/assets/img/next-song-icon.svg' />
+                    </button>
+                    <button>
+                        <img src='src/assets/img/repeat-icon.svg' />
                     </button>
                 </div>
 
