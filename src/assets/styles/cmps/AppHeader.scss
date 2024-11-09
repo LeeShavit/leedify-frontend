@@ -2,81 +2,57 @@
   background-color: black;
   height: 64px;
   padding: 0 1rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  justify-content: space-between;
   position: sticky;
   top: 0;
   z-index: 100;
+  gap: 1rem;
 
   &__logo {
-    margin-right: 1rem;
     padding: 0 0.5rem;
-
     svg {
       display: block;
     }
   }
-  &__bell {
-    position: relative;
-    width: 32px;
-    height: 32px;
+
+  &__center {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background: transparent;
-    border-radius: 50%;
-    color: #b3b3b3;
-    transition: all 0.2s ease;
-
-    &:hover {
-      color: #fff;
-      transform: scale(1.04);
-    }
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
-  &__nav {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex: 1;
+    gap: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   &__nav-button {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background: none;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-
     &--home {
-      background-color: $icon-background;
+      background-color: #242424;
       border-radius: 50%;
-      color: white;
       width: 48px;
       height: 48px;
+      min-width: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.2s;
 
       &:hover {
+        background-color: #2a2a2a;
         transform: scale(1.04);
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
       }
     }
   }
 
   &__search {
     position: relative;
-    flex: 1;
-    max-width: 364px;
-    margin-left: 0.5rem;
+    width: 364px;
 
     &-icon {
       position: absolute;
@@ -89,11 +65,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $text-secondary;
       background: none;
       transition: opacity 0.2s;
-      &:hover {
-        color: #fff;
+
+      svg {
+        width: 20px;
+        height: 20px;
       }
     }
 
@@ -116,6 +93,7 @@
         background-color: #2a2a2a;
       }
     }
+
     &__collection-button {
       position: absolute;
       right: 4px;
@@ -126,13 +104,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $text-secondary;
       background: none;
       transition: opacity 0.2s;
       cursor: pointer;
 
-      &:hover {
-        color: #fff;
+      svg {
+        width: 20px;
+        height: 20px;
       }
     }
   }
@@ -141,19 +119,22 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    margin-left: 1rem;
   }
 
-  &__button {
-    width: 30px;
-    height: 30px;
+  &__bell {
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
-    justify-items: center;
-    color: #fff;
-    background: none;
+    justify-content: center;
+    background: transparent;
     border-radius: 50%;
-    transition: transform 0.2s;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
 
     &:hover {
       transform: scale(1.04);
@@ -161,12 +142,19 @@
   }
 
   &__profile-button {
-    padding: 2px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    color: white;
-    background: none;
+    background-color: $primary-color;
+    color: black;
+    font-size: 14px;
     font-weight: bold;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.2s;
+
     &:hover {
       transform: scale(1.04);
     }

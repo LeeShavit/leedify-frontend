@@ -1,0 +1,175 @@
+.station-page {
+  padding: 24px 32px;
+  background: linear-gradient(180deg, rgba(80, 56, 160, 0.8) 0%, rgba(23, 23, 23, 1) 40%);
+  min-height: 100vh;
+}
+
+.station-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  margin-bottom: 24px;
+
+  &__cover {
+    width: 232px;
+    height: 232px;
+    background: linear-gradient(135deg, #450af5, #c4efd9);
+    box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon {
+    color: white;
+    font-size: 64px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__type {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 0.1em;
+  }
+
+  &__title {
+    font-size: 96px;
+    font-weight: 900;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -2px;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+  }
+
+  &__owner {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  &__songs-count {
+    font-size: 14px;
+    color: #a7a7a7;
+
+    &::before {
+      content: '•';
+      margin: 0 4px;
+    }
+  }
+}
+
+.station-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding: 24px 0;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__right {
+    margin-left: auto;
+  }
+
+  &__play {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    border: none;
+    color: $background-black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+
+    &:hover {
+      transform: scale(1.04);
+      background-color: #1fdf64;
+    }
+  }
+
+  &__play-icon {
+    font-size: 24px;
+    margin-left: 4px;
+  }
+
+  &__add {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: none;
+    border: none;
+    color: #a7a7a7;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+    line-height: 1;
+
+    &:hover {
+      color: #fff;
+      transform: scale(1.04);
+    }
+  }
+
+  &__list {
+    color: #a7a7a7;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+.station-table-header {
+  display: grid;
+  grid-template-columns: 48px 4fr 3fr 2fr 1fr;
+  padding: 0 16px;
+  height: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #a7a7a7;
+  font-size: 13px;
+  font-weight: 500;
+  align-items: center;
+
+  &__number,
+  &__title,
+  &__album,
+  &__date,
+  &__duration {
+    display: flex;
+    align-items: center;
+  }
+
+  &__duration {
+    justify-content: flex-end;
+  }
+}
