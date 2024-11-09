@@ -1,4 +1,5 @@
 // Font Sizes
+.fs11 { font-size: rem(11px); }
 .fs12 { font-size: rem(12px); }
 .fs14 { font-size: rem(14px); }
 .fs18 { font-size: rem(18px); }
@@ -6,6 +7,11 @@
 .fs24 { font-size: rem(24px); }
 .fs28 { font-size: rem(28px); }
 .fs30 { font-size: rem(30px); }
+
+//general helpers
+.hidden{
+    display: none;
+}
 
 // flex helpers
 

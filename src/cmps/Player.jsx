@@ -47,7 +47,8 @@ export function SongPlayer() {
             playerRef.current.setVolume(newVolume)
       }
 
-    const { imgUrl, title, album, artists, _id, name } = nowPlayingSong
+    const { imgUrl, name, album, artists, _id } = nowPlayingSong
+    console.log(nowPlayingSong)
     return (
         <section className="player full">
             <div className='song-info'>
@@ -55,8 +56,9 @@ export function SongPlayer() {
                 <div className='song-info-details'>
                     {/* <Link to={`/album/${nowPlayingSong.album._id}`}/> */}
                     {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}
-                    <p className='song-info-name'>{title}</p>
-                    <p className='song-info-artist'>{artists.join(', ')}</p>
+                    <p className='song-info-name'>{name}</p>
+                    <p className='song-info-artist'>
+                        {artists.map(artist => <Link to={`/artist/${artist._id}`}>{artist.name}</Link>)}</p>
                 </div>
                 <button onClick={() => onAddToLikedSongs(_id)}>
                     <img src="/src/assets/img/like-icon-like-icon.svg" alt="" />
