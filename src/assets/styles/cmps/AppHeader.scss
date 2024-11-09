@@ -17,6 +17,26 @@
       display: block;
     }
   }
+  &__bell {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 50%;
+    color: #b3b3b3;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: #fff;
+      transform: scale(1.04);
+    }
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 
   &__nav {
     display: flex;
