@@ -5,7 +5,7 @@ export function AppHeader() {
   const navigate = useNavigate()
 
   return (
-    <header className='app-header'>
+    <header className='app-header full'>
       <div className='app-header__logo'>
         <SpotifyIcon />
       </div>

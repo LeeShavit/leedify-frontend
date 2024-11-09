@@ -1,6 +1,9 @@
 .main-container {
     display: grid;
     grid-template-columns: 1rem 1fr 1rem;
+    gap: 8px;
+    padding: 8px;
+    max-height: 100vh;
 
     > * {
         grid-column: 2;
