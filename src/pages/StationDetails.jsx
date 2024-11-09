@@ -1,29 +1,33 @@
+// StationDetails.jsx
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-// import { loadStation, addStationMsg } from '../store/actions/station.actions'
+import { loadStation } from '../store/actions/station.actions'
 
 export function StationDetails() {
+  const { stationId } = useParams()
+  const station = useSelector((state) => state.stationModule.currentStation)
+
+  useEffect(() => {
+    loadStation(stationId)
+  }, [stationId])
+
+  if (!station) return <div>Loading...</div>
+
   return (
     <div className='station-page'>
       <header className='station-header'>
         <div className='station-header__cover'>
-          <img
-            src='https://i.scdn.co/image/ab67706f000000021bf9baf065347914ebd54be6'
-            alt='Liked Songs'
-            className='station-header__cover-img'
-          />
+          <img src={station.imgUrl} alt={station.name} className='station-header__cover-img' />
         </div>
 
         <div className='station-header__info'>
-          <span className='station-header__type'>STATION</span>
-          <h1 className='station-header__title'>Liked Songs</h1>
+          <span className='station-header__type'>PLAYLIST</span>
+          <h1 className='station-header__title'>{station.name}</h1>
           <div className='station-header__meta'>
-            <span className='station-header__owner'>lidornissim</span>
-            <span className='station-header__songs-count'>2,644 songs</span>
+            <span className='station-header__description'>{station.description}</span>
+            <span className='station-header__owner'>{station.createdBy.fullname}</span>
+            <span className='station-header__songs-count'>{station.songs?.length || 0} songs</span>
           </div>
         </div>
       </header>
@@ -48,6 +52,31 @@ export function StationDetails() {
         <div className='station-table-header__date'>Date added</div>
         <div className='station-table-header__duration'></div>
       </div>
+
+      {/* Add songs list */}
+      <div className='station-table-body'>
+        {station.songs?.map((song, idx) => (
+          <div key={song.id} className='station-song-row'>
+            <div className='station-song-row__number'>{idx + 1}</div>
+            <div className='station-song-row__title'>
+              <img src={song.imgUrl} alt={song.title} />
+              <div>
+                <div className='song-title'>{song.title}</div>
+                <div className='song-artist'>{song.artistName}</div>
+              </div>
+            </div>
+            <div className='station-song-row__album'>{song.albumName}</div>
+            <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
+            <div className='station-song-row__duration'>{_formatDuration(song.duration)}</div>
+          </div>
+        ))}
+      </div>
     </div>
   )
+}
+
+function _formatDuration(ms) {
+  const minutes = Math.floor(ms / 60000)
+  const seconds = ((ms % 60000) / 1000).toFixed(0)
+  return `${minutes}:${seconds.padStart(2, '0')}`
 }

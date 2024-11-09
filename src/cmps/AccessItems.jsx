@@ -15,7 +15,7 @@ const QuickAccessItem = ({ image, title }) => {
   )
 }
 
-export default function QuickAccess() {
+export function QuickAccess() {
   const quickItems = [
     {
       id: 1,
