@@ -8,7 +8,6 @@ import { StationDetails } from './pages/StationDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 
 import { AppHeader } from './cmps/AppHeader.jsx'
-import { AppFooter } from './cmps/AppFooter.jsx'
 import { SongPlayer } from './cmps/Player.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
@@ -33,7 +32,6 @@ export function RootCmp() {
         </Routes>
       </main>
       <SongPlayer />
-      <AppFooter />
     </div>
   )
 }
