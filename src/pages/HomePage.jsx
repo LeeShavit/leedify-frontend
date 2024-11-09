@@ -11,7 +11,6 @@ export function HomePage() {
         <button className='filter-buttons__button'>Music</button>
         <button className='filter-buttons__button'>Podcasts</button>
       </div>
-
       <div>
         <QuickAccess />
       </div>

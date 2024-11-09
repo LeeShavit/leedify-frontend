@@ -1,175 +1,175 @@
 .player {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
 
-    display: grid;
-    grid-template-columns: minmax(180px, 1fr) 2fr minmax(180px, 1fr);
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 2fr minmax(180px, 1fr);
+  align-items: center;
+  gap: 16px;
+
+  background-color: $background-black;
+  padding: 0 0 0 16px;
+
+  button {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    cursor: pointer;
+    padding: 8px;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $text-primary;
+    }
+
+    &.play {
+      background: $text-primary;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      &.is-playing {
+        background: $primary-color;
+      }
+    }
+
+    img {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) invert(0.7);
+      transition: filter 0.2s;
+
+      &:hover {
+        filter: brightness(0) invert(1);
+      }
+    }
+  }
+
+  & .song-info {
+    display: flex;
     align-items: center;
-    gap: 16px;
 
-    background-color: $background-black;
-    padding: 16px;
+    gap: 12px;
 
-    button {
-        background: none;
-        border: none;
-        color: $text-secondary;
-        cursor: pointer;
-        padding: 8px;
-        transition: color 0.2s;
-
-        &:hover {
-            color: $text-primary;
-        }
-
-        &.play {
-            background: $text-primary;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:hover {
-                transform: scale(1.05);
-            }
-
-            &.is-playing {
-                background: $primary-color;
-            }
-        }
-
-        img {
-            width: 16px;
-            height: 16px;
-            filter: brightness(0) invert(0.7);
-            transition: filter 0.2s;
-
-            &:hover {
-                filter: brightness(0) invert(1);
-            }
-        }
+    & img {
+      width: 56px;
+      height: 56px;
+      background: $hover-color;
+      border-radius: 4px;
+      overflow: hidden;
+      object-fit: cover;
     }
 
-    & .song-info {
-        display: flex;
-        align-items: center;
-
-        gap: 12px;
-
-        & img {
-            width: 56px;
-            height: 56px;
-            background: $hover-color;
-            border-radius: 4px;
-            overflow: hidden;
-            object-fit: cover;
-
-        }
-
-        &-details {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        &-name {
-            color: $text-primary;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        &-artist {
-            color: $text-secondary;
-            font-size: 12px;
-        }
+    &-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    &-controls {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-
-        &-buttons {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .progress {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-            max-width: 600px;
-
-            &-time {
-                color: $text-secondary;
-                font-size: 12px;
-                min-width: 40px;
-            }
-
-            &-bar {
-                flex: 1;
-                height: 4px;
-                background: #404040;
-                border-radius: 2px;
-                position: relative;
-                cursor: pointer;
-
-                &:hover &-fill {
-                    background-color: #1db954;
-                }
-            }
-
-            &-bar-fill {
-                position: absolute;
-                left: 0;
-                top: 0;
-                height: 100%;
-                background: $text-primary;
-                border-radius: 2px;
-                transition: width 0.1s ease-out;
-            }
-        }
+    &-name {
+      color: $text-primary;
+      font-size: 14px;
+      font-weight: 500;
     }
+
+    &-artist {
+      color: $text-secondary;
+      font-size: 12px;
+    }
+  }
+
+  &-controls {
+    display: flex;
+    // flex-direction: column;
+    align-items: center;
+    gap: 8px;
 
     &-buttons {
-        display: flex;
-        justify-content: end;
-        align-items: center;
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
-    .volume {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        justify-content: flex-end;
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 600px;
 
-        &-slider {
-            width: 100px;
-            height: 4px;
-            background: $text-secondary;
-            border-radius: 2px;
-            position: relative;
-            cursor: pointer;
+      &-time {
+        color: $text-secondary;
+        font-size: 12px;
+        min-width: 40px;
+      }
 
-            &:hover &-fill {
-                background-color: $primary-color;
-            }
+      &-bar {
+        flex: 1;
+        height: 4px;
+        background: #404040;
+        border-radius: 2px;
+        position: relative;
+        cursor: pointer;
+
+        &:hover &-fill {
+          background-color: #1db954;
         }
+      }
 
-        &-slider-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            background: $text-primary;
-            border-radius: 2px;
-        }
+      &-bar-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: $text-primary;
+        border-radius: 2px;
+        transition: width 0.1s ease-out;
+      }
     }
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+
+  .volume {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+
+    &-slider {
+      width: 100px;
+      height: 4px;
+      background: $text-secondary;
+      border-radius: 2px;
+      position: relative;
+      cursor: pointer;
+
+      &:hover &-fill {
+        background-color: $primary-color;
+      }
+    }
+
+    &-slider-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background: $text-primary;
+      border-radius: 2px;
+    }
+  }
 }
