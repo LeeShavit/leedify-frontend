@@ -1,18 +1,13 @@
 * {
-    box-sizing: border-box;
-}
-
-html {
-    line-height: 1.6;
-    color: $clr2;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0 auto;
-    font-family: Spotify-mix, sans-serif;
-    font-weight: 200;
-    font-size: rem(18px);
-    background-color: $background-black;
+  margin: 0 auto;
+  font-family: Spotify-mix, sans-serif;
+  font-weight: 400;
+  font-size: rem(18px);
+  background-color: $background-black;
 }
 
 h1,
@@ -21,37 +16,37 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 0.6em;
+  margin: 0 0 0.6em;
 }
 
 img {
-    display: block;
-    max-width: 100%;
+  display: block;
+  max-width: 100%;
 }
 
 p {
-    margin: 0 0 1em;
+  margin: 0 0 1em;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 input {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 main {
-    height: calc(100vh - 152px);
-    overflow-y: scroll;
+  height: calc(100vh - 152px);
+  overflow-y: scroll;
 }

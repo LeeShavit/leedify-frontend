@@ -21,6 +21,11 @@ $text-secondary: #b3b3b3;
 $hover-color: #282828;
 $icon-background: #1f1f1f;
 
+// Spotify commonly uses these weights:
+$font-book: 400; // Regular text
+$font-circular: 500; // Buttons, tabs
+$font-basel: 700; // Headers, titles
+
 // Breakpoints
 $mobile-breakpoint: 460px;
 $narrow-breakpoint: 720px;
