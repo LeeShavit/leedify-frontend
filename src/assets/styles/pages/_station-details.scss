@@ -69,6 +69,7 @@
   &__owner {
     font-size: 14px;
     font-weight: 700;
+
     &::before {
       content: '•';
       margin: 0 4px;
@@ -198,11 +199,12 @@
   border-radius: 4px;
   align-items: center;
 
-  &.is-playing{
+  &.current-song {
 
     .station-song-row__number {
       color: $primary-color;
     }
+
     .song-title {
       color: $primary-color;
     }
@@ -215,8 +217,47 @@
       display: none;
     }
 
+    .station-song-row__icon.playing {
+      display: none;
+    }
+
     .station-song-row__playPause {
       display: block;
+    }
+  }
+
+  &__icon.playing {
+    $iconSize: 14px;
+    height: $iconSize;
+    width: $iconSize;
+    overflow: hidden;
+
+    .bar {
+      display: inline-block;
+      height: 100%;
+      width: 2.8px;
+      margin: 0px .7px;
+      background-color: $primary-color;
+
+      $animationLength: 1.4s;
+      animation: wobble $animationLength infinite;
+      animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
+      animation-fill-mode: both;
+
+      &:nth-child(3) {
+        $delay: -1* $animationLength/4;
+        animation-delay: $delay;
+      }
+
+      &:nth-child(2) {
+        $delay: -2*$animationLength/4;
+        animation-delay: $delay;
+      }
+
+      &:nth-child(4) {
+        $delay: -3 * $animationLength /4;
+        animation-delay: $delay;
+      }
     }
   }
 
@@ -272,4 +313,27 @@
 
 .station-table-body {
   margin-top: 16px;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translatey(0%); //top
+    //margin-top:0px;
+  }
+
+  25% {
+    transform: translatey(70%);
+  }
+
+  50% {
+    transform: translatey(90%); //bottom
+  }
+
+  75% {
+    transform: translatey(50%);
+  }
+
+  100% {
+    transform: translatey(0%);
+  }
 }

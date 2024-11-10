@@ -1,4 +1,4 @@
-import {  useRef , useState } from 'react'
+import {  useEffect, useRef , useState } from 'react'
 
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -9,7 +9,10 @@ export function Player() {
 
     const playerRef = useRef(null)
     const [volume, setVolume] = useState(100)
-    const currentSong = useSelector((state) => state.stationModule.currentSong)
+    const currentSong = useSelector(state => state.stationModule.currentSong)
+    useEffect(()=>{
+
+    },[currentSong])
 
     function onAddToLikedSongs(songId) {
 
@@ -27,20 +30,18 @@ export function Player() {
             playerRef.current.setVolume(newVolume)
       }
 
-    const { imgUrl, name, album, artists, _id } = currentSong.song
-
     return (
         <section className="player full">
             <div className='song-info'>
-                <img className="cover-img" src={imgUrl}></img>
+                <img className="cover-img" src={currentSong.imgUrl}></img>
                 <div className='song-info-details'>
                     {/* <Link to={`/album/${nowPlayingSong.album._id}`}/> */}
                     {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}
-                    <p className='song-info-name'>{name}</p>
+                    <p className='song-info-name'>{currentSong.name}</p>
                     <p className='song-info-artist'>
-                        {artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}</p>
+                        {currentSong.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}</p>
                 </div>
-                <button onClick={() => onAddToLikedSongs(_id)}>
+                <button onClick={() => onAddToLikedSongs(currentSong._id)}>
                     <img src="/src/assets/img/like-icon-like-icon.svg" alt="" />
                 </button>
             </div>

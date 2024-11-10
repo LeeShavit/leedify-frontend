@@ -12,10 +12,13 @@ export const stationService = {
   addSongToStation,
   removeSongFromStation,
   getCurrentSong,
+  getSongs,
+  getSong
 }
 
 _createDemoData()
 _createDemoSong()
+_createDemoSongs()
 
 async function query(filterBy = {}) {
   try {
@@ -139,8 +142,8 @@ function _createDemoData() {
         {
           id: '4gMgiXfqyzZLMhsksGmbQV',
           name: 'Another Brick in the Wall, Pt. 2',
-          artists: [{name:'Pink Floyd', _id:'0k17h0D3J5VfsdmQ1iZtE9'}],
-          album: {name:'The Wall', _id:'5Dbax7G8SWrP9xyzkOvy2F'},
+          artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
+          album: { name: 'The Wall', _id: '5Dbax7G8SWrP9xyzkOvy2F' },
           duration: 238746,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b2735d48e2f56d691f9a4e4b0bdf',
           addedAt: Date.now(),
@@ -150,8 +153,8 @@ function _createDemoData() {
         {
           id: '6mFkJmJqdDVQ1REhVfGgd1',
           name: 'Wish You Were Here',
-          artists: [{name:'Pink Floyd', _id:'0k17h0D3J5VfsdmQ1iZtE9'}],
-          album: {name:'Wish You Were Here', _id:'0bCAjiUamIFqKJsekOYuRw'},
+          artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
+          album: { name: 'Wish You Were Here', _id: '0bCAjiUamIFqKJsekOYuRw' },
           duration: 334743,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b2731a84d71391df7469c5ab8539',
           addedAt: Date.now(),
@@ -176,8 +179,8 @@ function _createDemoData() {
         {
           id: '54zcJnb3tp9c5OVKREZ1Is',
           name: 'MI EX TENÍA RAZÓN',
-          artists: [{name:'KAROL G', _id:'790FomKkXshlbRYZFtlgla'}],
-          album: {name:'MAÑANA SERÁ BONITO (BICHOTA SEASON)', _id:'0FqAaUEyKCyUNFE1uQPZ7i'},
+          artists: [{ name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' }],
+          album: { name: 'MAÑANA SERÁ BONITO (BICHOTA SEASON)', _id: '0FqAaUEyKCyUNFE1uQPZ7i' },
           duration: 154374,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b273d026bf9d7780f6a1267b4d03',
           addedAt: Date.now(),
@@ -187,8 +190,8 @@ function _createDemoData() {
         {
           id: '5PycBIeabfvX3n9ILG7Vrv',
           name: 'Propuesta Indecente',
-          artists: [{name:'Romeo Santos', _id:'5lwmRuXgjX8xIwlnauTZIP'}],
-          album: {name:'Fórmula, Vol. 2 (Deluxe Edition)', _id:'17HsiXfqKUPoTP6Y5ebs1L'},
+          artists: [{ name: 'Romeo Santos', _id: '5lwmRuXgjX8xIwlnauTZIP' }],
+          album: { name: 'Fórmula, Vol. 2 (Deluxe Edition)', _id: '17HsiXfqKUPoTP6Y5ebs1L' },
           duration: 235133,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640',
           addedAt: Date.now(),
@@ -208,32 +211,248 @@ function _formatDuration(ms) {
   return `${minutes}:${seconds.padStart(2, '0')}`
 }
 
- function getCurrentSong(){
-  return {song: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)), isPlaying: false}
+function getCurrentSong() {
+  return JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
 }
 
-function _createDemoSong(){
+function _createDemoSong() {
   let currentSong = JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
   if (currentSong) return
 
-  currentSong= {
-      id: '3xKsf9qdS1CyvXSMEid6g8',
-      name: "Pink+White",
-      artists: [
-          {
-              name: 'Frank Ocean',
-              _id: '2h93pZq0e7k5yf4dywlkpM',
-          }
-      ],
-      album: {
-          name: 'Blonde',
-          _id: '3mH6qwIy9crq0I9YQbOuDf'
-      },
-      duration: 182400,
-      url: 'youtube/song.mp4',
-      imgUrl: 'https://i.scdn.co/image/ab67616d00004851c5649add07ed3720be9d5526',
-      likedBy: [],
-      addedAt: 162521765262,
+  currentSong = {
+    id: '3xKsf9qdS1CyvXSMEid6g8',
+    name: "Pink+White",
+    artists: [
+      {
+        name: 'Frank Ocean',
+        _id: '2h93pZq0e7k5yf4dywlkpM',
+      }
+    ],
+    album: {
+      name: 'Blonde',
+      _id: '3mH6qwIy9crq0I9YQbOuDf'
+    },
+    duration: 182400,
+    url: 'youtube/song.mp4',
+    imgUrl: 'https://i.scdn.co/image/ab67616d00004851c5649add07ed3720be9d5526',
+    likedBy: [],
+    addedAt: 162521765262,
   }
   saveToStorage(SONG_STORAGE_KEY, currentSong)
+}
+
+function _createDemoSongs() {
+  let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
+  if (demoSongs) return
+
+   demoSongs= [
+    {
+      "id": "2PSo26j5LkdGu18mYM2ZdT",
+      "title": "What's Going On",
+      "artists": [
+        {
+          "name": "Taste",
+          "_id": "4Se7TFuKKQVCzttyri6bg3"
+        }
+      ],
+      "album": {
+        "name": "On The Boards",
+        "_id": "6UP7rSugk9wAcMYnqZ6Ti8"
+      },
+      "duration": 166466,
+      "url": "spotify:track:2PSo26j5LkdGu18mYM2ZdT",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b2733a3aea980c768276d923b09a",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "6fGTwrORSxE6rmX9OzQNbN",
+      "title": "Blister On The Moon",
+      "artists": [
+        {
+          "name": "Taste",
+          "_id": "4Se7TFuKKQVCzttyri6bg3"
+        }
+      ],
+      "album": {
+        "name": "Taste",
+        "_id": "4KJWhNB66Jr4syDJNu9fzc"
+      },
+      "duration": 204893,
+      "url": "spotify:track:6fGTwrORSxE6rmX9OzQNbN",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b273cf3d2a9d6312bc639f1c448b",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "71ZgxJIApKmssV44AD1Zva",
+      "title": "A Taste Of Honey",
+      "artists": [
+        {
+          "name": "Lionel Hampton",
+          "_id": "2PjgZkwAEk7UTin4jP6HLP"
+        }
+      ],
+      "album": {
+        "name": "You Better Know It!!!",
+        "_id": "6uGX7ozBLgPKWwKEhxm5pV"
+      },
+      "duration": 164373,
+      "url": "spotify:track:71ZgxJIApKmssV44AD1Zva",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b273373e4b2cddd71d23552f1298",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "0T7D44xh8oCPLYDfi8HIo7",
+      "title": "Railway And Gun",
+      "artists": [
+        {
+          "name": "Taste",
+          "_id": "4Se7TFuKKQVCzttyri6bg3"
+        }
+      ],
+      "album": {
+        "name": "On The Boards",
+        "_id": "6UP7rSugk9wAcMYnqZ6Ti8"
+      },
+      "duration": 216426,
+      "url": "spotify:track:0T7D44xh8oCPLYDfi8HIo7",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b2733a3aea980c768276d923b09a",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "2pZdwyEyT6o1hZoKZJj2wp",
+      "title": "If The Day Was Any Longer",
+      "artists": [
+        {
+          "name": "Taste",
+          "_id": "4Se7TFuKKQVCzttyri6bg3"
+        }
+      ],
+      "album": {
+        "name": "On The Boards",
+        "_id": "6UP7rSugk9wAcMYnqZ6Ti8"
+      },
+      "duration": 128066,
+      "url": "spotify:track:2pZdwyEyT6o1hZoKZJj2wp",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b2733a3aea980c768276d923b09a",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "5I46WStI64aYqzmT4ZtK6m",
+      "title": "I'm Moving On",
+      "artists": [
+        {
+          "name": "Taste",
+          "_id": "4Se7TFuKKQVCzttyri6bg3"
+        }
+      ],
+      "album": {
+        "name": "Taste",
+        "_id": "4KJWhNB66Jr4syDJNu9fzc"
+      },
+      "duration": 148373,
+      "url": "spotify:track:5I46WStI64aYqzmT4ZtK6m",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b273cf3d2a9d6312bc639f1c448b",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "3eaT8cDhFb7ng9nbDSFX8R",
+      "title": "Same Old Story",
+      "artists": [
+        {
+          "name": "Taste",
+          "_id": "4Se7TFuKKQVCzttyri6bg3"
+        }
+      ],
+      "album": {
+        "name": "Taste",
+        "_id": "4KJWhNB66Jr4syDJNu9fzc"
+      },
+      "duration": 211066,
+      "url": "spotify:track:3eaT8cDhFb7ng9nbDSFX8R",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b273cf3d2a9d6312bc639f1c448b",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "07NrCEN3egNvw8td2LxqJO",
+      "title": "Boogie Oogie Oogie - Remastered 2004",
+      "artists": [
+        {
+          "name": "A Taste Of Honey",
+          "_id": "1ii6e2pv8VIRwnTER71rMl"
+        }
+      ],
+      "album": {
+        "name": "A Taste Of Honey",
+        "_id": "4QJA3YXQdpLhuIztkSgrpo"
+      },
+      "duration": 338320,
+      "url": "spotify:track:07NrCEN3egNvw8td2LxqJO",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b2731da1b4064fc8eb0d2a65dc97",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "6xqLmU9xdVcK7q4O7ccjLB",
+      "title": "Sweet Lady - Bonus Track",
+      "artists": [
+        {
+          "name": "Taste Nate",
+          "_id": "3GuvJo4WPujuiIU3GoTnFD"
+        },
+        {
+          "name": "Lord Lorenz",
+          "_id": "3qVag8oPA3Nu6CyqwoScn2"
+        }
+      ],
+      "album": {
+        "name": "Hearticle of Poetry (Remastered 2024)",
+        "_id": "0NbOUnCXQna2ChUBZW7y9k"
+      },
+      "duration": 240923,
+      "url": "spotify:track:6xqLmU9xdVcK7q4O7ccjLB",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b273a50f37e920ca9be6ac3d7107",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    },
+    {
+      "id": "5zZ3ObobIeeHCsoCW8WctN",
+      "title": "Those Shoes - Bonus Track",
+      "artists": [
+        {
+          "name": "Taste Nate",
+          "_id": "3GuvJo4WPujuiIU3GoTnFD"
+        },
+        {
+          "name": "Lord Lorenz",
+          "_id": "3qVag8oPA3Nu6CyqwoScn2"
+        }
+      ],
+      "album": {
+        "name": "Hearticle of Poetry (Remastered 2024)",
+        "_id": "0NbOUnCXQna2ChUBZW7y9k"
+      },
+      "duration": 89970,
+      "url": "spotify:track:5zZ3ObobIeeHCsoCW8WctN",
+      "imgUrl": "https://i.scdn.co/image/ab67616d0000b273a50f37e920ca9be6ac3d7107",
+      "likedBy": [],
+      "addedAt": 1699574400000
+    }
+  ]
+  saveToStorage('demo-songs', demoSongs)
+}
+
+function getSongs(idx) {
+  return JSON.parse(localStorage.getItem('demo-songs'))
+}
+
+function getSong(idx) {
+  let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
+  return demoSongs[idx]
 }
