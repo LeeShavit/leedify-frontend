@@ -1,6 +1,7 @@
 import { storageService } from '../async-storage.service'
 import { makeId, saveToStorage } from '../util.service'
 const STORAGE_KEY = 'stations_db'
+const SONG_STORAGE_KEY = 'current-playing-song'
 
 export const stationService = {
   query,
@@ -10,9 +11,11 @@ export const stationService = {
   getEmptyStation,
   addSongToStation,
   removeSongFromStation,
+  getCurrentSong,
 }
 
 _createDemoData()
+_createDemoSong()
 
 async function query(filterBy = {}) {
   try {
@@ -135,10 +138,9 @@ function _createDemoData() {
       songs: [
         {
           id: '4gMgiXfqyzZLMhsksGmbQV',
-          title: 'Another Brick in the Wall, Pt. 2',
-          artistName: 'Pink Floyd',
-          albumName: 'The Wall',
-          albumId: '5Dbax7G8SWrP9xyzkOvy2F',
+          name: 'Another Brick in the Wall, Pt. 2',
+          artists: [{name:'Pink Floyd', _id:'0k17h0D3J5VfsdmQ1iZtE9'}],
+          album: {name:'The Wall', _id:'5Dbax7G8SWrP9xyzkOvy2F'},
           duration: 238746,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b2735d48e2f56d691f9a4e4b0bdf',
           addedAt: Date.now(),
@@ -147,10 +149,9 @@ function _createDemoData() {
         },
         {
           id: '6mFkJmJqdDVQ1REhVfGgd1',
-          title: 'Wish You Were Here',
-          artistName: 'Pink Floyd',
-          albumName: 'Wish You Were Here',
-          albumId: '0bCAjiUamIFqKJsekOYuRw',
+          name: 'Wish You Were Here',
+          artists: [{name:'Pink Floyd', _id:'0k17h0D3J5VfsdmQ1iZtE9'}],
+          album: {name:'Wish You Were Here', _id:'0bCAjiUamIFqKJsekOYuRw'},
           duration: 334743,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b2731a84d71391df7469c5ab8539',
           addedAt: Date.now(),
@@ -174,10 +175,9 @@ function _createDemoData() {
       songs: [
         {
           id: '54zcJnb3tp9c5OVKREZ1Is',
-          title: 'MI EX TENÍA RAZÓN',
-          artistName: 'KAROL G',
-          albumName: 'MAÑANA SERÁ BONITO (BICHOTA SEASON)',
-          albumId: '0FqAaUEyKCyUNFE1uQPZ7i',
+          name: 'MI EX TENÍA RAZÓN',
+          artists: [{name:'KAROL G', _id:'790FomKkXshlbRYZFtlgla'}],
+          album: {name:'MAÑANA SERÁ BONITO (BICHOTA SEASON)', _id:'0FqAaUEyKCyUNFE1uQPZ7i'},
           duration: 154374,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b273d026bf9d7780f6a1267b4d03',
           addedAt: Date.now(),
@@ -186,10 +186,9 @@ function _createDemoData() {
         },
         {
           id: '5PycBIeabfvX3n9ILG7Vrv',
-          title: 'Propuesta Indecente',
-          artistName: 'Romeo Santos',
-          albumName: 'Fórmula, Vol. 2 (Deluxe Edition)',
-          albumId: '17HsiXfqKUPoTP6Y5ebs1L',
+          name: 'Propuesta Indecente',
+          artists: [{name:'Romeo Santos', _id:'5lwmRuXgjX8xIwlnauTZIP'}],
+          album: {name:'Fórmula, Vol. 2 (Deluxe Edition)', _id:'17HsiXfqKUPoTP6Y5ebs1L'},
           duration: 235133,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b273e9da42890bbd629df1e8f640',
           addedAt: Date.now(),
@@ -207,4 +206,34 @@ function _formatDuration(ms) {
   const minutes = Math.floor(ms / 60000)
   const seconds = ((ms % 60000) / 1000).toFixed(0)
   return `${minutes}:${seconds.padStart(2, '0')}`
+}
+
+ function getCurrentSong(){
+  return {song: JSON.parse(localStorage.getItem(SONG_STORAGE_KEY)), isPlaying: false}
+}
+
+function _createDemoSong(){
+  let currentSong = JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
+  if (currentSong) return
+
+  currentSong= {
+      id: '3xKsf9qdS1CyvXSMEid6g8',
+      name: "Pink+White",
+      artists: [
+          {
+              name: 'Frank Ocean',
+              _id: '2h93pZq0e7k5yf4dywlkpM',
+          }
+      ],
+      album: {
+          name: 'Blonde',
+          _id: '3mH6qwIy9crq0I9YQbOuDf'
+      },
+      duration: 182400,
+      url: 'youtube/song.mp4',
+      imgUrl: 'https://i.scdn.co/image/ab67616d00004851c5649add07ed3720be9d5526',
+      likedBy: [],
+      addedAt: 162521765262,
+  }
+  saveToStorage(SONG_STORAGE_KEY, currentSong)
 }

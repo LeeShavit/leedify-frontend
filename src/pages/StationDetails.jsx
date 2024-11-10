@@ -1,16 +1,25 @@
 import { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadStation } from '../store/actions/station.actions'
+import { loadStation, setPlayingSong } from '../store/actions/station.actions'
 import { Time } from '../assets/img/playlist-details/icons'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
+  const currentSong = useSelector((state) => state.stationModule.currentSong)
 
   useEffect(() => {
     loadStation(stationId)
   }, [stationId])
+
+  function onPlaySong(song) {
+    setPlayingSong({ song, isPlaying: true })
+  }
+
+  function onPauseSong() {
+    setPlayingSong({ ...currentSong, isPlaying: false })
+  }
 
   if (!station) return <div>Loading...</div>
 
@@ -57,16 +66,21 @@ export function StationDetails() {
 
       <div className='station-table-body'>
         {station.songs?.map((song, idx) => (
-          <div key={song.id} className='station-song-row'>
+          <div key={song.id} className={`station-song-row ${currentSong.song.id === song.id ? 'is-playing' : ''}`}>
             <div className='station-song-row__number'>{idx + 1}</div>
+            <div className='station-song-row__playPause' onClick={currentSong.isPlaying && currentSong.song.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
+              <img src={`/src/assets/img/${(currentSong.isPlaying && currentSong.song.id === song.id) ? 'pause' : 'play'}-icon.svg`} alt={`${currentSong.isPlaying ? 'Pause' : 'Play'}`} />
+            </div>
             <div className='station-song-row__title'>
-              <img src={song.imgUrl} alt={song.title} />
+              <img src={song.imgUrl} alt={song.name} />
               <div>
-                <div className='song-title'>{song.title}</div>
-                <div className='song-artist'>{song.artistName}</div>
+                <div className='song-title'>{song.name}</div>
+                <div className='song-artist'>
+                  {song.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}
+                </div>
               </div>
             </div>
-            <div className='station-song-row__album'>{song.albumName}</div>
+            <div className='station-song-row__album'>{song.album.name}</div>
             <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
             <div className='station-song-row__duration'>{_formatDuration(song.duration)}</div>
           </div>

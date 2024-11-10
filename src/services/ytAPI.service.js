@@ -9,7 +9,8 @@ export const ytAPIService = {
     getVideoId
 }
 
-async function getVideoId(songName) {
+async function getVideoId(currentSong) {
+    const songName = currentSong.song.name
     const ytIdsMap = loadFromStorage(STORAGE_KEY) || {}
     if (typeof ytIdsMap[songName] === 'string') return ytIdsMap[songName]
     try {

@@ -6,30 +6,10 @@ import { PlayerControls } from './PlayerControls.jsx'
 
 
 export function Player() {
-    // const nowPlayingSong = useSelector(storeState => storeState.Player.nowPlayingSong)
 
     const playerRef = useRef(null)
     const [volume, setVolume] = useState(100)
-
-    const nowPlayingSong = {
-        id: '3xKsf9qdS1CyvXSMEid6g8',
-        name: "Pink+White",
-        artists: [
-            {
-                name: 'Frank Ocean',
-                _id: '2h93pZq0e7k5yf4dywlkpM',
-            }
-        ],
-        album: {
-            name: 'Blonde',
-            _id: '3mH6qwIy9crq0I9YQbOuDf'
-        },
-        duration: 182400,
-        url: 'youtube/song.mp4',
-        imgUrl: 'https://i.scdn.co/image/ab67616d00004851c5649add07ed3720be9d5526',
-        likedBy: [],
-        addedAt: 162521765262,
-    }
+    const currentSong = useSelector((state) => state.stationModule.currentSong)
 
     function onAddToLikedSongs(songId) {
 
@@ -47,7 +27,7 @@ export function Player() {
             playerRef.current.setVolume(newVolume)
       }
 
-    const { imgUrl, name, album, artists, _id } = nowPlayingSong
+    const { imgUrl, name, album, artists, _id } = currentSong.song
 
     return (
         <section className="player full">
@@ -58,13 +38,13 @@ export function Player() {
                     {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}
                     <p className='song-info-name'>{name}</p>
                     <p className='song-info-artist'>
-                        {artists.map(artist => <Link to={`/artist/${artist._id}`}>{artist.name}</Link>)}</p>
+                        {artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}</p>
                 </div>
                 <button onClick={() => onAddToLikedSongs(_id)}>
                     <img src="/src/assets/img/like-icon-like-icon.svg" alt="" />
                 </button>
             </div>
-            <PlayerControls songName={name} playerRef={playerRef} volume={volume}/>
+            <PlayerControls playerRef={playerRef} volume={volume}/>
             <div className='player-buttons'>
                 <button>
                 <img src='/src/assets/img/now-playing-view-icon.svg' alt='now-playing'/>
