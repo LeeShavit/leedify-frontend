@@ -1,6 +1,6 @@
 // services/station.service.js
 import { storageService } from '../async-storage.service'
-import { makeId } from '../util.service'
+import { makeId, saveToStorage } from '../util.service'
 const STORAGE_KEY = 'stations_db'
 
 export const stationService = {
@@ -116,7 +116,6 @@ function getEmptyStation() {
   }
 }
 
-// Private functions
 function _createDemoData() {
   const stations = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
   if (stations.length > 0) return
@@ -140,23 +139,23 @@ function _createDemoData() {
           title: 'Another Brick in the Wall, Pt. 2',
           artistName: 'Pink Floyd',
           albumName: 'The Wall',
-          albumId: '5Dbax7G8SWrP9xyzkOvy2F', // Spotify Album ID
+          albumId: '5Dbax7G8SWrP9xyzkOvy2F',
           duration: 238746,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b2735d48e2f56d691f9a4e4b0bdf',
           addedAt: Date.now(),
-          uri: 'spotify:track:4gMgiXfqyzZLMhsksGmbQV', // Spotify URI
+          uri: 'spotify:track:4gMgiXfqyzZLMhsksGmbQV',
           preview_url: 'https://p.scdn.co/mp3-preview/73d913b1a9cfa64fda1f7d04d7bb16345fa0aac4',
         },
         {
-          id: '6mFkJmJqdDVQ1REhVfGgd1', // Spotify ID
+          id: '6mFkJmJqdDVQ1REhVfGgd1',
           title: 'Wish You Were Here',
           artistName: 'Pink Floyd',
           albumName: 'Wish You Were Here',
-          albumId: '0bCAjiUamIFqKJsekOYuRw', // Spotify Album ID
+          albumId: '0bCAjiUamIFqKJsekOYuRw',
           duration: 334743,
           imgUrl: 'https://i.scdn.co/image/ab67616d0000b2731a84d71391df7469c5ab8539',
           addedAt: Date.now(),
-          uri: 'spotify:track:6mFkJmJqdDVQ1REhVfGgd1', // Spotify URI
+          uri: 'spotify:track:6mFkJmJqdDVQ1REhVfGgd1',
           preview_url: 'https://p.scdn.co/mp3-preview/e3d046771206da9115d0a619ede2210b610dc9f0',
         },
       ],
@@ -202,7 +201,7 @@ function _createDemoData() {
     },
   ]
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(demoStations))
+  saveToStorage(STORAGE_KEY, demoStations)
 }
 
 function _formatDuration(ms) {
