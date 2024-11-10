@@ -95,21 +95,21 @@ export function PlayerControls({ songName, playerRef, volume }) {
             <div className="player-controls-content">
                 <div className="player-controls-buttons">
                     <button>
-                        <img src='src/assets/img/shuffle-icon.svg' />
+                        <img src='/src/assets/img/shuffle-icon.svg' />
                     </button>
                     <button>
-                        <img src='src/assets/img/prev-song-icon.svg' alt='Previous' />
+                        <img src='/src/assets/img/prev-song-icon.svg' alt='Previous' />
                     </button>
                     <button
                         onClick={isPlaying ? handlePause : handlePlay}
                         className={`play ${isPlaying ? 'is-playing' : ''}`}>
-                        <img src={`src/assets/img/control-button-${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
+                        <img src={`/src/assets/img/control-button-${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
                     </button>
                     <button>
-                        <img src='src/assets/img/next-song-icon.svg' />
+                        <img src='/src/assets/img/next-song-icon.svg' />
                     </button>
                     <button>
-                        <img src='src/assets/img/repeat-icon.svg' />
+                        <img src='/src/assets/img/repeat-icon.svg' />
                     </button>
                 </div>
 
