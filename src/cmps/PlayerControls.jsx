@@ -125,8 +125,12 @@ export function PlayerControls({ songName, playerRef, volume }) {
                             className="progress-bar-fill"
                             style={playerRef.current && { width: `${(currentTime / playerRef.current.getDuration()) * 100}%` }}
                         />
+                        <div
+                            className="progress-bar-btn"
+                            style={playerRef.current && { left: `${(currentTime / playerRef.current.getDuration()) * 100}%` }}
+                        />
                     </div>
-                    <span className="progress-time">
+                    <span className="progress-time right">
                         {playerRef.current && formatTime(playerRef.current.getDuration() - currentTime) || '0:00'}
                     </span>
                 </div>
