@@ -1,8 +1,8 @@
-// StationDetails.jsx
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation } from '../store/actions/station.actions'
+import { Time } from '../assets/img/playlist-details/icons'
 
 export function StationDetails() {
   const { stationId } = useParams()
@@ -50,10 +50,11 @@ export function StationDetails() {
         <div className='station-table-header__title'>Title</div>
         <div className='station-table-header__album'>Album</div>
         <div className='station-table-header__date'>Date added</div>
-        <div className='station-table-header__duration'></div>
+        <div className='station-table-header__duration'>
+          <Time />
+        </div>
       </div>
 
-      {/* Add songs list */}
       <div className='station-table-body'>
         {station.songs?.map((song, idx) => (
           <div key={song.id} className='station-song-row'>
