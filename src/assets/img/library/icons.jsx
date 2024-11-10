@@ -35,7 +35,6 @@ export const ListIcon = ({ className }) => (
     aria-hidden='true'
     className={className}
     viewBox='0 0 16 16'
-    class='Svg-sc-ytk21e-0 cAMMLk'
     height='14'
     width='14'
   >
