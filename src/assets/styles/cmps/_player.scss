@@ -43,7 +43,7 @@
       width: 16px;
       height: 16px;
       object-fit: contain;
-      flex-shrink: 0;  
+      flex-shrink: 0;
       filter: brightness(0) invert(0.7);
       transition: filter 0.2s;
 
@@ -68,7 +68,7 @@
       object-fit: cover;
     }
 
-    & img:last-child{
+    & img:last-child {
       width: 16px;
       height: 16px;
       color: $hover-color;
@@ -136,7 +136,7 @@
         margin: 0;
       }
 
-      &-time-right{
+      &-time-right {
         text-align: left;
 
       }
@@ -168,36 +168,39 @@
 
   &-buttons {
     display: flex;
-    justify-content: end;
-    align-items: center;
-  }
-
-  .volume {
-    display: flex;
-    align-items: center;
-    gap: 8px;
     justify-content: flex-end;
+    align-items: center;
+    width: 30%;
+    min-width: 180px;
+    flex-grow: 1;
 
-    &-slider {
-      width: 100px;
-      height: 4px;
-      background: $text-secondary;
-      border-radius: 2px;
-      position: relative;
-      cursor: pointer;
+    .volume {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: flex-end;
 
-      &:hover &-fill {
-        background-color: $primary-color;
+      &-slider {
+        width: 100px;
+        height: 4px;
+        background: $text-secondary;
+        border-radius: 2px;
+        position: relative;
+        cursor: pointer;
+
+        &:hover &-fill {
+          background-color: $primary-color;
+        }
       }
-    }
 
-    &-slider-fill {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      background: $text-primary;
-      border-radius: 2px;
+      &-slider-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: $text-primary;
+        border-radius: 2px;
+      }
     }
   }
 }
