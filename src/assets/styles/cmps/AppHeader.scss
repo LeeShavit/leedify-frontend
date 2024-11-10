@@ -9,8 +9,7 @@
   z-index: 100;
 
   background-color: black;
-  height: 56px;
-  padding-bottom: 8px;
+  height: 48px;
 
   &__logo {
     margin: 0 20px;
@@ -40,6 +39,7 @@
       align-items: center;
       justify-content: center;
       transition: all 0.2s;
+      margin: 0;
 
       &:hover {
         background-color: #2a2a2a;

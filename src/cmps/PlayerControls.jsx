@@ -39,19 +39,19 @@ export function PlayerControls({ songName, playerRef, volume }) {
     function handleReady(event) {
         playerRef.current = event.target
         playerRef.current.setVolume(volume)
-    };
+    }
 
     function handleStateChange(event) {
         setIsPlaying(event.data === YouTube.PlayerState.PLAYING)
-    };
+    }
 
     function handlePlay() {
         playerRef.current?.playVideo()
-    };
+    }
 
     function handlePause() {
         playerRef.current?.pauseVideo()
-    };
+    }
 
     function handleProgressClick(event) {
         if (!playerRef.current || !videoId) return
@@ -115,7 +115,7 @@ export function PlayerControls({ songName, playerRef, volume }) {
 
                 <div className="progress">
                     <span className="progress-time">
-                        {playerRef.current && formatTime(currentTime)}
+                        {playerRef.current && formatTime(currentTime) || '0:00'}
                     </span>
                     <div
                         className="progress-bar"
@@ -127,7 +127,7 @@ export function PlayerControls({ songName, playerRef, volume }) {
                         />
                     </div>
                     <span className="progress-time">
-                        {playerRef.current && formatTime(playerRef.current.getDuration())}
+                        {playerRef.current && formatTime(playerRef.current.getDuration() - currentTime) || '0:00'}
                     </span>
                 </div>
             </div>
