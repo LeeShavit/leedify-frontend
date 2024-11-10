@@ -26,7 +26,7 @@ export function Player() {
         },
         duration: 182400,
         url: 'youtube/song.mp4',
-        imgUrl: 'https://i.ytimg.com/vi/mUkfiLjooxs/mqdefault.jpg',
+        imgUrl: 'https://i.scdn.co/image/ab67616d00004851c5649add07ed3720be9d5526',
         likedBy: [],
         addedAt: 162521765262,
     }
@@ -52,7 +52,7 @@ export function Player() {
     return (
         <section className="player full">
             <div className='song-info'>
-                <img src={imgUrl}></img>
+                <img className="cover-img" src={imgUrl}></img>
                 <div className='song-info-details'>
                     {/* <Link to={`/album/${nowPlayingSong.album._id}`}/> */}
                     {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}
@@ -90,6 +90,10 @@ export function Player() {
                         <div
                             className="volume-slider-fill"
                             style={{ width: `${volume}%` }}
+                        />
+                        <div
+                            className="volume-slider-btn"
+                            style={{ left: `${volume}%` }}
                         />
                     </div>
                 </div>

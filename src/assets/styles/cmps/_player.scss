@@ -1,15 +1,15 @@
 .player {
   height: 72px;
-
-  display: grid;
-  grid-template-columns: minmax(180px, 1fr) 2fr minmax(180px, 1fr);
+  width: calc(100vw - 16px);
+  display: flex;
   align-items: center;
-  gap: 16px;
-
+  justify-content: space-between;
+  overflow-x: hidden;
   background-color: $background-black;
-  padding: 0 0 0 16px;
 
   button {
+    width: 32px;
+    height: 32px;
     background: none;
     border: none;
     color: $text-secondary;
@@ -22,14 +22,21 @@
       color: $text-primary;
     }
 
+    &.small {
+      width: 16px;
+      padding: 8px;
+    }
+
     &.play {
       background: $text-primary;
+      color: black;
       border-radius: 50%;
       width: 32px;
       height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-inline: 8px;
 
       &:hover {
         transform: scale(1.05);
@@ -40,13 +47,14 @@
       }
     }
 
-    img {
+    img:not(.play img) {
       width: 16px;
       height: 16px;
       object-fit: contain;
       flex-shrink: 0;
       filter: brightness(0) invert(0.7);
       transition: filter 0.2s;
+      margin: auto;
 
       &:hover {
         filter: brightness(0) invert(1);
@@ -57,16 +65,18 @@
   & .song-info {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+    min-width: 277px;
+    padding-inline-start: 8px;
 
-    gap: 12px;
-
-    & img {
+    img.cover-img {
       width: 56px;
       height: 56px;
       background: $hover-color;
       border-radius: 4px;
       overflow: hidden;
       object-fit: cover;
+      margin: 0 8px 5px 0;
     }
 
     & img:last-child {
@@ -79,34 +89,41 @@
     &-details {
       display: flex;
       flex-direction: column;
+      margin-inline: 8px;
+
+      p {
+        font-weight: 400;
+        margin: 0;
+      }
     }
 
     &-name {
       color: $text-primary;
       font-size: 14px;
-      font-weight: 500;
-      margin: 0;
     }
 
     &-artist {
       color: $text-secondary;
       font-size: 12px;
+      margin: 0;
     }
   }
 
   &-controls {
+    flex: 1;
 
     &-content {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
     }
 
     &-buttons {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 16px;
+      gap: 8px;
       flex-flow: row nowrap;
       width: 100%;
       margin-bottom: 8px;
@@ -119,7 +136,8 @@
       gap: 8px;
       width: 100%;
       height: 12px;
-      max-width: 600px;
+      min-width: 313px;
+      max-width: 660px;
 
       display: flex;
       flex-direction: row;
@@ -135,12 +153,13 @@
         border: 0;
         padding: 0;
         margin: 0;
+
+        &.right {
+          text-align: left;
+
+        }
       }
 
-      &-time-right {
-        text-align: left;
-
-      }
 
       &-bar {
         width: 100%;
@@ -150,9 +169,17 @@
         position: relative;
         cursor: pointer;
 
-        &:hover &-fill {
-          background-color: #1db954;
+        &-btn {
+          display: none;
+          position: absolute;
+          top: -100%;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: white;
+
         }
+
       }
 
       &-bar-fill {
@@ -164,37 +191,54 @@
         border-radius: 2px;
         transition: width 0.1s ease-out;
       }
+
+      &:hover {
+        .progress-bar-fill {
+          background: $primary-color;
+        }
+
+        .progress-bar-btn {
+          display: block;
+        }
+      }
     }
   }
 
   &-buttons {
     display: flex;
+    flex: 0.5;
     justify-content: flex-end;
     align-items: center;
-    min-width: 180px;
-    flex-grow: 1;
-
-    button{
-      width: 32px;
-      height: 32px;
-    }
+    min-width: 245px;
 
     .volume {
       display: flex;
       align-items: center;
-      gap: 8px;
       justify-content: flex-end;
+      flex-grow: 1;
+      max-width: 125px;
+      min-width: 40px;
+      transition: all 0.2s ease;
+      margin-inline-end: 8px;
 
       &-slider {
-        width: 100px;
+        min-width: 20px;
+        max-width: 93px;
         height: 4px;
+        flex-grow: 1;
         background: $text-secondary;
         border-radius: 2px;
         position: relative;
         cursor: pointer;
 
-        &:hover &-fill {
-          background-color: $primary-color;
+        &:hover {
+          .volume-slider-fill {
+            background-color: $primary-color;
+          }
+
+          .volume-slider-btn {
+            display: block;
+          }
         }
       }
 
@@ -205,6 +249,16 @@
         height: 100%;
         background: $text-primary;
         border-radius: 2px;
+      }
+
+      &-slider-btn {
+        display: none;
+        position: absolute;
+        top: -100%;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: white;
       }
     }
   }

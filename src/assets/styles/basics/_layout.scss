@@ -3,9 +3,9 @@
     grid-template-columns: auto 1fr auto;
     gap: 8px;
     padding: 8px;
-    max-height: 100vh;
 
     >* {
+        
         grid-column: 2;
 
         &.library {
