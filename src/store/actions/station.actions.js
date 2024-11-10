@@ -7,6 +7,7 @@ import {
   SET_STATION,
   UPDATE_STATION,
   SET_PLAYING_SONG,
+  TOGGLE_PLAYING_SONG,
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
 } from '../reducers/station.reducer'
@@ -99,6 +100,7 @@ function getCmdSetStations(stations) {
     stations,
   }
 }
+
 function getCmdSetStation(station) {
   return {
     type: SET_STATION,
@@ -129,6 +131,13 @@ function getCmdSetPlayingSong(song) {
     song,
   }
 }
+function getCmdTogglePlayingSong() {
+  return {
+    type: TOGGLE_PLAYING_SONG,
+    song,
+  }
+}
+
 function getCmdAddSongToStation(song) {
   return {
     type: ADD_SONG_TO_STATION,
