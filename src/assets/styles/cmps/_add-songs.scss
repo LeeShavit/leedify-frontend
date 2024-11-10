@@ -1,0 +1,103 @@
+.add-song {
+    &-search {
+        position: relative;
+        width: 400px;
+        padding: 8px 32px;
+
+        &-icon {
+            position: absolute;
+            left: -4px;
+            top: 40%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+
+        &-input {
+            width: 100%;
+            height: 48px;
+            background-color: #242424;
+            border: none;
+            border-radius: 32px;
+            padding: 0.5rem 2.5rem;
+            color: white;
+            font-size: 0.875rem;
+
+            &::placeholder {
+                color: #a7a7a7;
+            }
+        }
+    }
+
+    & .add-song-row{
+            display: grid;
+            grid-template-columns: 48px 4fr 3fr 2fr 1fr;
+            padding: 8px 16px;
+            color: #b3b3b3;
+            font-size: 14px;
+            border-radius: 4px;
+            align-items: center;
+          
+          
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+
+            &:focus{
+
+            }
+          
+        
+          
+            &__ {
+              display: flex;
+              align-items: center;
+              gap: 16px;
+          
+              img {
+                width: 40px;
+                height: 40px;
+                border-radius: 4px;
+              }
+          
+              &details {
+                color: #fff;
+                font-weight: $font-book;
+                margin-bottom: 4px;
+
+                .song-name.current-song{
+                    color: $primary-color;
+                }
+
+                .song-artist {
+                  font-size: 12px;
+                  font-weight: 400;
+                }
+
+              }
+          
+            }
+          
+            &__album {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              font-weight: $font-book;
+              color: $text-secondary;
+            }
+          
+            &__playPause {
+              display: none;
+          
+              img {
+                filter: brightness(0) invert(1);
+              }
+            }
+          }
+    
+}
