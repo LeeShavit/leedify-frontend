@@ -2,6 +2,7 @@
   padding: 50px 32px;
   background-color: $background-dark;
   min-height: 100vh;
+  border-radius: 8px;
 
   &__title {
     font-size: 24px;
@@ -14,7 +15,7 @@
 .explore-grid {
   display: grid;
   grid-auto-rows: min-content;
-  grid-template-columns: repeat(auto-fill, minmax(254px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
   gap: 24px;
   margin-top: 24px;
