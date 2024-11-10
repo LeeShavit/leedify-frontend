@@ -108,7 +108,7 @@ async function removeSongFromStation(stationId, songId) {
 
 function getEmptyStation() {
   return {
-    name: '',
+    name: 'New Playlist',
     description: '',
     tags: [],
     imgUrl: 'https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large',
