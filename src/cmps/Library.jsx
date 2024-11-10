@@ -48,10 +48,10 @@ export function Library() {
             Your Library
           </button>
           <div className='library-header__actions'>
-            <button className='action-btn' onClick={handleCreatePlaylist}>
+            <button className='action-btn action-btn-plus' onClick={handleCreatePlaylist}>
               <PlusIcon className='action-icon' />
             </button>
-            <button className='action-btn'>
+            <button className='action-btn action-btn-arrow'>
               <ArrowRightIcon className='action-icon' />
             </button>
           </div>
@@ -83,8 +83,8 @@ export function Library() {
             <LibrarySearchIcon className='search-icon' />
           </button>
           <button className='sort-btn'>
-            <ListIcon className='list-icon' />
             Recently Added
+            <ListIcon className='list-icon' />
           </button>
         </div>
       </div>

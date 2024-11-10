@@ -1,12 +1,12 @@
-import axios from "axios"
-import { loadFromStorage, saveToStorage } from "./util.service.js"
+import axios from 'axios'
+import { loadFromStorage, saveToStorage } from './util.service.js'
 
 const API_KEY = 'AIzaSyCCqp2BCiBvtPluxkADxMl8EeOiWrc8brg'
 const ytAPI = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=%7Bsong_name%7D&type=video&maxResults=1&key=${API_KEY}`
 const STORAGE_KEY = 'youtube ids'
 
 export const ytAPIService = {
-    getVideoId
+  getVideoId,
 }
 
 async function getVideoId(currentSong) {

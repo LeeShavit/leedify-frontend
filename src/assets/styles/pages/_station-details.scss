@@ -1,5 +1,5 @@
 .station-page {
-  padding: 24px 32px;
+  padding: 18px 24px;
   background: linear-gradient(180deg, rgba(80, 56, 160, 0.8) 0%, rgba(23, 23, 23, 1) 40%);
   min-height: 100vh;
   border-radius: 8px;
@@ -7,9 +7,9 @@
 
 .station-header {
   display: flex;
-  gap: 24px;
+  gap: 18px;
   align-items: flex-end;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
 
   &__cover {
     width: 232px;
@@ -33,23 +33,29 @@
   &__info {
     display: flex;
     flex-direction: column;
-    gap: 8px;
   }
 
   &__type {
     font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
+    margin-top: 10px;
+    font-weight: 300;
     color: #fff;
     letter-spacing: 0.1em;
+    margin-left: 2px;
   }
 
   &__title {
-    font-size: 96px;
+    font-size: 6rem;
     font-weight: 700;
     color: #fff;
     margin: 0;
-    letter-spacing: -3px;
+  }
+
+  &__description {
+    color: $text-secondary;
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-left: 2px;
   }
 
   &__meta {
@@ -57,16 +63,21 @@
     align-items: center;
     gap: 4px;
     color: #fff;
+    opacity: 0.7;
   }
 
   &__owner {
     font-size: 14px;
     font-weight: 700;
+    &::before {
+      content: '•';
+      margin: 0 4px;
+    }
   }
 
   &__songs-count {
     font-size: 14px;
-    color: #a7a7a7;
+    color: $text-secondary;
 
     &::before {
       content: '•';
@@ -122,7 +133,7 @@
     border-radius: 50%;
     background: none;
     border: none;
-    color: #a7a7a7;
+    color: $text-secondary;
     font-size: 28px;
     display: flex;
     align-items: center;
@@ -139,7 +150,7 @@
   }
 
   &__list {
-    color: #a7a7a7;
+    color: $text-secondary;
     background: none;
     border: none;
     font-size: 14px;
@@ -222,11 +233,13 @@
 
     .song-title {
       color: #fff;
+      font-weight: $font-book;
       margin-bottom: 4px;
     }
 
     .song-artist {
       font-size: 12px;
+      font-weight: 400;
     }
   }
 
@@ -234,14 +247,18 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: $font-book;
+    color: $text-secondary;
   }
 
   &__date {
     white-space: nowrap;
+    color: $text-secondary;
   }
 
   &__duration {
     text-align: right;
+    color: $text-secondary;
   }
 
   &__playPause {
