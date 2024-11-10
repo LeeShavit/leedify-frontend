@@ -1,12 +1,20 @@
 .main-container {
     display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
+    grid-template-columns: auto 1fr auto;
     gap: 8px;
     padding: 8px;
     max-height: 100vh;
 
-    > * {
+    >* {
         grid-column: 2;
+
+        &.library {
+            grid-column: 1/2;
+        }
+
+        &.end {
+            grid-column: 2/3;
+        }
 
         &.full {
             grid-column: 1 / -1;
