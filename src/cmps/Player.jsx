@@ -48,7 +48,7 @@ export function Player() {
       }
 
     const { imgUrl, name, album, artists, _id } = nowPlayingSong
-    
+
     return (
         <section className="player full">
             <div className='song-info'>
@@ -67,16 +67,16 @@ export function Player() {
             <PlayerControls songName={name} playerRef={playerRef} volume={volume}/>
             <div className='player-buttons'>
                 <button>
-                <img src='/src/assets/img/now-playing-view-icon.svg' alt='Volume'/>
+                <img src='/src/assets/img/now-playing-view-icon.svg' alt='now-playing'/>
                 </button>
                 <button>
-                <img src='/src/assets/img/lyrics-icon.svg' alt='Volume'/>
+                <img src='/src/assets/img/lyrics-icon.svg' alt='lyrics'/>
                 </button>
                 <button>                
-                    <img src='/src/assets/img/queue-icon.svg' alt='Volume'/>
+                    <img src='/src/assets/img/queue-icon.svg' alt='queue'/>
                 </button>
                 <button>
-                <img src='/src/assets/img/connect-to-device-icon.svg' alt='Volume'/>
+                <img src='/src/assets/img/connect-to-device-icon.svg' alt='connect'/>
                 </button>
                 {/* Volume */}
                 <div className="volume">
