@@ -22,10 +22,10 @@ export function StationDetails() {
         </div>
 
         <div className='station-header__info'>
-          <span className='station-header__type'>PLAYLIST</span>
+          <span className='station-header__type'>Playlist</span>
           <h1 className='station-header__title'>{station.name}</h1>
+          <span className='station-header__description'>{station.description}</span>
           <div className='station-header__meta'>
-            <span className='station-header__description'>{station.description}</span>
             <span className='station-header__owner'>{station.createdBy.fullname}</span>
             <span className='station-header__songs-count'>{station.songs?.length || 0} songs</span>
           </div>

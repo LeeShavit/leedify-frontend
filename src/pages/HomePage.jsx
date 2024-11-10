@@ -18,8 +18,8 @@ export function HomePage() {
     <div className='home-page'>
       <div className='filter-buttons'>
         <button className='filter-buttons__button filter-buttons__button--active'>All</button>
-        <button className='filter-buttons__button'>Latin</button>
-        <button className='filter-buttons__button'>Rock</button>
+        <button className='filter-buttons__button'>Music</button>
+        <button className='filter-buttons__button'>Podcasts</button>
       </div>
       <QuickAccess />
       <section className='home-page__section'>

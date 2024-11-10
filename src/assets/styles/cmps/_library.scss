@@ -25,7 +25,7 @@
     gap: 8px;
     color: $text-secondary;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: $font-basel;
     background: none;
     padding: 4px;
 
@@ -50,15 +50,18 @@
 }
 
 .action-btn {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: $text-secondary;
   background: none;
-
+  &button {
+    margin: 0;
+    padding: 0;
+  }
   &:hover {
     color: $text-primary;
     background-color: rgba(255, 255, 255, 0.1);
@@ -67,8 +70,8 @@
     color: inherit;
   }
   .action-icon {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     fill: currentColor;
   }
 }
@@ -118,6 +121,7 @@
     gap: 8px;
     padding: 4px;
     font-size: 0.875rem;
+    font-weight: $font-circular;
 
     &:hover {
       color: $text-primary;
@@ -203,7 +207,7 @@
   &__title {
     color: $text-primary;
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: $font-book;
     margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
@@ -212,13 +216,14 @@
 
   &__details {
     color: $text-secondary;
+    font-weight: $font-book;
     font-size: 0.75rem;
     display: flex;
     align-items: center;
     gap: 4px;
 
     .playlist-tag {
-      color: $text-primary;
+      color: $text-secondary;
       &::after {
         content: '•';
         margin-left: 4px;
