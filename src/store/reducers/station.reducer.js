@@ -1,3 +1,5 @@
+import { stationService } from "../../services/station/station.service.local"
+
 export const SET_STATIONS = 'SET_STATIONS'
 export const SET_STATION = 'SET_STATION'
 export const REMOVE_STATION = 'REMOVE_STATION'
@@ -5,7 +7,6 @@ export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 //playing a song in player
 export const SET_PLAYING_SONG = 'SET_PLAYING_SONG'
-export const TOGGLE_PLAYING_SONG= 'TOGGLE_PLAYING_SONG'
 // station crudl
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
 export const REMOVE_SONG_FROM_STATION = 'REMOVE_SONG_FROM_STATION'
@@ -13,7 +14,7 @@ export const REMOVE_SONG_FROM_STATION = 'REMOVE_SONG_FROM_STATION'
 const initialState = {
   stations: [],
   currentStation: null,
-  currentSong: null,
+  currentSong: stationService.getCurrentSong(),
 }
 
 export function stationReducer(state = initialState, action) {
@@ -39,10 +40,7 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, stations }
       break
     case SET_PLAYING_SONG:
-      newState = { ...state, currentSong: { song: action.song, isPlaying: true } }
-      break
-    case TOGGLE_PLAYING_SONG:
-      newState = { ...state, currentSong: { ...state.currentSong, isPlaying: !state.currentSong.isPlaying } }
+       newState = {...state, currentSong: action.currentSong}
       break
     case ADD_SONG_TO_STATION:
       const updatedStationAdd = { ...state.currentStation }

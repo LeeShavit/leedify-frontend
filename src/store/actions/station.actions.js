@@ -7,7 +7,6 @@ import {
   SET_STATION,
   UPDATE_STATION,
   SET_PLAYING_SONG,
-  TOGGLE_PLAYING_SONG,
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
 } from '../reducers/station.reducer'
@@ -89,8 +88,8 @@ export async function removeSongFromStation(stationId, songId) {
   }
 }
 
-export function setPlayingSong(song) {
-  store.dispatch(getCmdSetPlayingSong(song))
+export function setPlayingSong(currentSong) {
+  store.dispatch(getCmdSetPlayingSong(currentSong))
 }
 
 // Command Creators:
@@ -125,16 +124,10 @@ function getCmdUpdateStation(station) {
     station,
   }
 }
-function getCmdSetPlayingSong(song) {
+function getCmdSetPlayingSong(currentSong) {
   return {
     type: SET_PLAYING_SONG,
-    song,
-  }
-}
-function getCmdTogglePlayingSong() {
-  return {
-    type: TOGGLE_PLAYING_SONG,
-    song,
+    currentSong: currentSong
   }
 }
 

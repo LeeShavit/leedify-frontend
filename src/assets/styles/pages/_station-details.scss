@@ -186,10 +186,27 @@
   font-size: 14px;
   border-radius: 4px;
   align-items: center;
-  transition: background-color 0.2s ease;
+
+  &.is-playing{
+
+    .station-song-row__number {
+      color: $primary-color;
+    }
+    .song-title {
+      color: $primary-color;
+    }
+  }
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
+
+    .station-song-row__number {
+      display: none;
+    }
+
+    .station-song-row__playPause {
+      display: block;
+    }
   }
 
   &__title {
@@ -225,6 +242,14 @@
 
   &__duration {
     text-align: right;
+  }
+
+  &__playPause {
+    display: none;
+
+    img {
+      filter: brightness(0) invert(1);
+    }
   }
 }
 
