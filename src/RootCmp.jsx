@@ -14,11 +14,13 @@ import { LoginSignup } from './pages/LoginSignup.jsx'
 import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
 import { Explore } from './pages/Explore.jsx'
+import { Library } from './cmps/Library.jsx'
 
 export function RootCmp() {
   return (
     <div className='main-container'>
       <AppHeader />
+      <Library />
       <UserMsg />
       <main>
         <Routes>
