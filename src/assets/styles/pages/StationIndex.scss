@@ -1,8 +1,6 @@
 .home-page {
   background-color: $background-dark;
   color: $text-primary;
-  max-height: calc( 100vh - 152px);
-  overflow-y: scroll;
   padding: 1.5rem;
 
   &__grid {

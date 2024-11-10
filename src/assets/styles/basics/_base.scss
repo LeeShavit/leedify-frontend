@@ -6,7 +6,7 @@ html {
     line-height: 1.6;
     color: $clr2;
 }
-    
+
 body {
     margin: 0 auto;
 
@@ -15,7 +15,12 @@ body {
     background-color: $background-black;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0 0 0.6em;
 }
 
@@ -44,4 +49,9 @@ ul {
 
 input {
     max-width: 100%;
+}
+
+main {
+    max-height: calc(100vh - 152px);
+    overflow-y: scroll;
 }
