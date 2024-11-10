@@ -1,4 +1,3 @@
-// services/station.service.js
 import { storageService } from '../async-storage.service'
 import { makeId, saveToStorage } from '../util.service'
 const STORAGE_KEY = 'stations_db'
@@ -109,7 +108,7 @@ function getEmptyStation() {
     name: '',
     description: '',
     tags: [],
-    imgUrl: '',
+    imgUrl: 'https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large',
     createdBy: {},
     likedByUsers: [],
     songs: [],
