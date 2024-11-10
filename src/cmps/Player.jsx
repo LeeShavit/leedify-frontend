@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { PlayerControls } from './PlayerControls.jsx'
 
 
-export function SongPlayer() {
+export function Player() {
     // const nowPlayingSong = useSelector(storeState => storeState.Player.nowPlayingSong)
 
     const playerRef = useRef(null)
@@ -48,7 +48,7 @@ export function SongPlayer() {
       }
 
     const { imgUrl, name, album, artists, _id } = nowPlayingSong
-    console.log(nowPlayingSong)
+    
     return (
         <section className="player full">
             <div className='song-info'>
