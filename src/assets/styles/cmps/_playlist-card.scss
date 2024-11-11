@@ -1,7 +1,6 @@
 // styles/components/_playlistCard.scss
 .playlist-card {
   border-radius: 0.5rem;
-  padding: 1rem;
   transition: background-color 0.3s ease;
 
   &:hover {
@@ -14,12 +13,16 @@
     width: 100%;
     border-radius: 0.5rem;
     overflow: hidden;
+    flex-shrink: 0;
+    aspect-ratio: 1;
 
     img {
       width: 100%;
       aspect-ratio: 1;
       object-fit: cover;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+      aspect-ratio: 1;
     }
   }
 
@@ -37,7 +40,7 @@
     opacity: 0;
     transform: translateY(8px);
     transition: all 0.3s ease;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 
     svg {
       width: 24px;
@@ -62,7 +65,7 @@
   &__title {
     font-size: 1.1rem;
     color: #fff;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
   }
 
   &__description {
