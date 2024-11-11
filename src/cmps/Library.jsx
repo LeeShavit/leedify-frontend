@@ -4,9 +4,11 @@ import { stationService } from '../services/station/station.service.local'
 import { useNavigate } from 'react-router-dom'
 import { loadStations } from '../store/actions/station.actions'
 import { useDispatch, useSelector } from 'react-redux'
-
+import { PlayIcon } from 'lucide-react'
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
+  const [isExpanded, setIsExpanded] = useState(true)
+
   const stations = useSelector((storeState) => storeState.stationModule.stations)
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
@@ -31,12 +33,12 @@ export function Library() {
   }
 
   return (
-    <aside className='library'>
+    <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
       <div className='library-header'>
         <div className='library-header__top'>
-          <button className='library-header__title-btn'>
+          <button onClick={() => setIsExpanded(!isExpanded)} className='library-header__title-btn'>
             <LibraryIcon className='library-icon' />
-            Your Library
+            {isExpanded && 'Your Library'}
           </button>
           <div className='library-header__actions'>
             <button className='action-btn action-btn-plus' onClick={handleCreatePlaylist}>
@@ -81,29 +83,14 @@ export function Library() {
       </div>
 
       <div className='library-list'>
-        <div className='library-item'>
-          <div className='library-item__image'>
-            <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' alt='Liked Songs' />
-          </div>
-          <div className='library-item__info'>
-            <h3 className='library-item__title'>Liked Songs</h3>
-            <p className='library-item__details'>
-              <span className='playlist-tag'>Playlist</span>
-              <span>2,646 songs</span>
-            </p>
-          </div>
-        </div>
         {stations.map((station) => (
           <div key={station._id} className='library-item' onClick={() => onNavigateToStation(station._id)}>
-            <div className='library-item__image'>
-              <img
-                src={station.imgUrl}
-                alt={station.name}
-                onError={(e) => {
-                  e.target.src = 'https://i.scdn.co/image/ab67616d0000b273d766af9a96c4206c5d13a790'
-                }}
-              />
-            </div>
+            <button className='library-item__image-button'>
+              <img src={station.imgUrl} alt={station.name} />
+              <div className='library-item__image-overlay'>
+                <PlayIcon className='play-icon' /> {/* Your play icon */}
+              </div>
+            </button>
             <div className='library-item__info'>
               <h3 className='library-item__title'>{station.name}</h3>
               <p className='library-item__details'>
