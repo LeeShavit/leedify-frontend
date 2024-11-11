@@ -43,14 +43,15 @@ export function StationDetails() {
     }
   }
 
-  // function handleCloseModal() {
-  //   setIsEditModalOpen(false)
-  //   loadStation(stationId)
-  //   function onPlaySong(song) {
-  //     setPlayingSong(song)
-  //     setIsPlaying(true)
-  //   }
-  // }
+  function handleCloseModal() {
+    setIsEditModalOpen(false)
+    loadStation(stationId)
+  }
+
+  function onPlaySong(song) {
+    setPlayingSong(song)
+    setIsPlaying(true)
+  }
 
   function onPauseSong() {
     setPlayingSong(false)
