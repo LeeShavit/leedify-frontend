@@ -7,6 +7,7 @@ export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 //playing a song in player
 export const SET_PLAYING_SONG = 'SET_PLAYING_SONG'
+export const SET_IS_PLAYING= 'SET_IS_PLAYING'
 // station crudl
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
 export const REMOVE_SONG_FROM_STATION = 'REMOVE_SONG_FROM_STATION'
@@ -15,6 +16,7 @@ const initialState = {
   stations: [],
   currentStation: null,
   currentSong: stationService.getCurrentSong(),
+  isPlaying: false,
 }
 
 export function stationReducer(state = initialState, action) {
@@ -41,6 +43,9 @@ export function stationReducer(state = initialState, action) {
       break
     case SET_PLAYING_SONG:
        newState = {...state, currentSong: action.currentSong}
+       break
+    case SET_IS_PLAYING:
+       newState = {...state, isPlaying: action.isPlaying}
       break
     case ADD_SONG_TO_STATION:
       const updatedStationAdd = { ...state.currentStation }

@@ -9,6 +9,7 @@ import {
   SET_PLAYING_SONG,
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
+  SET_IS_PLAYING,
 } from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
@@ -96,6 +97,11 @@ export function setPlayingSong(currentSong) {
   store.dispatch(getCmdSetPlayingSong(currentSong))
 }
 
+export function setIsPlaying(isPlaying) {
+  store.dispatch(getCmdSetIsPlaying(isPlaying))
+}
+
+// Command Creators:
 function getCmdSetStations(stations) {
   return {
     type: SET_STATIONS,
@@ -130,7 +136,13 @@ function getCmdUpdateStation(station) {
 function getCmdSetPlayingSong(currentSong) {
   return {
     type: SET_PLAYING_SONG,
-    currentSong: currentSong,
+    currentSong,
+  }
+}
+function getCmdSetIsPlaying(isPlaying) {
+  return {
+    type: SET_IS_PLAYING,
+    isPlaying,
   }
 }
 

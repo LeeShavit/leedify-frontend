@@ -1,29 +1,32 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { setPlayingSong } from '../store/actions/station.actions'
+import { setIsPlaying } from '../store/actions/station.actions'
 
 import YouTube from 'react-youtube'
-import { ytAPIService } from '../services/ytAPI.service.js'
+import { ApiService } from '../services/api.service.js'
 
 export function PlayerControls({ playerRef, volume }) {
 
     const currentSong = useSelector((state) => state.stationModule.currentSong)
+    const isPlaying = useSelector((state) => state.stationModule.isPlaying)
     const [videoId, setVideoId] = useState(null)
     const [currentTime, setCurrentTime] = useState(0)
 
     useEffect(() => {
         loadVideoId()
-    }, [currentSong.song])
+    }, [currentSong])
 
     useEffect(() => {
-        if (!playerRef.current || !currentSong.isPlaying) return
+        isPlaying ? playerRef.current?.playVideo() :  playerRef.current?.pauseVideo()
+
+        if (!playerRef.current || !isPlaying) return
         const interval = setInterval(() => {
             const currentTime = playerRef.current.getCurrentTime()
             setCurrentTime(currentTime)
         }, 1000)
 
         return () => clearInterval(interval)
-    }, [currentSong.isPlaying])
+    }, [isPlaying])
 
     async function loadVideoId() {
         if (!currentSong) {
@@ -31,7 +34,7 @@ export function PlayerControls({ playerRef, volume }) {
             return
         }
         try {
-            const videoId = await ytAPIService.getVideoId(currentSong)
+            const videoId = await ApiService.getYTVideoId(currentSong)
             setVideoId(videoId)
         } catch (err) {
             console.log('Failed to get video data ' + err)
@@ -42,21 +45,15 @@ export function PlayerControls({ playerRef, volume }) {
     function handleReady(event) {
         playerRef.current = event.target
         playerRef.current.setVolume(volume)
-        playerRef.current.playVideo()
-    }
-
-    function handleStateChange(event) {
-        setPlayingSong({...currentSong, isPlaying: event.data === YouTube.PlayerState.PLAYING})
     }
 
     function handlePlay() {
-        playerRef.current?.playVideo()
-        setPlayingSong({...currentSong, isPlaying: true})
+        setIsPlaying(true)
     }
 
     function handlePause() {
         playerRef.current?.pauseVideo()
-        setPlayingSong({...currentSong, isPlaying: false})
+        setIsPlaying(false)
     }
 
     function handleProgressClick(event) {
@@ -94,7 +91,6 @@ export function PlayerControls({ playerRef, volume }) {
                             },
                         }}
                         onReady={handleReady}
-                        onStateChange={handleStateChange}
                     />
                 )}
             </div>
@@ -107,9 +103,9 @@ export function PlayerControls({ playerRef, volume }) {
                         <img src='/src/assets/img/prev-song-icon.svg' alt='Previous' />
                     </button>
                     <button
-                        onClick={currentSong.isPlaying ? handlePause : handlePlay}
-                        className={`play ${currentSong.isPlaying ? 'is-playing' : ''}`}>
-                        <img src={`/src/assets/img/${currentSong.isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${currentSong.isPlaying ? 'Pause' : 'Play'}`} />
+                        onClick={isPlaying ? handlePause : handlePlay}
+                        className={`play ${isPlaying ? 'is-playing' : ''}`}>
+                        <img src={`/src/assets/img/${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
                     </button>
                     <button>
                         <img src='/src/assets/img/next-song-icon.svg' />
