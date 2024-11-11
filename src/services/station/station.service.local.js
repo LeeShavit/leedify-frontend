@@ -1,4 +1,5 @@
 import { storageService } from '../async-storage.service'
+import { userService } from '../user'
 import { makeId, saveToStorage } from '../util.service'
 const STORAGE_KEY = 'stations_db'
 const SONG_STORAGE_KEY = 'current-playing-song'
@@ -14,6 +15,7 @@ export const stationService = {
   getCurrentSong,
   getSongs,
   getSong,
+  getLikedSongsStation,
 }
 
 _createDemoData()
@@ -74,11 +76,11 @@ async function save(station) {
 }
 
 async function addSongToStation(stationId, song) {
-  
+
   try {
     const station = await getById(stationId)
     if (!station) throw new Error(`Station ${stationId} not found`)
-    
+
     const songExists = station.songs.some((s) => s.id === song.id)
     if (songExists) return station
 
@@ -108,6 +110,21 @@ async function removeSongFromStation(stationId, songId) {
   } catch (err) {
     console.error("station service - couldn't remove song from station", err)
     throw err
+  }
+}
+
+async function getLikedSongsStation() {
+  try {
+    const user = userService.getLoggedinUser()
+    return {
+      name: 'Liked Songs',
+      description: '',
+      imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
+      createdBy: { fullname: user.name, id: user._id },
+      songs: [...user.likedSongs].sort((a, b) => a.AddedAt - b.AddedAt)
+    }
+  } catch (err) {
+    console.log('station service- failed to create liked songs station')
   }
 }
 
@@ -247,7 +264,7 @@ function _createDemoSongs() {
   let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
   if (demoSongs) return
 
-   demoSongs= [
+  demoSongs = [
     {
       "id": "2PSo26j5LkdGu18mYM2ZdT",
       "name": "What's Going On",
@@ -456,5 +473,5 @@ function getSongs(idx) {
 
 function getSong(songId) {
   let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
-  return demoSongs.find(song=> song.id === songId)
+  return demoSongs.find(song => song.id === songId)
 }
