@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation, setPlayingSong, setIsPlaying } from '../store/actions/station.actions'
@@ -10,16 +10,22 @@ import { AddSong } from '../cmps/AddSongs'
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
-  console.log(station)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+  const fileInputRef = useRef(null)
 
   useEffect(() => {
     loadStation(stationId)
-    console.log(station)
     setIsEditModalOpen(false)
   }, [stationId])
+
+  function handlePhotoClick() {
+    setIsEditModalOpen(true)
+    setTimeout(() => {
+      fileInputRef.current?.click()
+    }, 100)
+  }
 
   async function handleSaveStation(updatedStationData) {
     try {
@@ -37,14 +43,14 @@ export function StationDetails() {
     }
   }
 
-  function handleCloseModal() {
-    setIsEditModalOpen(false)
-    loadStation(stationId)
-    function onPlaySong(song) {
-      setPlayingSong(song)
-      setIsPlaying(true)
-    }
-  }
+  // function handleCloseModal() {
+  //   setIsEditModalOpen(false)
+  //   loadStation(stationId)
+  //   function onPlaySong(song) {
+  //     setPlayingSong(song)
+  //     setIsPlaying(true)
+  //   }
+  // }
 
   function onPauseSong() {
     setPlayingSong(false)
@@ -59,7 +65,7 @@ export function StationDetails() {
   return (
     <div className='station-page'>
       <header className='station-header'>
-        <div className='station-header__cover'>
+        <div className='station-header__cover' onClick={handlePhotoClick} style={{ cursor: 'pointer' }}>
           <img src={station.imgUrl} alt={station.name} className='station-header__cover-img' />
         </div>
 
@@ -145,8 +151,9 @@ export function StationDetails() {
       <EditStationModal
         station={station}
         isOpen={isEditModalOpen}
-        onClose={handleCloseModal}
+        onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveStation}
+        fileInputRef={fileInputRef}
       />
     </div>
   )

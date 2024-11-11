@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import { uploadService } from '../services/upload.service'
 
-export function EditStationModal({ station, isOpen, onClose, onSave }) {
+export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRef }) {
   const [editedStation, setEditedStation] = useState({
     name: '',
     description: '',
@@ -82,6 +82,7 @@ export function EditStationModal({ station, isOpen, onClose, onSave }) {
                       <span>Choose photo</span>
                     </label>
                     <input
+                      ref={fileInputRef}
                       id='imageInput'
                       type='file'
                       accept='image/*'
