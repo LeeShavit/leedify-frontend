@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
@@ -14,6 +14,7 @@ export function StationDetails() {
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+  const fileInputRef = useRef(null)
   const navigate= useNavigate()
 
   useEffect(() => {
@@ -21,6 +22,13 @@ export function StationDetails() {
     setIsEditModalOpen(false)
   }, [stationId, station])
 
+
+  function handlePhotoClick() {
+    setIsEditModalOpen(true)
+    setTimeout(() => {
+      fileInputRef.current?.click()
+    }, 100)
+  }
 
   async function handleSaveStation(updatedStationData) {
     try {
@@ -61,7 +69,7 @@ export function StationDetails() {
   return (
     <div className='station-page'>
       <header className='station-header'>
-        <div className='station-header__cover'>
+        <div className='station-header__cover' onClick={handlePhotoClick} style={{ cursor: 'pointer' }}>
           <img src={station.imgUrl} alt={station.name} className='station-header__cover-img' />
         </div>
 
@@ -77,7 +85,6 @@ export function StationDetails() {
           </div>
         </div>
       </header>
-
       <div className='station-controls'>
         <div className='station-controls__left'>
           <button className='station-controls__play'>
@@ -147,8 +154,9 @@ export function StationDetails() {
       <EditStationModal
         station={station}
         isOpen={isEditModalOpen}
-        onClose={handleCloseModal}
+        onClose={() => setIsEditModalOpen(false)}
         onSave={handleSaveStation}
+        fileInputRef={fileInputRef}
       />
     </div>
   )
