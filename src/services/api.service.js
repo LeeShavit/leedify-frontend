@@ -1,12 +1,8 @@
 import axios from 'axios'
 import { loadFromStorage, saveToStorage } from './util.service.js'
+import { YT_API_KEY, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from './credentinals.js'
 
-const YT_API_KEY = 'AIzaSyCCqp2BCiBvtPluxkADxMl8EeOiWrc8brg'
 const YT_STORAGE_KEY = 'youtube ids'
-
-const CLIENT_ID= '859eade2dd9242609de4212aba2e6047'
-const CLIENT_SECRET= 'b78304467e93427f80642411040abbab'
-
 
 // let gAccessToken = await getAccessToken()
 // setTokenRefreshInterval()
@@ -38,7 +34,7 @@ async function getYTVideoId(currentSong) {
 async function getAccessToken() {
     try {
         // Encode client credentials (Client ID and Client Secret)
-        const credentials = `${CLIENT_ID}:${CLIENT_SECRET}`
+        const credentials = `${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`
         const encodedCredentials = Buffer.from(credentials).toString('base64')
 
         // Make a POST request to the token endpoint

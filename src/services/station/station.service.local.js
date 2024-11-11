@@ -222,21 +222,21 @@ function _createDemoSong() {
   if (currentSong) return
 
   currentSong = {
-    id: '3xKsf9qdS1CyvXSMEid6g8',
-    name: "Pink+White",
+    id: '2L9N0zZnd37dwF0clgxMGI',
+    name: "ceilings",
     artists: [
       {
-        name: 'Frank Ocean',
-        _id: '2h93pZq0e7k5yf4dywlkpM',
+        name: 'Lizzy McAlpine',
+        _id: '1GmsPCcpKgF9OhlNXjOsbS',
       }
     ],
     album: {
-      name: 'Blonde',
-      _id: '3mH6qwIy9crq0I9YQbOuDf'
+      name: 'five seconds flat',
+      _id: '68L5xVV9wydotfDXEik7eD'
     },
-    duration: 182400,
+    duration: 181200,
     url: 'youtube/song.mp4',
-    imgUrl: 'https://i.scdn.co/image/ab67616d00004851c5649add07ed3720be9d5526',
+    imgUrl: 'https://i.scdn.co/image/ab67616d00001e02d370fdc4dbc47778b9b667c3',
     likedBy: [],
     addedAt: 162521765262,
   }

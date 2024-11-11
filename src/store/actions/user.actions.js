@@ -3,7 +3,7 @@ import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
 import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
-// import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG } from '../reducers/user.reducer'
 
 export async function loadUsers() {
     try {
@@ -74,6 +74,26 @@ export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)
         store.dispatch({ type: SET_WATCHED_USER, user })
+    } catch (err) {
+        showErrorMsg('Cannot load user')
+        console.log('Cannot load user', err)
+    }
+}
+
+export async function likeSong(song) {
+    try {
+        await userService.likeSong(song)
+        store.dispatch({ type: LIKE_SONG, song })
+    } catch (err) {
+        showErrorMsg('Cannot load user')
+        console.log('Cannot load user', err)
+    }
+}
+
+export async function dislikeSong(songId) {
+    try {
+        await userService.dislikeSong(songId)
+        store.dispatch({ type: DISLIKE_SONG, songId })
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)

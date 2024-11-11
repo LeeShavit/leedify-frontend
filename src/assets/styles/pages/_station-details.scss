@@ -3,6 +3,8 @@
   background: linear-gradient(180deg, rgba(80, 56, 160, 0.8) 0%, rgba(23, 23, 23, 1) 40%);
   min-height: 100vh;
   border-radius: 8px;
+
+
 }
 
 .station-header {
@@ -207,6 +209,10 @@
   border-radius: 4px;
   align-items: center;
 
+  button {
+    background: 0;
+  }
+
   &.is-playing {
     &.current-song {
       .station-song-row__number {
@@ -232,6 +238,10 @@
 
     .station-song-row__playPause {
       display: block;
+    }
+
+    .like-song{
+      opacity: 1;
     }
   }
 
@@ -307,9 +317,40 @@
   }
 
   &__duration {
+    display: flex;
     text-align: right;
+    justify-content: space-between;
+    align-items: center;
     color: $text-secondary;
+
+    .like-song {
+      height: 32px;
+      padding: 0px 12px 0px 0px;
+      margin: 0;
+      color: $text-secondary;
+      opacity: 0;
+
+      cursor: pointer;
+      transition-duration: 33ms;
+      transition-property: background-color, border-color, color, box-shadow, filter, transform;
+      transform: translate3d(0px, 0px, 0px);
+
+      &.liked{
+        color: $primary-color;
+      }
+
+      &:hover {
+        transform: scale(1.04);
+      }
+
+      &:not(.liked):hover{
+        color: $text-primary;
+      }
+
+    }
+
   }
+
 
   &__playPause {
     display: none;
