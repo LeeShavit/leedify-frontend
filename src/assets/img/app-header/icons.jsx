@@ -4,7 +4,7 @@ export const SearchIcon = ({ className }) => (
     xmlns='http://www.w3.org/2000/svg'
     aria-hidden='true'
     viewBox='0 0 24 24'
-    className='w-[48px] h-[48px]'
+    className={className}
   >
     <path
       fill='currentColor'
