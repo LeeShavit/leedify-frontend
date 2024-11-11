@@ -1,24 +1,20 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import {
-  loadStation,
-  setPlayingSong,
-  setIsPlaying,
-  loadLikedSongsStation,
-  addSongToStation,
-} from '../store/actions/station.actions'
+import { loadStation, setPlayingSong, setIsPlaying, addSongToStation, loadLikedSongsStation } from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
-import { userService } from '../services/user'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
-  const likedSongsIds = userService.getLikedSongsIds()
+
+  const user = useSelector(state => state.userModule.user)
+  const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const fileInputRef = useRef(null)
@@ -26,13 +22,12 @@ export function StationDetails() {
 
   useEffect(() => {
     if (stationId === 'liked-songs') {
-      loadLikedSongsStation()
-        .then(() => console.log(station))
-        .catch((err) => navigate('/'))
+      loadLikedSongsStation().catch(err => navigate('/'))
       return
     }
-    loadStation(stationId).catch((err) => navigate('/'))
+    loadStation(stationId).catch(err => navigate('/'))
   }, [stationId])
+
   function handlePhotoClick() {
     setIsEditModalOpen(true)
     setTimeout(() => {
@@ -71,13 +66,16 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
-    console.log(song)
     addSongToStation(stationId, song)
   }
 
   async function onLikeDislikeSong(song) {
-    if (!likedSongsIds.includes(song.id)) likeSong(song)
-    else dislikeSong(song.id)
+    try {
+      const likedSongs= (!likedSongsIds.includes(song.id)) ? await likeSong(song) : await dislikeSong(song.id)
+      setLikedSongsIds(_getLikedSongsIds(likedSongs))
+    } catch (err) {
+      console.error('Failed to like/dislike song:', err)
+    }
   }
 
   if (!station) return <div>Loading...</div>
@@ -114,8 +112,8 @@ export function StationDetails() {
         </div>
       </div>
 
-      {station.songs.length && (
-        <div className='station-table-header'>
+      {station.songs.length
+        ? <div className='station-table-header'>
           <div className='station-table-header__number'>#</div>
           <div className='station-table-header__title'>Title</div>
           <div className='station-table-header__album'>Album</div>
@@ -124,10 +122,10 @@ export function StationDetails() {
             <Time />
           </div>
         </div>
-      )}
+        : ''}
 
       <div className='station-table-body'>
-        {station.songs?.map((song, idx) => (
+      {(stationId === 'liked-songs' ? user.likedSongs : station.songs).map((song, idx) => (
           <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
             {isPlaying && currentSong.id === song.id ? (
               <div className='station-song-row__icon playing'>
@@ -192,4 +190,8 @@ function _formatDuration(ms) {
   const minutes = Math.floor(ms / 60000)
   const seconds = ((ms % 60000) / 1000).toFixed(0)
   return `${minutes}:${seconds.padStart(2, '0')}`
+}
+
+function _getLikedSongsIds(songs){
+return songs.map(likedSong => likedSong.id)
 }
