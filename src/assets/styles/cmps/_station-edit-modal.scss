@@ -77,7 +77,7 @@
     position: relative;
     width: 180px;
     height: 180px;
-    background-color: #333;
+    border-radius: 8px;
 
     img {
       width: 100%;
@@ -94,6 +94,7 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,33 +129,55 @@
 
   &__input,
   &__textarea {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 4px;
-    color: $text-primary;
-    padding: 8px 12px;
-    font-size: 0.875rem;
+    .MuiOutlinedInput-root {
+      background-color: #333333;
+      opacity: 0.7;
+      height: 40px;
+      // Default border
+      fieldset {
+        border-color: rgba(255, 255, 255, 0.1);
+      }
 
-    &:focus {
-      outline: none;
-      background-color: rgba(255, 255, 255, 0.2);
+      // Hover state
+      &:hover fieldset {
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      // Focused state
+      &.Mui-focused fieldset {
+        border-color: $text-secondary;
+      }
     }
 
-    &::placeholder {
+    // Input text color
+    .MuiInputBase-input {
+      color: $text-primary;
+    }
+
+    // Label styles
+    .MuiInputLabel-root {
+      color: $text-secondary;
+
+      &.Mui-focused {
+        color: $text-secondary;
+      }
+    }
+
+    // When there's text in the field
+    .MuiInputLabel-shrink {
       color: $text-secondary;
     }
   }
 
+  // Textarea specific styles
   &__textarea {
-    min-height: 133px;
-    resize: vertical;
+    .MuiOutlinedInput-root {
+      min-height: 133px;
+    }
   }
-
   &__footer {
     display: flex;
     justify-content: flex-end;
-    padding-top: 24px;
   }
 
   &__save {

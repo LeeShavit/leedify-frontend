@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { X } from 'lucide-react'
 import { uploadService } from '../services/upload.service'
+import { TextField } from '@mui/material'
 
-export function EditStationModal({ station, isOpen, onClose, onSave }) {
+export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRef }) {
   const [editedStation, setEditedStation] = useState({
     name: '',
     description: '',
@@ -82,6 +83,7 @@ export function EditStationModal({ station, isOpen, onClose, onSave }) {
                       <span>Choose photo</span>
                     </label>
                     <input
+                      ref={fileInputRef}
                       id='imageInput'
                       type='file'
                       accept='image/*'
@@ -93,18 +95,33 @@ export function EditStationModal({ station, isOpen, onClose, onSave }) {
               </div>
 
               <div className='edit-modal__fields'>
-                <input
-                  type='text'
-                  value={editedStation.name}
-                  onChange={(e) => setEditedStation((prev) => ({ ...prev, name: e.target.value }))}
-                  placeholder='Add a name'
+                <TextField
                   className='edit-modal__input'
+                  value={editedStation.name}
+                  onChange={(e) =>
+                    setEditedStation((prev) => ({
+                      ...prev,
+                      name: e.target.value,
+                    }))
+                  }
+                  label='Name'
+                  variant='outlined'
+                  fullWidth
                 />
-                <textarea
-                  value={editedStation.description}
-                  onChange={(e) => setEditedStation((prev) => ({ ...prev, description: e.target.value }))}
-                  placeholder='Add an optional description'
+                <TextField
                   className='edit-modal__textarea'
+                  value={editedStation.description}
+                  onChange={(e) =>
+                    setEditedStation((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    }))
+                  }
+                  label='Add an optional description'
+                  variant='outlined'
+                  multiline
+                  rows={4}
+                  fullWidth
                 />
               </div>
             </div>
