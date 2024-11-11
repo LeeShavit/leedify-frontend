@@ -12,6 +12,7 @@ const initialState = {
     users: [],
 }
 
+
 export function userReducer(state = initialState, action) {
     var newState = state
     switch (action.type) {

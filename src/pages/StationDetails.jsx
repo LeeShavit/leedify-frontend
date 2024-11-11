@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
-import { likeSong, dislikeSong } from '../store/actions/user.actions'
+import { loadStation, setPlayingSong, setIsPlaying, addSongToStation , loadLikedSongsStation} from '../store/actions/station.actions'
+import { likeSong, dislikeSong  } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { updateStation } from '../store/actions/station.actions'
@@ -24,8 +24,12 @@ export function StationDetails() {
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (stationId === 'liked-songs') {
+      loadLikedSongsStation().then(()=>console.log(station)).catch(err => navigate('/'))
+      return
+    }
     loadStation(stationId).catch(err => navigate('/'))
-  }, [stationId, station])
+  }, [stationId])
 
   function handlePhotoClick() {
     setIsEditModalOpen(true)
@@ -33,6 +37,7 @@ export function StationDetails() {
       fileInputRef.current?.click()
     }, 100)
   }
+
 
   async function handleSaveStation(updatedStationData) {
     try {
@@ -116,7 +121,7 @@ export function StationDetails() {
         </div>
       </div>
 
-      <div className='station-table-header'>
+      {station.songs.length && <div className='station-table-header'>
         <div className='station-table-header__number'>#</div>
         <div className='station-table-header__title'>Title</div>
         <div className='station-table-header__album'>Album</div>
@@ -124,7 +129,7 @@ export function StationDetails() {
         <div className='station-table-header__duration'>
           <Time />
         </div>
-      </div>
+      </div>}
 
       <div className='station-table-body'>
         {station.songs?.map((song, idx) => (

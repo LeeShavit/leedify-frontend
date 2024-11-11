@@ -197,30 +197,29 @@
     }
   }
 
-.station-song-row {
-  display: grid;
-  grid-template-columns: 48px 4fr 3fr 2fr 1fr;
-  padding: 8px 16px;
-  color: #b3b3b3;
-  font-size: 14px;
-  border-radius: 4px;
-  align-items: center;
+  .station-song-row {
+    display: grid;
+    grid-template-columns: 48px 4fr 3fr 2fr 1fr;
+    padding: 8px 16px;
+    color: #b3b3b3;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
 
-  button {
-    background: 0;
-  }
+    button {
+      background: 0;
+    }
 
-    &.is-playing {
-      &.current-song {
-        .station-song-row__number {
-          color: $primary-color;
-        }
+    &.current-song {
+      .station-song-row__number {
+        color: $primary-color;
+      }
 
-        .song-title {
-          color: $primary-color;
-        }
+      .song-title {
+        color: $primary-color;
       }
     }
+
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
@@ -233,14 +232,14 @@
         display: none;
       }
 
-    .station-song-row__playPause {
-      display: block;
-    }
+      .station-song-row__playPause {
+        display: block;
+      }
 
-    .like-song{
-      opacity: 1;
+      .like-song {
+        opacity: 1;
+      }
     }
-  }
 
     &__icon.playing {
       $iconSize: 14px;
@@ -313,41 +312,41 @@
       color: $text-secondary;
     }
 
-  &__duration {
-    display: flex;
-    text-align: right;
-    justify-content: space-between;
-    align-items: center;
-    color: $text-secondary;
-
-    .like-song {
-      height: 32px;
-      padding: 4px 12px 0px 0px;
-      margin: 0;
+    &__duration {
+      display: flex;
+      text-align: right;
+      justify-content: space-between;
+      align-items: center;
       color: $text-secondary;
-      opacity: 0;
 
-      cursor: pointer;
-      transition-duration: 33ms;
-      transition-property: background-color, border-color, color, box-shadow, filter, transform;
-      transform: translate3d(0px, 0px, 0px);
+      .like-song {
+        height: 32px;
+        padding: 4px 12px 0px 0px;
+        margin: 0;
+        color: $text-secondary;
+        opacity: 0;
 
-      &.liked{
-        color: $primary-color;      
-        opacity: 1;
-      }
+        cursor: pointer;
+        transition-duration: 33ms;
+        transition-property: background-color, border-color, color, box-shadow, filter, transform;
+        transform: translate3d(0px, 0px, 0px);
 
-      &:hover {
-        transform: scale(1.04);
-      }
+        &.liked {
+          color: $primary-color;
+          opacity: 1;
+        }
 
-      &:not(.liked):hover{
-        color: $text-primary;
+        &:hover {
+          transform: scale(1.04);
+        }
+
+        &:not(.liked):hover {
+          color: $text-primary;
+        }
+
       }
 
     }
-
-  }
 
 
     &__playPause {
@@ -381,8 +380,8 @@
       transform: translatey(50%);
     }
 
-  100% {
-    transform: translatey(0%);
+    100% {
+      transform: translatey(0%);
+    }
   }
-}
 }
