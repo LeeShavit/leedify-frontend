@@ -69,6 +69,18 @@ export async function updateStation(station) {
   }
 }
 
+
+export async function loadLikedSongsStation() {
+  try {
+    const likedSongsStation = await stationService.getLikedSongsStation()
+    store.dispatch({ type: SET_STATION, station: likedSongsStation })
+  } catch (err) {
+    console.log('Cannot load liked songs station', err)
+    throw err
+  }
+
+}
+
 export async function addSongToStation(stationId, song) {
   try {
     const updatedStation = await stationService.addSongToStation(stationId, song)

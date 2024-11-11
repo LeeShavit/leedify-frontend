@@ -3,6 +3,14 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
+import {
+  loadStation,
+  setPlayingSong,
+  setIsPlaying,
+  addSongToStation,
+  loadLikedSongsStation,
+} from '../store/actions/station.actions'
+import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { updateStation } from '../store/actions/station.actions'
@@ -13,7 +21,9 @@ export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
+
   const likedSongsIds = userService.getLikedSongsIds()
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const fileInputRef = useRef(null)
@@ -21,6 +31,7 @@ export function StationDetails() {
 
   useEffect(() => {
     loadStation(stationId).catch((err) => navigate('/'))
+    setIsEditModalOpen(false)
   }, [stationId, station])
 
   function handlePhotoClick() {
@@ -61,6 +72,7 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
+    console.log(song)
     addSongToStation(stationId, song)
   }
 
@@ -103,15 +115,17 @@ export function StationDetails() {
         </div>
       </div>
 
-      <div className='station-table-header'>
-        <div className='station-table-header__number'>#</div>
-        <div className='station-table-header__title'>Title</div>
-        <div className='station-table-header__album'>Album</div>
-        <div className='station-table-header__date'>Date added</div>
-        <div className='station-table-header__duration'>
-          <Time />
+      {station.songs.length && (
+        <div className='station-table-header'>
+          <div className='station-table-header__number'>#</div>
+          <div className='station-table-header__title'>Title</div>
+          <div className='station-table-header__album'>Album</div>
+          <div className='station-table-header__date'>Date added</div>
+          <div className='station-table-header__duration'>
+            <Time />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className='station-table-body'>
         {station.songs?.map((song, idx) => (

@@ -5,14 +5,16 @@ import { useNavigate } from 'react-router-dom'
 import { loadStations } from '../store/actions/station.actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlayIcon } from 'lucide-react'
+
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [isExpanded, setIsExpanded] = useState(true)
 
   const stations = useSelector((storeState) => storeState.stationModule.stations)
+  const user = useSelector((storeState) => storeState.userModule.user)
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
-
+  
   useEffect(() => {
     loadStations()
   }, [])
@@ -83,12 +85,27 @@ export function Library() {
       </div>
 
       <div className='library-list'>
+        <div className='library-item liked-songs' onClick={() => onNavigateToStation('liked-songs')}>
+          <button className='library-item__image-button'>
+            <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' alt='liked-songs' />
+            <div className='library-item__image-overlay'>
+              <PlayIcon className='play-icon' /> 
+            </div>
+          </button>
+          <div className='library-item__info'>
+            <h3 className='library-item__title'>Liked Songs</h3>
+            <p className='library-item__details'>
+              <span className='playlist-tag'>Playlist</span>
+              <span>{`${user?.likedSongs.length} songs`}</span>
+            </p>
+          </div>
+        </div>
         {stations.map((station) => (
           <div key={station._id} className='library-item' onClick={() => onNavigateToStation(station._id)}>
             <button className='library-item__image-button'>
               <img src={station.imgUrl} alt={station.name} />
               <div className='library-item__image-overlay'>
-                <PlayIcon className='play-icon' /> {/* Your play icon */}
+                <PlayIcon className='play-icon' /> 
               </div>
             </button>
             <div className='library-item__info'>

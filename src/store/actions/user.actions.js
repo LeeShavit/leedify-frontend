@@ -82,8 +82,10 @@ export async function loadUser(userId) {
 
 export async function likeSong(song) {
     try {
-        await userService.likeSong(song)
+        const likedSongs= await userService.likeSong(song)
         store.dispatch({ type: LIKE_SONG, song })
+        return likedSongs
+
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)
@@ -92,8 +94,9 @@ export async function likeSong(song) {
 
 export async function dislikeSong(songId) {
     try {
-        await userService.dislikeSong(songId)
+        const likedSongs= await userService.dislikeSong(songId)
         store.dispatch({ type: DISLIKE_SONG, songId })
+        return likedSongs
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)
