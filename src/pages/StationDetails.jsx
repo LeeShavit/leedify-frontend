@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadStation, setPlayingSong } from '../store/actions/station.actions'
+import { loadStation, setPlayingSong, setIsPlaying } from '../store/actions/station.actions'
 import { Time } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { updateStation } from '../store/actions/station.actions'
+import { AddSong } from '../cmps/AddSongs'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const isPlaying = useSelector((state) => state.stationModule.isPlaying)
 
   useEffect(() => {
     loadStation(stationId)
@@ -37,6 +39,17 @@ export function StationDetails() {
   function handleCloseModal() {
     setIsEditModalOpen(false)
     loadStation(stationId)
+  function onPlaySong(song) {
+    setPlayingSong(song)
+    setIsPlaying(true)
+  }
+
+  function onPauseSong() {
+    setPlayingSong(false)
+  }
+
+  function onAddSong(song){
+    console.log(song)
   }
 
   if (!station) return <div>Loading...</div>
@@ -86,20 +99,15 @@ export function StationDetails() {
 
       <div className='station-table-body'>
         {station.songs?.map((song, idx) => (
-          <div key={song.id} className={`station-song-row ${currentSong.song.id === song.id ? 'is-playing' : ''}`}>
-            <div className='station-song-row__number'>{idx + 1}</div>
-            <div
-              className='station-song-row__playPause'
-              onClick={
-                currentSong.isPlaying && currentSong.song.id === song.id ? () => onPauseSong() : () => onPlaySong(song)
-              }
-            >
-              <img
-                src={`/src/assets/img/${
-                  currentSong.isPlaying && currentSong.song.id === song.id ? 'pause' : 'play'
-                }-icon.svg`}
-                alt={`${currentSong.isPlaying ? 'Pause' : 'Play'}`}
-              />
+          <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
+            {isPlaying && currentSong.id === song.id
+              ? <div className="station-song-row__icon playing">
+                <div className="bar"></div><div className="bar"></div><div className="bar"></div><div className="bar"></div>
+              </div>
+              : <div className='station-song-row__number'>{idx + 1}</div>}
+
+            <div className='station-song-row__playPause' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
+              <img src={`/src/assets/img/${(isPlaying && currentSong.id === song.id) ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
             </div>
             <div className='station-song-row__title'>
               <img src={song.imgUrl} alt={song.name} />
@@ -120,6 +128,9 @@ export function StationDetails() {
           </div>
         ))}
       </div>
+      {
+        (station.songs.length === 0) && <AddSong onAddSong={onAddSong}/>
+      }
       <EditStationModal
         station={station}
         isOpen={isEditModalOpen}
