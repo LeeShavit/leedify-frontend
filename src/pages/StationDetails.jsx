@@ -5,7 +5,6 @@ import { loadStation, setPlayingSong, setIsPlaying, addSongToStation, loadLikedS
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
-import { updateStation } from '../store/actions/station.actions'
 import { AddSong } from '../cmps/AddSongs'
 
 export function StationDetails() {

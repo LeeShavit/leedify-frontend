@@ -1,7 +1,7 @@
-// styles/components/_playlistCard.scss
 .playlist-card {
   border-radius: 0.5rem;
   transition: background-color 0.3s ease;
+  padding: 10px;
 
   &:hover {
     background-color: rgba(60, 60, 60, 0.4);
