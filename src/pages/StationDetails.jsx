@@ -1,19 +1,16 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
-import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import {
   loadStation,
   setPlayingSong,
   setIsPlaying,
-  addSongToStation,
   loadLikedSongsStation,
+  addSongToStation,
 } from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
-import { updateStation } from '../store/actions/station.actions'
 import { AddSong } from '../cmps/AddSongs'
 import { userService } from '../services/user'
 
@@ -21,19 +18,21 @@ export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
-
   const likedSongsIds = userService.getLikedSongsIds()
-
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const fileInputRef = useRef(null)
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (stationId === 'liked-songs') {
+      loadLikedSongsStation()
+        .then(() => console.log(station))
+        .catch((err) => navigate('/'))
+      return
+    }
     loadStation(stationId).catch((err) => navigate('/'))
-    setIsEditModalOpen(false)
-  }, [stationId, station])
-
+  }, [stationId])
   function handlePhotoClick() {
     setIsEditModalOpen(true)
     setTimeout(() => {
