@@ -1,0 +1,175 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-modal {
+  background-color: #282828;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 524px;
+  color: $text-primary;
+
+  &__layout {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  &__image-section {
+    flex-shrink: 0;
+  }
+
+  &__fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__header {
+    padding: 24px 24px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: $font-basel;
+      margin: 0;
+    }
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: $text-secondary;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: $text-primary;
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__content {
+    padding: 0 24px;
+  }
+
+  &__image-section {
+    margin-bottom: 24px;
+  }
+
+  &__image-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    background-color: #333;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  &__image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__image-input {
+    display: none;
+  }
+
+  &__image-label {
+    color: $text-primary;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: $font-basel;
+    font-size: 0.875rem;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__field {
+    margin-bottom: 16px;
+  }
+
+  &__input,
+  &__textarea {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    color: $text-primary;
+    padding: 8px 12px;
+    font-size: 0.875rem;
+
+    &:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &::placeholder {
+      color: $text-secondary;
+    }
+  }
+
+  &__textarea {
+    min-height: 133px;
+    resize: vertical;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 24px;
+  }
+
+  &__save {
+    background-color: $text-primary;
+    color: $background-dark;
+    border: none;
+    border-radius: 500px;
+    padding: 12px 32px;
+    font-weight: $font-basel;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+}

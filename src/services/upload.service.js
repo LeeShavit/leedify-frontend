@@ -1,25 +1,24 @@
 export const uploadService = {
-	uploadImg,
+  uploadImg,
 }
 
 async function uploadImg(ev) {
-	const CLOUD_NAME = 'vanilla-test-images'
-	const UPLOAD_PRESET = 'stavs_preset'
-	const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+  const CLOUD_NAME = 'dsymwlagn'
+  const UPLOAD_PRESET = 'leedify_uploads'
+  const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
+  const FORM_DATA = new FormData()
 
-	const formData = new FormData()
-	
-    // Building the request body
-	formData.append('file', ev.target.files[0])
-	formData.append('upload_preset', UPLOAD_PRESET)
-	
-    // Sending a post method request to Cloudinary API
-	try {
-		const res = await fetch(UPLOAD_URL, { method: 'POST', body: formData })
-		const imgData = await res.json()
-		return imgData
-	} catch (err) {
-		console.error(err)
-		throw err
-	}
+  FORM_DATA.append('file', ev.target.files[0])
+  FORM_DATA.append('upload_preset', UPLOAD_PRESET)
+
+  try {
+    const res = await fetch(UPLOAD_URL, {
+      method: 'POST',
+      body: FORM_DATA,
+    })
+    const { url } = await res.json()
+    return url
+  } catch (err) {
+    console.log('failed to upload img', err)
+  }
 }

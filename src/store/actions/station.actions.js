@@ -58,6 +58,10 @@ export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
     store.dispatch(getCmdUpdateStation(savedStation))
+    store.dispatch({
+      type: SET_STATION,
+      station: savedStation,
+    })
     return savedStation
   } catch (err) {
     console.log('Cannot save station', err)
