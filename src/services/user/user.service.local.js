@@ -82,15 +82,16 @@ function saveLoggedinUser(user) {
     return user
 }
 
-async function likeSong(song) {
+async function likeSong(songToLike) {
     try {
         const user = getLoggedinUser()
         if (!user) throw new Error(`User not loggedIn found`)
 
-        const songToLike = {
-            ...song,
+        songToLike = {
+            ...songToLike,
             LikedAt: Date.now(),
         }
+        if (user.likedSongs.some(song => song.id === songToLike.id)) return user.likedSongs
 
         user.likedSongs.push(songToLike)
         await storageService.put('user', user)
@@ -106,17 +107,17 @@ async function dislikeSong(songId) {
         const user = await getById(getLoggedinUser()._id)
 
         if (!user) throw new Error(`User not found`)
-    
+
         const songIdx = user.likedSongs.findIndex((song) => song.id === songId)
         if (songIdx === -1) return user.likedSongs
-    
+
         user.likedSongs.splice(songIdx, 1)
         await storageService.put('user', user)
         return user.likedSongs
-      } catch (err) {
+    } catch (err) {
         console.error("user service - couldn't remove song from liked songs", err)
         throw err
-      }
+    }
 }
 
 function getLikedSongsIds() {
@@ -133,7 +134,7 @@ async function _createDemoUser() {
         password: 'guest',
         name: 'Guest User',
         imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
-        likedSongs: [            {
+        likedSongs: [{
             id: '4gMgiXfqyzZLMhsksGmbQV',
             name: 'Another Brick in the Wall, Pt. 2',
             artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
@@ -154,7 +155,7 @@ async function _createDemoUser() {
             addedAt: Date.now(),
             uri: 'spotify:track:5PycBIeabfvX3n9ILG7Vrv',
             preview_url: 'https://p.scdn.co/mp3-preview/517abecfde814f6ecb4459b4d2ff4c250ed80ec5',
-          },
+        },
         ],
         likedStations: [],
         createdStations: []
