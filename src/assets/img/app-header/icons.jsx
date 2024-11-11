@@ -20,7 +20,7 @@ export const SpotifyIcon = ({ className }) => (
     xmlns='http://www.w3.org/2000/svg'
     aria-hidden='false'
     height='32'
-    className='text-white'
+    className={className}
   >
     <title>Spotify</title>
     <path
@@ -38,6 +38,13 @@ export const HomeIcon = ({ className }) => (
     />
   </svg>
 )
+export const HomeIconFull = ({ className }) => (
+  <svg role='img' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+    <path
+      fill='white'
+      d="M13.5 1.515a3 3 0 0 0-3 0L3 5.845a2 2 0 0 0-1 1.732V21a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6h4v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V7.577a2 2 0 0 0-1-1.732l-7.5-4.33z"></path></svg>
+)
+
 export const ExploreIcon = ({ className }) => (
   <svg data-encore-id='icon' xmlns='http://www.w3.org/2000/svg' role='img' aria-hidden='true' viewBox='0 0 24 24'>
     <path fill='currentColor' d='M15 15.5c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z'></path>
@@ -49,7 +56,7 @@ export const ExploreIcon = ({ className }) => (
 )
 
 export const BellIcon = ({ className }) => (
-  <svg data-encore-id='icon' role='img' aria-hidden='true' viewBox='0 0 16 16'>
+  <svg data-encore-id='icon' role='img' aria-hidden='true' viewBox='0 0 16 16' height='16px' width='16px'>
     <path
       fill='currentColor'
       d='M8 1.5a4 4 0 0 0-4 4v3.27a.75.75 0 0 1-.1.373L2.255 12h11.49L12.1 9.142a.75.75 0 0 1-.1-.374V5.5a4 4 0 0 0-4-4zm-5.5 4a5.5 5.5 0 0 1 11 0v3.067l2.193 3.809a.75.75 0 0 1-.65 1.124H10.5a2.5 2.5 0 0 1-5 0H.957a.75.75 0 0 1-.65-1.124L2.5 8.569V5.5zm4.5 8a1 1 0 1 0 2 0H7z'
@@ -61,5 +68,5 @@ export const xIcon = ({ className }) => (
   <svg data-encore-id="icon" role="img" aria-label="Close" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-ytk21e-0 eJsVCw">
     <path d="M3.293 3.293a1 1 0 0 1 1.414 0L12 10.586l7.293-7.293a1 1 0 1 1 1.414 1.414L13.414 12l7.293 7.293a1 1 0 0 1-1.414 1.414L12 13.414l-7.293 7.293a1 1 0 0 1-1.414-1.414L10.586 12 3.293 4.707a1 1 0 0 1 0-1.414z"
     ></path>
-    </svg>
+  </svg>
 )
