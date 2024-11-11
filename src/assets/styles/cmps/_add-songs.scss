@@ -1,8 +1,18 @@
 .add-song {
+    h3{
+        color: $text-primary;
+    }
+    
     &-search {
         position: relative;
+        height: 40px;
         width: 400px;
         padding: 8px 32px;
+        background-color: #242424;
+
+        button{
+            background: none;
+        }
 
         &-icon {
             position: absolute;
@@ -18,15 +28,12 @@
             }
         }
 
-        &-input {
+        & input {
             width: 100%;
-            height: 48px;
-            background-color: #242424;
             border: none;
-            border-radius: 32px;
-            padding: 0.5rem 2.5rem;
             color: white;
             font-size: 0.875rem;
+            background-color: #242424;
 
             &::placeholder {
                 color: #a7a7a7;

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { debounce } from '../services/util.service.js'
 import { stationService } from "../services/station/station.service.local.js";
 import { useSelector } from 'react-redux';
+import { XIcon } from 'lucide-react';
 
 
 export function AddSong({onAddSong}) {
@@ -35,8 +36,9 @@ export function AddSong({onAddSong}) {
                 <button className='add-song-search-icon'>
                 <SearchIcon className='text-[#b3b3b3] hover:text-white transition-colors' />
                 </button>
-            </div>
             <input onChange={onSearchSongsDebounce} placeholder='Search for songs'></input>
+            </div>
+            <button><XIcon/></button>
             {(searchRes && searchRes.length > 0) &&
                 <ul className="search-res-list">
                     {searchRes?.map((song, idx) => (
@@ -59,7 +61,6 @@ export function AddSong({onAddSong}) {
                     ))}
                 </ul>
             }
-            <button>X</button>
         </section>
     )
 }
