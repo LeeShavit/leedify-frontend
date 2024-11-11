@@ -27,7 +27,6 @@ export function StationDetails() {
     setIsEditModalOpen(false)
   }, [stationId, station])
 
-
   function handlePhotoClick() {
     setIsEditModalOpen(true)
     setTimeout(() => {
