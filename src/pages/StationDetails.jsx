@@ -40,10 +40,11 @@ export function StationDetails() {
   function handleCloseModal() {
     setIsEditModalOpen(false)
     loadStation(stationId)
-    function onPlaySong(song) {
-      setPlayingSong(song)
-      setIsPlaying(true)
-    }
+  }
+
+  function onPlaySong(song) {
+    setPlayingSong(song)
+    setIsPlaying(true)
   }
 
   function onPauseSong() {

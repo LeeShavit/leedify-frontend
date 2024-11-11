@@ -248,7 +248,7 @@ function _createDemoSongs() {
    demoSongs= [
     {
       "id": "2PSo26j5LkdGu18mYM2ZdT",
-      "title": "What's Going On",
+      "name": "What's Going On",
       "artists": [
         {
           "name": "Taste",
@@ -267,7 +267,7 @@ function _createDemoSongs() {
     },
     {
       "id": "6fGTwrORSxE6rmX9OzQNbN",
-      "title": "Blister On The Moon",
+      "name": "Blister On The Moon",
       "artists": [
         {
           "name": "Taste",
@@ -286,7 +286,7 @@ function _createDemoSongs() {
     },
     {
       "id": "71ZgxJIApKmssV44AD1Zva",
-      "title": "A Taste Of Honey",
+      "name": "A Taste Of Honey",
       "artists": [
         {
           "name": "Lionel Hampton",
@@ -305,7 +305,7 @@ function _createDemoSongs() {
     },
     {
       "id": "0T7D44xh8oCPLYDfi8HIo7",
-      "title": "Railway And Gun",
+      "name": "Railway And Gun",
       "artists": [
         {
           "name": "Taste",
@@ -324,7 +324,7 @@ function _createDemoSongs() {
     },
     {
       "id": "2pZdwyEyT6o1hZoKZJj2wp",
-      "title": "If The Day Was Any Longer",
+      "name": "If The Day Was Any Longer",
       "artists": [
         {
           "name": "Taste",
@@ -343,7 +343,7 @@ function _createDemoSongs() {
     },
     {
       "id": "5I46WStI64aYqzmT4ZtK6m",
-      "title": "I'm Moving On",
+      "name": "I'm Moving On",
       "artists": [
         {
           "name": "Taste",
@@ -362,7 +362,7 @@ function _createDemoSongs() {
     },
     {
       "id": "3eaT8cDhFb7ng9nbDSFX8R",
-      "title": "Same Old Story",
+      "name": "Same Old Story",
       "artists": [
         {
           "name": "Taste",
@@ -381,7 +381,7 @@ function _createDemoSongs() {
     },
     {
       "id": "07NrCEN3egNvw8td2LxqJO",
-      "title": "Boogie Oogie Oogie - Remastered 2004",
+      "name": "Boogie Oogie Oogie - Remastered 2004",
       "artists": [
         {
           "name": "A Taste Of Honey",
@@ -400,7 +400,7 @@ function _createDemoSongs() {
     },
     {
       "id": "6xqLmU9xdVcK7q4O7ccjLB",
-      "title": "Sweet Lady - Bonus Track",
+      "name": "Sweet Lady - Bonus Track",
       "artists": [
         {
           "name": "Taste Nate",
@@ -423,7 +423,7 @@ function _createDemoSongs() {
     },
     {
       "id": "5zZ3ObobIeeHCsoCW8WctN",
-      "title": "Those Shoes - Bonus Track",
+      "name": "Those Shoes - Bonus Track",
       "artists": [
         {
           "name": "Taste Nate",

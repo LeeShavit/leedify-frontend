@@ -1,110 +1,128 @@
 .add-song {
-    h3{
+
+  button {
+    background: none;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+
+    &-content {
+      position: relative;
+
+      h3 {
         color: $text-primary;
-    }
-    
-    &-search {
-        position: relative;
+      }
+
+      .add-song-search {
         height: 40px;
         width: 400px;
         padding: 8px 32px;
+        font-size: 0.875rem;
         background-color: #242424;
+        color: white;
+        border: 0;
+        border-radius: 4px;
 
-        button{
-            background: none;
+        &::placeholder {
+          color: #a7a7a7;
+        }
+
+        &:focus-visible {
+          outline: none;
         }
 
         &-icon {
-            position: absolute;
-            left: -4px;
-            top: 40%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
-
-            svg {
-                width: 16px;
-                height: 16px;
-            }
+          position: absolute;
+          left: 10px;
+          top: 75%;
+          transform: translateY(-50%);
+          width: 16px;
+          height: 16px;
+          color: #a7a7a7;
         }
+      }
+    }
+  }
 
-        & input {
-            width: 100%;
-            border: none;
-            color: white;
-            font-size: 0.875rem;
-            background-color: #242424;
 
-            &::placeholder {
-                color: #a7a7a7;
-            }
-        }
+  & .add-song-row {
+    display: grid;
+    grid-template-columns: 48px 4fr 3fr 1fr;
+    padding: 8px 16px;
+    color: #b3b3b3;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
+    width: 100%;
+
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    & .add-song-row{
-            display: grid;
-            grid-template-columns: 48px 4fr 3fr 2fr 1fr;
-            padding: 8px 16px;
-            color: #b3b3b3;
-            font-size: 14px;
-            border-radius: 4px;
-            align-items: center;
-          
-          
-            &:hover {
-              background-color: rgba(255, 255, 255, 0.1);
-            }
+    &:focus {}
 
-            &:focus{
 
-            }
-          
-        
-          
-            &__ {
-              display: flex;
-              align-items: center;
-              gap: 16px;
-          
-              img {
-                width: 40px;
-                height: 40px;
-                border-radius: 4px;
-              }
-          
-              &details {
-                color: #fff;
-                font-weight: $font-book;
-                margin-bottom: 4px;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+    }
 
-                .song-name.current-song{
-                    color: $primary-color;
-                }
+    &__details {
+      display: flex;
+      flex-direction: column;
+      height: 40px;
+      font-size: 1rem;
+      color: #fff;
+      font-weight: $font-book;
+      margin-bottom: 4px;
 
-                .song-artist {
-                  font-size: 12px;
-                  font-weight: 400;
-                }
+      .song-name.current-song {
+        color: $primary-color;
+      }
 
-              }
-          
-            }
-          
-            &__album {
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              font-weight: $font-book;
-              color: $text-secondary;
-            }
-          
-            &__playPause {
-              display: none;
-          
-              img {
-                filter: brightness(0) invert(1);
-              }
-            }
-          }
-    
+      .song-artist {
+        font-weight: 400;
+        font-size: 0.875rem;
+        color: #b3b3b3;
+      }
+
+    }
+
+    &__album {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: $font-book;
+      color: $text-secondary;
+    }
+
+    &__playPause {
+      display: none;
+
+      img {
+        filter: brightness(0) invert(1);
+      }
+    }
+
+    .add-song{
+        place-self: end;
+        cursor: pointer;
+        text-align: center;
+        height: 32px;
+        width: 60px;
+
+        padding: 3px 15px;
+        border: 1px solid $button-border;
+        border-radius: 16px;
+
+        transition-duration: 33ms;
+        transition-property: background-color, border-color, color, box-shadow, filter, transform;
+        transform: translate3d(0px, 0px, 0px);
+        vertical-align: middle;
+    }
+  }
 }

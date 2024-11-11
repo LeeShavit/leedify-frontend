@@ -4,6 +4,7 @@ button {
   padding: 5px 10px;
   margin: 5px;
   cursor: pointer;
+  font-family: Spotify-mix, sans-serif;
 }
 
 form > * {
@@ -11,6 +12,10 @@ form > * {
   // width: 200px;
   margin: 10px 0px;
   font-family: inherit;
+}
+
+input{
+  font-family: Spotify-mix, sans-serif;
 }
 
 .btn-link {
