@@ -1,348 +1,348 @@
 .station-page {
-  padding: 18px 24px;
+  padding: 32px 24px;
   background: linear-gradient(180deg, rgba(80, 56, 160, 0.8) 0%, rgba(23, 23, 23, 1) 40%);
   min-height: 100vh;
   border-radius: 8px;
-}
 
-.station-header {
-  display: flex;
-  gap: 18px;
-  align-items: flex-end;
-  margin-bottom: 10px;
-
-  &__cover {
-    width: 232px;
-    height: 232px;
-    // background: linear-gradient(135deg, #450af5, #c4efd9);
-    // box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  .station-header {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    gap: 18px;
+    align-items: flex-end;
+    margin-bottom: 10px;
 
-    &-img {
-      border-radius: 8px;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+    &__cover {
+      width: clamp(180px, 25%, 180px);
+      flex-shrink: 0;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &-img {
+        border-radius: 8px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+        flex-shrink: 0;
+      }
     }
-  }
 
-  &__icon {
-    color: white;
-    font-size: 64px;
-  }
-
-  &__info {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__type {
-    font-size: 12px;
-    margin-top: 10px;
-    font-weight: 300;
-    color: #fff;
-    letter-spacing: 0.1em;
-    margin-left: 2px;
-  }
-
-  &__title {
-    font-size: clamp(2rem, 6vw, 6rem);
-    font-weight: 700;
-    line-height: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    color: #fff;
-    margin: 0;
-  }
-
-  &__description {
-    color: $text-secondary;
-    font-size: 16px;
-    margin-bottom: 5px;
-    margin-left: 2px;
-  }
-
-  &__meta {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    color: #fff;
-    opacity: 0.7;
-  }
-
-  &__owner {
-    font-size: 14px;
-    font-weight: 700;
-
-    &::before {
-      content: '•';
-      margin: 0 4px;
+    &__icon {
+      color: white;
+      font-size: 64px;
     }
-  }
 
-  &__songs-count {
-    font-size: 14px;
-    color: $text-secondary;
-
-    &::before {
-      content: '•';
-      margin: 0 4px;
+    &__info {
+      display: flex;
+      flex-direction: column;
     }
-  }
-}
 
-.station-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  padding: 24px 0;
-
-  &__left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  &__right {
-    margin-left: auto;
-  }
-
-  &__play {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: $primary-color;
-    border: none;
-    color: $background-black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-
-    &:hover {
-      transform: scale(1.04);
-      background-color: #1fdf64;
-    }
-  }
-
-  &__play-icon {
-    font-size: 24px;
-    margin-left: 4px;
-  }
-
-  &__add {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: none;
-    border: none;
-    color: $text-secondary;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    padding: 0;
-    line-height: 1;
-
-    &:hover {
+    &__type {
+      font-size: 12px;
+      margin-top: 10px;
+      font-weight: 300;
       color: #fff;
-      transform: scale(1.04);
+      letter-spacing: 0.1em;
+      margin-left: 2px;
     }
-  }
 
-  &__list {
-    color: $text-secondary;
-    background: none;
-    border: none;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 8px;
-    transition: color 0.2s;
-
-    &:hover {
+    &__title {
+      font-size: clamp(2rem, 6vw, 6rem);
+      font-weight: 700;
+      line-height: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
       color: #fff;
+      margin: 0;
+    }
+
+    &__description {
+      color: $text-secondary;
+      font-size: 16px;
+      margin-bottom: 5px;
+      margin-left: 2px;
+    }
+
+    &__meta {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #fff;
+      opacity: 0.7;
+    }
+
+    &__owner {
+      font-size: 14px;
+      font-weight: 700;
+
+      &::before {
+        content: '•';
+        margin: 0 4px;
+      }
+    }
+
+    &__songs-count {
+      font-size: 14px;
+      color: $text-secondary;
+
+      &::before {
+        content: '•';
+        margin: 0 4px;
+      }
     }
   }
-}
 
-.station-table-header {
-  display: grid;
-  grid-template-columns: 48px 4fr 3fr 2fr 1fr;
-  padding: 0 16px;
-  height: 36px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: #a7a7a7;
-  font-size: 13px;
-  font-weight: 500;
-  align-items: center;
-
-  &__number,
-  &__title,
-  &__album,
-  &__date,
-  &__duration {
+  .station-controls {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 24px 0;
+
+    &__left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    &__right {
+      margin-left: auto;
+    }
+
+    &__play {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      border: none;
+      color: $background-black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+
+      &:hover {
+        transform: scale(1.04);
+        background-color: #1fdf64;
+      }
+    }
+
+    &__play-icon {
+      font-size: 24px;
+      margin-left: 4px;
+    }
+
+    &__add {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: none;
+      border: none;
+      color: $text-secondary;
+      font-size: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+      line-height: 1;
+
+      &:hover {
+        color: #fff;
+        transform: scale(1.04);
+      }
+    }
+
+    &__list {
+      color: $text-secondary;
+      background: none;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #fff;
+      }
+    }
   }
 
-  &__duration {
-    justify-content: flex-end;
+  .station-table-header {
+    display: grid;
+    grid-template-columns: 48px 4fr 3fr 2fr 1fr;
+    padding: 0 16px;
+    height: 36px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #a7a7a7;
+    font-size: 13px;
+    font-weight: 500;
+    align-items: center;
+
+    &__number,
+    &__title,
+    &__album,
+    &__date,
+    &__duration {
+      display: flex;
+      align-items: center;
+    }
+
+    &__duration {
+      justify-content: flex-end;
+    }
   }
-}
 
-.station-song-row {
-  display: grid;
-  grid-template-columns: 48px 4fr 3fr 2fr 1fr;
-  padding: 8px 16px;
-  color: #b3b3b3;
-  font-size: 14px;
-  border-radius: 4px;
-  align-items: center;
+  .station-song-row {
+    display: grid;
+    grid-template-columns: 48px 4fr 3fr 2fr 1fr;
+    padding: 8px 16px;
+    color: #b3b3b3;
+    font-size: 14px;
+    border-radius: 4px;
+    align-items: center;
 
-  &.is-playing {
-    &.current-song {
+    &.is-playing {
+      &.current-song {
+        .station-song-row__number {
+          color: $primary-color;
+        }
+
+        .song-title {
+          color: $primary-color;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+
       .station-song-row__number {
-        color: $primary-color;
+        display: none;
+      }
+
+      .station-song-row__icon.playing {
+        display: none;
+      }
+
+      .station-song-row__playPause {
+        display: block;
+      }
+    }
+
+    &__icon.playing {
+      $iconSize: 14px;
+      height: $iconSize;
+      width: $iconSize;
+      overflow: hidden;
+
+      .bar {
+        display: inline-block;
+        height: 100%;
+        width: 2.8px;
+        margin: 0px 0.7px;
+        background-color: $primary-color;
+
+        $animationLength: 1.4s;
+        animation: wobble $animationLength infinite;
+        animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
+        animation-fill-mode: both;
+
+        &:nth-child(3) {
+          $delay: -1 * $animationLength/4;
+          animation-delay: $delay;
+        }
+
+        &:nth-child(2) {
+          $delay: -2 * $animationLength/4;
+          animation-delay: $delay;
+        }
+
+        &:nth-child(4) {
+          $delay: -3 * $animationLength / 4;
+          animation-delay: $delay;
+        }
+      }
+    }
+
+    &__title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
       }
 
       .song-title {
-        color: $primary-color;
-      }
-    }
-  }
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-
-    .station-song-row__number {
-      display: none;
-    }
-
-    .station-song-row__icon.playing {
-      display: none;
-    }
-
-    .station-song-row__playPause {
-      display: block;
-    }
-  }
-
-  &__icon.playing {
-    $iconSize: 14px;
-    height: $iconSize;
-    width: $iconSize;
-    overflow: hidden;
-
-    .bar {
-      display: inline-block;
-      height: 100%;
-      width: 2.8px;
-      margin: 0px 0.7px;
-      background-color: $primary-color;
-
-      $animationLength: 1.4s;
-      animation: wobble $animationLength infinite;
-      animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
-      animation-fill-mode: both;
-
-      &:nth-child(3) {
-        $delay: -1 * $animationLength/4;
-        animation-delay: $delay;
+        color: #fff;
+        font-weight: $font-book;
+        margin-bottom: 4px;
       }
 
-      &:nth-child(2) {
-        $delay: -2 * $animationLength/4;
-        animation-delay: $delay;
-      }
-
-      &:nth-child(4) {
-        $delay: -3 * $animationLength / 4;
-        animation-delay: $delay;
+      .song-artist {
+        font-size: 12px;
+        font-weight: 400;
       }
     }
-  }
 
-  &__title {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-    }
-
-    .song-title {
-      color: #fff;
+    &__album {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       font-weight: $font-book;
-      margin-bottom: 4px;
+      color: $text-secondary;
     }
 
-    .song-artist {
-      font-size: 12px;
-      font-weight: 400;
+    &__date {
+      white-space: nowrap;
+      color: $text-secondary;
+    }
+
+    &__duration {
+      text-align: right;
+      color: $text-secondary;
+    }
+
+    &__playPause {
+      display: none;
+
+      img {
+        filter: brightness(0) invert(1);
+      }
     }
   }
 
-  &__album {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: $font-book;
-    color: $text-secondary;
+  .station-table-body {
+    margin-top: 16px;
   }
 
-  &__date {
-    white-space: nowrap;
-    color: $text-secondary;
-  }
-
-  &__duration {
-    text-align: right;
-    color: $text-secondary;
-  }
-
-  &__playPause {
-    display: none;
-
-    img {
-      filter: brightness(0) invert(1);
+  @keyframes wobble {
+    0% {
+      transform: translatey(0%); //top
+      //margin-top:0px;
     }
-  }
-}
 
-.station-table-body {
-  margin-top: 16px;
-}
+    25% {
+      transform: translatey(70%);
+    }
 
-@keyframes wobble {
-  0% {
-    transform: translatey(0%); //top
-    //margin-top:0px;
-  }
+    50% {
+      transform: translatey(90%); //bottom
+    }
 
-  25% {
-    transform: translatey(70%);
-  }
+    75% {
+      transform: translatey(50%);
+    }
 
-  50% {
-    transform: translatey(90%); //bottom
-  }
-
-  75% {
-    transform: translatey(50%);
-  }
-
-  100% {
-    transform: translatey(0%);
+    100% {
+      transform: translatey(0%);
+    }
   }
 }

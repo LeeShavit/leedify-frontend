@@ -15,13 +15,11 @@ export function StationDetails() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const fileInputRef = useRef(null)
-  const navigate= useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    loadStation(stationId).catch(err=>  navigate('/'))
-    setIsEditModalOpen(false)
+    loadStation(stationId).catch((err) => navigate('/'))
   }, [stationId, station])
-
 
   function handlePhotoClick() {
     setIsEditModalOpen(true)
@@ -61,7 +59,7 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
-    addSongToStation(stationId,song)
+    addSongToStation(stationId, song)
   }
 
   if (!station) return <div>Loading...</div>
