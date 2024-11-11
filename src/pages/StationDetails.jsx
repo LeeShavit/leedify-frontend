@@ -43,6 +43,7 @@ export function StationDetails() {
       setPlayingSong(song)
       setIsPlaying(true)
     }
+  }
 
     function onPauseSong() {
       setPlayingSong(false)
@@ -148,11 +149,11 @@ export function StationDetails() {
         />
       </div>
     )
-  }
+  
+}
 
-  function _formatDuration(ms) {
-    const minutes = Math.floor(ms / 60000)
-    const seconds = ((ms % 60000) / 1000).toFixed(0)
-    return `${minutes}:${seconds.padStart(2, '0')}`
-  }
+function _formatDuration(ms) {
+  const minutes = Math.floor(ms / 60000)
+  const seconds = ((ms % 60000) / 1000).toFixed(0)
+  return `${minutes}:${seconds.padStart(2, '0')}`
 }

@@ -213,132 +213,132 @@
         color: $primary-color;
       }
     }
+  }
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 
-      .station-song-row__number {
-        display: none;
-      }
-
-      .station-song-row__icon.playing {
-        display: none;
-      }
-
-      .station-song-row__playPause {
-        display: block;
-      }
-    }
-
-    &__icon.playing {
-      $iconSize: 14px;
-      height: $iconSize;
-      width: $iconSize;
-      overflow: hidden;
-
-      .bar {
-        display: inline-block;
-        height: 100%;
-        width: 2.8px;
-        margin: 0px 0.7px;
-        background-color: $primary-color;
-
-        $animationLength: 1.4s;
-        animation: wobble $animationLength infinite;
-        animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
-        animation-fill-mode: both;
-
-        &:nth-child(3) {
-          $delay: -1 * $animationLength/4;
-          animation-delay: $delay;
-        }
-
-        &:nth-child(2) {
-          $delay: -2 * $animationLength/4;
-          animation-delay: $delay;
-        }
-
-        &:nth-child(4) {
-          $delay: -3 * $animationLength / 4;
-          animation-delay: $delay;
-        }
-      }
-    }
-
-    &__title {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 4px;
-      }
-
-      .song-title {
-        color: #fff;
-        font-weight: $font-book;
-        margin-bottom: 4px;
-      }
-
-      .song-artist {
-        font-size: 12px;
-        font-weight: 400;
-      }
-    }
-
-    &__album {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-weight: $font-book;
-      color: $text-secondary;
-    }
-
-    &__date {
-      white-space: nowrap;
-      color: $text-secondary;
-    }
-
-    &__duration {
-      text-align: right;
-      color: $text-secondary;
-    }
-
-    &__playPause {
+    .station-song-row__number {
       display: none;
+    }
 
-      img {
-        filter: brightness(0) invert(1);
+    .station-song-row__icon.playing {
+      display: none;
+    }
+
+    .station-song-row__playPause {
+      display: block;
+    }
+  }
+
+  &__icon.playing {
+    $iconSize: 14px;
+    height: $iconSize;
+    width: $iconSize;
+    overflow: hidden;
+
+    .bar {
+      display: inline-block;
+      height: 100%;
+      width: 2.8px;
+      margin: 0px 0.7px;
+      background-color: $primary-color;
+
+      $animationLength: 1.4s;
+      animation: wobble $animationLength infinite;
+      animation-timing-function: cubic-bezier(0.4, 0.2, 0.6, 0.8);
+      animation-fill-mode: both;
+
+      &:nth-child(3) {
+        $delay: -1 * $animationLength/4;
+        animation-delay: $delay;
+      }
+
+      &:nth-child(2) {
+        $delay: -2 * $animationLength/4;
+        animation-delay: $delay;
+      }
+
+      &:nth-child(4) {
+        $delay: -3 * $animationLength / 4;
+        animation-delay: $delay;
       }
     }
   }
 
-  .station-table-body {
-    margin-top: 16px;
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+    }
+
+    .song-title {
+      color: #fff;
+      font-weight: $font-book;
+      margin-bottom: 4px;
+    }
+
+    .song-artist {
+      font-size: 12px;
+      font-weight: 400;
+    }
   }
 
-  @keyframes wobble {
-    0% {
-      transform: translatey(0%); //top
-      //margin-top:0px;
-    }
+  &__album {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: $font-book;
+    color: $text-secondary;
+  }
 
-    25% {
-      transform: translatey(70%);
-    }
+  &__date {
+    white-space: nowrap;
+    color: $text-secondary;
+  }
 
-    50% {
-      transform: translatey(90%); //bottom
-    }
+  &__duration {
+    text-align: right;
+    color: $text-secondary;
+  }
 
-    75% {
-      transform: translatey(50%);
-    }
+  &__playPause {
+    display: none;
 
-    100% {
-      transform: translatey(0%);
+    img {
+      filter: brightness(0) invert(1);
     }
+  }
+}
+
+.station-table-body {
+  margin-top: 16px;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translatey(0%); //top
+    //margin-top:0px;
+  }
+
+  25% {
+    transform: translatey(70%);
+  }
+
+  50% {
+    transform: translatey(90%); //bottom
+  }
+
+  75% {
+    transform: translatey(50%);
+  }
+
+  100% {
+    transform: translatey(0%);
   }
 }
