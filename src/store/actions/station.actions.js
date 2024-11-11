@@ -57,6 +57,10 @@ export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
     store.dispatch(getCmdUpdateStation(savedStation))
+    store.dispatch({
+      type: SET_STATION,
+      station: savedStation,
+    })
     return savedStation
   } catch (err) {
     console.log('Cannot save station', err)
@@ -92,7 +96,6 @@ export function setPlayingSong(currentSong) {
   store.dispatch(getCmdSetPlayingSong(currentSong))
 }
 
-// Command Creators:
 function getCmdSetStations(stations) {
   return {
     type: SET_STATIONS,
@@ -127,7 +130,7 @@ function getCmdUpdateStation(station) {
 function getCmdSetPlayingSong(currentSong) {
   return {
     type: SET_PLAYING_SONG,
-    currentSong: currentSong
+    currentSong: currentSong,
   }
 }
 
