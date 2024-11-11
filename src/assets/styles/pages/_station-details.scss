@@ -22,6 +22,10 @@
 
     &-img {
       border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
     }
   }
 
@@ -198,8 +202,7 @@
   border-radius: 4px;
   align-items: center;
 
-  &.is-playing{
-
+  &.is-playing {
     .station-song-row__number {
       color: $primary-color;
     }

@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { ArrowRightIcon, LibraryIcon, LibrarySearchIcon, ListIcon, PlusIcon } from '../assets/img/library/icons'
 import { stationService } from '../services/station/station.service.local'
 import { useNavigate } from 'react-router-dom'
+import { loadStations } from '../store/actions/station.actions'
+import { useDispatch, useSelector } from 'react-redux'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
-  const [stations, setStations] = useState([])
+  const stations = useSelector((storeState) => storeState.stationModule.stations)
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -13,17 +15,6 @@ export function Library() {
     loadStations()
   }, [])
 
-  async function loadStations() {
-    try {
-      setIsLoading(true)
-      const stations = await stationService.query()
-      setStations(stations)
-    } catch (err) {
-      console.error('Failed to load stations:', err)
-    } finally {
-      setIsLoading(false)
-    }
-  }
   async function handleCreatePlaylist() {
     try {
       const emptyStation = stationService.getEmptyStation()
@@ -109,7 +100,7 @@ export function Library() {
                 src={station.imgUrl}
                 alt={station.name}
                 onError={(e) => {
-                  e.target.src = 'https://i.scdn.co/image/ab67616d0000b273d766af9a96c4206c5d13a790' // fallback image
+                  e.target.src = 'https://i.scdn.co/image/ab67616d0000b273d766af9a96c4206c5d13a790'
                 }}
               />
             </div>

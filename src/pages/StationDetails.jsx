@@ -1,24 +1,42 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation, setPlayingSong } from '../store/actions/station.actions'
 import { Time } from '../assets/img/playlist-details/icons'
+import { EditStationModal } from '../cmps/EditStationModal'
+import { updateStation } from '../store/actions/station.actions'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
   useEffect(() => {
     loadStation(stationId)
+
+    setIsEditModalOpen(false)
   }, [stationId])
 
-  function onPlaySong(song) {
-    setPlayingSong({ song, isPlaying: true })
+  async function handleSaveStation(updatedStationData) {
+    try {
+      const stationToUpdate = {
+        ...station,
+        name: updatedStationData.name,
+        description: updatedStationData.description,
+        imgUrl: updatedStationData.imgUrl,
+      }
+      await updateStation(stationToUpdate)
+      await loadStation(stationId)
+      setIsEditModalOpen(false)
+    } catch (err) {
+      console.error('Failed to update station:', err)
+    }
   }
 
-  function onPauseSong() {
-    setPlayingSong({ ...currentSong, isPlaying: false })
+  function handleCloseModal() {
+    setIsEditModalOpen(false)
+    loadStation(stationId)
   }
 
   if (!station) return <div>Loading...</div>
@@ -32,7 +50,9 @@ export function StationDetails() {
 
         <div className='station-header__info'>
           <span className='station-header__type'>Playlist</span>
-          <h1 className='station-header__title'>{station.name}</h1>
+          <h1 onClick={() => setIsEditModalOpen(true)} className='station-header__title'>
+            {station.name}
+          </h1>
           <span className='station-header__description'>{station.description}</span>
           <div className='station-header__meta'>
             <span className='station-header__owner'>{station.createdBy.fullname}</span>
@@ -68,15 +88,29 @@ export function StationDetails() {
         {station.songs?.map((song, idx) => (
           <div key={song.id} className={`station-song-row ${currentSong.song.id === song.id ? 'is-playing' : ''}`}>
             <div className='station-song-row__number'>{idx + 1}</div>
-            <div className='station-song-row__playPause' onClick={currentSong.isPlaying && currentSong.song.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
-              <img src={`/src/assets/img/${(currentSong.isPlaying && currentSong.song.id === song.id) ? 'pause' : 'play'}-icon.svg`} alt={`${currentSong.isPlaying ? 'Pause' : 'Play'}`} />
+            <div
+              className='station-song-row__playPause'
+              onClick={
+                currentSong.isPlaying && currentSong.song.id === song.id ? () => onPauseSong() : () => onPlaySong(song)
+              }
+            >
+              <img
+                src={`/src/assets/img/${
+                  currentSong.isPlaying && currentSong.song.id === song.id ? 'pause' : 'play'
+                }-icon.svg`}
+                alt={`${currentSong.isPlaying ? 'Pause' : 'Play'}`}
+              />
             </div>
             <div className='station-song-row__title'>
               <img src={song.imgUrl} alt={song.name} />
               <div>
                 <div className='song-title'>{song.name}</div>
                 <div className='song-artist'>
-                  {song.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}
+                  {song.artists.map((artist) => (
+                    <Link key={artist._id} to={`/artist/${artist._id}`}>
+                      {artist.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>
@@ -86,6 +120,12 @@ export function StationDetails() {
           </div>
         ))}
       </div>
+      <EditStationModal
+        station={station}
+        isOpen={isEditModalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveStation}
+      />
     </div>
   )
 }
