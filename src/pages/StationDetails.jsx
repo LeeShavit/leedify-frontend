@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
-import { likeSong , dislikeSong } from '../store/actions/user.actions'
+import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { updateStation } from '../store/actions/station.actions'
@@ -11,12 +11,13 @@ import { userService } from '../services/user'
 
 
 export function StationDetails() {
+
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
 
-  const likedSongsIds = userService.getLikedSongsIds()
-  
+  const [likedSongsIds, setLikedSongsIds] = useState(userService.getLikedSongsIds())
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const fileInputRef = useRef(null)
@@ -24,7 +25,6 @@ export function StationDetails() {
 
   useEffect(() => {
     loadStation(stationId).catch(err => navigate('/'))
-    setIsEditModalOpen(false)
   }, [stationId, station])
 
   function handlePhotoClick() {
@@ -65,12 +65,21 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
+    console.log(song)
     addSongToStation(stationId, song)
   }
 
   async function onLikeDislikeSong(song) {
-    if(!likedSongsIds.includes(song.id)) likeSong(song)
-    else dislikeSong(song.id)
+    try {
+      const likedSongs = (!likedSongsIds.includes(song.id)) ? await likeSong(song) : await dislikeSong(song.id)
+      setLikedSongsIds(getLikedSongsIds(likedSongs))
+    } catch (err) {
+      console.log('failed to like/dislike song')
+    }
+  }
+
+  function getLikedSongsIds(likedSongs) {
+    return likedSongs.map(likedSong => likedSong.id)
   }
 
   if (!station) return <div>Loading...</div>
@@ -156,7 +165,7 @@ export function StationDetails() {
             <div className='station-song-row__album'>{song.album.name}</div>
             <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
             <div className='station-song-row__duration'>
-              <button className={`like-song ${likedSongsIds.includes(song.id) ? 'liked' : ''}`} onClick={()=> onLikeDislikeSong(song.id)}>
+              <button className={`like-song ${likedSongsIds.includes(song.id) ? 'liked' : ''}`} onClick={() => onLikeDislikeSong(song)}>
                 {likedSongsIds.includes(song.id) ? <Liked /> : <Like />}
               </button>
               <div>{_formatDuration(song.duration)}</div>

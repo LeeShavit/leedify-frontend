@@ -104,10 +104,11 @@ async function likeSong(song) {
 async function dislikeSong(songId) {
     try {
         const user = await getById(getLoggedinUser()._id)
+
         if (!user) throw new Error(`User not found`)
     
         const songIdx = user.likedSongs.findIndex((song) => song.id === songId)
-        if (songIdx === -1) return station
+        if (songIdx === -1) return user.likedSongs
     
         user.likedSongs.splice(songIdx, 1)
         await storageService.put('user', user)

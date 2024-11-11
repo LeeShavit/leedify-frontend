@@ -322,7 +322,7 @@
 
     .like-song {
       height: 32px;
-      padding: 0px 12px 0px 0px;
+      padding: 4px 12px 0px 0px;
       margin: 0;
       color: $text-secondary;
       opacity: 0;
@@ -333,7 +333,8 @@
       transform: translate3d(0px, 0px, 0px);
 
       &.liked{
-        color: $primary-color;
+        color: $primary-color;      
+        opacity: 1;
       }
 
       &:hover {
