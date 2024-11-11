@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadStation, setPlayingSong, setIsPlaying } from '../store/actions/station.actions'
+import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
 import { Time } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { updateStation } from '../store/actions/station.actions'
 import { AddSong } from '../cmps/AddSongs'
+import { stationService } from '../services/station/station.service.local'
 
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
-  console.log(station)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+  const navigate= useNavigate()
 
   useEffect(() => {
-    loadStation(stationId)
-    console.log(station)
+    loadStation(stationId).catch(err=>  navigate('/'))
     setIsEditModalOpen(false)
-  }, [stationId])
+  }, [stationId, station])
+
 
   async function handleSaveStation(updatedStationData) {
     try {
@@ -48,11 +49,11 @@ export function StationDetails() {
   }
 
   function onPauseSong() {
-    setPlayingSong(false)
+    setIsPlaying(false)
   }
 
-  function onAddSong(song) {
-    console.log(song)
+  async function onAddSong(song) {
+    addSongToStation(stationId,song)
   }
 
   if (!station) return <div>Loading...</div>

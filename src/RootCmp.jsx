@@ -22,7 +22,7 @@ export function RootCmp() {
       <AppHeader />
       <Library />
       <UserMsg />
-      <main>
+      <main className='main scroll-container'>
         <Routes>
           <Route path='' element={<HomePage />} />
           <Route path='station' element={<StationDetails />} />
