@@ -17,14 +17,14 @@ export function PlayerControls({ playerRef, volume }) {
     }, [currentSong])
 
     useEffect(() => {
-        isPlaying ? playerRef.current?.playVideo() :  playerRef.current?.pauseVideo()
-
-        if (!playerRef.current || !isPlaying) return
+        if (!playerRef.current) return
+        playPauseSong()
+        
+        if(!isPlaying) return
         const interval = setInterval(() => {
             const currentTime = playerRef.current.getCurrentTime()
             setCurrentTime(currentTime)
         }, 1000)
-
         return () => clearInterval(interval)
     }, [isPlaying])
 
@@ -41,18 +41,47 @@ export function PlayerControls({ playerRef, volume }) {
         }
     }
 
-
     function handleReady(event) {
+        console.log('ready')
         playerRef.current = event.target
         playerRef.current.setVolume(volume)
+
+        playPauseSong()
+    }
+
+    function handleStateChange(event) {        
+        if (event.data === 5 && isPlaying) {
+            event.target.playVideo()
+        }
+        if (event.data === 3 && isPlaying) {
+            setTimeout(() => {
+                if (playerRef.current && isPlaying) {
+                    playerRef.current.playVideo()
+                }}, 500)
+        }
+    }
+
+    function playPauseSong(){
+            if (!playerRef.current) return
+            
+            const playerState = playerRef.current.getPlayerState()
+            if (isPlaying && (playerState === 5 || playerState === 2)) {
+                    playerRef.current.playVideo()
+            }
+             else {
+                playerRef.current.pauseVideo()
+            }
     }
 
     function handlePlay() {
+        if(!playerRef.current) return
+        playerRef.current.playVideo()
         setIsPlaying(true)
     }
 
     function handlePause() {
-        playerRef.current?.pauseVideo()
+        if(!playerRef.current) return
+        playerRef.current.pauseVideo()
         setIsPlaying(false)
     }
 
@@ -91,6 +120,7 @@ export function PlayerControls({ playerRef, volume }) {
                             },
                         }}
                         onReady={handleReady}
+                        onStateChange={handleStateChange}
                     />
                 )}
             </div>

@@ -13,7 +13,7 @@ export const stationService = {
   removeSongFromStation,
   getCurrentSong,
   getSongs,
-  getSong
+  getSong,
 }
 
 _createDemoData()
@@ -74,10 +74,11 @@ async function save(station) {
 }
 
 async function addSongToStation(stationId, song) {
+  
   try {
     const station = await getById(stationId)
     if (!station) throw new Error(`Station ${stationId} not found`)
-
+    
     const songExists = station.songs.some((s) => s.id === song.id)
     if (songExists) return station
 
@@ -85,6 +86,7 @@ async function addSongToStation(stationId, song) {
       ...song,
       addedAt: Date.now(),
     }
+
     station.songs.push(songToAdd)
     return await save(station)
   } catch (err) {
@@ -452,7 +454,7 @@ function getSongs(idx) {
   return JSON.parse(localStorage.getItem('demo-songs'))
 }
 
-function getSong(idx) {
+function getSong(songId) {
   let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
-  return demoSongs[idx]
+  return demoSongs.find(song=> song.id === songId)
 }

@@ -25,12 +25,11 @@ export function AddSong({ onAddSong }) {
         }
     }
 
-    function onAddSongToStation(Idx) {
-        const song = stationService.getSong(searchRes[Idx])
+    function onAddSongToStation(songId) {
+        const song = stationService.getSong(songId)
+        console.log(song)
         onAddSong(song)
     }
-
-    console.log(searchRes)
 
     return (
         <section className="add-song">
@@ -45,7 +44,7 @@ export function AddSong({ onAddSong }) {
             </div>
             {(searchRes && searchRes.length > 0) &&
                 <ul className="search-res-list">
-                    {searchRes?.map((song, idx) => (
+                    {searchRes?.map(song => (
                         <div key={song.id} className={`add-song-row `}>
                                 <div className='add-song-row__playPause' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
                                     <img src={`/src/assets/img/${(isPlaying && currentSong.id === song.id) ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
@@ -58,7 +57,7 @@ export function AddSong({ onAddSong }) {
                                     </div>
                                 </div>
                             <div className='add-song-row__album'>{song.album.name}</div>
-                            <button className='add-song' onClick={() => onAddSong(idx)}>Add</button>
+                            <button className='add-song' onClick={() => onAddSongToStation(song.id)}>Add</button>
                         </div>
                     ))}
                 </ul>
