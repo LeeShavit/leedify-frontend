@@ -19,7 +19,7 @@ export function PlayerControls({ playerRef, volume }) {
     useEffect(() => {
         if (!playerRef.current) return
         playPauseSong()
-        
+
         if(!isPlaying) return
         const interval = setInterval(() => {
             const currentTime = playerRef.current.getCurrentTime()
@@ -42,7 +42,6 @@ export function PlayerControls({ playerRef, volume }) {
     }
 
     function handleReady(event) {
-        console.log('ready')
         playerRef.current = event.target
         playerRef.current.setVolume(volume)
 

@@ -2,23 +2,28 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { loadStation, setPlayingSong, setIsPlaying, addSongToStation } from '../store/actions/station.actions'
-import { Time } from '../assets/img/playlist-details/icons'
+import { likeSong , dislikeSong } from '../store/actions/user.actions'
+import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { updateStation } from '../store/actions/station.actions'
 import { AddSong } from '../cmps/AddSongs'
-import { stationService } from '../services/station/station.service.local'
+import { userService } from '../services/user'
+
 
 export function StationDetails() {
   const { stationId } = useParams()
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
+
+  const likedSongsIds = userService.getLikedSongsIds()
+  
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const fileInputRef = useRef(null)
-  const navigate= useNavigate()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    loadStation(stationId).catch(err=>  navigate('/'))
+    loadStation(stationId).catch(err => navigate('/'))
     setIsEditModalOpen(false)
   }, [stationId, station])
 
@@ -61,7 +66,12 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
-    addSongToStation(stationId,song)
+    addSongToStation(stationId, song)
+  }
+
+  async function onLikeDislikeSong(song) {
+    if(!likedSongsIds.includes(song.id)) likeSong(song)
+    else dislikeSong(song.id)
   }
 
   if (!station) return <div>Loading...</div>
@@ -146,7 +156,12 @@ export function StationDetails() {
             </div>
             <div className='station-song-row__album'>{song.album.name}</div>
             <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
-            <div className='station-song-row__duration'>{_formatDuration(song.duration)}</div>
+            <div className='station-song-row__duration'>
+              <button className={`like-song ${likedSongsIds.includes(song.id) ? 'liked' : ''}`} onClick={()=> onLikeDislikeSong(song.id)}>
+                {likedSongsIds.includes(song.id) ? <Liked /> : <Like />}
+              </button>
+              <div>{_formatDuration(song.duration)}</div>
+            </div>
           </div>
         ))}
         {station.songs.length === 0 && <AddSong onAddSong={onAddSong} />}
