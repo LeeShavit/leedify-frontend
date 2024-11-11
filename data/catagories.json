@@ -1,0 +1,784 @@
+{
+    "categories": [
+      {
+        "name": "Music",
+        "id": "0JQ5DAqbMKFSi39LMRT0Cy",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFSi39LMRT0Cy",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf474a477debc822a3a45c5acb",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(220, 20, 140)"
+      },
+      {
+        "name": "Podcasts",
+        "id": "0JQ5DArNBzkmxXHCqFLx2J",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DArNBzkmxXHCqFLx2J",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab6765630000ba8a81f07e1ead0317ee3c285bfa",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(0, 100, 80)"
+      },
+      {
+        "name": "Live Events",
+        "id": "concerts",
+        "href": "https://api.spotify.com/v1/browse/categories/concerts",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://concerts.spotifycdn.com/images/live-events_category-image.jpg",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(132, 0, 231)"
+      },
+      {
+        "name": "Made For You",
+        "id": "0JQ5DAt0tbjZptfcdMSKl3",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAt0tbjZptfcdMSKl3",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(30, 50, 100)"
+      },
+      {
+        "name": "New Releases",
+        "id": "0JQ5DAqbMKFz6FAsUtgAab",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFz6FAsUtgAab",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf194fec0fdc197fb9e4fe8e64",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(96, 129, 8)"
+      },
+      {
+        "name": "Pop",
+        "id": "0JQ5DAqbMKFEC4WFtoNRpw",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEC4WFtoNRpw",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf66d545e6a69d0bfe8bd1e825",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(71, 125, 149)"
+      },
+      {
+        "name": "Hip-Hop",
+        "id": "0JQ5DAqbMKFQ00XGBls6ym",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQ00XGBls6ym",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf5f3752b3234e724f9cd6056f",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(71, 125, 149)"
+      },
+      {
+        "name": "Rock",
+        "id": "0JQ5DAqbMKFDXXwE9BDJAr",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDXXwE9BDJAr",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafda4c849095796a9e5d2c4ddb",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(0, 100, 80)"
+      },
+      {
+        "name": "Latin",
+        "id": "0JQ5DAqbMKFxXaXKP7zcDp",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFxXaXKP7zcDp",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf3a44e7ae3d808c220898185c",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(225, 17, 140)"
+      },
+      {
+        "name": "Podcast Charts",
+        "id": "0JQ5DAB3zgCauRwnvdEQjJ",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAB3zgCauRwnvdEQjJ",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://t.scdn.co/images/7262179db37c498480ef06bfacb60310.jpeg",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(13, 115, 236)"
+      },
+      {
+        "name": "Educational",
+        "id": "0JQ5IMCbQBLl5gxKLgufp8",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5IMCbQBLl5gxKLgufp8",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67656300005f1fd464f18a416c86ede3a235a7",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(71, 125, 149)"
+      },
+      {
+        "name": "Documentary",
+        "id": "0JQ5IMCbQBLjfX9OdDrA5X",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5IMCbQBLjfX9OdDrA5X",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab6765630000ba8a2f514cde3ee9501e7ada4cf4",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(80, 55, 80)"
+      },
+      {
+        "name": "Comedy",
+        "id": "0JQ5IMCbQBLyUJhSxhaPc6",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5IMCbQBLyUJhSxhaPc6",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab6765630000ba8a77d267a5accb8911a92668e1",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(175, 40, 150)"
+      },
+      {
+        "name": "Charts",
+        "id": "0JQ5DAudkNjCgYMM0TZXDw",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAudkNjCgYMM0TZXDw",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://charts-images.scdn.co/assets/locale_en/regional/weekly/region_global_default.jpg",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(141, 103, 171)"
+      },
+      {
+        "name": "Dance/Electronic",
+        "id": "0JQ5DAqbMKFHOzuVTgTizF",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFHOzuVTgTizF",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf26ada793217994216c79dad8",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(71, 125, 149)"
+      },
+      {
+        "name": "Mood",
+        "id": "0JQ5DAqbMKFzHmL4tf05da",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFzHmL4tf05da",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafe542e9b59b1d2ae04b46b91c",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(225, 17, 140)"
+      },
+      {
+        "name": "Indie",
+        "id": "0JQ5DAqbMKFCWjUTdzaG0e",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCWjUTdzaG0e",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafa1a252e3a815b65778d8c2aa",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(233, 20, 41)"
+      },
+      {
+        "name": "Workout",
+        "id": "0JQ5DAqbMKFAXlCG6QvYQ4",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAXlCG6QvYQ4",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf6af6d83c78493644c9b0627b",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(119, 119, 119)"
+      },
+      {
+        "name": "Discover",
+        "id": "0JQ5DAtOnAEpjOgUKwXyxj",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAtOnAEpjOgUKwXyxj",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://t.scdn.co/images/d0fb2ab104dc4846bdc56d72b0b0d785.jpeg",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(141, 103, 171)"
+      },
+      {
+        "name": "Country",
+        "id": "0JQ5DAqbMKFKLfwjuJMoNC",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFKLfwjuJMoNC",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafd10a5fb6da973e53e9d17ab9",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(216, 64, 0)"
+      },
+      {
+        "name": "R&B",
+        "id": "0JQ5DAqbMKFEZPnFQSFB1T",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEZPnFQSFB1T",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caff4e38be86ca48a3b10884ae3",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(186, 93, 7)"
+      },
+      {
+        "name": "K-pop",
+        "id": "0JQ5DAqbMKFGvOw3O4nLAf",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFGvOw3O4nLAf",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf4b42030ee01cf793663dbb73",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(230, 30, 50)"
+      },
+      {
+        "name": "Chill",
+        "id": "0JQ5DAqbMKFFzDl7qN9Apr",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFzDl7qN9Apr",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf330ca3a3bfaf8b18407fb33e",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(176, 98, 57)"
+      },
+      {
+        "name": "Sleep",
+        "id": "0JQ5DAqbMKFCuoRTxhYWow",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCuoRTxhYWow",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf1cef0cee1e498abb8e74955f",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(30, 50, 100)"
+      },
+      {
+        "name": "Party",
+        "id": "0JQ5DAqbMKFA6SOHvT3gck",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFA6SOHvT3gck",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf0b0d0bfac454671832311615",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(141, 103, 171)"
+      },
+      {
+        "name": "At Home",
+        "id": "0JQ5DAqbMKFx0uLQR2okcc",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFx0uLQR2okcc",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf60ad5f3ea4988eff993d5e1a",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(81, 121, 161)"
+      },
+      {
+        "name": "Decades",
+        "id": "0JQ5DAqbMKFIVNxQgRNSg0",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFIVNxQgRNSg0",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafb7e805033eb938aa75d09336",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(165, 103, 82)"
+      },
+      {
+        "name": "Love",
+        "id": "0JQ5DAqbMKFAUsdyVjCQuL",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAUsdyVjCQuL",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf21c9a95a2702ce535fb07915",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(220, 20, 140)"
+      },
+      {
+        "name": "Metal",
+        "id": "0JQ5DAqbMKFDkd668ypn6O",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDkd668ypn6O",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafefa737b67ec51ec989f5a51d",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(233, 20, 41)"
+      },
+      {
+        "name": "Jazz",
+        "id": "0JQ5DAqbMKFAJ5xb0fwo9m",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAJ5xb0fwo9m",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafa1bb187ec2f4606aa7101bad",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(141, 103, 171)"
+      },
+      {
+        "name": "Trending",
+        "id": "0JQ5DAqbMKFQIL0AXnG5AK",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQIL0AXnG5AK",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf8e97784ff1e12e67ae922715",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(176, 40, 151)"
+      },
+      {
+        "name": "Wellness",
+        "id": "0JQ5DAqbMKFLb2EqgLtpjC",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFLb2EqgLtpjC",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafd4a8da930bccd56ebd7e48b0",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(20, 138, 8)"
+      },
+      {
+        "name": "Anime",
+        "id": "0JQ5DAqbMKFziKOShCi009",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFziKOShCi009",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafef78c123c1bf7d58c6708e89",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(13, 115, 236)"
+      },
+      {
+        "name": "Gaming",
+        "id": "0JQ5DAqbMKFCfObibaOZbv",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCfObibaOZbv",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf26dd3719e8824756914ae61f",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(232, 17, 91)"
+      },
+      {
+        "name": "Folk & Acoustic",
+        "id": "0JQ5DAqbMKFy78wprEpAjl",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFy78wprEpAjl",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafcc70a3c2e4c71398708bdc4a",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(188, 89, 0)"
+      },
+      {
+        "name": "Focus",
+        "id": "0JQ5DAqbMKFCbimwdOYlsl",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCbimwdOYlsl",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf9a27506d5dde68b9da373196",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(165, 103, 82)"
+      },
+      {
+        "name": "Soul",
+        "id": "0JQ5DAqbMKFIpEuaCnimBj",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFIpEuaCnimBj",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafd82e2c83fe100a89e9cbb2a2",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(220, 20, 140)"
+      },
+      {
+        "name": "Kids & Family",
+        "id": "0JQ5DAqbMKFFoimhOqWzLB",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFoimhOqWzLB",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafe72590f91baff169b1595ab4",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(13, 115, 236)"
+      },
+      {
+        "name": "Classical",
+        "id": "0JQ5DAqbMKFPrEiAOxgac3",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFPrEiAOxgac3",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf4597370d1058e1ec3c1a56fa",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(125, 75, 50)"
+      },
+      {
+        "name": "TV & Movies",
+        "id": "0JQ5DAqbMKFOzQeOmemkuw",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFOzQeOmemkuw",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafb4c4523336133ec3c7fd1744",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(175, 40, 150)"
+      },
+      {
+        "name": "Instrumental",
+        "id": "0JQ5DAqbMKFRieVZLLoo9m",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFRieVZLLoo9m",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf44774504bdbe31a7bc45598c",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(83, 122, 161)"
+      },
+      {
+        "name": "Punk",
+        "id": "0JQ5DAqbMKFAjfauKLOZiv",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAjfauKLOZiv",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf8eebb3e6aa18829dc60f4bc0",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(230, 30, 50)"
+      },
+      {
+        "name": "Ambient",
+        "id": "0JQ5DAqbMKFLjmiZRss79w",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFLjmiZRss79w",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf7d7f89ad0744c51c0f895340",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(20, 138, 8)"
+      },
+      {
+        "name": "Netflix",
+        "id": "0JQ5DAqbMKFEOEBCABAxo9",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEOEBCABAxo9",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf51565028ee4188dbee2e4aa5",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(225, 51, 0)"
+      },
+      {
+        "name": "Blues",
+        "id": "0JQ5DAqbMKFQiK2EHwyjcU",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQiK2EHwyjcU",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf53eb5d52ae9152ce8461b387",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(230, 30, 50)"
+      },
+      {
+        "name": "Cooking & Dining",
+        "id": "0JQ5DAqbMKFRY5ok2pxXJ0",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFRY5ok2pxXJ0",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafacbcb985978c387411d69e4f",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(186, 93, 7)"
+      },
+      {
+        "name": "Alternative",
+        "id": "0JQ5DAqbMKFFtlLYUHv8bT",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFtlLYUHv8bT",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf106e29a9f294cb4265da6af9",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(225, 51, 0)"
+      },
+      {
+        "name": "Travel",
+        "id": "0JQ5DAqbMKFAQy4HL4XU2D",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAQy4HL4XU2D",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf879a886d22672d9b5b987746",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(13, 114, 237)"
+      },
+      {
+        "name": "Caribbean",
+        "id": "0JQ5DAqbMKFObNLOHydSW8",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFObNLOHydSW8",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf8ba1febbb4f77336b6f9aace",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(13, 115, 236)"
+      },
+      {
+        "name": "Afro",
+        "id": "0JQ5DAqbMKFNQ0fGp4byGU",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFNQ0fGp4byGU",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf73b2872e5a04da17bee68535",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(140, 25, 50)"
+      },
+      {
+        "name": "GLOW",
+        "id": "0JQ5DAqbMKFGnsSfvg90Wo",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFGnsSfvg90Wo",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf50cfe3fbd3a9fb8810da45ea",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(13, 115, 236)"
+      },
+      {
+        "name": "Songwriters",
+        "id": "0JQ5DAqbMKFSCjnQr8QZ3O",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFSCjnQr8QZ3O",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafb973ab1288f74f333e7e2e22",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(140, 25, 50)"
+      },
+      {
+        "name": "Nature & Noise",
+        "id": "0JQ5DAqbMKFI3pNLtYMD9S",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFI3pNLtYMD9S",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf71ab47ac71efc219fa2cb171",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(71, 125, 149)"
+      },
+      {
+        "name": "Funk & Disco",
+        "id": "0JQ5DAqbMKFFsW9N8maB6z",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFsW9N8maB6z",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf3b7919a2cffd1e36647d1c80",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(71, 125, 149)"
+      },
+      {
+        "name": "Spotify Singles",
+        "id": "0JQ5DAqbMKFDBgllo2cUIN",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDBgllo2cUIN",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf14030380532b34badbf0a229",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(119, 119, 119)"
+      },
+      {
+        "name": "Summer",
+        "id": "0JQ5DAqbMKFLVaM30PMBm4",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFLVaM30PMBm4",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf097a46192e6bb67e52cdff60",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(39, 133, 106)"
+      },
+      {
+        "name": "EQUAL",
+        "id": "0JQ5DAqbMKFPw634sFwguI",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFPw634sFwguI",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf2354ff5d02a9a0935beb94af",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(20, 138, 8)"
+      },
+      {
+        "name": "RADAR",
+        "id": "0JQ5DAqbMKFOOxftoKZxod",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFOOxftoKZxod",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005caf5b340bd0664da28003741733",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(20, 138, 8)"
+      },
+      {
+        "name": "Fresh Finds",
+        "id": "0JQ5DAqbMKFImHYGo3eTSg",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFImHYGo3eTSg",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://i.scdn.co/image/ab67fb8200005cafcc1499bbb8565f490858c2bc",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(255, 0, 144)"
+      },
+      {
+        "name": "Tastemakers",
+        "id": "0JQ5DAqbMKFRKBHIxJ5hMm",
+        "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFRKBHIxJ5hMm",
+        "icons": [
+          {
+            "height": 274,
+            "url": "https://t.scdn.co/images/37732285a0ff4e24987cdf5c45bdf31f.png",
+            "width": 274
+          }
+        ],
+        "backgroundColor": "rgb(232, 17, 91)"
+      }
+    ]
+  }
