@@ -16,7 +16,9 @@ export function StationDetails() {
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
 
-  const [likedSongsIds, setLikedSongsIds] = useState(userService.getLikedSongsIds())
+  const user= useSelector(state=> state.userModule.user)
+
+  const [likedSongsIds, setLikedSongsIds] = useState(getLikedSongsIds(user.likedSongs))
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
@@ -25,7 +27,7 @@ export function StationDetails() {
 
   useEffect(() => {
     if (stationId === 'liked-songs') {
-      loadLikedSongsStation().then(()=>console.log(station)).catch(err => navigate('/'))
+      loadLikedSongsStation().catch(err => navigate('/'))
       return
     }
     loadStation(stationId).catch(err => navigate('/'))
@@ -89,6 +91,8 @@ export function StationDetails() {
 
   if (!station) return <div>Loading...</div>
 
+  const songs = ( stationId === 'liked-songs')?  user.likedSongs : station.songs
+
   return (
     <div className='station-page'>
       <header className='station-header'>
@@ -121,7 +125,8 @@ export function StationDetails() {
         </div>
       </div>
 
-      {station.songs.length && <div className='station-table-header'>
+      {station.songs.length
+      ? <div className='station-table-header'>
         <div className='station-table-header__number'>#</div>
         <div className='station-table-header__title'>Title</div>
         <div className='station-table-header__album'>Album</div>
@@ -129,10 +134,11 @@ export function StationDetails() {
         <div className='station-table-header__duration'>
           <Time />
         </div>
-      </div>}
+      </div>
+      :''}
 
       <div className='station-table-body'>
-        {station.songs?.map((song, idx) => (
+        {songs?.map((song, idx) => (
           <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
             {isPlaying && currentSong.id === song.id ? (
               <div className='station-song-row__icon playing'>
