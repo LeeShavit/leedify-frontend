@@ -82,7 +82,6 @@ export function StationDetails() {
           </div>
         </div>
       </header>
-
       <div className='station-controls'>
         <div className='station-controls__left'>
           <button className='station-controls__play'>

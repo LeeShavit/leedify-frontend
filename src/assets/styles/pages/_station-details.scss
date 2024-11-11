@@ -49,8 +49,12 @@
   }
 
   &__title {
-    font-size: 6rem;
+    font-size: clamp(2rem, 6vw, 6rem);
     font-weight: 700;
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
     color: #fff;
     margin: 0;
   }
