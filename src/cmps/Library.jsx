@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowRightIcon, LibraryIcon, LibrarySearchIcon, ListIcon, PlusIcon } from '../assets/img/library/icons'
+import { ArrowRightIcon, LibraryIcon, LibraryIconFull, LibrarySearchIcon, ListIcon, PlusIcon } from '../assets/img/library/icons'
 import { stationService } from '../services/station/station.service.local'
 import { useNavigate } from 'react-router-dom'
 import { loadStations } from '../store/actions/station.actions'
@@ -12,7 +12,7 @@ export function Library() {
 
   const stations = useSelector((storeState) => storeState.stationModule.stations)
   const user = useSelector((storeState) => storeState.userModule.user)
-  
+
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -40,7 +40,7 @@ export function Library() {
       <div className='library-header'>
         <div className='library-header__top'>
           <button onClick={() => setIsExpanded(!isExpanded)} className='library-header__title-btn'>
-            <LibraryIcon className='library-icon' />
+            {isExpanded ? <LibraryIconFull className='library-icon' /> : <LibraryIcon className='library-icon' />}
             {isExpanded && 'Your Library'}
           </button>
           <div className='library-header__actions'>
@@ -90,7 +90,7 @@ export function Library() {
           <button className='library-item__image-button'>
             <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' alt='liked-songs' />
             <div className='library-item__image-overlay'>
-              <PlayIcon className='play-icon' /> 
+              <PlayIcon className='play-icon' />
             </div>
           </button>
           <div className='library-item__info'>
@@ -106,7 +106,7 @@ export function Library() {
             <button className='library-item__image-button'>
               <img src={station.imgUrl} alt={station.name} />
               <div className='library-item__image-overlay'>
-                <PlayIcon className='play-icon' /> 
+                <PlayIcon className='play-icon' />
               </div>
             </button>
             <div className='library-item__info'>
