@@ -20,9 +20,13 @@
     border-radius: 0.3rem;
     overflow: hidden;
     transition: background-color 0.3s ease;
-    height: 48px; // Fixed height
+    height: 48px;
     display: flex;
     align-items: center;
+
+    @media (min-width: 1024px) {
+      height: 64px;
+    }
 
     &:hover {
       background-color: rgba(60, 60, 60, 0.8);
@@ -38,6 +42,10 @@
     height: 48px;
     width: 48px;
     object-fit: cover;
+    @media (min-width: $breakpoint-xl) {
+      height: 64px;
+      width: 64px;
+    }
   }
 
   &__content {
