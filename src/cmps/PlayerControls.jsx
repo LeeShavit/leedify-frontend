@@ -145,7 +145,7 @@ export function PlayerControls({ playerRef, volume }) {
                     <span className="progress-time">
                         {playerRef.current && formatTime(currentTime) || '0:00'}
                     </span>
-                    <input type='range' min='0' max='100' value={(currentTime / playerRef.current.getDuration()) * 100} onChange={handleProgressClick} style={{ "--slider-value": `${(currentTime / playerRef.current.getDuration()) * 100}%` }}></input>
+                    <input type='range' min='0' max='100' value={(currentTime / playerRef.current?.getDuration()) * 100 || 0} onChange={handleProgressClick} style={{ "--slider-value": `${(currentTime / playerRef.current?.getDuration()) * 100 || 0}%` }}></input>
                     <span className="progress-time right">
                         {playerRef.current && formatTime(playerRef.current.getDuration() - currentTime) || '0:00'}
                     </span>
