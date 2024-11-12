@@ -133,7 +133,7 @@ function getEmptyStation() {
     name: 'New Playlist',
     description: '',
     tags: [],
-    imgUrl: 'https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large',
+    imgUrl: 'https://res.cloudinary.com/dtqfckufu/image/upload/c_crop,w_450,h_450,ar_1:1/v1731425735/empty_xye9w8.png',
     createdBy: {},
     likedByUsers: [],
     songs: [],
