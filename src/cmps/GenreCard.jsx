@@ -1,18 +1,11 @@
-import { useColorExtractor } from '../customHooks/useColorExtractor'
-
-export function GenreCard({ category }) {
-  const { backgroundColor, textColor } = useColorExtractor(category.icons[0].url)
-
+export function GenreCard({ category, onSelect }) {
   const cardStyle = {
-    background: backgroundColor ? `linear-gradient(to bottom right, ${backgroundColor}, rgba(0,0,0,0.8))` : '#282828',
-    color: textColor,
+    backgroundColor: category.backgroundColor || '#282828',
   }
 
   return (
-    <div className='genre-card' style={cardStyle}>
-      <span className='genre-card__name' style={{ color: textColor }}>
-        {category.name}
-      </span>
+    <div className='genre-card' style={cardStyle} onClick={onSelect}>
+      <span className='genre-card__name'>{category.name}</span>
       <img src={category.icons[0].url} alt={category.name} className='genre-card__image' />
     </div>
   )
