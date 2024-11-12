@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { loadStations } from '../store/actions/station.actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlayIcon } from 'lucide-react'
+import LibrarySortMenu from './LibrarySortMenu'
+import { Button } from '@mui/material'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
@@ -15,6 +17,9 @@ export function Library() {
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
+
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
 
   useEffect(() => {
     loadStations()
@@ -33,6 +38,13 @@ export function Library() {
 
   function onNavigateToStation(stationId) {
     navigate(`/station/${stationId}`)
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
   }
 
   return (
@@ -78,10 +90,26 @@ export function Library() {
           <button className='search-btn'>
             <LibrarySearchIcon className='search-icon' />
           </button>
-          <button className='sort-btn'>
+          <Button
+            className='sort-btn'
+            onClick={handleClick}
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif',  }}>
             Recently Added
-            <ListIcon className='list-icon' />
-          </button>
+            <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }}/>
+          </Button>
+          <LibrarySortMenu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+              
+            }}
+          />
         </div>
       </div>
 
