@@ -4,6 +4,7 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 const STORAGE_KEY_USERS = 'users'
 
 _createDemoUser()
+login({ username: 'guest' })
 
 export const userService = {
   login,
@@ -66,7 +67,8 @@ async function logout() {
 }
 
 function getLoggedinUser() {
-  return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+  const user= JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+  return user
 }
 
 function saveLoggedinUser(user) {
@@ -94,7 +96,7 @@ async function likeSong(songToLike) {
       ...songToLike,
       LikedAt: Date.now(),
     }
-    if (user.likedSongs.some((song) => song.id === songToLike.id)) return user.likedSongs
+    if (user.likedSongs.some((song) => song._id === songToLike._id)) return user.likedSongs
 
     user.likedSongs.push(songToLike)
     await storageService.put(STORAGE_KEY_USERS, user)
@@ -115,7 +117,7 @@ async function dislikeSong(songId) {
     const user = await getById(_id)
     if (!user) throw new Error(`User not found`)
 
-    const songIdx = user.likedSongs.findIndex((song) => song.id === songId)
+    const songIdx = user.likedSongs.findIndex((song) => song._id === songId)
     if (songIdx === -1) return user.likedSongs
 
     user.likedSongs.splice(songIdx, 1)
@@ -139,7 +141,7 @@ async function _createDemoUser() {
     imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
     likedSongs: [
       {
-        id: '4gMgiXfqyzZLMhsksGmbQV',
+        _id: '4gMgiXfqyzZLMhsksGmbQV',
         name: 'Another Brick in the Wall, Pt. 2',
         artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
         album: { name: 'The Wall', _id: '5Dbax7G8SWrP9xyzkOvy2F' },
@@ -150,7 +152,7 @@ async function _createDemoUser() {
         preview_url: 'https://p.scdn.co/mp3-preview/73d913b1a9cfa64fda1f7d04d7bb16345fa0aac4',
       },
       {
-        id: '5PycBIeabfvX3n9ILG7Vrv',
+        _id: '5PycBIeabfvX3n9ILG7Vrv',
         name: 'Propuesta Indecente',
         artists: [{ name: 'Romeo Santos', _id: '5lwmRuXgjX8xIwlnauTZIP' }],
         album: { name: 'Fórmula, Vol. 2 (Deluxe Edition)', _id: '17HsiXfqKUPoTP6Y5ebs1L' },
@@ -161,7 +163,7 @@ async function _createDemoUser() {
         preview_url: 'https://p.scdn.co/mp3-preview/517abecfde814f6ecb4459b4d2ff4c250ed80ec5',
       },
       {
-        id: '3TO7bbrUKrOSPGRTB5MeCz',
+        _id: '3TO7bbrUKrOSPGRTB5MeCz',
         name: 'Time',
         artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
         album: { name: 'The Dark Side of the Moon', _id: '4LH4d3cOWNNsVw41Gqt2kv' },
@@ -172,7 +174,7 @@ async function _createDemoUser() {
         preview_url: 'https://p.scdn.co/mp3-preview/af750f68023549d4744e677c0a25ddb26c8182a8',
       },
       {
-        id: '54zcJnb3tp9c5OVKREZ1Is',
+        _id: '54zcJnb3tp9c5OVKREZ1Is',
         name: 'MI EX TENÍA RAZÓN',
         artists: [{ name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' }],
         album: { name: 'MAÑANA SERÁ BONITO (BICHOTA SEASON)', _id: '0FqAaUEyKCyUNFE1uQPZ7i' },
@@ -188,5 +190,5 @@ async function _createDemoUser() {
   }
 
   const newUser = await storageService.post(STORAGE_KEY_USERS, user)
-  login({ username: newUser.username })
+  console.log(newUser)
 }

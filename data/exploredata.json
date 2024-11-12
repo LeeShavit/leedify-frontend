@@ -4,7 +4,7 @@
         "items": [
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAt0tbjZptfcdMSKl3",
-                "id": "0JQ5DAt0tbjZptfcdMSKl3",
+                "_id": "0JQ5DAt0tbjZptfcdMSKl3",
                 "icons": [
                     {
                         "height": 274,
@@ -16,7 +16,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFz6FAsUtgAab",
-                "id": "0JQ5DAqbMKFz6FAsUtgAab",
+                "_id": "0JQ5DAqbMKFz6FAsUtgAab",
                 "icons": [
                     {
                         "height": 274,
@@ -28,7 +28,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEC4WFtoNRpw",
-                "id": "0JQ5DAqbMKFEC4WFtoNRpw",
+                "_id": "0JQ5DAqbMKFEC4WFtoNRpw",
                 "icons": [
                     {
                         "height": 274,
@@ -40,7 +40,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQ00XGBls6ym",
-                "id": "0JQ5DAqbMKFQ00XGBls6ym",
+                "_id": "0JQ5DAqbMKFQ00XGBls6ym",
                 "icons": [
                     {
                         "height": 274,
@@ -52,7 +52,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDXXwE9BDJAr",
-                "id": "0JQ5DAqbMKFDXXwE9BDJAr",
+                "_id": "0JQ5DAqbMKFDXXwE9BDJAr",
                 "icons": [
                     {
                         "height": 274,
@@ -64,7 +64,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFxXaXKP7zcDp",
-                "id": "0JQ5DAqbMKFxXaXKP7zcDp",
+                "_id": "0JQ5DAqbMKFxXaXKP7zcDp",
                 "icons": [
                     {
                         "height": 274,
@@ -76,7 +76,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAudkNjCgYMM0TZXDw",
-                "id": "0JQ5DAudkNjCgYMM0TZXDw",
+                "_id": "0JQ5DAudkNjCgYMM0TZXDw",
                 "icons": [
                     {
                         "height": 274,
@@ -88,7 +88,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFHOzuVTgTizF",
-                "id": "0JQ5DAqbMKFHOzuVTgTizF",
+                "_id": "0JQ5DAqbMKFHOzuVTgTizF",
                 "icons": [
                     {
                         "height": 274,
@@ -100,7 +100,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFzHmL4tf05da",
-                "id": "0JQ5DAqbMKFzHmL4tf05da",
+                "_id": "0JQ5DAqbMKFzHmL4tf05da",
                 "icons": [
                     {
                         "height": 274,
@@ -112,7 +112,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCWjUTdzaG0e",
-                "id": "0JQ5DAqbMKFCWjUTdzaG0e",
+                "_id": "0JQ5DAqbMKFCWjUTdzaG0e",
                 "icons": [
                     {
                         "height": 274,
@@ -124,7 +124,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAXlCG6QvYQ4",
-                "id": "0JQ5DAqbMKFAXlCG6QvYQ4",
+                "_id": "0JQ5DAqbMKFAXlCG6QvYQ4",
                 "icons": [
                     {
                         "height": 274,
@@ -136,7 +136,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAtOnAEpjOgUKwXyxj",
-                "id": "0JQ5DAtOnAEpjOgUKwXyxj",
+                "_id": "0JQ5DAtOnAEpjOgUKwXyxj",
                 "icons": [
                     {
                         "height": 274,
@@ -148,7 +148,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFKLfwjuJMoNC",
-                "id": "0JQ5DAqbMKFKLfwjuJMoNC",
+                "_id": "0JQ5DAqbMKFKLfwjuJMoNC",
                 "icons": [
                     {
                         "height": 274,
@@ -160,7 +160,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEZPnFQSFB1T",
-                "id": "0JQ5DAqbMKFEZPnFQSFB1T",
+                "_id": "0JQ5DAqbMKFEZPnFQSFB1T",
                 "icons": [
                     {
                         "height": 274,
@@ -172,7 +172,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFGvOw3O4nLAf",
-                "id": "0JQ5DAqbMKFGvOw3O4nLAf",
+                "_id": "0JQ5DAqbMKFGvOw3O4nLAf",
                 "icons": [
                     {
                         "height": 274,
@@ -184,7 +184,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFzDl7qN9Apr",
-                "id": "0JQ5DAqbMKFFzDl7qN9Apr",
+                "_id": "0JQ5DAqbMKFFzDl7qN9Apr",
                 "icons": [
                     {
                         "height": 274,
@@ -196,7 +196,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCuoRTxhYWow",
-                "id": "0JQ5DAqbMKFCuoRTxhYWow",
+                "_id": "0JQ5DAqbMKFCuoRTxhYWow",
                 "icons": [
                     {
                         "height": 274,
@@ -208,7 +208,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFA6SOHvT3gck",
-                "id": "0JQ5DAqbMKFA6SOHvT3gck",
+                "_id": "0JQ5DAqbMKFA6SOHvT3gck",
                 "icons": [
                     {
                         "height": 274,
@@ -220,7 +220,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFx0uLQR2okcc",
-                "id": "0JQ5DAqbMKFx0uLQR2okcc",
+                "_id": "0JQ5DAqbMKFx0uLQR2okcc",
                 "icons": [
                     {
                         "height": 274,
@@ -232,7 +232,7 @@
             },
             {
                 "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFIVNxQgRNSg0",
-                "id": "0JQ5DAqbMKFIVNxQgRNSg0",
+                "_id": "0JQ5DAqbMKFIVNxQgRNSg0",
                 "icons": [
                     {
                         "height": 274,

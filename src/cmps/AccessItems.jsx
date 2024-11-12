@@ -18,37 +18,37 @@ const QuickAccessItem = ({ image, title }) => {
 export function QuickAccess() {
   const quickItems = [
     {
-      id: 1,
+      _id: 1,
       title: 'Romeo Santos',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
     {
-      id: 2,
+      _id: 2,
       title: 'Liked Songs',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
     {
-      id: 3,
+      _id: 3,
       title: 'best reggaeton',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
     {
-      id: 4,
+      _id: 4,
       title: 'Brega Funk',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
     {
-      id: 5,
+      _id: 5,
       title: 'Healing Sounds',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
     {
-      id: 6,
+      _id: 6,
       title: 'Salsa',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
     {
-      id: 7,
+      _id: 7,
       title: 'Body Healing Frequencies',
       image: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
     },
@@ -57,7 +57,7 @@ export function QuickAccess() {
   return (
     <div className='quick-access__grid'>
       {quickItems.map((item) => (
-        <QuickAccessItem key={item.id} image={item.image} title={item.title} />
+        <QuickAccessItem key={item._id} image={item.image} title={item.title} />
       ))}
     </div>
   )
