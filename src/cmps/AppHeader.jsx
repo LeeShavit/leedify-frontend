@@ -1,4 +1,4 @@
-import { BellIcon, ExploreIcon, HomeIcon, HomeIconFull, SearchIcon, SpotifyIcon } from '../assets/img/app-header/icons'
+import { BellIcon, ExploreIcon, ExploreIconFull, HomeIcon, HomeIconFull, SearchIcon, SpotifyIcon } from '../assets/img/app-header/icons'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 export function AppHeader() {
@@ -22,7 +22,7 @@ export function AppHeader() {
           </button>
           <input type='text' placeholder='What do you want to play?' className='app-header__search-input' />
           <button onClick={() => navigate('/search')} className='app-header__search__collection-button'>
-            <ExploreIcon className='text-[#b3b3b3] hover:text-white transition-colors' />
+            {(location.pathname === '/search')? <ExploreIconFull className='text-[#b3b3b3] hover:text-white transition-colors'/>:<ExploreIcon className='text-[#b3b3b3] hover:text-white transition-colors'/>}
           </button>
         </div>
       </div>

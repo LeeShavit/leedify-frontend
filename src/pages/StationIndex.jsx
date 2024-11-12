@@ -32,7 +32,7 @@ export function StationIndex() {
     station.vendor = prompt('Vendor?')
     try {
       const savedStation = await addStation(station)
-      showSuccessMsg(`Station added (id: ${savedStation._id})`)
+      showSuccessMsg(`Station added (_id: ${savedStation._id})`)
     } catch (err) {
       showErrorMsg('Cannot add station')
     }

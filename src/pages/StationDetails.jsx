@@ -72,7 +72,7 @@ export function StationDetails() {
 
   async function onLikeDislikeSong(song) {
     try {
-      const likedSongs = (!likedSongsIds.includes(song.id)) ? await likeSong(song) : await dislikeSong(song.id)
+      const likedSongs = (!likedSongsIds.includes(song._id)) ? await likeSong(song) : await dislikeSong(song._id)
       setLikedSongsIds(_getLikedSongsIds(likedSongs))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
@@ -127,8 +127,8 @@ export function StationDetails() {
 
       <div className='station-table-body'>
         {(stationId === 'liked-songs' ? user.likedSongs : station.songs).map((song, idx) => (
-          <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
-            {isPlaying && currentSong.id === song.id ? (
+          <div key={song._id} className={`station-song-row ${currentSong._id === song._id ? 'current-song' : ''}`}>
+            {isPlaying && currentSong._id === song._id ? (
               <div className='station-song-row__icon playing'>
                 <div className='bar'></div>
                 <div className='bar'></div>
@@ -139,11 +139,12 @@ export function StationDetails() {
               <div className='station-song-row__number'>{idx + 1}</div>
             )}
 
-            <div className='station-song-row__playPause' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
+            <div className='station-song-row__playPause' onClick={isPlaying && currentSong._id === song._id ? () => onPauseSong() : () => onPlaySong(song)}>
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
             <div className='station-song-row__title'>
-              <img src={song.imgUrl} alt={song.name} />
+              
+              <img src={song.imgUrl.length ? song.imgUrl[2].url : song.imgUrl} alt={song.name} />
               <div>
                 <div className='song-title'>{song.name}</div>
                 <div className='song-artist'>
@@ -159,16 +160,16 @@ export function StationDetails() {
             <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
             <div className='station-song-row__duration'>
               <button
-                className={`like-song ${likedSongsIds.includes(song.id) ? 'liked' : ''}`}
+                className={`like-song ${likedSongsIds.includes(song._id) ? 'liked' : ''}`}
                 onClick={() => onLikeDislikeSong(song)}
               >
-                {likedSongsIds.includes(song.id) ? <Liked /> : <Like />}
+                {likedSongsIds.includes(song._id) ? <Liked /> : <Like />}
               </button>
               <div>{_formatDuration(song.duration)}</div>
             </div>
           </div>
         ))}
-        {station.songs.length === 0 && <AddSong onAddSong={onAddSong} />}
+        {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}
       </div>
       <EditStationModal
         station={station}
@@ -188,5 +189,5 @@ function _formatDuration(ms) {
 }
 
 function _getLikedSongsIds(songs) {
-  return songs.map(likedSong => likedSong.id)
+  return songs.map(likedSong => likedSong._id)
 }

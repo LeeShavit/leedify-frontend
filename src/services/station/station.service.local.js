@@ -1,4 +1,5 @@
 import { storageService } from '../async-storage.service'
+import { ApiService } from '../api.service'
 import { userService } from '../user'
 import { makeId, saveToStorage } from '../util.service'
 
@@ -14,8 +15,7 @@ export const stationService = {
   addSongToStation,
   removeSongFromStation,
   getCurrentSong,
-  getSongs,
-  getSong,
+  getSearchResSong,
   getLikedSongsStation,
 }
 
@@ -81,7 +81,7 @@ async function addSongToStation(stationId, song) {
     const station = await getById(stationId)
     if (!station) throw new Error(`Station ${stationId} not found`)
 
-    const songExists = station.songs.some((s) => s.id === song.id)
+    const songExists = station.songs.some((s) => s._id === song._id)
     if (songExists) return station
 
     const songToAdd = {
@@ -102,7 +102,7 @@ async function removeSongFromStation(stationId, songId) {
     const station = await getById(stationId)
     if (!station) throw new Error(`Station ${stationId} not found`)
 
-    const songIdx = station.songs.findIndex((song) => song.id === songId)
+    const songIdx = station.songs.findIndex((song) => song._id === songId)
     if (songIdx === -1) return station
 
     station.songs.splice(songIdx, 1)
@@ -120,7 +120,7 @@ async function getLikedSongsStation() {
       name: 'Liked Songs',
       description: '',
       imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
-      createdBy: { fullname: user.name, id: user._id },
+      createdBy: { fullname: user.name, _id: user._id },
       songs: [...user.likedSongs].sort((a, b) => a.AddedAt - b.AddedAt),
     }
   } catch (err) {
@@ -159,7 +159,7 @@ function _createDemoData() {
       likedByUsers: [],
       songs: [
         {
-          id: '4gMgiXfqyzZLMhsksGmbQV',
+          _id: '4gMgiXfqyzZLMhsksGmbQV',
           name: 'Another Brick in the Wall, Pt. 2',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'The Wall', _id: '5Dbax7G8SWrP9xyzkOvy2F' },
@@ -170,7 +170,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/73d913b1a9cfa64fda1f7d04d7bb16345fa0aac4',
         },
         {
-          id: '6mFkJmJqdDVQ1REhVfGgd1',
+          _id: '6mFkJmJqdDVQ1REhVfGgd1',
           name: 'Wish You Were Here',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'Wish You Were Here', _id: '0bCAjiUamIFqKJsekOYuRw' },
@@ -181,7 +181,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/e3d046771206da9115d0a619ede2210b610dc9f0',
         },
         {
-          id: '5HNCy40Ni5BZJFw1TKzRsC',
+          _id: '5HNCy40Ni5BZJFw1TKzRsC',
           name: 'Comfortably Numb',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'The Wall', _id: '5Dbax7G8SWrP9xyzkOvy2F' },
@@ -192,7 +192,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/ac032e24ed332f7d57306ca32aead2daf5ee1be4',
         },
         {
-          id: '0vFOzaXqZHahrZp6enQwQb',
+          _id: '0vFOzaXqZHahrZp6enQwQb',
           name: 'Money',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'The Dark Side of the Moon', _id: '4LH4d3cOWNNsVw41Gqt2kv' },
@@ -203,7 +203,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/103d8d96e99d937f45e01432cfe8f8c3a990c572',
         },
         {
-          id: '3TO7bbrUKrOSPGRTB5MeCz',
+          _id: '3TO7bbrUKrOSPGRTB5MeCz',
           name: 'Time',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'The Dark Side of the Moon', _id: '4LH4d3cOWNNsVw41Gqt2kv' },
@@ -214,7 +214,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/af750f68023549d4744e677c0a25ddb26c8182a8',
         },
         {
-          id: '6pnwfWyaWjQiHCKTiZLItr',
+          _id: '6pnwfWyaWjQiHCKTiZLItr',
           name: 'Shine On You Crazy Diamond (Pts. 1-5)',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'Wish You Were Here', _id: '0bCAjiUamIFqKJsekOYuRw' },
@@ -225,7 +225,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/76993b34a8a399ac28677e5a9ec2c4f06c9e0869',
         },
         {
-          id: '2ctvdKmETyOzPb2GiJJT53',
+          _id: '2ctvdKmETyOzPb2GiJJT53',
           name: 'Breathe (In the Air)',
           artists: [{ name: 'Pink Floyd', _id: '0k17h0D3J5VfsdmQ1iZtE9' }],
           album: { name: 'The Dark Side of the Moon', _id: '4LH4d3cOWNNsVw41Gqt2kv' },
@@ -251,7 +251,7 @@ function _createDemoData() {
       likedByUsers: [],
       songs: [
         {
-          id: '54zcJnb3tp9c5OVKREZ1Is',
+          _id: '54zcJnb3tp9c5OVKREZ1Is',
           name: 'MI EX TENÍA RAZÓN',
           artists: [{ name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' }],
           album: { name: 'MAÑANA SERÁ BONITO (BICHOTA SEASON)', _id: '0FqAaUEyKCyUNFE1uQPZ7i' },
@@ -262,7 +262,7 @@ function _createDemoData() {
           preview_url: null,
         },
         {
-          id: '5PycBIeabfvX3n9ILG7Vrv',
+          _id: '5PycBIeabfvX3n9ILG7Vrv',
           name: 'Propuesta Indecente',
           artists: [{ name: 'Romeo Santos', _id: '5lwmRuXgjX8xIwlnauTZIP' }],
           album: { name: 'Fórmula, Vol. 2 (Deluxe Edition)', _id: '17HsiXfqKUPoTP6Y5ebs1L' },
@@ -273,7 +273,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/517abecfde814f6ecb4459b4d2ff4c250ed80ec5',
         },
         {
-          id: '5RqSsdzTNPX1uzkmlHCFvK',
+          _id: '5RqSsdzTNPX1uzkmlHCFvK',
           name: 'QLONA',
           artists: [
             { name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' },
@@ -286,7 +286,7 @@ function _createDemoData() {
           uri: 'spotify:track:5RqSsdzTNPX1uzkmlHCFvK',
         },
         {
-          id: '0DWdj2oZMBFSzRsi2Cvfzf',
+          _id: '0DWdj2oZMBFSzRsi2Cvfzf',
           name: 'TQG',
           artists: [
             { name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' },
@@ -299,7 +299,7 @@ function _createDemoData() {
           uri: 'spotify:track:0DWdj2oZMBFSzRsi2Cvfzf',
         },
         {
-          id: '7FlQk2gJ6TBrHHiidvdR2O',
+          _id: '7FlQk2gJ6TBrHHiidvdR2O',
           name: 'MAMIII',
           artists: [
             { name: 'Becky G', _id: '4obzFoKoKRHIphyHzJ35G3' },
@@ -313,7 +313,7 @@ function _createDemoData() {
           preview_url: 'https://p.scdn.co/mp3-preview/0a699c30d354c4cb36439d03522e65b377ac0fd8',
         },
         {
-          id: '4NoOME4Dhf4xgxbHDT7VGe',
+          _id: '4NoOME4Dhf4xgxbHDT7VGe',
           name: 'X SI VOLVEMOS',
           artists: [
             { name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' },
@@ -326,7 +326,7 @@ function _createDemoData() {
           uri: 'spotify:track:4NoOME4Dhf4xgxbHDT7VGe',
         },
         {
-          id: '3HqcNJdZ2seoGxhn0wVNDK',
+          _id: '3HqcNJdZ2seoGxhn0wVNDK',
           name: 'PROVENZA',
           artists: [{ name: 'KAROL G', _id: '790FomKkXshlbRYZFtlgla' }],
           album: { name: 'MAÑANA SERÁ BONITO', _id: '4kS7bSuU0Jm9LYMosFU2x5' },
@@ -357,7 +357,7 @@ function _createDemoSong() {
   if (currentSong) return
 
   currentSong = {
-    id: '2L9N0zZnd37dwF0clgxMGI',
+    _id: '2L9N0zZnd37dwF0clgxMGI',
     name: 'ceilings',
     artists: [
       {
@@ -385,7 +385,7 @@ function _createDemoSongs() {
 
   demoSongs = [
     {
-      id: '2PSo26j5LkdGu18mYM2ZdT',
+      _id: '2PSo26j5LkdGu18mYM2ZdT',
       name: "What's Going On",
       artists: [
         {
@@ -404,7 +404,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '6fGTwrORSxE6rmX9OzQNbN',
+      _id: '6fGTwrORSxE6rmX9OzQNbN',
       name: 'Blister On The Moon',
       artists: [
         {
@@ -423,7 +423,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '71ZgxJIApKmssV44AD1Zva',
+      _id: '71ZgxJIApKmssV44AD1Zva',
       name: 'A Taste Of Honey',
       artists: [
         {
@@ -442,7 +442,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '0T7D44xh8oCPLYDfi8HIo7',
+      _id: '0T7D44xh8oCPLYDfi8HIo7',
       name: 'Railway And Gun',
       artists: [
         {
@@ -461,7 +461,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '2pZdwyEyT6o1hZoKZJj2wp',
+      _id: '2pZdwyEyT6o1hZoKZJj2wp',
       name: 'If The Day Was Any Longer',
       artists: [
         {
@@ -480,7 +480,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '5I46WStI64aYqzmT4ZtK6m',
+      _id: '5I46WStI64aYqzmT4ZtK6m',
       name: "I'm Moving On",
       artists: [
         {
@@ -499,7 +499,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '3eaT8cDhFb7ng9nbDSFX8R',
+      _id: '3eaT8cDhFb7ng9nbDSFX8R',
       name: 'Same Old Story',
       artists: [
         {
@@ -518,7 +518,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '07NrCEN3egNvw8td2LxqJO',
+      _id: '07NrCEN3egNvw8td2LxqJO',
       name: 'Boogie Oogie Oogie - Remastered 2004',
       artists: [
         {
@@ -537,7 +537,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '6xqLmU9xdVcK7q4O7ccjLB',
+      _id: '6xqLmU9xdVcK7q4O7ccjLB',
       name: 'Sweet Lady - Bonus Track',
       artists: [
         {
@@ -560,7 +560,7 @@ function _createDemoSongs() {
       addedAt: 1699574400000,
     },
     {
-      id: '5zZ3ObobIeeHCsoCW8WctN',
+      _id: '5zZ3ObobIeeHCsoCW8WctN',
       name: 'Those Shoes - Bonus Track',
       artists: [
         {
@@ -590,7 +590,7 @@ function getSongs(idx) {
   return JSON.parse(localStorage.getItem('demo-songs'))
 }
 
-function getSong(songId) {
-  let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
-  return demoSongs.find((song) => song.id === songId)
+async function getSearchResSong(txt) {
+  const res= await ApiService.getSpotifyItems({ type: 'songSearch', query: txt, market: 'US' }) 
+  return res.songs
 }
