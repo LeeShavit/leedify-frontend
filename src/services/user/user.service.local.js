@@ -85,8 +85,11 @@ function saveLoggedinUser(user) {
 
 async function likeSong(songToLike) {
     try {
-        const user = getLoggedinUser()
-        if (!user) throw new Error(`User not loggedIn found`)
+        const {_id} = getLoggedinUser()
+        if (!_id) throw new Error(`User not loggedIn found`)
+        
+        const user= await getById(_id)
+        if (!user) throw new Error(`User not found`)
 
         songToLike = {
             ...songToLike,
@@ -96,6 +99,8 @@ async function likeSong(songToLike) {
 
         user.likedSongs.push(songToLike)
         await storageService.put(STORAGE_KEY_USERS, user)
+        saveLoggedinUser(user)
+
         return user.likedSongs
     } catch (err) {
         console.error("user service - couldn't add song from liked songs", err)
@@ -104,9 +109,11 @@ async function likeSong(songToLike) {
 }
 
 async function dislikeSong(songId) {
-    try {
-        const user = await getById(getLoggedinUser()._id)
+    try {  
+        const {_id} = getLoggedinUser()
+        if (!_id) throw new Error(`User not loggedIn found`)
 
+        const user = await getById(_id)
         if (!user) throw new Error(`User not found`)
 
         const songIdx = user.likedSongs.findIndex((song) => song.id === songId)
@@ -114,6 +121,7 @@ async function dislikeSong(songId) {
 
         user.likedSongs.splice(songIdx, 1)
         await storageService.put(STORAGE_KEY_USERS, user)
+        saveLoggedinUser(user)
         return user.likedSongs
     } catch (err) {
         console.error("user service - couldn't remove song from liked songs", err)
