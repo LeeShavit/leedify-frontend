@@ -4,6 +4,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     margin-bottom: 2rem;
+    padding: 0px 8px;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, 1fr);
@@ -16,7 +17,7 @@
 
   &__item {
     position: relative;
-    background-color: rgba(40, 40, 40, 0.8);
+    background-color: rgba(255, 255, 255, 0.07);
     border-radius: 0.3rem;
     overflow: hidden;
     transition: background-color 0.3s ease;
@@ -29,7 +30,7 @@
     }
 
     &:hover {
-      background-color: rgba(60, 60, 60, 0.8);
+      background-color: rgba(255, 255, 255, 0.1);
 
       .quick-access__play {
         opacity: 1;

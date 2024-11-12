@@ -1,12 +1,26 @@
 .home-page {
-  background-color: $background-dark;
+  position: relative;
+  min-height: 100%;
   color: $text-primary;
   padding: 0.5rem;
   border-radius: 8px;
+  background: linear-gradient(180deg, #5028f0 -30%, #121212 40%);
+  color: $text-primary;
+  border-radius: 8px;
 
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 232px;
+    background: linear-gradient(rgba(18, 18, 18, 0.3) 0%, transparent 100%);
+    pointer-events: none;
+  }
   &__grid {
     display: grid;
-
+    position: relative;
     @media (min-width: $mobile-breakpoint) {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -25,6 +39,7 @@
   &__quick-access {
     display: grid;
     gap: 0.6rem;
+    position: relative;
     margin-bottom: 2rem;
 
     @media (min-width: $mobile-breakpoint) {
@@ -45,5 +60,6 @@
 
   &__section {
     margin-bottom: 2rem;
+    position: relative;
   }
 }

@@ -2,7 +2,6 @@ import { BellIcon, ExploreIcon, HomeIcon, HomeIconFull, SearchIcon, SpotifyIcon 
 import { useNavigate, useLocation } from 'react-router-dom'
 
 export function AppHeader() {
-
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -14,7 +13,7 @@ export function AppHeader() {
 
       <div className='app-header__center'>
         <button onClick={() => navigate('/')} className='app-header__nav-button app-header__nav-button--home'>
-          {(location.pathname === '/')? <HomeIconFull/>:<HomeIcon/>}
+          {location.pathname === '/' ? <HomeIconFull /> : <HomeIcon />}
         </button>
         <div className='app-header__search'>
           <button className='app-header__search-icon'>

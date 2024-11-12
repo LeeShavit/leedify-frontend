@@ -1,32 +1,57 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { loadStation, setPlayingSong, setIsPlaying, addSongToStation, loadLikedSongsStation } from '../store/actions/station.actions'
+import {
+  loadStation,
+  setPlayingSong,
+  setIsPlaying,
+  addSongToStation,
+  loadLikedSongsStation,
+  updateStation,
+} from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
+import { Library } from 'lucide-react'
+import { FastAverageColor } from 'fast-average-color'
 
 export function StationDetails() {
+  const navigate = useNavigate()
+  const fileInputRef = useRef(null)
   const { stationId } = useParams()
+
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
-
-  const user = useSelector(state => state.userModule.user)
-  const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
-
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
-  const fileInputRef = useRef(null)
-  const navigate = useNavigate()
+  const user = useSelector((state) => state.userModule.user)
+
+  const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)')
+  const fac = new FastAverageColor()
+
+  useEffect(() => {
+    if (!station?.imgUrl) return
+
+    fac
+      .getColorAsync(station.imgUrl)
+      .then((color) => {
+        setBackgroundColor(`rgb(${color.value[0]}, ${color.value[1]}, ${color.value[2]})`)
+      })
+      .catch((err) => {
+        console.log('Error getting average color:', err)
+        setBackgroundColor('rgb(18, 18, 18)') // fallback color
+      })
+  }, [station?.imgUrl])
 
   useEffect(() => {
     if (stationId === 'liked-songs') {
-      loadLikedSongsStation().catch(err => navigate('/'))
+      loadLikedSongsStation().catch((err) => navigate('/'))
       return
     }
-    loadStation(stationId).catch(err => navigate('/'))
+    loadStation(stationId).catch((err) => navigate('/'))
   }, [stationId])
 
   function handlePhotoClick() {
@@ -72,7 +97,7 @@ export function StationDetails() {
 
   async function onLikeDislikeSong(song) {
     try {
-      const likedSongs = (!likedSongsIds.includes(song.id)) ? await likeSong(song) : await dislikeSong(song.id)
+      const likedSongs = !likedSongsIds.includes(song.id) ? await likeSong(song) : await dislikeSong(song.id)
       setLikedSongsIds(_getLikedSongsIds(likedSongs))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
@@ -82,7 +107,17 @@ export function StationDetails() {
   if (!station) return <div>Loading...</div>
 
   return (
-    <div className='station-page'>
+    <div
+      className='station-page'
+      style={{
+        background: `linear-gradient(180deg, 
+          ${backgroundColor} 0%,
+          rgba(18, 18, 18, 0.95) 45%,
+          rgba(18, 18, 18, 1) 100%
+        )`,
+      }}
+    >
+      {' '}
       <header className='station-header'>
         <div className='station-header__cover' onClick={handlePhotoClick} style={{ cursor: 'pointer' }}>
           <img src={station.imgUrl} alt={station.name} className='station-header__cover-img' />
@@ -112,9 +147,8 @@ export function StationDetails() {
           <button className='station-controls__list'>List</button>
         </div>
       </div>
-
-      {station.songs.length
-        ? <div className='station-table-header'>
+      {station.songs.length ? (
+        <div className='station-table-header'>
           <div className='station-table-header__number'>#</div>
           <div className='station-table-header__title'>Title</div>
           <div className='station-table-header__album'>Album</div>
@@ -123,8 +157,9 @@ export function StationDetails() {
             <Time />
           </div>
         </div>
-        : ''}
-
+      ) : (
+        ''
+      )}
       <div className='station-table-body'>
         {(stationId === 'liked-songs' ? user.likedSongs : station.songs).map((song, idx) => (
           <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
@@ -139,7 +174,10 @@ export function StationDetails() {
               <div className='station-song-row__number'>{idx + 1}</div>
             )}
 
-            <div className='station-song-row__playPause' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
+            <div
+              className='station-song-row__playPause'
+              onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}
+            >
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
             <div className='station-song-row__title'>
@@ -188,5 +226,5 @@ function _formatDuration(ms) {
 }
 
 function _getLikedSongsIds(songs) {
-  return songs.map(likedSong => likedSong.id)
+  return songs.map((likedSong) => likedSong.id)
 }
