@@ -59,7 +59,7 @@ export function StationDetails() {
   }
 
   function onPlaySong(song) {
-    if(currentSong._id !== song.Id) setPlayingSong(song)
+    if (currentSong._id !== song.Id) setPlayingSong(song)
     setIsPlaying(true)
   }
 
@@ -97,7 +97,11 @@ export function StationDetails() {
           <span className='station-header__description'>{station.description}</span>
           <div className='station-header__meta'>
             <span className='station-header__owner'>{station.createdBy.fullname}</span>
-            <span className='station-header__songs-count'>{station.songs?.length || 0} songs</span>
+            <span className='station-header__songs-count'>
+              {!station.songs?.length
+                ? 'No songs yet'
+                : `${station.songs.length} ${station.songs.length === 1 ? 'song' : 'songs'}`
+              }</span>
           </div>
         </div>
       </header>

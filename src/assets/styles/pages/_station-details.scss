@@ -36,6 +36,9 @@
     &__info {
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
     }
 
     &__type {
@@ -194,6 +197,10 @@
 
     &__duration {
       justify-content: flex-end;
+
+      svg{
+        margin-inline-end: 6px;
+      }
     }
   }
 
@@ -307,6 +314,7 @@
       text-overflow: ellipsis;
       font-weight: $font-book;
       color: $text-secondary;
+      padding-inline-end: 1rem;
     }
 
     &__date {

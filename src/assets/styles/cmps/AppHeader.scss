@@ -1,6 +1,6 @@
 .app-header {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 1rem;
 
@@ -20,11 +20,12 @@
   }
 
   &__center {
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
   }
@@ -44,7 +45,6 @@
       margin: 0;
 
       &:hover {
-        background-color: #2a2a2a;
         transform: scale(1.04);
       }
 
@@ -126,6 +126,7 @@
   }
 
   &__controls {
+    justify-self: end;
     display: flex;
     align-items: center;
     gap: 0.5rem;
