@@ -19,16 +19,10 @@ export function Player() {
 
     }
 
-    function handleVolumeClick (event){
+    function handleVolumeClick ({target}){
             if (!playerRef.current) return
-            
-            const volumeBar = event.currentTarget
-            const rect = volumeBar.getBoundingClientRect()
-            const pos = (event.clientX - rect.left) / rect.width
-            const newVolume = Math.round(pos * 100)
-            
-            setVolume(newVolume)
-            playerRef.current.setVolume(newVolume)
+            setVolume(target.value)
+            playerRef.current.setVolume(target.value)
       }
 
     return (
@@ -65,19 +59,7 @@ export function Player() {
                     <button>
                         <VolumeIcon volume={volume}/>
                     </button>
-                    <div
-                        className="volume-slider"
-                        onClick={handleVolumeClick}
-                    >
-                        <div
-                            className="volume-slider-fill"
-                            style={{ width: `${volume}%` }}
-                        />
-                        <div
-                            className="volume-slider-btn"
-                            style={{ left: `${volume}%` }}
-                        />
-                    </div>
+                    <input type='range' min='0' max='100' value={volume} onChange={handleVolumeClick} style={{ "--slider-value": `${volume}%` }}></input>
                 </div>
                 <button>
                 <OpenMiniplayer/>

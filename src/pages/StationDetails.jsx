@@ -7,6 +7,7 @@ import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
+import { getRelativeTime, getItemsIds, formatDuration } from '../services/util.service'
 
 export function StationDetails() {
   const { stationId } = useParams()
@@ -14,7 +15,7 @@ export function StationDetails() {
   const currentSong = useSelector((state) => state.stationModule.currentSong)
 
   const user = useSelector(state => state.userModule.user)
-  const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
+  const [likedSongsIds, setLikedSongsIds] = useState(getItemsIds(user.likedSongs))
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
@@ -58,7 +59,7 @@ export function StationDetails() {
   }
 
   function onPlaySong(song) {
-    setPlayingSong(song)
+    if(currentSong._id !== song.Id) setPlayingSong(song)
     setIsPlaying(true)
   }
 
@@ -73,7 +74,7 @@ export function StationDetails() {
   async function onLikeDislikeSong(song) {
     try {
       const likedSongs = (!likedSongsIds.includes(song._id)) ? await likeSong(song) : await dislikeSong(song._id)
-      setLikedSongsIds(_getLikedSongsIds(likedSongs))
+      setLikedSongsIds(getItemsIds(likedSongs))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
     }
@@ -143,8 +144,8 @@ export function StationDetails() {
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
             <div className='station-song-row__title'>
-              
-              <img src={song.imgUrl.length ? song.imgUrl[2].url : song.imgUrl} alt={song.name} />
+              {console.log(song.imgUrl)}
+              <img src={(typeof song.imgUrl === 'string') ? song.imgUrl : song.imgUrl[2].url} alt={song.name} />
               <div>
                 <div className='song-title'>{song.name}</div>
                 <div className='song-artist'>
@@ -157,7 +158,7 @@ export function StationDetails() {
               </div>
             </div>
             <div className='station-song-row__album'>{song.album.name}</div>
-            <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
+            <div className='station-song-row__date'>{getRelativeTime(song.addedAt)}</div>
             <div className='station-song-row__duration'>
               <button
                 className={`like-song ${likedSongsIds.includes(song._id) ? 'liked' : ''}`}
@@ -165,7 +166,7 @@ export function StationDetails() {
               >
                 {likedSongsIds.includes(song._id) ? <Liked /> : <Like />}
               </button>
-              <div>{_formatDuration(song.duration)}</div>
+              <div>{formatDuration(song.duration)}</div>
             </div>
           </div>
         ))}
@@ -180,14 +181,4 @@ export function StationDetails() {
       />
     </div>
   )
-}
-
-function _formatDuration(ms) {
-  const minutes = Math.floor(ms / 60000)
-  const seconds = ((ms % 60000) / 1000).toFixed(0)
-  return `${minutes}:${seconds.padStart(2, '0')}`
-}
-
-function _getLikedSongsIds(songs) {
-  return songs.map(likedSong => likedSong._id)
 }
