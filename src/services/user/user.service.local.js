@@ -6,7 +6,6 @@ const STORAGE_KEY_USERS = 'users'
 _createDemoUser()
 
 export const userService = {
-    getLikedSongsIds,
     login,
     logout,
     signup,
@@ -127,11 +126,6 @@ async function dislikeSong(songId) {
         console.error("user service - couldn't remove song from liked songs", err)
         throw err
     }
-}
-
-function getLikedSongsIds() {
-    const user = getLoggedinUser()
-    return user.likedSongs.map(likedSong => likedSong.id)
 }
 
 async function _createDemoUser() {
