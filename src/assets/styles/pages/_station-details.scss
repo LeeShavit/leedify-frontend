@@ -83,6 +83,7 @@
       flex-grow: 1;
       display: block;
     }
+
     @media (max-width: $breakpoint-md) {
       .station-header {
         &__title {
@@ -229,6 +230,7 @@
       display: flex;
       align-items: center;
     }
+
     &__date {
       @media (max-width: $breakpoint-xl) {
         display: none;
@@ -286,6 +288,10 @@
 
       .like-song {
         opacity: 1;
+      }
+
+      .list-icon {
+        display: block;
       }
     }
 
@@ -359,6 +365,7 @@
     &__date {
       white-space: nowrap;
       color: $text-secondary;
+
       @media (max-width: $breakpoint-xl) {
         display: none;
       }
@@ -367,7 +374,8 @@
     &__duration {
       display: flex;
       text-align: right;
-      justify-content: space-between;
+      justify-content: flex-end;
+      gap: 1rem;
       align-items: center;
       color: $text-secondary;
 
@@ -396,6 +404,7 @@
           color: $text-primary;
         }
       }
+
     }
 
     &__playPause {
@@ -403,6 +412,18 @@
 
       img {
         filter: brightness(0) invert(1);
+      }
+    }
+
+    .list-icon {
+      display: none;
+      position: absolute;
+      right: -35px;
+      color: $text-secondary;
+
+      &:hover{
+        transform: scale(1.04);
+        color: $text-primary;
       }
     }
   }

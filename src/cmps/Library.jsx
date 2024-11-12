@@ -96,19 +96,16 @@ export function Library() {
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
-            sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif',  }}>
+            sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif'}}>
             Recently Added
-            <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }}/>
+            <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} />
           </Button>
           <LibrarySortMenu
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button',
-              
-            }}
+            MenuListProps={{ 'aria-labelledby': 'basic-button',}}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 // LibrarySortMenu.scss
 
-.library-sort-menu {
+.menu {
     font-family: Spotify-mix, sans-serif;
 
     .MuiPaper-root {
@@ -8,18 +8,33 @@
         color: #fff;
         border-radius: 4px;
         box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
-        padding: 4px 0;
-        min-width: 196px;
-
+        padding: 4px;
+        align-items: center;
     }
 
     // Menu items
     .MuiMenuItem-root {
-        font-size: 14px;
-        padding: 12px 8px 6px 36px;
-        color: $text-secondary;
+        font-size: 0.875rem;
+        padding: 12px 8px 12px 12px;
+        color: hsla(0, 0%, 100%, .9);
         font-family: Spotify-mix, sans-serif;
+        width: 100%;
 
+        align-items: center;
+        gap: 10px;
+
+        & .nested-menu {
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            gap: 10px;
+
+            &-end{
+                place-items: end;
+            }
+        }
 
         // Hover state
         &:hover {
@@ -32,6 +47,9 @@
             font-family: Spotify-mix, sans-serif;
             font-size: 14px;
             color: $primary-color;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
 
             .MuiListItemIcon-root {
                 color: $primary-color;
@@ -40,7 +58,7 @@
         }
     }
 
-    .MuiTypography-root{
+    .MuiTypography-root {
         font-family: Spotify-mix, sans-serif;
         font-size: 14px;
 
@@ -49,9 +67,9 @@
 
     // Section headers
     .menu-section-header {
-
-        padding: 12px 8px 12px 16px;
-        color: $text-primary;
+        font-size: 0.6875rem;
+        padding: 12px 8px 12px 12px;
+        color: hsla(0, 0%, 100%, .7);
 
         &:hover {
             background-color: transparent;

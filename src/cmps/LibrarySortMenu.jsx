@@ -18,12 +18,12 @@ export default function LibrarySortMenu({ onClose, ...props}) {
     <Menu 
       {...props} 
       onClose={onClose}
-      className="library-sort-menu"
+      className="menu"
     >
       <MenuItem className="menu-section-header">
         Sort by
       </MenuItem>
-      <MenuItem>
+        <MenuItem>
         Recents
       </MenuItem>
       <MenuItem className="selected">
@@ -31,29 +31,29 @@ export default function LibrarySortMenu({ onClose, ...props}) {
         <ListItemIcon>
           <Check />
         </ListItemIcon>
-      </MenuItem>
-      <MenuItem>
+        </MenuItem>
+        <MenuItem>
         Alphabetical
-      </MenuItem>
-      <MenuItem>
+        </MenuItem>
+        <MenuItem>
         Creator
       </MenuItem>
       <Divider />
       <MenuItem className="menu-section-header">
         View as
-      </MenuItem>
-      <MenuItem>
+        </MenuItem>
+        <MenuItem>
         Compact
       </MenuItem>
       <MenuItem className="selected">
         <ListItemText>List</ListItemText>
-        <ListItemIcon>
-          <Check />
-        </ListItemIcon>
-      </MenuItem>
-      <MenuItem>
+          <ListItemIcon>
+            <Check />
+          </ListItemIcon>
+        </MenuItem>
+        <MenuItem>
         Grid
-      </MenuItem>
+        </MenuItem>
     </Menu>
   );
 }
