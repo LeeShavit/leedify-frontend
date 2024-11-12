@@ -399,7 +399,6 @@ async function getStationsForHome(market) {
   return filteredResults
 }
 
-// cleans descriptions from <a> tags
 function _cleanDescriptions(arr) {
   arr.forEach((item) => {
     if (Array.isArray(item)) _cleanDescriptions(item)

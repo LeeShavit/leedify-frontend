@@ -25,6 +25,7 @@ export function showUserMsg(msg) {
 export function showSuccessMsg(txt) {
     showUserMsg({txt, type: 'success'})
 }
+
 export function showErrorMsg(txt) {
     showUserMsg({txt, type: 'error'})
 }

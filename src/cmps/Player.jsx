@@ -3,6 +3,7 @@ import {  useEffect, useRef , useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PlayerControls } from './PlayerControls.jsx'
+import { ConnectToDevice, FullScreen, LikeIconLike, Lyrics, NowPlayingView, OpenMiniplayer, QueueIcon, VolumeHigh, VolumeLow, VolumeMid, VolumeMute } from '../assets/img/player/icons.jsx'
 
 
 export function Player() {
@@ -42,27 +43,27 @@ export function Player() {
                         {currentSong.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}</p>
                 </div>
                 <button onClick={() => onAddToLikedSongs(currentSong._id)}>
-                    <img src="/src/assets/img/like-icon-like-icon.svg" alt="" />
+                    <LikeIconLike/>
                 </button>
             </div>
             <PlayerControls playerRef={playerRef} volume={volume}/>
             <div className='player-buttons'>
                 <button>
-                <img src='/src/assets/img/now-playing-view-icon.svg' alt='now-playing'/>
+                <NowPlayingView/>
                 </button>
                 <button>
-                <img src='/src/assets/img/lyrics-icon.svg' alt='lyrics'/>
+                <Lyrics/>
                 </button>
                 <button>                
-                    <img src='/src/assets/img/queue-icon.svg' alt='queue'/>
+                 <QueueIcon/>
                 </button>
                 <button>
-                <img src='/src/assets/img/connect-to-device-icon.svg' alt='connect'/>
+                <ConnectToDevice/>
                 </button>
                 {/* Volume */}
                 <div className="volume">
                     <button>
-                        <img src='/src/assets/img/volume-mid-icon.svg' alt='Volume'/>
+                        <VolumeIcon volume={volume}/>
                     </button>
                     <div
                         className="volume-slider"
@@ -79,12 +80,19 @@ export function Player() {
                     </div>
                 </div>
                 <button>
-                <img src="/src/assets/img/open-miniplayer-icon.svg"/>
+                <OpenMiniplayer/>
                 </button>
                 <button>
-                    <img src="/src/assets/img/full-screen-icon.svg"/>
+                    <FullScreen/>
                 </button>
             </div>
         </section>
     )
+}
+
+function VolumeIcon({volume}){
+    if(volume > 65) return <VolumeHigh/>
+    if(volume > 33) return <VolumeMid/>
+    if(volume > 0) return <VolumeLow/>
+    return <VolumeMute/>
 }

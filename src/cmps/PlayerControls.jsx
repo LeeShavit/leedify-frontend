@@ -4,6 +4,7 @@ import { setIsPlaying } from '../store/actions/station.actions'
 
 import YouTube from 'react-youtube'
 import { ApiService } from '../services/api.service.js'
+import { NextSong, PauseIcon, PlayIcon, PrevSong, Repeat, Shuffle } from '../assets/img/player/icons.jsx'
 
 export function PlayerControls({ playerRef, volume }) {
 
@@ -126,21 +127,21 @@ export function PlayerControls({ playerRef, volume }) {
             <div className="player-controls-content">
                 <div className="player-controls-buttons">
                     <button>
-                        <img src='/src/assets/img/shuffle-icon.svg' />
+                        <Shuffle/>
                     </button>
                     <button>
-                        <img src='/src/assets/img/prev-song-icon.svg' alt='Previous' />
+                        <PrevSong/>
                     </button>
                     <button
                         onClick={isPlaying ? handlePause : handlePlay}
                         className={`play ${isPlaying ? 'is-playing' : ''}`}>
-                        <img src={`/src/assets/img/${isPlaying ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
+                        {isPlaying ? <PauseIcon/> : <PlayIcon/>}
                     </button>
                     <button>
-                        <img src='/src/assets/img/next-song-icon.svg' />
+                        <NextSong/>
                     </button>
                     <button>
-                        <img src='/src/assets/img/repeat-icon.svg' />
+                        <Repeat/>
                     </button>
                 </div>
 

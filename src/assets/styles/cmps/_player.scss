@@ -17,6 +17,7 @@
     transition: color 0.2s;
     padding: 0;
     margin: 0;
+    padding-top: 6px;
 
     &:hover {
       color: $text-primary;
@@ -37,6 +38,7 @@
       align-items: center;
       justify-content: center;
       margin-inline: 8px;
+      padding-bottom: 5px;
 
       &:hover {
         transform: scale(1.05);
@@ -127,7 +129,6 @@
       flex-flow: row nowrap;
       width: 100%;
       margin-bottom: 8px;
-
     }
 
     .progress {
