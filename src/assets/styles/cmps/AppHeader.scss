@@ -74,7 +74,6 @@
       transition: opacity 0.2s;
       color: $text-secondary;
 
-
       svg {
         width: 20px;
         height: 20px;
@@ -97,7 +96,7 @@
       }
 
       &:focus {
-        outline: none;
+        outline: white 1px solid;
         background-color: #2a2a2a;
       }
     }
@@ -143,7 +142,6 @@
     transition: all 0.2s ease;
     padding: 0;
     color: $text-secondary;
-
 
     &:hover {
       color: white;

@@ -23,7 +23,13 @@ $button-border: #818181;
 $hover-color: #282828;
 $icon-background: #1f1f1f;
 
-$slider-background: hsla(0, 0%, 100%, .3);
+//Home Page
+$background-base: #121212;
+$background-gradient-1: rgba(18, 18, 18, 1);
+$background-gradient-2: rgba(0, 0, 0, 0.5);
+$background-gradient-3: rgba(18, 18, 18, 0.8);
+
+$slider-background: hsla(0, 0%, 100%, 0.3);
 
 // Spotify commonly uses these weights:
 $font-book: 400; // Regular text
