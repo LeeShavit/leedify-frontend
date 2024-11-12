@@ -1,9 +1,9 @@
 import { storageService } from '../async-storage.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
+const STORAGE_KEY_USERS = 'users'
 
 _createDemoUser()
-login({ username: 'guest' })
 
 export const userService = {
     getLikedSongsIds,
@@ -21,7 +21,7 @@ export const userService = {
 }
 
 async function getUsers() {
-    const users = await storageService.query('user')
+    const users = await storageService.query(STORAGE_KEY_USERS)
     return users.map(user => {
         delete user.password
         return user
@@ -29,17 +29,17 @@ async function getUsers() {
 }
 
 async function getById(userId) {
-    return await storageService.get('user', userId)
+    return await storageService.get(STORAGE_KEY_USERS, userId)
 }
 
 function remove(userId) {
-    return storageService.remove('user', userId)
+    return storageService.remove(STORAGE_KEY_USERS, userId)
 }
 
 async function update({ _id }) {
-    const user = await storageService.get('user', _id)
+    const user = await storageService.get(STORAGE_KEY_USERS, _id)
     user.score = score
-    await storageService.put('user', user)
+    await storageService.put(STORAGE_KEY_USERS, user)
 
     // When admin updates other user's details, do not update loggedinUser
     const loggedinUser = getLoggedinUser()
@@ -49,15 +49,16 @@ async function update({ _id }) {
 }
 
 async function login(userCred) {
-    const users = await storageService.query('user')
+    const users = await storageService.query(STORAGE_KEY_USERS)
     const user = users.find(user => user.username === userCred.username)
+    console.log(userCred)
     if (user) return saveLoggedinUser(user)
 }
 
 async function signup(userCred) {
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
 
-    const user = await storageService.post('user', userCred)
+    const user = await storageService.post(STORAGE_KEY_USERS, userCred)
     return saveLoggedinUser(user)
 }
 
@@ -94,7 +95,7 @@ async function likeSong(songToLike) {
         if (user.likedSongs.some(song => song.id === songToLike.id)) return user.likedSongs
 
         user.likedSongs.push(songToLike)
-        await storageService.put('user', user)
+        await storageService.put(STORAGE_KEY_USERS, user)
         return user.likedSongs
     } catch (err) {
         console.error("user service - couldn't add song from liked songs", err)
@@ -112,7 +113,7 @@ async function dislikeSong(songId) {
         if (songIdx === -1) return user.likedSongs
 
         user.likedSongs.splice(songIdx, 1)
-        await storageService.put('user', user)
+        await storageService.put(STORAGE_KEY_USERS, user)
         return user.likedSongs
     } catch (err) {
         console.error("user service - couldn't remove song from liked songs", err)
@@ -126,7 +127,7 @@ function getLikedSongsIds() {
 }
 
 async function _createDemoUser() {
-    const users = await storageService.query('user')
+    const users = await storageService.query(STORAGE_KEY_USERS)
     if (users.length) return
 
     const user = {
@@ -161,5 +162,6 @@ async function _createDemoUser() {
         createdStations: []
     }
 
-    const newUser = await storageService.post('user', user)
+    const newUser = await storageService.post(STORAGE_KEY_USERS, user)
+    login({ username: newUser.username })
 }

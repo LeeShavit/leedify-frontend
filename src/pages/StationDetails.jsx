@@ -165,7 +165,7 @@ export function StationDetails() {
             <div className='station-song-row__duration'>
               <button
                 className={`like-song ${likedSongsIds.includes(song.id) ? 'liked' : ''}`}
-                onClick={() => onLikeDislikeSong(song.id)}
+                onClick={() => onLikeDislikeSong(song)}
               >
                 {likedSongsIds.includes(song.id) ? <Liked /> : <Like />}
               </button>

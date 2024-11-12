@@ -6,8 +6,6 @@ export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  console.log(location.pathname)
-
   return (
     <header className='app-header full'>
       <div className='app-header__logo'>
