@@ -16,6 +16,7 @@ import { AddSong } from '../cmps/AddSongs'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 import { Library } from 'lucide-react'
 import { FastAverageColor } from 'fast-average-color'
+import { getRelativeTime, getItemsIds, formatDuration } from '../services/util.service'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -27,7 +28,9 @@ export function StationDetails() {
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const user = useSelector((state) => state.userModule.user)
 
+  const user = useSelector((state) => state.userModule.user)
   const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
+
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)')
   const fac = new FastAverageColor()
@@ -83,7 +86,7 @@ export function StationDetails() {
   }
 
   function onPlaySong(song) {
-    setPlayingSong(song)
+    if (currentSong._id !== song.Id) setPlayingSong(song)
     setIsPlaying(true)
   }
 
@@ -131,7 +134,11 @@ export function StationDetails() {
           <span className='station-header__description'>{station.description}</span>
           <div className='station-header__meta'>
             <span className='station-header__owner'>{station.createdBy.fullname}</span>
-            <span className='station-header__songs-count'>{station.songs?.length || 0} songs</span>
+            <span className='station-header__songs-count'>
+              {!station.songs?.length
+                ? 'No songs yet'
+                : `${station.songs.length} ${station.songs.length === 1 ? 'song' : 'songs'}`}
+            </span>
           </div>
         </div>
       </header>
@@ -162,8 +169,8 @@ export function StationDetails() {
       )}
       <div className='station-table-body'>
         {(stationId === 'liked-songs' ? user.likedSongs : station.songs).map((song, idx) => (
-          <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
-            {isPlaying && currentSong.id === song.id ? (
+          <div key={song._id} className={`station-song-row ${currentSong._id === song._id ? 'current-song' : ''}`}>
+            {isPlaying && currentSong._id === song._id ? (
               <div className='station-song-row__icon playing'>
                 <div className='bar'></div>
                 <div className='bar'></div>
@@ -181,7 +188,8 @@ export function StationDetails() {
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
             <div className='station-song-row__title'>
-              <img src={song.imgUrl} alt={song.name} />
+              {console.log(song.imgUrl)}
+              <img src={typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[2].url} alt={song.name} />
               <div>
                 <div className='song-title'>{song.name}</div>
                 <div className='song-artist'>
@@ -194,19 +202,19 @@ export function StationDetails() {
               </div>
             </div>
             <div className='station-song-row__album'>{song.album.name}</div>
-            <div className='station-song-row__date'>{new Date(song.addedAt).toLocaleDateString()}</div>
+            <div className='station-song-row__date'>{getRelativeTime(song.addedAt)}</div>
             <div className='station-song-row__duration'>
               <button
-                className={`like-song ${likedSongsIds.includes(song.id) ? 'liked' : ''}`}
+                className={`like-song ${likedSongsIds.includes(song._id) ? 'liked' : ''}`}
                 onClick={() => onLikeDislikeSong(song)}
               >
-                {likedSongsIds.includes(song.id) ? <Liked /> : <Like />}
+                {likedSongsIds.includes(song._id) ? <Liked /> : <Like />}
               </button>
-              <div>{_formatDuration(song.duration)}</div>
+              <div>{formatDuration(song.duration)}</div>
             </div>
           </div>
         ))}
-        {station.songs.length === 0 && <AddSong onAddSong={onAddSong} />}
+        {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}
       </div>
       <EditStationModal
         station={station}

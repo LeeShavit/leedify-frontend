@@ -11,7 +11,7 @@ export function Explore() {
       <h1 className='explore-page__title'>Browse All</h1>
       <div className='explore-grid'>
         {categories.map((category) => (
-          <GenreCard key={category.id} category={category} onSelect={() => setSelectedCategory(category.id)} />
+          <GenreCard key={category._id} category={category} onSelect={() => setSelectedCategory(category._id)} />
         ))}
       </div>
     </div>

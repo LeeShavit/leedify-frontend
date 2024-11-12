@@ -232,6 +232,10 @@
 
     &__duration {
       justify-content: flex-end;
+
+      svg {
+        margin-inline-end: 6px;
+      }
     }
   }
 
@@ -243,6 +247,7 @@
     font-size: 14px;
     border-radius: 4px;
     align-items: center;
+    margin-bottom: 20px;
 
     button {
       background: 0;
@@ -343,6 +348,7 @@
       text-overflow: ellipsis;
       font-weight: $font-book;
       color: $text-secondary;
+      padding-inline-end: 1rem;
     }
 
     &__date {

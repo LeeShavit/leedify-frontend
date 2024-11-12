@@ -51,3 +51,40 @@ export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
+
+export function formatDuration(ms) {
+    const minutes = Math.floor(ms / 60000)
+    const seconds = ((ms % 60000) / 1000).toFixed(0)
+    return `${minutes}:${seconds.padStart(2, '0')}`
+  }
+  
+ export function getItemsIds(items) {
+    return items.map(item => item._id)
+  }
+
+export function getRelativeTime(ts) {
+
+    var msPerMinute = 60 * 1000;
+    var msPerHour = msPerMinute * 60;
+    var msPerDay = msPerHour * 24;
+    var msPerMonth = msPerDay * 30;
+    var msPerYear = msPerDay * 365;
+
+    var elapsed = Date.now() - ts;
+
+    if (elapsed === 0) {
+        return 'now';
+    } else if (elapsed < msPerMinute) {
+        return Math.round(elapsed / 1000) + ' seconds ago';
+    } else if (elapsed < msPerHour) {
+        return Math.round(elapsed / msPerMinute) + ' minutes ago';
+    } else if (elapsed < msPerDay) {
+        return Math.round(elapsed / msPerHour) + ' hours ago';
+    } else if (elapsed < msPerMonth) {
+        return 'approximately ' + Math.round(elapsed / msPerDay) + ' days ago';
+    } else {
+        const date= new Date(ts)
+        return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()},${date.getFullYear()} `
+    }
+}
+  

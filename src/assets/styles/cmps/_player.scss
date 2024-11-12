@@ -62,13 +62,34 @@
         filter: brightness(0) invert(1);
       }
     }
+
+    &.like-song {
+      cursor: pointer;
+      transition-duration: 33ms;
+      transition-property: background-color, border-color, color, box-shadow, filter, transform;
+      transform: translate3d(0px, 0px, 0px);
+
+      &.liked {
+        color: $primary-color;
+        opacity: 1;
+      }
+
+      &:hover {
+        transform: scale(1.04);
+      }
+
+      &:not(.liked):hover {
+        color: $text-primary;
+      }
+
+    }
   }
 
   & .song-info {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    min-width: 277px;
+    width: 29vw;
     padding-inline-start: 8px;
 
     img.cover-img {
@@ -118,7 +139,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
     }
 
     &-buttons {
@@ -137,8 +157,6 @@
       gap: 8px;
       width: 100%;
       height: 12px;
-      min-width: 313px;
-      max-width: 660px;
 
       display: flex;
       flex-direction: row;
@@ -161,47 +179,6 @@
         }
       }
 
-
-      &-bar {
-        width: 100%;
-        height: 4px;
-        border-radius: 2px;
-        background: #404040;
-        position: relative;
-        cursor: pointer;
-
-        &-btn {
-          display: none;
-          position: absolute;
-          top: -100%;
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background-color: white;
-
-        }
-
-      }
-
-      &-bar-fill {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        background: $text-primary;
-        border-radius: 2px;
-        transition: width 0.1s ease-out;
-      }
-
-      &:hover {
-        .progress-bar-fill {
-          background: $primary-color;
-        }
-
-        .progress-bar-btn {
-          display: block;
-        }
-      }
     }
   }
 
@@ -210,7 +187,7 @@
     flex: 0.5;
     justify-content: flex-end;
     align-items: center;
-    min-width: 245px;
+    min-width: 29vw;
 
     .volume {
       display: flex;
@@ -221,45 +198,52 @@
       min-width: 40px;
       transition: all 0.2s ease;
       margin-inline-end: 8px;
+    }
+  }
 
-      &-slider {
-        min-width: 20px;
-        max-width: 93px;
-        height: 4px;
-        flex-grow: 1;
-        background: $text-secondary;
-        border-radius: 2px;
-        position: relative;
-        cursor: pointer;
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
 
-        &:hover {
-          .volume-slider-fill {
-            background-color: $primary-color;
-          }
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      background: $text-secondary;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+          $text-primary 0%,
+          $text-primary var(--slider-value, 0%),
+          $slider-background var(--slider-value, 0%),
+          $slider-background 100%);
+    }
 
-          .volume-slider-btn {
-            display: block;
-          }
-        }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: white;
+      margin-top: -4px;
+      opacity: 0;
+    }
+
+    // Hover effects
+    &:hover {
+      &::-webkit-slider-thumb {
+        opacity: 1;
       }
 
-      &-slider-fill {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        background: $text-primary;
-        border-radius: 2px;
-      }
-
-      &-slider-btn {
-        display: none;
-        position: absolute;
-        top: -100%;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: white;
+      &::-webkit-slider-runnable-track {
+        background: linear-gradient(to right,
+            $primary-color 0%,
+            $primary-color var(--slider-value, 0%),
+            $slider-background var(--slider-value, 0%),
+            $slider-background 100%);
       }
     }
   }
