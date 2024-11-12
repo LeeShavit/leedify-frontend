@@ -14,8 +14,7 @@
 .explore-grid {
   display: grid;
   grid-auto-rows: min-content;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-
+  grid-template-columns: repeat(auto-fill, minmax(254px, 1fr));
   gap: 24px;
   margin-top: 24px;
 }
@@ -24,18 +23,18 @@
   position: relative;
   border-radius: 8px;
   padding: 16px;
-  height: 220px;
+  height: 180px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    transform: scale(1.02);
+    // transform: scale(1.02);
   }
 
   &__name {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 500;
     color: $text-primary;
     position: relative;
     z-index: 1;
@@ -45,8 +44,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 180px;
-    height: 180px;
+    width: 140px;
+    height: 140px;
     border-radius: 8px;
     transform: rotate(25deg) translate(18%, -2%);
   }
