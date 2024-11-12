@@ -17,6 +17,11 @@ import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 import { Library } from 'lucide-react'
 import { FastAverageColor } from 'fast-average-color'
 import { getRelativeTime, getItemsIds, formatDuration } from '../services/util.service'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { Button } from '@mui/material'
+import SongMenu from '../cmps/SongMenu'
+
+
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -32,6 +37,9 @@ export function StationDetails() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)')
   const fac = new FastAverageColor()
+
+  const [anchorEl, setAnchorEl] = useState(null)
+  const open = Boolean(anchorEl)
 
   useEffect(() => {
     if (!station?.imgUrl) return
@@ -103,6 +111,13 @@ export function StationDetails() {
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
     }
+  }
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
   }
 
   if (!station) return <div>Loading...</div>
@@ -210,6 +225,20 @@ export function StationDetails() {
               </button>
               <div>{formatDuration(song.duration)}</div>
             </div>
+            <Button
+              className='list-icon'
+              onClick={handleClick}
+              aria-controls={open ? 'basic-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+              sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif', }}>
+              <MoreHorizIcon sx={{ fontSize: '24px', opacity: 0.7, color: '' }} />
+            </Button>
+            <SongMenu id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{ 'aria-labelledby': 'basic-button', }} />
           </div>
         ))}
         {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}

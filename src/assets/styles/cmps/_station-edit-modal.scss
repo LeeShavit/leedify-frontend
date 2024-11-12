@@ -136,6 +136,7 @@
       background-color: #333333;
       opacity: 1;
       height: 40px;
+
       // Default border
       fieldset {
         border-color: none;
@@ -143,7 +144,7 @@
 
       // Hover state
       &:hover fieldset {
-        border-color: rgba(255, 255, 255, 0.1);
+        border-color: #282828;
       }
 
       // Focused state
@@ -178,6 +179,7 @@
       min-height: 124px;
     }
   }
+
   &__footer {
     display: flex;
     justify-content: flex-end;
