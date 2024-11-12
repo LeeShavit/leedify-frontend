@@ -218,6 +218,7 @@ export function StationDetails() {
         station={station}
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
+        onOverlayClick={() => setIsEditModalOpen(false)}
         onSave={handleSaveStation}
         fileInputRef={fileInputRef}
       />

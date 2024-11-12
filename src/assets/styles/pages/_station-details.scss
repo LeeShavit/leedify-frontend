@@ -229,6 +229,11 @@
       display: flex;
       align-items: center;
     }
+    &__date {
+      @media (max-width: $breakpoint-xl) {
+        display: none;
+      }
+    }
 
     &__duration {
       justify-content: flex-end;
@@ -247,7 +252,7 @@
     font-size: 14px;
     border-radius: 4px;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 
     button {
       background: 0;
@@ -354,6 +359,9 @@
     &__date {
       white-space: nowrap;
       color: $text-secondary;
+      @media (max-width: $breakpoint-xl) {
+        display: none;
+      }
     }
 
     &__duration {

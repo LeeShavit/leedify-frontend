@@ -3,7 +3,7 @@ import { X } from 'lucide-react'
 import { uploadService } from '../services/upload.service'
 import { TextField } from '@mui/material'
 
-export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRef }) {
+export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRef, onOverlayClick }) {
   const [editedStation, setEditedStation] = useState({
     name: '',
     description: '',
@@ -63,8 +63,13 @@ export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRe
   if (!isOpen) return null
 
   return (
-    <div className='modal-overlay'>
-      <div className='edit-modal'>
+    <div className='modal-overlay' onClick={onOverlayClick}>
+      <div
+        className='edit-modal'
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
+      >
         <header className='edit-modal__header'>
           <h2>Edit details</h2>
           <button className='edit-modal__close' onClick={onClose}>
