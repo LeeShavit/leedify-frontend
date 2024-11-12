@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react'
 import { SearchIcon } from '../assets/img/app-header/icons'
+import { setPlayingSong, setIsPlaying } from '../store/actions/station.actions'
 
 import { Link } from 'react-router-dom'
 
@@ -7,6 +8,7 @@ import { debounce } from '../services/util.service.js'
 import { stationService } from "../services/station/station.service.local.js";
 import { useSelector } from 'react-redux';
 import { XIcon } from 'lucide-react';
+import { PauseIcon, PlayIcon } from '../assets/img/player/icons.jsx';
 
 
 export function AddSong({ onAddSong }) {
@@ -31,6 +33,15 @@ export function AddSong({ onAddSong }) {
         onAddSong(song)
     }
 
+    function onPlaySong(song) {
+        setPlayingSong(song)
+        setIsPlaying(true)
+      }
+    
+      function onPauseSong() {
+        setIsPlaying(false)
+      }
+
     return (
         <section className="add-song">
             <div className='add-song-header'>
@@ -46,16 +57,20 @@ export function AddSong({ onAddSong }) {
                 <ul className="search-res-list">
                     {searchRes?.map(song => (
                         <div key={song.id} className={`add-song-row `}>
-                                <div className='add-song-row__playPause' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
-                                    <img src={`/src/assets/img/${(isPlaying && currentSong.id === song.id) ? 'pause' : 'play'}-icon.svg`} alt={`${isPlaying ? 'Pause' : 'Play'}`} />
-                                </div>
+
+                            <button className='add-song-row__image-button' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
                                 <img src={song.imgUrl} alt={song.name} />
-                                <div className='add-song-row__details'>
-                                    <div className={`song-name ${currentSong.id === song.id ? 'current-song' : ''}`}>{song.name}</div>
-                                    <div className='song-artist'>
-                                        {song.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}
-                                    </div>
+                                <div className='add-song-row__image-overlay'>
+                                    {isPlaying ? <PauseIcon className='play-icon'/> : <PlayIcon className='play-icon'/>}
                                 </div>
+                            </button>
+
+                            <div className='add-song-row__details'>
+                                <div className={`song-name ${currentSong.id === song.id ? 'current-song' : ''}`}>{song.name}</div>
+                                <div className='song-artist'>
+                                    {song.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}
+                                </div>
+                            </div>
                             <div className='add-song-row__album'>{song.album.name}</div>
                             <button className='add-song' onClick={() => onAddSongToStation(song.id)}>Add</button>
                         </div>

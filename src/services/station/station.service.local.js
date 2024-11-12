@@ -1,6 +1,7 @@
 import { storageService } from '../async-storage.service'
 import { userService } from '../user'
 import { makeId, saveToStorage } from '../util.service'
+
 const STORAGE_KEY = 'stations_db'
 const SONG_STORAGE_KEY = 'current-playing-song'
 
@@ -379,6 +380,7 @@ function _createDemoSong() {
 
 function _createDemoSongs() {
   let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
+
   if (demoSongs) return
 
   demoSongs = [
