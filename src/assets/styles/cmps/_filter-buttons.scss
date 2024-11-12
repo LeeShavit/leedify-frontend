@@ -4,7 +4,8 @@
   margin-bottom: 1.5rem;
 
   &__button {
-    background: ($background-light);
+    background-color: rgba(255, 255, 255, 0.07);
+    color: $text-primary;
     padding: 0.5rem 1rem;
     border-radius: 9999px;
     font-size: 0.875rem;
@@ -12,15 +13,12 @@
     transition: background-color $transition-speed;
 
     &:hover {
-      background: lighten($background-light, 10%);
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
     &--active {
-      background: $text-primary;
+      background-color: $text-primary;
       color: black;
-      &:hover {
-        background: darken($primary-color, 10%);
-      }
     }
   }
 }
