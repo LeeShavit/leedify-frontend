@@ -2,7 +2,7 @@
     "categories": [
       {
         "name": "Music",
-        "id": "0JQ5DAqbMKFSi39LMRT0Cy",
+        "_id": "0JQ5DAqbMKFSi39LMRT0Cy",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFSi39LMRT0Cy",
         "icons": [
           {
@@ -15,7 +15,7 @@
       },
       {
         "name": "Podcasts",
-        "id": "0JQ5DArNBzkmxXHCqFLx2J",
+        "_id": "0JQ5DArNBzkmxXHCqFLx2J",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DArNBzkmxXHCqFLx2J",
         "icons": [
           {
@@ -28,7 +28,7 @@
       },
       {
         "name": "Live Events",
-        "id": "concerts",
+        "_id": "concerts",
         "href": "https://api.spotify.com/v1/browse/categories/concerts",
         "icons": [
           {
@@ -41,7 +41,7 @@
       },
       {
         "name": "Made For You",
-        "id": "0JQ5DAt0tbjZptfcdMSKl3",
+        "_id": "0JQ5DAt0tbjZptfcdMSKl3",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAt0tbjZptfcdMSKl3",
         "icons": [
           {
@@ -54,7 +54,7 @@
       },
       {
         "name": "New Releases",
-        "id": "0JQ5DAqbMKFz6FAsUtgAab",
+        "_id": "0JQ5DAqbMKFz6FAsUtgAab",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFz6FAsUtgAab",
         "icons": [
           {
@@ -67,7 +67,7 @@
       },
       {
         "name": "Pop",
-        "id": "0JQ5DAqbMKFEC4WFtoNRpw",
+        "_id": "0JQ5DAqbMKFEC4WFtoNRpw",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEC4WFtoNRpw",
         "icons": [
           {
@@ -80,7 +80,7 @@
       },
       {
         "name": "Hip-Hop",
-        "id": "0JQ5DAqbMKFQ00XGBls6ym",
+        "_id": "0JQ5DAqbMKFQ00XGBls6ym",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQ00XGBls6ym",
         "icons": [
           {
@@ -93,7 +93,7 @@
       },
       {
         "name": "Rock",
-        "id": "0JQ5DAqbMKFDXXwE9BDJAr",
+        "_id": "0JQ5DAqbMKFDXXwE9BDJAr",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDXXwE9BDJAr",
         "icons": [
           {
@@ -106,7 +106,7 @@
       },
       {
         "name": "Latin",
-        "id": "0JQ5DAqbMKFxXaXKP7zcDp",
+        "_id": "0JQ5DAqbMKFxXaXKP7zcDp",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFxXaXKP7zcDp",
         "icons": [
           {
@@ -119,7 +119,7 @@
       },
       {
         "name": "Podcast Charts",
-        "id": "0JQ5DAB3zgCauRwnvdEQjJ",
+        "_id": "0JQ5DAB3zgCauRwnvdEQjJ",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAB3zgCauRwnvdEQjJ",
         "icons": [
           {
@@ -132,7 +132,7 @@
       },
       {
         "name": "Educational",
-        "id": "0JQ5IMCbQBLl5gxKLgufp8",
+        "_id": "0JQ5IMCbQBLl5gxKLgufp8",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5IMCbQBLl5gxKLgufp8",
         "icons": [
           {
@@ -145,7 +145,7 @@
       },
       {
         "name": "Documentary",
-        "id": "0JQ5IMCbQBLjfX9OdDrA5X",
+        "_id": "0JQ5IMCbQBLjfX9OdDrA5X",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5IMCbQBLjfX9OdDrA5X",
         "icons": [
           {
@@ -158,7 +158,7 @@
       },
       {
         "name": "Comedy",
-        "id": "0JQ5IMCbQBLyUJhSxhaPc6",
+        "_id": "0JQ5IMCbQBLyUJhSxhaPc6",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5IMCbQBLyUJhSxhaPc6",
         "icons": [
           {
@@ -171,7 +171,7 @@
       },
       {
         "name": "Charts",
-        "id": "0JQ5DAudkNjCgYMM0TZXDw",
+        "_id": "0JQ5DAudkNjCgYMM0TZXDw",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAudkNjCgYMM0TZXDw",
         "icons": [
           {
@@ -184,7 +184,7 @@
       },
       {
         "name": "Dance/Electronic",
-        "id": "0JQ5DAqbMKFHOzuVTgTizF",
+        "_id": "0JQ5DAqbMKFHOzuVTgTizF",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFHOzuVTgTizF",
         "icons": [
           {
@@ -197,7 +197,7 @@
       },
       {
         "name": "Mood",
-        "id": "0JQ5DAqbMKFzHmL4tf05da",
+        "_id": "0JQ5DAqbMKFzHmL4tf05da",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFzHmL4tf05da",
         "icons": [
           {
@@ -210,7 +210,7 @@
       },
       {
         "name": "Indie",
-        "id": "0JQ5DAqbMKFCWjUTdzaG0e",
+        "_id": "0JQ5DAqbMKFCWjUTdzaG0e",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCWjUTdzaG0e",
         "icons": [
           {
@@ -223,7 +223,7 @@
       },
       {
         "name": "Workout",
-        "id": "0JQ5DAqbMKFAXlCG6QvYQ4",
+        "_id": "0JQ5DAqbMKFAXlCG6QvYQ4",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAXlCG6QvYQ4",
         "icons": [
           {
@@ -236,7 +236,7 @@
       },
       {
         "name": "Discover",
-        "id": "0JQ5DAtOnAEpjOgUKwXyxj",
+        "_id": "0JQ5DAtOnAEpjOgUKwXyxj",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAtOnAEpjOgUKwXyxj",
         "icons": [
           {
@@ -249,7 +249,7 @@
       },
       {
         "name": "Country",
-        "id": "0JQ5DAqbMKFKLfwjuJMoNC",
+        "_id": "0JQ5DAqbMKFKLfwjuJMoNC",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFKLfwjuJMoNC",
         "icons": [
           {
@@ -262,7 +262,7 @@
       },
       {
         "name": "R&B",
-        "id": "0JQ5DAqbMKFEZPnFQSFB1T",
+        "_id": "0JQ5DAqbMKFEZPnFQSFB1T",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEZPnFQSFB1T",
         "icons": [
           {
@@ -275,7 +275,7 @@
       },
       {
         "name": "K-pop",
-        "id": "0JQ5DAqbMKFGvOw3O4nLAf",
+        "_id": "0JQ5DAqbMKFGvOw3O4nLAf",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFGvOw3O4nLAf",
         "icons": [
           {
@@ -288,7 +288,7 @@
       },
       {
         "name": "Chill",
-        "id": "0JQ5DAqbMKFFzDl7qN9Apr",
+        "_id": "0JQ5DAqbMKFFzDl7qN9Apr",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFzDl7qN9Apr",
         "icons": [
           {
@@ -301,7 +301,7 @@
       },
       {
         "name": "Sleep",
-        "id": "0JQ5DAqbMKFCuoRTxhYWow",
+        "_id": "0JQ5DAqbMKFCuoRTxhYWow",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCuoRTxhYWow",
         "icons": [
           {
@@ -314,7 +314,7 @@
       },
       {
         "name": "Party",
-        "id": "0JQ5DAqbMKFA6SOHvT3gck",
+        "_id": "0JQ5DAqbMKFA6SOHvT3gck",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFA6SOHvT3gck",
         "icons": [
           {
@@ -327,7 +327,7 @@
       },
       {
         "name": "At Home",
-        "id": "0JQ5DAqbMKFx0uLQR2okcc",
+        "_id": "0JQ5DAqbMKFx0uLQR2okcc",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFx0uLQR2okcc",
         "icons": [
           {
@@ -340,7 +340,7 @@
       },
       {
         "name": "Decades",
-        "id": "0JQ5DAqbMKFIVNxQgRNSg0",
+        "_id": "0JQ5DAqbMKFIVNxQgRNSg0",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFIVNxQgRNSg0",
         "icons": [
           {
@@ -353,7 +353,7 @@
       },
       {
         "name": "Love",
-        "id": "0JQ5DAqbMKFAUsdyVjCQuL",
+        "_id": "0JQ5DAqbMKFAUsdyVjCQuL",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAUsdyVjCQuL",
         "icons": [
           {
@@ -366,7 +366,7 @@
       },
       {
         "name": "Metal",
-        "id": "0JQ5DAqbMKFDkd668ypn6O",
+        "_id": "0JQ5DAqbMKFDkd668ypn6O",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDkd668ypn6O",
         "icons": [
           {
@@ -379,7 +379,7 @@
       },
       {
         "name": "Jazz",
-        "id": "0JQ5DAqbMKFAJ5xb0fwo9m",
+        "_id": "0JQ5DAqbMKFAJ5xb0fwo9m",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAJ5xb0fwo9m",
         "icons": [
           {
@@ -392,7 +392,7 @@
       },
       {
         "name": "Trending",
-        "id": "0JQ5DAqbMKFQIL0AXnG5AK",
+        "_id": "0JQ5DAqbMKFQIL0AXnG5AK",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQIL0AXnG5AK",
         "icons": [
           {
@@ -405,7 +405,7 @@
       },
       {
         "name": "Wellness",
-        "id": "0JQ5DAqbMKFLb2EqgLtpjC",
+        "_id": "0JQ5DAqbMKFLb2EqgLtpjC",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFLb2EqgLtpjC",
         "icons": [
           {
@@ -418,7 +418,7 @@
       },
       {
         "name": "Anime",
-        "id": "0JQ5DAqbMKFziKOShCi009",
+        "_id": "0JQ5DAqbMKFziKOShCi009",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFziKOShCi009",
         "icons": [
           {
@@ -431,7 +431,7 @@
       },
       {
         "name": "Gaming",
-        "id": "0JQ5DAqbMKFCfObibaOZbv",
+        "_id": "0JQ5DAqbMKFCfObibaOZbv",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCfObibaOZbv",
         "icons": [
           {
@@ -444,7 +444,7 @@
       },
       {
         "name": "Folk & Acoustic",
-        "id": "0JQ5DAqbMKFy78wprEpAjl",
+        "_id": "0JQ5DAqbMKFy78wprEpAjl",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFy78wprEpAjl",
         "icons": [
           {
@@ -457,7 +457,7 @@
       },
       {
         "name": "Focus",
-        "id": "0JQ5DAqbMKFCbimwdOYlsl",
+        "_id": "0JQ5DAqbMKFCbimwdOYlsl",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFCbimwdOYlsl",
         "icons": [
           {
@@ -470,7 +470,7 @@
       },
       {
         "name": "Soul",
-        "id": "0JQ5DAqbMKFIpEuaCnimBj",
+        "_id": "0JQ5DAqbMKFIpEuaCnimBj",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFIpEuaCnimBj",
         "icons": [
           {
@@ -483,7 +483,7 @@
       },
       {
         "name": "Kids & Family",
-        "id": "0JQ5DAqbMKFFoimhOqWzLB",
+        "_id": "0JQ5DAqbMKFFoimhOqWzLB",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFoimhOqWzLB",
         "icons": [
           {
@@ -496,7 +496,7 @@
       },
       {
         "name": "Classical",
-        "id": "0JQ5DAqbMKFPrEiAOxgac3",
+        "_id": "0JQ5DAqbMKFPrEiAOxgac3",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFPrEiAOxgac3",
         "icons": [
           {
@@ -509,7 +509,7 @@
       },
       {
         "name": "TV & Movies",
-        "id": "0JQ5DAqbMKFOzQeOmemkuw",
+        "_id": "0JQ5DAqbMKFOzQeOmemkuw",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFOzQeOmemkuw",
         "icons": [
           {
@@ -522,7 +522,7 @@
       },
       {
         "name": "Instrumental",
-        "id": "0JQ5DAqbMKFRieVZLLoo9m",
+        "_id": "0JQ5DAqbMKFRieVZLLoo9m",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFRieVZLLoo9m",
         "icons": [
           {
@@ -535,7 +535,7 @@
       },
       {
         "name": "Punk",
-        "id": "0JQ5DAqbMKFAjfauKLOZiv",
+        "_id": "0JQ5DAqbMKFAjfauKLOZiv",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAjfauKLOZiv",
         "icons": [
           {
@@ -548,7 +548,7 @@
       },
       {
         "name": "Ambient",
-        "id": "0JQ5DAqbMKFLjmiZRss79w",
+        "_id": "0JQ5DAqbMKFLjmiZRss79w",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFLjmiZRss79w",
         "icons": [
           {
@@ -561,7 +561,7 @@
       },
       {
         "name": "Netflix",
-        "id": "0JQ5DAqbMKFEOEBCABAxo9",
+        "_id": "0JQ5DAqbMKFEOEBCABAxo9",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFEOEBCABAxo9",
         "icons": [
           {
@@ -574,7 +574,7 @@
       },
       {
         "name": "Blues",
-        "id": "0JQ5DAqbMKFQiK2EHwyjcU",
+        "_id": "0JQ5DAqbMKFQiK2EHwyjcU",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFQiK2EHwyjcU",
         "icons": [
           {
@@ -587,7 +587,7 @@
       },
       {
         "name": "Cooking & Dining",
-        "id": "0JQ5DAqbMKFRY5ok2pxXJ0",
+        "_id": "0JQ5DAqbMKFRY5ok2pxXJ0",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFRY5ok2pxXJ0",
         "icons": [
           {
@@ -600,7 +600,7 @@
       },
       {
         "name": "Alternative",
-        "id": "0JQ5DAqbMKFFtlLYUHv8bT",
+        "_id": "0JQ5DAqbMKFFtlLYUHv8bT",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFtlLYUHv8bT",
         "icons": [
           {
@@ -613,7 +613,7 @@
       },
       {
         "name": "Travel",
-        "id": "0JQ5DAqbMKFAQy4HL4XU2D",
+        "_id": "0JQ5DAqbMKFAQy4HL4XU2D",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFAQy4HL4XU2D",
         "icons": [
           {
@@ -626,7 +626,7 @@
       },
       {
         "name": "Caribbean",
-        "id": "0JQ5DAqbMKFObNLOHydSW8",
+        "_id": "0JQ5DAqbMKFObNLOHydSW8",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFObNLOHydSW8",
         "icons": [
           {
@@ -639,7 +639,7 @@
       },
       {
         "name": "Afro",
-        "id": "0JQ5DAqbMKFNQ0fGp4byGU",
+        "_id": "0JQ5DAqbMKFNQ0fGp4byGU",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFNQ0fGp4byGU",
         "icons": [
           {
@@ -652,7 +652,7 @@
       },
       {
         "name": "GLOW",
-        "id": "0JQ5DAqbMKFGnsSfvg90Wo",
+        "_id": "0JQ5DAqbMKFGnsSfvg90Wo",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFGnsSfvg90Wo",
         "icons": [
           {
@@ -665,7 +665,7 @@
       },
       {
         "name": "Songwriters",
-        "id": "0JQ5DAqbMKFSCjnQr8QZ3O",
+        "_id": "0JQ5DAqbMKFSCjnQr8QZ3O",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFSCjnQr8QZ3O",
         "icons": [
           {
@@ -678,7 +678,7 @@
       },
       {
         "name": "Nature & Noise",
-        "id": "0JQ5DAqbMKFI3pNLtYMD9S",
+        "_id": "0JQ5DAqbMKFI3pNLtYMD9S",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFI3pNLtYMD9S",
         "icons": [
           {
@@ -691,7 +691,7 @@
       },
       {
         "name": "Funk & Disco",
-        "id": "0JQ5DAqbMKFFsW9N8maB6z",
+        "_id": "0JQ5DAqbMKFFsW9N8maB6z",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFFsW9N8maB6z",
         "icons": [
           {
@@ -704,7 +704,7 @@
       },
       {
         "name": "Spotify Singles",
-        "id": "0JQ5DAqbMKFDBgllo2cUIN",
+        "_id": "0JQ5DAqbMKFDBgllo2cUIN",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFDBgllo2cUIN",
         "icons": [
           {
@@ -717,7 +717,7 @@
       },
       {
         "name": "Summer",
-        "id": "0JQ5DAqbMKFLVaM30PMBm4",
+        "_id": "0JQ5DAqbMKFLVaM30PMBm4",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFLVaM30PMBm4",
         "icons": [
           {
@@ -730,7 +730,7 @@
       },
       {
         "name": "EQUAL",
-        "id": "0JQ5DAqbMKFPw634sFwguI",
+        "_id": "0JQ5DAqbMKFPw634sFwguI",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFPw634sFwguI",
         "icons": [
           {
@@ -743,7 +743,7 @@
       },
       {
         "name": "RADAR",
-        "id": "0JQ5DAqbMKFOOxftoKZxod",
+        "_id": "0JQ5DAqbMKFOOxftoKZxod",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFOOxftoKZxod",
         "icons": [
           {
@@ -756,7 +756,7 @@
       },
       {
         "name": "Fresh Finds",
-        "id": "0JQ5DAqbMKFImHYGo3eTSg",
+        "_id": "0JQ5DAqbMKFImHYGo3eTSg",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFImHYGo3eTSg",
         "icons": [
           {
@@ -769,7 +769,7 @@
       },
       {
         "name": "Tastemakers",
-        "id": "0JQ5DAqbMKFRKBHIxJ5hMm",
+        "_id": "0JQ5DAqbMKFRKBHIxJ5hMm",
         "href": "https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFRKBHIxJ5hMm",
         "icons": [
           {

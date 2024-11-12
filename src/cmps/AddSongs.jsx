@@ -19,8 +19,10 @@ export function AddSong({ onAddSong }) {
     const onSearchDebounce = useRef(debounce(searchSongs, 1000)).current
 
     async function searchSongs({ target }) {
+        if(!target.value) return
         try {
-            const songs = await stationService.getSongs()
+            const songs = await stationService.getSearchResSong(target.value)
+            console.log(songs)
             setSearchRes(songs)
         } catch (err) {
             console.log('failed to get matching songs', err)
@@ -28,8 +30,7 @@ export function AddSong({ onAddSong }) {
     }
 
     function onAddSongToStation(songId) {
-        const song = stationService.getSong(songId)
-        console.log(song)
+        const song = searchRes.find(song=> song._id === songId)
         onAddSong(song)
     }
 
@@ -56,23 +57,23 @@ export function AddSong({ onAddSong }) {
             {(searchRes && searchRes.length > 0) &&
                 <ul className="search-res-list">
                     {searchRes?.map(song => (
-                        <div key={song.id} className={`add-song-row `}>
+                        <div key={song._id} className={`add-song-row `}>
 
-                            <button className='add-song-row__image-button' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
-                                <img src={song.imgUrl} alt={song.name} />
+                            <button className='add-song-row__image-button' onClick={isPlaying && currentSong._id === song._id ? () => onPauseSong() : () => onPlaySong(song)}>
+                                <img src={song.imgUrl[2].url} alt={song.name} />
                                 <div className='add-song-row__image-overlay'>
                                     {isPlaying ? <PauseIcon className='play-icon'/> : <PlayIcon className='play-icon'/>}
                                 </div>
                             </button>
 
                             <div className='add-song-row__details'>
-                                <div className={`song-name ${currentSong.id === song.id ? 'current-song' : ''}`}>{song.name}</div>
+                                <div className={`song-name ${currentSong._id === song._id ? 'current-song' : ''}`}>{song.name}</div>
                                 <div className='song-artist'>
                                     {song.artists.map(artist => <Link key={artist._id} to={`/artist/${artist._id}`}>{artist.name}</Link>)}
                                 </div>
                             </div>
                             <div className='add-song-row__album'>{song.album.name}</div>
-                            <button className='add-song' onClick={() => onAddSongToStation(song.id)}>Add</button>
+                            <button className='add-song' onClick={() => onAddSongToStation(song._id)}>Add</button>
                         </div>
                     ))}
                 </ul>

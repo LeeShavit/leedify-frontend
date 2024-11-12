@@ -35,7 +35,7 @@ export function userReducer(state = initialState, action) {
             newState = {
                 ...state, user: {
                     ...state.user,
-                    likedSongs: state.user.likedSongs.filter(song=> song.id !== action.songId)
+                    likedSongs: state.user.likedSongs.filter(song=> song._id !== action.songId)
                 }
             }
             break

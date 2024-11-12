@@ -59,7 +59,7 @@ export function stationReducer(state = initialState, action) {
       break
     case REMOVE_SONG_FROM_STATION:
       const updatedStationRemove = { ...state.currentStation }
-      updatedStationRemove.songs = updatedStationRemove.songs.filter((song) => song.id !== action.songId)
+      updatedStationRemove.songs = updatedStationRemove.songs.filter((song) => song._id !== action.songId)
       stations = state.stations.map((station) =>
         station._id === updatedStationRemove._id ? updatedStationRemove : station
       )
