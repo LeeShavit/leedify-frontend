@@ -27,8 +27,6 @@ export function StationDetails() {
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
   const user = useSelector((state) => state.userModule.user)
-
-  const user = useSelector((state) => state.userModule.user)
   const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
