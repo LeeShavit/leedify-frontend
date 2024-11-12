@@ -161,7 +161,6 @@
         }
       }
 
-
       &-bar {
         width: 100%;
         height: 4px;
@@ -169,38 +168,6 @@
         background: #404040;
         position: relative;
         cursor: pointer;
-
-        &-btn {
-          display: none;
-          position: absolute;
-          top: -100%;
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          background-color: white;
-
-        }
-
-      }
-
-      &-bar-fill {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        background: $text-primary;
-        border-radius: 2px;
-        transition: width 0.1s ease-out;
-      }
-
-      &:hover {
-        .progress-bar-fill {
-          background: $primary-color;
-        }
-
-        .progress-bar-btn {
-          display: block;
-        }
       }
     }
   }
@@ -221,45 +188,52 @@
       min-width: 40px;
       transition: all 0.2s ease;
       margin-inline-end: 8px;
+    }
+  }
 
-      &-slider {
-        min-width: 20px;
-        max-width: 93px;
-        height: 4px;
-        flex-grow: 1;
-        background: $text-secondary;
-        border-radius: 2px;
-        position: relative;
-        cursor: pointer;
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
 
-        &:hover {
-          .volume-slider-fill {
-            background-color: $primary-color;
-          }
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      background: $text-secondary;
+      border-radius: 2px;
+      background: linear-gradient(to right,
+          $text-primary 0%,
+          $text-primary var(--slider-value, 0%),
+          $slider-background var(--slider-value, 0%),
+          $slider-background 100%);
+    }
 
-          .volume-slider-btn {
-            display: block;
-          }
-        }
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: white;
+      margin-top: -4px;
+      opacity: 0;
+    }
+
+    // Hover effects
+    &:hover {
+      &::-webkit-slider-thumb {
+        opacity: 1;
       }
 
-      &-slider-fill {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        background: $text-primary;
-        border-radius: 2px;
-      }
-
-      &-slider-btn {
-        display: none;
-        position: absolute;
-        top: -100%;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: white;
+      &::-webkit-slider-runnable-track {
+        background: linear-gradient(to right,
+            $primary-color 0%,
+            $primary-color var(--slider-value, 0%),
+            $slider-background var(--slider-value, 0%),
+            $slider-background 100%);
       }
     }
   }

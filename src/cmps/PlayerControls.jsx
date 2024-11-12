@@ -85,14 +85,10 @@ export function PlayerControls({ playerRef, volume }) {
         setIsPlaying(false)
     }
 
-    function handleProgressClick(event) {
+    function handleProgressClick({target}) {
         if (!playerRef.current || !videoId) return
 
-        const progressBar = event.currentTarget
-        const rect = progressBar.getBoundingClientRect()
-        const pos = (event.clientX - rect.left) / rect.width
-        const newTime = playerRef.current.getDuration() * pos
-
+        const newTime = playerRef.current.getDuration() * (target.value / 100)
         playerRef.current.seekTo(newTime, true)
         setCurrentTime(newTime)
     }
@@ -149,19 +145,7 @@ export function PlayerControls({ playerRef, volume }) {
                     <span className="progress-time">
                         {playerRef.current && formatTime(currentTime) || '0:00'}
                     </span>
-                    <div
-                        className="progress-bar"
-                        onClick={handleProgressClick}
-                    >
-                        <div
-                            className="progress-bar-fill"
-                            style={playerRef.current && { width: `${(currentTime / playerRef.current.getDuration()) * 100}%` }}
-                        />
-                        <div
-                            className="progress-bar-btn"
-                            style={playerRef.current && { left: `${(currentTime / playerRef.current.getDuration()) * 100}%` }}
-                        />
-                    </div>
+                    <input type='range' min='0' max='100' value={(currentTime / playerRef.current.getDuration()) * 100} onChange={handleProgressClick} style={{ "--slider-value": `${(currentTime / playerRef.current.getDuration()) * 100}%` }}></input>
                     <span className="progress-time right">
                         {playerRef.current && formatTime(playerRef.current.getDuration() - currentTime) || '0:00'}
                     </span>
