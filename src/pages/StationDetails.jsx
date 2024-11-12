@@ -6,6 +6,7 @@ import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
+import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 
 export function StationDetails() {
   const { stationId } = useParams()
@@ -71,7 +72,7 @@ export function StationDetails() {
 
   async function onLikeDislikeSong(song) {
     try {
-      const likedSongs= (!likedSongsIds.includes(song.id)) ? await likeSong(song) : await dislikeSong(song.id)
+      const likedSongs = (!likedSongsIds.includes(song.id)) ? await likeSong(song) : await dislikeSong(song.id)
       setLikedSongsIds(_getLikedSongsIds(likedSongs))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
@@ -125,7 +126,7 @@ export function StationDetails() {
         : ''}
 
       <div className='station-table-body'>
-      {(stationId === 'liked-songs' ? user.likedSongs : station.songs).map((song, idx) => (
+        {(stationId === 'liked-songs' ? user.likedSongs : station.songs).map((song, idx) => (
           <div key={song.id} className={`station-song-row ${currentSong.id === song.id ? 'current-song' : ''}`}>
             {isPlaying && currentSong.id === song.id ? (
               <div className='station-song-row__icon playing'>
@@ -138,14 +139,8 @@ export function StationDetails() {
               <div className='station-song-row__number'>{idx + 1}</div>
             )}
 
-            <div
-              className='station-song-row__playPause'
-              onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}
-            >
-              <img
-                src={`/src/assets/img/${isPlaying && currentSong.id === song.id ? 'pause' : 'play'}-icon.svg`}
-                alt={`${isPlaying ? 'Pause' : 'Play'}`}
-              />
+            <div className='station-song-row__playPause' onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}>
+              {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
             <div className='station-song-row__title'>
               <img src={song.imgUrl} alt={song.name} />
@@ -192,6 +187,6 @@ function _formatDuration(ms) {
   return `${minutes}:${seconds.padStart(2, '0')}`
 }
 
-function _getLikedSongsIds(songs){
-return songs.map(likedSong => likedSong.id)
+function _getLikedSongsIds(songs) {
+  return songs.map(likedSong => likedSong.id)
 }
