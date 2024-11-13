@@ -172,7 +172,7 @@ function _cleanTrackData(data) {
     description: '',
     imgUrl: data.album.images[1].url,
     duration: data.duration_ms,
-    owner: { fullname: data.artists[0].name },
+    owner: { name: data.artists[0].name },
     releaseDate: data.album.release_date.slice(0, 4),
     artists: _cleanArtists(data.artists),
     album: { name: data.album.name, _id: data.album.id },
@@ -227,7 +227,7 @@ async function _cleanStationData(data) {
     name: data.name,
     imgUrl: data.images[0].url,
     description: data.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, ''),
-    owner: { fullname: 'Leedify' },
+    owner: { name: 'Leedify' },
     songs: await getSpotifyItems({ type: 'tracks', id: data.id }),
     snapshot_id: data.snapshot_id,
     lastUpdate: Date.now(),
@@ -242,7 +242,7 @@ function _cleanAlbumData(data) {
     imgUrl: data.images[0].url,
     releaseDate: data.release_date,
     artists: _cleanArtists(data.artists),
-    owner: { fullname: data.artists[0].name },
+    owner: { name: data.artists[0].name },
     label: data.label,
     songs: _cleanAlbumTracksData(data.tracks.items, data.images),
     isAlbum: true,
@@ -349,7 +349,7 @@ async function _cleanArtistData(data) {
     imgUrl: data.images[0].url,
     followers: data.followers.total,
     isArtist: true,
-    owner: { fullname: data.name },
+    owner: { name: data.name },
   }
 }
 

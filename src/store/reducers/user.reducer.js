@@ -6,6 +6,8 @@ export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const LIKE_SONG = 'LIKE_SONG'
 export const DISLIKE_SONG = 'DISLIKE_SONG'
+export const LIKE_STATION = 'LIKE_STATION'
+export const DISLIKE_STATION = 'DISLIKE_STATION'
 
 const initialState = {
     user: userService.getLoggedinUser(),
@@ -35,9 +37,20 @@ export function userReducer(state = initialState, action) {
             newState = {
                 ...state, user: {
                     ...state.user,
-                    likedSongs: state.user.likedSongs.filter(song=> song._id !== action.songId)
+                    likedSongs: state.user.likedSongs.filter(song => song._id !== action.songId)
                 }
             }
+            break
+        case LIKE_STATION:
+            newState = { ...state, user: { ...state.user, likedStations: [...state.user.likedStations, action.likedStation] } }
+            break
+        case DISLIKE_STATION:
+            newState = {
+                ...state, user: {
+                    ...state.user,
+                    likedStations: state.user.likedStations.filter(station => station._id !== action.stationId)
+                }
+            }            
             break
         default:
     }

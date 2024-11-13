@@ -21,7 +21,7 @@ export function UserDetails() {
   }, [params.id])
 
   function onUserUpdate(user) {
-    showSuccessMsg(`This user ${user.fullname} just got updated from socket, new score: ${user.score}`)
+    showSuccessMsg(`This user ${user.name} just got updated from socket`)
     store.dispatch({ type: 'SET_WATCHED_USER', user })
   }
 
@@ -30,7 +30,7 @@ export function UserDetails() {
       <h1>User Details</h1>
       {user && <div>
         <h3>
-          {user.fullname}
+          {user.name}
         </h3>
         <img src={user.imgUrl} style={{ width: '100px' }} />
         <pre> {JSON.stringify(user, null, 2)} </pre>

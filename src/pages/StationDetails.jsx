@@ -8,9 +8,11 @@ import {
   addSongToStation,
   loadLikedSongsStation,
   updateStation,
+  removeSongFromStation,
+  removeStation,
 } from '../store/actions/station.actions'
-import { likeSong, dislikeSong } from '../store/actions/user.actions'
-import { Time } from '../assets/img/playlist-details/icons'
+import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
+import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
 import { DEFAULT_IMG } from '../services/station/station.service.local'
@@ -18,9 +20,13 @@ import { FastAverageColor } from 'fast-average-color'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Button } from '@mui/material'
 import StationMenu from '../cmps/StationMenu'
-import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { DraggableSongContainer } from '../cmps/DnDSongContainer'
-import SongMenu from '../cmps/SongMenu'
+import { DraggableSongRow } from '../cmps/DnDSongRow'
+
+import { formatDuration } from '../services/util.service'
+import { PlayIcon } from '../assets/img/player/icons'
+import { getRelativeTime } from '../services/util.service'
+import songMenu from '../cmps/SongMenu'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -28,11 +34,12 @@ export function StationDetails() {
 
   const fileInputRef = useRef(null)
   const { stationId } = useParams()
-
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+
   const user = useSelector((state) => state.userModule.user)
+  const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
   const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
   const [stationImage, setStationImage] = useState('')
 
@@ -169,7 +176,29 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
-    addSongToStation(stationId, song)
+    try {
+      await addSongToStation(stationId, song)
+    } catch {
+      showErrorMsg(`failed to add song ${song.name}`)
+    }
+  }
+
+  async function onRemoveSong(songId) {
+    try {
+      await removeSongFromStation(stationId, songId)
+      handleClose('song')
+    } catch {
+      showErrorMsg(`failed to remove song ${songId}`)
+    }
+  }
+
+  async function onRemoveStation() {
+    try {
+      await removeStation(stationId)
+      navigate('/')
+    } catch {
+      showErrorMsg(`failed to remove station`)
+    }
   }
 
   async function onLikeDislikeSong(song) {
@@ -214,7 +243,7 @@ export function StationDetails() {
           </h1>
           <span className='station-header__description'>{station.description}</span>
           <div className='station-header__meta'>
-            <span className='station-header__owner'>{station.createdBy.fullname}</span>
+            <span className='station-header__owner'>{station.createdBy.name}</span>
             <span className='station-header__songs-count'>
               {!station.songs?.length
                 ? 'No songs yet'
@@ -228,7 +257,9 @@ export function StationDetails() {
           <button className='station-controls__play'>
             <span className='station-controls__play-icon'>▶</span>
           </button>
-          <button className='station-controls__add'>+</button>
+          <button className={`like-station ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
+            {isInLibrary ? <Liked /> : <Like />}
+          </button>
           <Button
             className='list-icon'
             onClick={(event) => handleClick(event, 'station')}
