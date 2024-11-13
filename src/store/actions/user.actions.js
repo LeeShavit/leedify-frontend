@@ -2,18 +2,14 @@ import { userService } from '../../services/user'
 import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
-import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
-import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, LIKE_STATION, DISLIKE_STATION } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, LIKE_STATION, DISLIKE_STATION, UPDATE_USER_LIKED_STATIONS } from '../reducers/user.reducer'
 
 export async function loadUsers() {
     try {
-        store.dispatch({ type: LOADING_START })
         const users = await userService.getUsers()
         store.dispatch({ type: SET_USERS, users })
     } catch (err) {
         console.log('UserActions: err in loadUsers', err)
-    } finally {
-        store.dispatch({ type: LOADING_DONE })
     }
 }
 
@@ -77,6 +73,17 @@ export async function loadUser(userId) {
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)
+    }
+}
+
+export async function updateUsersLikedStation(station) {
+    try {
+        const likedStations = await userService.updateUsersLikedStation(station)
+        store.dispatch({ type: UPDATE_USER_LIKED_STATIONS, likedStations })
+        return likedStations
+    } catch (err) {
+        showErrorMsg('Cannot like song')
+        console.log('Cannot like song', err)
     }
 }
 

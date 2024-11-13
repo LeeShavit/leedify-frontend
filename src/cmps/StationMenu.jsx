@@ -34,10 +34,10 @@ export default function StationMenu({ onClose, ...props }) {
     return (
         <>
             <Menu  {...props} onClose={onClose} className="menu">
-                <MenuItem onClick={props.onLikeDislikeStation}>
+                <MenuItem onClick={()=>props.onRemoveStation()}>
                     {props.isInLibrary ? <> <LikeIconLiked />Remove from Your Library</> : <> <LikeIconLike />Add to Your Library</>}
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={()=>props.onAddToQueue()}>
                     <AddToQueue /> Add to queue
                 </MenuItem>
                 <Divider />

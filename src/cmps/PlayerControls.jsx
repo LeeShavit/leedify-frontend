@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { setIsPlaying } from '../store/actions/station.actions'
-
 import YouTube from 'react-youtube'
+import { useSelector } from 'react-redux'
+
+import { setIsPlaying, toggleShuffle, setRepeatMode, playNext, playPrev } from '../store/actions/player.actions.js'
+
 import { ApiService } from '../services/api.service.js'
 import { NextSong, PauseIcon, PlayIcon, PrevSong, Repeat, Shuffle } from '../assets/img/player/icons.jsx'
 
 export function PlayerControls({ playerRef, volume }) {
 
-    const currentSong = useSelector((state) => state.stationModule.currentSong)
-    const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+    const currentSong = useSelector((state) => state.playerModule.currentSong)
+    const isPlaying = useSelector((state) => state.playerModule.isPlaying)
+    const shuffle = useSelector((state) => state.playerModule.shuffle)
+    const repeat = useSelector((state) => state.playerModule.repeat)
     const [videoId, setVideoId] = useState(null)
     const [currentTime, setCurrentTime] = useState(0)
-
     useEffect(() => {
         loadVideoId()
     }, [currentSong])
@@ -21,7 +23,7 @@ export function PlayerControls({ playerRef, volume }) {
         if (!playerRef.current) return
         playPauseSong()
 
-        if(!isPlaying) return
+        if (!isPlaying) return
         const interval = setInterval(() => {
             const currentTime = playerRef.current.getCurrentTime()
             setCurrentTime(currentTime)
@@ -45,11 +47,10 @@ export function PlayerControls({ playerRef, volume }) {
     function handleReady(event) {
         playerRef.current = event.target
         playerRef.current.setVolume(volume)
-
         playPauseSong()
     }
 
-    function handleStateChange(event) {        
+    function handleStateChange(event) {
         if (event.data === 5 && isPlaying) {
             event.target.playVideo()
         }
@@ -57,40 +58,47 @@ export function PlayerControls({ playerRef, volume }) {
             setTimeout(() => {
                 if (playerRef.current && isPlaying) {
                     playerRef.current.playVideo()
-                }}, 500)
+                }
+            }, 500)
         }
     }
 
-    function playPauseSong(){
-            if (!playerRef.current) return
-            
-            const playerState = playerRef.current.getPlayerState()
-            if (isPlaying && (playerState === 5 || playerState === 2)) {
-                    playerRef.current.playVideo()
-            }
-             else {
-                playerRef.current.pauseVideo()
-            }
+    function playPauseSong() {
+        if (!playerRef.current) return
+
+        const playerState = playerRef.current.getPlayerState()
+        if (isPlaying && (playerState === 5 || playerState === 2)) {
+            playerRef.current.playVideo()
+        }
+        else {
+            playerRef.current.pauseVideo()
+        }
     }
 
     function handlePlay() {
-        if(!playerRef.current) return
+        if (!playerRef.current) return
         playerRef.current.playVideo()
         setIsPlaying(true)
     }
 
     function handlePause() {
-        if(!playerRef.current) return
+        if (!playerRef.current) return
         playerRef.current.pauseVideo()
         setIsPlaying(false)
     }
 
-    function handleProgressClick({target}) {
+    function handleProgressClick({ target }) {
         if (!playerRef.current || !videoId) return
 
         const newTime = playerRef.current.getDuration() * (target.value / 100)
         playerRef.current.seekTo(newTime, true)
         setCurrentTime(newTime)
+    }
+
+    function onSetRepeatMode(){
+        if(repeat === 'OFF') return setRepeatMode('SONG') 
+        if(repeat === 'SONG') return setRepeatMode('QUEUE')
+        if(repeat === 'QUEUE') return setRepeatMode('OFF')
     }
 
     function formatTime(seconds) {
@@ -99,7 +107,6 @@ export function PlayerControls({ playerRef, volume }) {
         return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
-    if (!videoId) return null
 
     return (
         <div className="player-controls">
@@ -122,21 +129,21 @@ export function PlayerControls({ playerRef, volume }) {
             </div>
             <div className="player-controls-content">
                 <div className="player-controls-buttons">
-                    <button>
-                        <Shuffle/>
+                    <button onClick={() => toggleShuffle()}>
+                        <Shuffle />
                     </button>
-                    <button>
-                        <PrevSong/>
+                    <button onClick={()=>playPrev()}>
+                        <PrevSong />
                     </button>
                     <button
                         onClick={isPlaying ? handlePause : handlePlay}
                         className={`play ${isPlaying ? 'is-playing' : ''}`}>
-                        {isPlaying ? <PauseIcon/> : <PlayIcon/>}
+                        {isPlaying ? <PauseIcon /> : <PlayIcon />}
                     </button>
-                    <button>
+                    <button onClick={()=>playNext()}>
                         <NextSong/>
                     </button>
-                    <button>
+                    <button onClick={()=>onSetRepeatMode()}>
                         <Repeat/>
                     </button>
                 </div>
