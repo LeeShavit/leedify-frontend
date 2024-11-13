@@ -22,7 +22,7 @@ export const stationService = {
   getLikedSongsStation,
   updatePlaylistImage,
 }
-
+_createDemoSong()
 _createDemoData()
 
 async function query(filterBy = {}) {
@@ -364,6 +364,31 @@ function _createDemoData() {
   ]
 
   saveToStorage(STORAGE_KEY, demoStations)
+}
+function _createDemoSong() {
+  let currentSong = JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
+  if (currentSong) return
+
+  currentSong = {
+    _id: '2L9N0zZnd37dwF0clgxMGI',
+    name: 'ceilings',
+    artists: [
+      {
+        name: 'Lizzy McAlpine',
+        _id: '1GmsPCcpKgF9OhlNXjOsbS',
+      },
+    ],
+    album: {
+      name: 'five seconds flat',
+      _id: '68L5xVV9wydotfDXEik7eD',
+    },
+    duration: 181200,
+    url: 'youtube/song.mp4',
+    imgUrl: 'https://i.scdn.co/image/ab67616d00001e02d370fdc4dbc47778b9b667c3',
+    likedBy: [],
+    addedAt: 162521765262,
+  }
+  saveToStorage(SONG_STORAGE_KEY, currentSong)
 }
 
 function _formatDuration(ms) {
