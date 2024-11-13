@@ -44,11 +44,8 @@ export function StationDetails() {
   const [stationMenuAnchor, setStationMenuAnchor] = useState(null)
   const stationMenuOpen = Boolean(stationMenuAnchor)
 
-  const currentStationId = useSelector((state) => state.stationModule.currentStationId)
-  const queue = useSelector((state) => state.stationModule.queue)
-  const isPlaying = useSelector((state) => state.stationModule.isPlaying)
-
-  console.log(currentStationId, queue, isPlaying)
+  const currentStationId = useSelector((state) => state.playerModule.currentStationId)
+  const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   useEffect(() => {
     if (stationId === 'liked-songs') {
@@ -178,7 +175,10 @@ export function StationDetails() {
   }
 
   function onPlayStation(){
-    addToQueue(station.songs, stationId)
+    if(currentStationId===stationId){
+      isPlaying? setIsPlaying(false) :  setIsPlaying(true)
+    }
+    addToQueue([...station.songs], stationId)
     playNext()
     setIsPlaying(true) 
   }
@@ -225,7 +225,7 @@ export function StationDetails() {
           <button className='station-controls__play' onClick={()=>onPlayStation()}>
             <span className='station-controls__play-icon'>▶</span>
           </button>
-          <button className={`like-station ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
+          <button className={`station-controls__add ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
             {isInLibrary ? <Liked /> : <Like />}
           </button>
           <Button

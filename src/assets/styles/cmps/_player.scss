@@ -149,6 +149,22 @@
       flex-flow: row nowrap;
       width: 100%;
       margin-bottom: 8px;
+
+      .repeat.on{
+          position: relative;
+          color: $primary-color;
+
+          &::after{
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            right: 14px;
+            width: 4px;
+            height: 4px;
+            background-color: $primary-color;
+            border-radius: 50%;
+          }
+      }
     }
 
     .progress {

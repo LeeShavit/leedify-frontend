@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux'
 import { setIsPlaying, toggleShuffle, setRepeatMode, playNext, playPrev } from '../store/actions/player.actions.js'
 
 import { ApiService } from '../services/api.service.js'
-import { NextSong, PauseIcon, PlayIcon, PrevSong, Repeat, Shuffle } from '../assets/img/player/icons.jsx'
+import { NextSong, PauseIcon, PlayIcon, PrevSong, Repeat, RepeatOne, Shuffle } from '../assets/img/player/icons.jsx'
 
 export function PlayerControls({ playerRef, volume }) {
 
     const currentSong = useSelector((state) => state.playerModule.currentSong)
     const isPlaying = useSelector((state) => state.playerModule.isPlaying)
     const shuffle = useSelector((state) => state.playerModule.shuffle)
+    const queue = useSelector((state) => state.playerModule.queue)
     const repeat = useSelector((state) => state.playerModule.repeat)
     const [videoId, setVideoId] = useState(null)
     const [currentTime, setCurrentTime] = useState(0)
@@ -107,7 +108,6 @@ export function PlayerControls({ playerRef, volume }) {
         return `${mins}:${secs.toString().padStart(2, '0')}`
     }
 
-
     return (
         <div className="player-controls">
             <div className="yt-player hidden">
@@ -143,8 +143,8 @@ export function PlayerControls({ playerRef, volume }) {
                     <button onClick={()=>playNext()}>
                         <NextSong/>
                     </button>
-                    <button onClick={()=>onSetRepeatMode()}>
-                        <Repeat/>
+                    <button onClick={()=>onSetRepeatMode()} className={`repeat ${(repeat !== 'OFF') &&'on'}`}>
+                       {repeat==='SONG' ? <RepeatOne/> : <Repeat/>}
                     </button>
                 </div>
 
