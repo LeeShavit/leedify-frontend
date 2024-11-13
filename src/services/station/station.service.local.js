@@ -6,6 +6,9 @@ import { makeId, saveToStorage } from '../util.service'
 const STORAGE_KEY = 'stations_db'
 const SONG_STORAGE_KEY = 'current-playing-song'
 
+export const DEFAULT_IMG =
+  'https://res.cloudinary.com/dtqfckufu/image/upload/c_crop,w_450,h_450,ar_1:1/v1731425735/empty_xye9w8.png'
+
 export const stationService = {
   query,
   getById,
@@ -17,11 +20,10 @@ export const stationService = {
   getCurrentSong,
   getSearchResSong,
   getLikedSongsStation,
+  updatePlaylistImage,
 }
 
 _createDemoData()
-_createDemoSong()
-_createDemoSongs()
 
 async function query(filterBy = {}) {
   try {
@@ -65,6 +67,11 @@ async function remove(stationId) {
 
 async function save(station) {
   try {
+    if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
+      const firstSong = station.songs[0]
+      station.imgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
+    }
+
     if (station._id) {
       return await storageService.put(STORAGE_KEY, station)
     } else {
@@ -93,6 +100,22 @@ async function addSongToStation(stationId, song) {
     return await save(station)
   } catch (err) {
     console.error("station service - couldn't add song to station", err)
+    throw err
+  }
+}
+
+async function updatePlaylistImage(stationId) {
+  try {
+    const station = await getById(stationId)
+    if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
+      const firstSong = station.songs[0]
+      station.imgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
+
+      return await save(station)
+    }
+    return station
+  } catch (err) {
+    console.error('Failed to update playlist image', err)
     throw err
   }
 }
@@ -133,7 +156,7 @@ function getEmptyStation() {
     name: 'New Playlist',
     description: '',
     tags: [],
-    imgUrl: 'https://res.cloudinary.com/dtqfckufu/image/upload/c_crop,w_450,h_450,ar_1:1/v1731425735/empty_xye9w8.png',
+    imgUrl: DEFAULT_IMG,
     createdBy: {},
     likedByUsers: [],
     songs: [],
@@ -352,245 +375,7 @@ function getCurrentSong() {
   return JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
 }
 
-function _createDemoSong() {
-  let currentSong = JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
-  if (currentSong) return
-
-  currentSong = {
-    _id: '2L9N0zZnd37dwF0clgxMGI',
-    name: 'ceilings',
-    artists: [
-      {
-        name: 'Lizzy McAlpine',
-        _id: '1GmsPCcpKgF9OhlNXjOsbS',
-      },
-    ],
-    album: {
-      name: 'five seconds flat',
-      _id: '68L5xVV9wydotfDXEik7eD',
-    },
-    duration: 181200,
-    url: 'youtube/song.mp4',
-    imgUrl: 'https://i.scdn.co/image/ab67616d00001e02d370fdc4dbc47778b9b667c3',
-    likedBy: [],
-    addedAt: 162521765262,
-  }
-  saveToStorage(SONG_STORAGE_KEY, currentSong)
-}
-
-function _createDemoSongs() {
-  let demoSongs = JSON.parse(localStorage.getItem('demo-songs'))
-
-  if (demoSongs) return
-
-  demoSongs = [
-    {
-      _id: '2PSo26j5LkdGu18mYM2ZdT',
-      name: "What's Going On",
-      artists: [
-        {
-          name: 'Taste',
-          _id: '4Se7TFuKKQVCzttyri6bg3',
-        },
-      ],
-      album: {
-        name: 'On The Boards',
-        _id: '6UP7rSugk9wAcMYnqZ6Ti8',
-      },
-      duration: 166466,
-      url: 'spotify:track:2PSo26j5LkdGu18mYM2ZdT',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b2733a3aea980c768276d923b09a',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '6fGTwrORSxE6rmX9OzQNbN',
-      name: 'Blister On The Moon',
-      artists: [
-        {
-          name: 'Taste',
-          _id: '4Se7TFuKKQVCzttyri6bg3',
-        },
-      ],
-      album: {
-        name: 'Taste',
-        _id: '4KJWhNB66Jr4syDJNu9fzc',
-      },
-      duration: 204893,
-      url: 'spotify:track:6fGTwrORSxE6rmX9OzQNbN',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b273cf3d2a9d6312bc639f1c448b',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '71ZgxJIApKmssV44AD1Zva',
-      name: 'A Taste Of Honey',
-      artists: [
-        {
-          name: 'Lionel Hampton',
-          _id: '2PjgZkwAEk7UTin4jP6HLP',
-        },
-      ],
-      album: {
-        name: 'You Better Know It!!!',
-        _id: '6uGX7ozBLgPKWwKEhxm5pV',
-      },
-      duration: 164373,
-      url: 'spotify:track:71ZgxJIApKmssV44AD1Zva',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b273373e4b2cddd71d23552f1298',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '0T7D44xh8oCPLYDfi8HIo7',
-      name: 'Railway And Gun',
-      artists: [
-        {
-          name: 'Taste',
-          _id: '4Se7TFuKKQVCzttyri6bg3',
-        },
-      ],
-      album: {
-        name: 'On The Boards',
-        _id: '6UP7rSugk9wAcMYnqZ6Ti8',
-      },
-      duration: 216426,
-      url: 'spotify:track:0T7D44xh8oCPLYDfi8HIo7',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b2733a3aea980c768276d923b09a',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '2pZdwyEyT6o1hZoKZJj2wp',
-      name: 'If The Day Was Any Longer',
-      artists: [
-        {
-          name: 'Taste',
-          _id: '4Se7TFuKKQVCzttyri6bg3',
-        },
-      ],
-      album: {
-        name: 'On The Boards',
-        _id: '6UP7rSugk9wAcMYnqZ6Ti8',
-      },
-      duration: 128066,
-      url: 'spotify:track:2pZdwyEyT6o1hZoKZJj2wp',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b2733a3aea980c768276d923b09a',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '5I46WStI64aYqzmT4ZtK6m',
-      name: "I'm Moving On",
-      artists: [
-        {
-          name: 'Taste',
-          _id: '4Se7TFuKKQVCzttyri6bg3',
-        },
-      ],
-      album: {
-        name: 'Taste',
-        _id: '4KJWhNB66Jr4syDJNu9fzc',
-      },
-      duration: 148373,
-      url: 'spotify:track:5I46WStI64aYqzmT4ZtK6m',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b273cf3d2a9d6312bc639f1c448b',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '3eaT8cDhFb7ng9nbDSFX8R',
-      name: 'Same Old Story',
-      artists: [
-        {
-          name: 'Taste',
-          _id: '4Se7TFuKKQVCzttyri6bg3',
-        },
-      ],
-      album: {
-        name: 'Taste',
-        _id: '4KJWhNB66Jr4syDJNu9fzc',
-      },
-      duration: 211066,
-      url: 'spotify:track:3eaT8cDhFb7ng9nbDSFX8R',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b273cf3d2a9d6312bc639f1c448b',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '07NrCEN3egNvw8td2LxqJO',
-      name: 'Boogie Oogie Oogie - Remastered 2004',
-      artists: [
-        {
-          name: 'A Taste Of Honey',
-          _id: '1ii6e2pv8VIRwnTER71rMl',
-        },
-      ],
-      album: {
-        name: 'A Taste Of Honey',
-        _id: '4QJA3YXQdpLhuIztkSgrpo',
-      },
-      duration: 338320,
-      url: 'spotify:track:07NrCEN3egNvw8td2LxqJO',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b2731da1b4064fc8eb0d2a65dc97',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '6xqLmU9xdVcK7q4O7ccjLB',
-      name: 'Sweet Lady - Bonus Track',
-      artists: [
-        {
-          name: 'Taste Nate',
-          _id: '3GuvJo4WPujuiIU3GoTnFD',
-        },
-        {
-          name: 'Lord Lorenz',
-          _id: '3qVag8oPA3Nu6CyqwoScn2',
-        },
-      ],
-      album: {
-        name: 'Hearticle of Poetry (Remastered 2024)',
-        _id: '0NbOUnCXQna2ChUBZW7y9k',
-      },
-      duration: 240923,
-      url: 'spotify:track:6xqLmU9xdVcK7q4O7ccjLB',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b273a50f37e920ca9be6ac3d7107',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-    {
-      _id: '5zZ3ObobIeeHCsoCW8WctN',
-      name: 'Those Shoes - Bonus Track',
-      artists: [
-        {
-          name: 'Taste Nate',
-          _id: '3GuvJo4WPujuiIU3GoTnFD',
-        },
-        {
-          name: 'Lord Lorenz',
-          _id: '3qVag8oPA3Nu6CyqwoScn2',
-        },
-      ],
-      album: {
-        name: 'Hearticle of Poetry (Remastered 2024)',
-        _id: '0NbOUnCXQna2ChUBZW7y9k',
-      },
-      duration: 89970,
-      url: 'spotify:track:5zZ3ObobIeeHCsoCW8WctN',
-      imgUrl: 'https://i.scdn.co/image/ab67616d0000b273a50f37e920ca9be6ac3d7107',
-      likedBy: [],
-      addedAt: 1699574400000,
-    },
-  ]
-  saveToStorage('demo-songs', demoSongs)
-}
-
-function getSongs(idx) {
-  return JSON.parse(localStorage.getItem('demo-songs'))
-}
-
 async function getSearchResSong(txt) {
-  const res= await ApiService.getSpotifyItems({ type: 'songSearch', query: txt, market: 'US' }) 
+  const res = await ApiService.getSpotifyItems({ type: 'songSearch', query: txt, market: 'US' })
   return res.songs
 }

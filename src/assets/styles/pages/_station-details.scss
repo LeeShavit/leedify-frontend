@@ -200,7 +200,7 @@
       color: $text-secondary;
       width: 32px;
 
-      & svg{
+      & svg {
         width: 32px;
       }
 
@@ -265,12 +265,35 @@
   .station-song-row {
     display: grid;
     grid-template-columns: 34px 3fr 3fr 2fr auto;
-    padding: 8px 16px;
+    padding: 4px 16px;
     color: #b3b3b3;
     font-size: 14px;
     border-radius: 4px;
     align-items: center;
     margin-bottom: 12px;
+
+    &.is-dragging {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+      .station-song-row__title,
+      .station-song-row__album,
+      .station-song-row__date,
+      .station-song-row__duration {
+        opacity: 0.8;
+      }
+    }
+    &:hover {
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+    &:focus {
+      outline: none;
+    }
 
     button {
       background: 0;
@@ -421,7 +444,6 @@
           color: $text-primary;
         }
       }
-
     }
 
     &__playPause {
