@@ -52,18 +52,18 @@ export function StationDetails() {
       loadLikedSongsStation().catch((err) => navigate('/'))
       return
     }
-    loadStation(stationId).catch((err) => navigate('/'))
-  }, [])
-
-  useEffect(() => {
-    if (station?.imgUrl === stationService.DEFAULT_IMG && station.songs.length > 0) {
-      const firstSong = station.songs[0]
-      const newImgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
-      setStationImage(newImgUrl)
-    } else {
-      setStationImage(station.imgUrl)
-    }
+    loadStation(stationId).then(()=>{
+      if (station?.imgUrl === stationService.DEFAULT_IMG && station.songs.length > 0) {
+        const firstSong = station.songs[0]
+        const newImgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
+        setStationImage(newImgUrl)
+      } else {
+        setStationImage(station.imgUrl)
+      }
+    })
+    .catch((err) => navigate('/'))
   }, [station])
+
 
   useEffect(() => {
     if (!stationImage) return
