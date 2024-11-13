@@ -1,13 +1,18 @@
 import { Menu, MenuItem, Divider } from '@mui/material';
 import { ChevronRight } from 'lucide-react';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useState } from 'react';
-import { AddIcon, AddToQueue, GoToArtist, GoToAlbum, GoToRadio, ViewCredits, Share, Embed, Copy, ArrowRight } from '../assets/img/menu/icons';
+import { useParams } from 'react-router-dom'
+
+import { AddIcon, AddToQueue, GoToArtist, GoToAlbum, GoToRadio, ViewCredits, Share, Embed, Copy, ArrowRight, Remove } from '../assets/img/menu/icons';
 import { LikeIconLike } from '../assets/img/player/icons';
 import { SpotifyIcon } from '../assets/img/app-header/icons';
 
 
 export default function SongMenu({ onClose, ...props }) {
+
+    console.log(props.onRemoveSong)
+
+    const { stationId } = useParams()
 
     const [playlistAnchor, setPlaylistAnchor] = useState(null)
     const [shareAnchor, setShareAnchor] = useState(null)
@@ -40,6 +45,9 @@ export default function SongMenu({ onClose, ...props }) {
                         <ArrowRight className="nested-menu-end" />
                     </div>
                 </MenuItem>
+                { props.isUserStation && <MenuItem onClick={props.onRemoveSong}>
+                    <Remove/> Remove from this playlist
+                </MenuItem>}
                 <MenuItem>
                     <LikeIconLike/> Save to your Liked Songs
                 </MenuItem>

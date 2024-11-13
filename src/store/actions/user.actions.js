@@ -3,7 +3,7 @@ import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
 import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
-import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, LIKE_STATION, DISLIKE_STATION } from '../reducers/user.reducer'
 
 export async function loadUsers() {
     try {
@@ -82,23 +82,46 @@ export async function loadUser(userId) {
 
 export async function likeSong(song) {
     try {
-        const likedSongs= await userService.likeSong(song)
+        const likedSongs = await userService.likeSong(song)
         store.dispatch({ type: LIKE_SONG, song })
         return likedSongs
 
     } catch (err) {
-        showErrorMsg('Cannot load user')
-        console.log('Cannot load user', err)
+        showErrorMsg('Cannot like song')
+        console.log('Cannot like song', err)
     }
 }
 
 export async function dislikeSong(songId) {
     try {
-        const likedSongs= await userService.dislikeSong(songId)
+        const likedSongs = await userService.dislikeSong(songId)
         store.dispatch({ type: DISLIKE_SONG, songId })
         return likedSongs
     } catch (err) {
-        showErrorMsg('Cannot load user')
-        console.log('Cannot load user', err)
+        showErrorMsg('Cannot dislike song')
+        console.log('Cannot dislike song', err)
+    }
+}
+
+export async function likeStation(station) {
+    try {
+        const likedStation  = await userService.likeStation(station)
+        console.log(likedStation)
+        store.dispatch({ type: LIKE_STATION, likedStation })
+
+    } catch (err) {
+        showErrorMsg('Cannot like station')
+        console.log('Cannot like station', err)
+    }
+}
+
+export async function dislikeStation(stationId) {
+    try {
+        await userService.dislikeStation(stationId)
+        store.dispatch({ type: DISLIKE_STATION, stationId })
+
+    } catch (err) {
+        showErrorMsg('Cannot dislike station')
+        console.log('Cannot dislike station', err)
     }
 }

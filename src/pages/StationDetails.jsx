@@ -8,8 +8,10 @@ import {
   addSongToStation,
   loadLikedSongsStation,
   updateStation,
+  removeSongFromStation,
+  removeStation,
 } from '../store/actions/station.actions'
-import { likeSong, dislikeSong } from '../store/actions/user.actions'
+import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
@@ -21,18 +23,21 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Button } from '@mui/material'
 import SongMenu from '../cmps/SongMenu'
 import StationMenu from '../cmps/StationMenu'
+import { showErrorMsg } from '../services/event-bus.service'
 
 
 
 export function StationDetails() {
+
   const navigate = useNavigate()
   const fileInputRef = useRef(null)
   const { stationId } = useParams()
-
   const station = useSelector((state) => state.stationModule.currentStation)
   const currentSong = useSelector((state) => state.stationModule.currentSong)
   const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+
   const user = useSelector((state) => state.userModule.user)
+  const isInLibrary = (user.likedStations.some(likedStation => likedStation._id === stationId))
   const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -95,7 +100,7 @@ export function StationDetails() {
   }
 
   function onPlaySong(song) {
-    if (currentSong._id !== song.Id) setPlayingSong(song)
+    if (currentSong._id !== song._id) setPlayingSong(song)
     setIsPlaying(true)
   }
 
@@ -104,24 +109,55 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
-    addSongToStation(stationId, song)
+    try {
+      await addSongToStation(stationId, song)
+    } catch {
+      showErrorMsg(`failed to add song ${song.name}`)
+    }
+  }
+
+  async function onRemoveSong(songId) {
+    try {
+      await removeSongFromStation(stationId, songId)
+      handleClose('song')
+    } catch {
+      showErrorMsg(`failed to remove song ${songId}`)
+    }
+  }
+
+  async function onRemoveStation() {
+    try {
+      await removeStation(stationId)
+      navigate('/')
+    } catch {
+      showErrorMsg(`failed to remove station`)
+    }
   }
 
   async function onLikeDislikeSong(song) {
     try {
-      const likedSongs = !likedSongsIds.includes(song.id) ? await likeSong(song) : await dislikeSong(song.id)
+      const likedSongs = !likedSongsIds.includes(song._id) ? await likeSong(song) : await dislikeSong(song._id)
       setLikedSongsIds(_getLikedSongsIds(likedSongs))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
     }
   }
 
-  function handleClick(event,type){
+  async function onLikeDislikeStation() {
+    try {
+      isInLibrary ? await dislikeStation(station._id) : await likeStation(station)
+    } catch (err) {
+      console.error('Failed to like/dislike station:', err)
+    }
+  }
+
+  function handleClick(event, type) {
     type === 'song' ? setSongMenuAnchor(event.currentTarget) : setStationMenuAnchor(event.currentTarget)
   }
-  function handleClose(type){
+  function handleClose(type) {
     type === 'song' ? setSongMenuAnchor(null) : setStationMenuAnchor(null)
   }
+
 
   if (!station) return <div>Loading...</div>
 
@@ -149,7 +185,7 @@ export function StationDetails() {
           </h1>
           <span className='station-header__description'>{station.description}</span>
           <div className='station-header__meta'>
-            <span className='station-header__owner'>{station.createdBy.fullname}</span>
+            <span className='station-header__owner'>{station.createdBy.name}</span>
             <span className='station-header__songs-count'>
               {!station.songs?.length
                 ? 'No songs yet'
@@ -163,20 +199,27 @@ export function StationDetails() {
           <button className='station-controls__play'>
             <span className='station-controls__play-icon'>▶</span>
           </button>
-          <button className='station-controls__add'>+</button>
+          <button
+            className={`like-station ${isInLibrary ? 'liked' : ''}`}
+            onClick={() => onLikeDislikeStation()}>
+            {isInLibrary ? <Liked /> : <Like />}
+          </button>
           <Button
             className='list-icon'
-            onClick={(event)=>handleClick(event,'station')}
-            aria-controls={songMenuOpen ? 'station-menu' : undefined}
+            onClick={(event) => handleClick(event, 'station')}
+            aria-controls={stationMenuOpen ? 'station-menu' : undefined}
             aria-haspopup="true"
-            aria-expanded={songMenuOpen ? 'true' : undefined}
+            aria-expanded={stationMenuOpen ? 'true' : undefined}
             sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif', }}>
             <MoreHorizIcon sx={{ fontSize: '32px', opacity: 0.7, color: '' }} />
           </Button>
           <StationMenu id="station-menu"
             anchorEl={stationMenuAnchor}
             open={stationMenuOpen}
-            onClose={()=>handleClose('station')}
+            onClose={() => handleClose('station')}
+            onLikeDislikeStation={() => onLikeDislikeStation()}
+            isUserStation={(user._id === station.createdBy._id)}
+            isInLibrary={isInLibrary}
             MenuListProps={{ 'aria-labelledby': 'station-menu', }} />
         </div>
         <div className='station-controls__right'>
@@ -212,12 +255,11 @@ export function StationDetails() {
 
             <div
               className='station-song-row__playPause'
-              onClick={isPlaying && currentSong.id === song.id ? () => onPauseSong() : () => onPlaySong(song)}
+              onClick={isPlaying && currentSong._id === song._id ? () => onPauseSong() : () => onPlaySong(song)}
             >
               {isPlaying ? <PauseIcon /> : <PlayIcon />}
             </div>
             <div className='station-song-row__title'>
-              {console.log(song.imgUrl)}
               <img src={typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[2].url} alt={song.name} />
               <div>
                 <div className='song-title'>{song.name}</div>
@@ -243,18 +285,23 @@ export function StationDetails() {
             </div>
             <Button
               className='list-icon'
-              onClick={(event)=>handleClick(event,'song')}
-              aria-controls={songMenuOpen ? 'basic-menu' : undefined}
+              onClick={(event) => handleClick(event, 'song', song._id)}
+              aria-controls={songMenuOpen ? 'song-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={songMenuOpen ? 'true' : undefined}
               sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif', }}>
               <MoreHorizIcon sx={{ fontSize: '24px', opacity: 0.7, color: '' }} />
             </Button>
-            <SongMenu id="basic-menu"
+            <SongMenu id="song-menu"
               anchorEl={songMenuAnchor}
               open={songMenuOpen}
-              onClose={()=>handleClose('song')}
-              MenuListProps={{ 'aria-labelledby': 'basic-button', }} />
+              onClose={() => handleClose('song')}
+              onRemoveSong={() => onRemoveSong(song._id)}
+              songId={song._id}
+              MenuListProps={{ 'aria-labelledby': 'basic-button', }}
+              isUserStation={(user._id === station.createdBy._id)}
+              isInLibrary={likedSongsIds.includes(song._id)}
+            />
           </div>
         ))}
         {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}

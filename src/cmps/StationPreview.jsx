@@ -7,7 +7,7 @@ export function StationPreview({ station }) {
         </header>
 
         <p>Speed: <span>{station.speed.toLocaleString()} Km/h</span></p>
-        {station.owner && <p>Owner: <span>{station.owner.fullname}</span></p>}
+        {station.owner && <p>Owner: <span>{station.owner.name}</span></p>}
         
     </article>
 }
