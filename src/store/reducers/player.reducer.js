@@ -65,11 +65,12 @@ export function playerReducer(state = initialState, action = {}) {
         originalQueue: !state.shuffle ? [...state.queue] : [...state.originalQueue]
       }
     case TOGGLE_SHUFFLE:
+      const newShuffle= !state.shuffle
       return {
         ...state,
-        shuffle: !state.shuffle,
-        queue: !state.shuffle ? [...state.queue].sort(() => Math.random + 0.5) : [...state.originalQueue],
-        originalQueue: !state.shuffle ? [...state.queue] : [...state.originalQueue]
+        shuffle: newShuffle,
+        queue: newShuffle ? [...state.queue].sort(() => Math.random - 0.5) : [...state.originalQueue],
+        originalQueue: newShuffle ? [...state.queue] : state.originalQueue
       }
     case SET_REPEAT_MODE:
       return { ...state, repeat: action.mode }
@@ -86,10 +87,13 @@ export function playerReducer(state = initialState, action = {}) {
         ...state,
         currentSong: nextSong,
         queue: remainingQueue,
-        history: action.currentSong ? [action.currentSong, ...state.history] : [...state.history]
+        history: state.currentSong ? [state.currentSong, ...state.history] : [...state.history]
       }
     case PLAY_PREV:
-      if (state.history.length === 0) return state
+      console.log(state)
+      if (state.history.length === 0) {
+        return state
+      }
       const [prevSong, ...remainingHistory] = state.history
       return {
         ...state,

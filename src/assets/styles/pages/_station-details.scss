@@ -189,11 +189,21 @@
       transition: all 0.2s;
       padding: 0;
       line-height: 1;
+      scale: 1.5;
 
       &:hover {
         color: #fff;
         transform: scale(1.04);
       }
+
+      &.liked{
+        color: $primary-color;
+
+        &:hover{
+          transform: scale(1.04);
+        }
+      }
+
     }
 
     .list-icon {
@@ -207,6 +217,7 @@
       &:hover {
         transform: scale(1.04);
         color: $text-primary;
+        background: none;
       }
     }
 
