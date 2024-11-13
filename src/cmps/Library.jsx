@@ -8,20 +8,22 @@ import { PlayIcon } from 'lucide-react'
 import LibrarySortMenu from './LibrarySortMenu'
 import { Button } from '@mui/material'
 import { likeStation } from '../store/actions/user.actions'
+import { addToQueue, setIsPlaying } from '../store/actions/player.actions'
+import { PauseIcon } from '../assets/img/player/icons'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [isExpanded, setIsExpanded] = useState(true)
 
   const user = useSelector(state => state.userModule.user)
+  const currentStationId = useSelector((state) => state.playerModule.currentStationId)
+  const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
-
-  console.log(user.likedStations)
 
   useEffect(() => {
   }, [])
@@ -36,17 +38,29 @@ export function Library() {
       console.error('Failed to create playlist:', err)
     }
   }
-
+  
   function onNavigateToStation(stationId) {
     navigate(`/station/${stationId}`)
   }
-
-  const handleClick = (event) => {
+  
+  function handleClick(event){
     setAnchorEl(event.currentTarget)
   }
-  const handleClose = () => {
+  function handleClose(){
     setAnchorEl(null)
   }
+  
+  async function onPlayStation(stationId){
+    try {
+      const station= stationService.getById(stationId)
+      addToQueue(station.songs)
+      setIsPlaying(true)
+    } catch (error) {
+      console.error('Failed to play playlist:', err)
+    }
+  }
+
+
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -57,7 +71,7 @@ export function Library() {
             {isExpanded && 'Your Library'}
           </button>
           <div className='library-header__actions'>
-            <button className='action-btn action-btn-plus' onClick={handleCreatePlaylist}>
+            <button className='action-btn action-btn-plus' onClick={()=>handleCreatePlaylist()}>
               <PlusIcon className='action-icon' />
             </button>
             <button className='action-btn action-btn-arrow'>
@@ -128,11 +142,11 @@ export function Library() {
           </div>
         </div>
         {user?.likedStations.map((station) => (
-          <div key={station._id} className='library-item' onClick={() => onNavigateToStation(station._id)}>
-            <button className='library-item__image-button'>
+          <div key={station._id} className={`library-item ${currentStationId === station._id ? 'current-station':''}`} onClick={() => onNavigateToStation(station._id)}>
+            <button className='library-item__image-button' onClick={()=>onPlayStation(station._id)}>
               <img src={typeof station.imgUrl === 'string' ? station.imgUrl : station.imgUrl[2].url} alt={station.name} />
               <div className='library-item__image-overlay'>
-                <PlayIcon className='play-icon' />
+              {(currentStationId === station._id && isPlaying) ?  <PlayIcon />: <PauseIcon />}
               </div>
             </button>
             <div className='library-item__info'>

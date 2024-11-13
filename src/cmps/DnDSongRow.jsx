@@ -1,29 +1,53 @@
 import React from 'react'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Draggable } from 'react-beautiful-dnd'
+
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+import { Draggable } from 'react-beautiful-dnd'
 import { Button } from '@mui/material'
 import { PlayIcon, PauseIcon } from '../assets/img/player/icons'
 import { Like, Liked } from '../assets/img/playlist-details/icons'
-import { formatDuration, getRelativeTime } from '../services/util.service'
+
 import SongMenu from '../cmps/SongMenu'
-import { useState } from 'react'
+import { setCurrentSong, setIsPlaying, addToQueue } from '../store/actions/player.actions'
+import { formatDuration, getRelativeTime } from '../services/util.service'
 
 export function DraggableSongRow({
   song,
   index,
-  currentSong,
-  isPlaying,
   likedSongsIds,
-  onPlaySong,
-  onPauseSong,
   onLikeDislikeSong,
-  handleClick,
+  isUserStation,
+  onRemoveSong,
+  onAddToQueue,
 }) {
+
   const [songMenuAnchor, setSongMenuAnchor] = useState(null)
   const songMenuOpen = Boolean(songMenuAnchor)
-  const [stationMenuAnchor, setStationMenuAnchor] = useState(null)
-  const stationMenuOpen = Boolean(stationMenuAnchor)
+
+  const currentSong = useSelector((state) => state.stationModule.currentSong)
+  const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+
+  function onPlaySong(song) {
+    if (currentSong._id !== song._id) {
+      setCurrentSong(song)
+      onAddToQueue()
+    }
+    setIsPlaying(true)
+  }
+
+  function onPauseSong() {
+    setIsPlaying(false)
+  }
+
+  function handleClick(event) {
+    setSongMenuAnchor(event.currentTarget)
+  }
+  function handleClose() {
+    setSongMenuAnchor(null)
+  }
+
 
   return (
     <Draggable draggableId={song._id} index={index}>
@@ -82,7 +106,7 @@ export function DraggableSongRow({
 
           <Button
             className='list-icon'
-            onClick={(event) => handleClick(event, 'song')}
+            onClick={(event) => handleClick(event)}
             aria-controls='basic-menu'
             aria-haspopup='true'
             sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif' }}
@@ -93,7 +117,12 @@ export function DraggableSongRow({
             id='basic-menu'
             anchorEl={songMenuAnchor}
             open={songMenuOpen}
-            onClose={() => handleClose('song')}
+            onClose={() => handleClose()}
+            isUserStation={isUserStation}
+            isLiked={likedSongsIds.includes(song._id)}
+            onLikeDislike={() => onLikeDislikeSong(song)}
+            onRemoveSong={() => onRemoveSong(song._id)}
+            onAddToQueue={() => addToQueue(song)}
             MenuListProps={{ 'aria-labelledby': 'basic-button' }}
           />
         </div>

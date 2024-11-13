@@ -4,13 +4,11 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom'
 
 import { AddIcon, AddToQueue, GoToArtist, GoToAlbum, GoToRadio, ViewCredits, Share, Embed, Copy, ArrowRight, Remove } from '../assets/img/menu/icons';
-import { LikeIconLike } from '../assets/img/player/icons';
+import { LikeIconLike, LikeIconLiked } from '../assets/img/player/icons';
 import { SpotifyIcon } from '../assets/img/app-header/icons';
 
 
 export default function SongMenu({ onClose, ...props }) {
-
-    console.log(props.onRemoveSong)
 
     const { stationId } = useParams()
 
@@ -48,10 +46,10 @@ export default function SongMenu({ onClose, ...props }) {
                 { props.isUserStation && <MenuItem onClick={props.onRemoveSong}>
                     <Remove/> Remove from this playlist
                 </MenuItem>}
-                <MenuItem>
-                    <LikeIconLike/> Save to your Liked Songs
+                <MenuItem onClick={()=>props.onLikeDislike()}>
+                {props.isLiked ? <> <LikeIconLiked />Remove from your Liked Songs</> : <> <LikeIconLike />Add to your Liked Songs</>}
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={()=>props.onAddToQueue()}>
                     <AddToQueue/> Add to queue
                 </MenuItem>
                 <Divider />
