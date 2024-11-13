@@ -21,6 +21,24 @@ export async function loadStations(filterBy) {
     throw err
   }
 }
+export function setStationOptimistic(station) {
+  return store.dispatch({ type: SET_STATION, station })
+}
+export async function reorderStationSongs(stationId, newSongOrder) {
+  try {
+    const station = await stationService.getById(stationId)
+    const updatedStation = {
+      ...station,
+      songs: newSongOrder,
+    }
+
+    const savedStation = await stationService.save(updatedStation)
+    return savedStation
+  } catch (err) {
+    console.log('Cannot reorder songs', err)
+    throw err
+  }
+}
 
 export async function loadStation(stationId) {
   try {
@@ -57,18 +75,19 @@ export async function addStation(station) {
 export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
-    store.dispatch(getCmdUpdateStation(savedStation))
+    const finalStation = await stationService.updatePlaylistImage(savedStation._id)
+    store.dispatch(getCmdUpdateStation(finalStation))
     store.dispatch({
       type: SET_STATION,
-      station: savedStation,
+      station: finalStation,
     })
-    return savedStation
+
+    return finalStation
   } catch (err) {
     console.log('Cannot save station', err)
     throw err
   }
 }
-
 
 export async function loadLikedSongsStation() {
   try {
@@ -78,14 +97,27 @@ export async function loadLikedSongsStation() {
     console.log('Cannot load liked songs station', err)
     throw err
   }
-
 }
 
 export async function addSongToStation(stationId, song) {
   try {
     const updatedStation = await stationService.addSongToStation(stationId, song)
+
+    if (updatedStation.songs.length === 1 && updatedStation.imgUrl === stationService.DEFAULT_IMG) {
+      const songImg = typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[0].url
+      updatedStation.imgUrl = songImg
+      const savedStation = await stationService.save(updatedStation)
+
+      store.dispatch(getCmdAddSongToStation(song))
+      store.dispatch(getCmdUpdateStation(savedStation))
+      store.dispatch({ type: SET_STATION, station: savedStation })
+
+      return savedStation
+    }
     store.dispatch(getCmdAddSongToStation(song))
     store.dispatch(getCmdUpdateStation(updatedStation))
+    store.dispatch({ type: SET_STATION, station: updatedStation })
+
     return updatedStation
   } catch (err) {
     console.log('Cannot add song to station', err)
@@ -113,7 +145,6 @@ export function setIsPlaying(isPlaying) {
   store.dispatch(getCmdSetIsPlaying(isPlaying))
 }
 
-// Command Creators:
 function getCmdSetStations(stations) {
   return {
     type: SET_STATIONS,
