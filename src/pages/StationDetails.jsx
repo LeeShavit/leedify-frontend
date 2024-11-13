@@ -20,6 +20,7 @@ import { getRelativeTime, getItemsIds, formatDuration } from '../services/util.s
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Button } from '@mui/material'
 import SongMenu from '../cmps/SongMenu'
+import StationMenu from '../cmps/StationMenu'
 
 
 
@@ -38,8 +39,10 @@ export function StationDetails() {
   const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)')
   const fac = new FastAverageColor()
 
-  const [anchorEl, setAnchorEl] = useState(null)
-  const open = Boolean(anchorEl)
+  const [songMenuAnchor, setSongMenuAnchor] = useState(null)
+  const songMenuOpen = Boolean(songMenuAnchor)
+  const [stationMenuAnchor, setStationMenuAnchor] = useState(null)
+  const stationMenuOpen = Boolean(stationMenuAnchor)
 
   useEffect(() => {
     if (!station?.imgUrl) return
@@ -113,11 +116,11 @@ export function StationDetails() {
     }
   }
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget)
+  function handleClick(event,type){
+    type === 'song' ? setSongMenuAnchor(event.currentTarget) : setStationMenuAnchor(event.currentTarget)
   }
-  const handleClose = () => {
-    setAnchorEl(null)
+  function handleClose(type){
+    type === 'song' ? setSongMenuAnchor(null) : setStationMenuAnchor(null)
   }
 
   if (!station) return <div>Loading...</div>
@@ -161,8 +164,21 @@ export function StationDetails() {
             <span className='station-controls__play-icon'>▶</span>
           </button>
           <button className='station-controls__add'>+</button>
+          <Button
+            className='list-icon'
+            onClick={(event)=>handleClick(event,'station')}
+            aria-controls={songMenuOpen ? 'station-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={songMenuOpen ? 'true' : undefined}
+            sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif', }}>
+            <MoreHorizIcon sx={{ fontSize: '32px', opacity: 0.7, color: '' }} />
+          </Button>
+          <StationMenu id="station-menu"
+            anchorEl={stationMenuAnchor}
+            open={stationMenuOpen}
+            onClose={()=>handleClose('station')}
+            MenuListProps={{ 'aria-labelledby': 'station-menu', }} />
         </div>
-
         <div className='station-controls__right'>
           <button className='station-controls__list'>List</button>
         </div>
@@ -227,17 +243,17 @@ export function StationDetails() {
             </div>
             <Button
               className='list-icon'
-              onClick={handleClick}
-              aria-controls={open ? 'basic-menu' : undefined}
+              onClick={(event)=>handleClick(event,'song')}
+              aria-controls={songMenuOpen ? 'basic-menu' : undefined}
               aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
+              aria-expanded={songMenuOpen ? 'true' : undefined}
               sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif', }}>
               <MoreHorizIcon sx={{ fontSize: '24px', opacity: 0.7, color: '' }} />
             </Button>
             <SongMenu id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
+              anchorEl={songMenuAnchor}
+              open={songMenuOpen}
+              onClose={()=>handleClose('song')}
               MenuListProps={{ 'aria-labelledby': 'basic-button', }} />
           </div>
         ))}
@@ -253,6 +269,7 @@ export function StationDetails() {
       />
     </div>
   )
+
 }
 
 function _formatDuration(ms) {
