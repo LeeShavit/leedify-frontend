@@ -265,11 +265,12 @@
   .station-song-row {
     display: grid;
     grid-template-columns: 34px 3fr 3fr 2fr auto;
-    padding: 4px 16px;
+    align-items: center;
+    position: relative;
     color: #b3b3b3;
     font-size: 14px;
+    padding: 4px 16px;
     border-radius: 4px;
-    align-items: center;
     margin-bottom: 12px;
 
     &.is-dragging {

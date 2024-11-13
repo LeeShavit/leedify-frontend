@@ -126,7 +126,7 @@ async function removeSongFromStation(stationId, songId) {
     if (!station) throw new Error(`Station ${stationId} not found`)
 
     const songIdx = station.songs.findIndex((song) => song._id === songId)
-    if (songIdx === -1) return station
+    if (songIdx === -1) throw new Error(`song ${songId} not found`)
 
     station.songs.splice(songIdx, 1)
     return await save(station)
@@ -143,7 +143,7 @@ async function getLikedSongsStation() {
       name: 'Liked Songs',
       description: '',
       imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
-      createdBy: { fullname: user.name, _id: user._id },
+      createdBy: { name: user.name, _id: user._id },
       songs: [...user.likedSongs].sort((a, b) => a.AddedAt - b.AddedAt),
     }
   } catch (err) {
@@ -152,12 +152,13 @@ async function getLikedSongsStation() {
 }
 
 function getEmptyStation() {
+  const { _id, name, imgUrl } = userService.getLoggedinUser()
   return {
     name: 'New Playlist',
     description: '',
     tags: [],
     imgUrl: DEFAULT_IMG,
-    createdBy: {},
+    createdBy: { _id, name, imgUrl },
     likedByUsers: [],
     songs: [],
   }
@@ -169,14 +170,14 @@ function _createDemoData() {
 
   const demoStations = [
     {
-      _id: makeId(),
+      _id: '5Rjx8Pa0tyNSgkXMyINBAS',
       name: 'Pink Floyd Essentials',
       description: 'Best of Pink Floyd',
       imgUrl: 'https://i.scdn.co/image/ab67616d0000b273ea7caaff71dea1051d49b2fe',
       tags: ['Rock', 'Psychedelic'],
       createdBy: {
         _id: 'u101',
-        fullname: 'Admin',
+        name: 'Admin',
         imgUrl: '',
       },
       likedByUsers: [],
@@ -261,14 +262,14 @@ function _createDemoData() {
       ],
     },
     {
-      _id: makeId(),
+      _id: '37i9dQZF1DXbLMw3ry7d7k',
       name: 'Latin Hits',
       description: 'Top Latin songs',
       imgUrl: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
       tags: ['Latin', 'Pop'],
       createdBy: {
         _id: 'u101',
-        fullname: 'Admin',
+        name: 'Admin',
         imgUrl: '',
       },
       likedByUsers: [],

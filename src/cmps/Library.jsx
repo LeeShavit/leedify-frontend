@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { ArrowRightIcon, LibraryIcon, LibraryIconFull, LibrarySearchIcon, ListIcon, PlusIcon } from '../assets/img/library/icons'
 import { stationService } from '../services/station/station.service.local'
 import { useNavigate } from 'react-router-dom'
-import { loadStations } from '../store/actions/station.actions'
+import { addStation, loadStations } from '../store/actions/station.actions'
 import { useDispatch, useSelector } from 'react-redux'
 import { PlayIcon } from 'lucide-react'
 import LibrarySortMenu from './LibrarySortMenu'
 import { Button } from '@mui/material'
+import { likeStation } from '../store/actions/user.actions'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [isExpanded, setIsExpanded] = useState(true)
 
-  const stations = useSelector((storeState) => storeState.stationModule.stations)
-  const user = useSelector((storeState) => storeState.userModule.user)
+  const user = useSelector(state => state.userModule.user)
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
@@ -21,15 +21,16 @@ export function Library() {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
+  console.log(user.likedStations)
+
   useEffect(() => {
-    loadStations()
   }, [])
 
   async function handleCreatePlaylist() {
     try {
       const emptyStation = stationService.getEmptyStation()
       const savedStation = await stationService.save(emptyStation)
-      await loadStations()
+      await likeStation(savedStation)
       navigate(`/station/${savedStation._id}`)
     } catch (err) {
       console.error('Failed to create playlist:', err)
@@ -126,10 +127,10 @@ export function Library() {
             </p>
           </div>
         </div>
-        {stations.map((station) => (
+        {user?.likedStations.map((station) => (
           <div key={station._id} className='library-item' onClick={() => onNavigateToStation(station._id)}>
             <button className='library-item__image-button'>
-              <img src={station.imgUrl} alt={station.name} />
+              <img src={typeof station.imgUrl === 'string' ? station.imgUrl : station.imgUrl[2].url} alt={station.name} />
               <div className='library-item__image-overlay'>
                 <PlayIcon className='play-icon' />
               </div>
@@ -138,7 +139,7 @@ export function Library() {
               <h3 className='library-item__title'>{station.name}</h3>
               <p className='library-item__details'>
                 <span className='playlist-tag'>Playlist</span>
-                <span>{station.createdBy.fullname}</span>
+                <span>{station.createdBy}</span>
               </p>
             </div>
           </div>

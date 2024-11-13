@@ -18,6 +18,8 @@ export const userService = {
   saveLoggedinUser,
   likeSong,
   dislikeSong,
+  likeStation,
+  dislikeStation,
 }
 
 async function getUsers() {
@@ -78,12 +80,59 @@ function saveLoggedinUser(user) {
     imgUrl: user.imgUrl,
     likedSongs: user.likedSongs,
     likedStations: user.likedStations,
-    createdStations: user.createdStations,
   }
   sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
   return user
 }
 
+async function likeStation(station) {
+  try {
+    const { _id } = getLoggedinUser()
+    if (!_id) throw new Error(`User not loggedIn found`)
+
+    const user = await getById(_id)
+    if (!user) throw new Error(`User not found`)
+
+    const stationToAdd = {
+      _id: station._id,
+      name: station.name,
+      imgUrl: station.imgUrl,
+      createdBy: station.createdBy.name,
+      songsCount: station.songs.length,
+      addedAt: Date.now(),
+    }
+
+    user.likedStations.push(stationToAdd)
+    await storageService.put(STORAGE_KEY_USERS, user)
+    saveLoggedinUser(user)
+    return stationToAdd
+  } catch (err) {
+    console.error("user service - couldn't add song from liked songs", err)
+    throw err
+  }
+}
+
+async function dislikeStation(stationId) {
+  try {
+    const { _id } = getLoggedinUser()
+    if (!_id) throw new Error(`User not loggedIn found`)
+
+    const user = await getById(_id)
+    if (!user) throw new Error(`User not found`)
+
+      const stationIdx = user.likedStations.findIndex((likedStation) => likedStation._id === stationId)
+      if (stationIdx === -1) return user.likedStations
+  
+      user.likedStations.splice(stationIdx, 1)
+      await storageService.put(STORAGE_KEY_USERS, user)
+      saveLoggedinUser(user)
+      return user.likedStations
+
+  } catch (err) {
+    console.error("user service - couldn't add station from liked songs", err)
+    throw err
+  }
+}
 async function likeSong(songToLike) {
   try {
     const { _id } = getLoggedinUser()
@@ -185,8 +234,24 @@ async function _createDemoUser() {
         preview_url: null,
       },
     ],
-    likedStations: [],
-    createdStations: [],
+    likedStations: [
+      {
+        _id: '5Rjx8Pa0tyNSgkXMyINBAS',
+        name: "Pink Floyd Essentials",
+        imgUrl: "https://i.scdn.co/image/ab67616d0000b273ea7caaff71dea1051d49b2fe",
+        createdBy: "Admin",
+        songCount: 7, 
+        addedAt: 1696789200000 
+      },
+      {
+        _id: '37i9dQZF1DXbLMw3ry7d7k',
+        name: "Latin Hits",
+        imgUrl: "https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e",
+        createdBy: "Admin",
+        songCount: 7, 
+        addedAt: 1698624000000 
+      }
+    ],
   }
 
   const newUser = await storageService.post(STORAGE_KEY_USERS, user)
