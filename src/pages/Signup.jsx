@@ -11,7 +11,7 @@ export function Signup() {
     const navigate = useNavigate()
 
     function clearState() {
-        setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
+        setCredentials({ username: '', password: '', name: '', imgUrl: '' })
     }
 
     function handleChange(ev) {
@@ -25,7 +25,7 @@ export function Signup() {
     async function onSignup(ev = null) {
         if (ev) ev.preventDefault()
 
-        if (!credentials.username || !credentials.password || !credentials.fullname) return
+        if (!credentials.username || !credentials.password || !credentials.name) return
         await signup(credentials)
         clearState()
         navigate('/')
@@ -39,9 +39,9 @@ export function Signup() {
         <form className="signup-form" onSubmit={onSignup}>
             <input
                 type="text"
-                name="fullname"
-                value={credentials.fullname}
-                placeholder="Fullname"
+                name="name"
+                value={credentials.name}
+                placeholder="name"
                 onChange={handleChange}
                 required
             />

@@ -6,7 +6,7 @@ import { login } from '../store/actions/user.actions'
 
 export function Login() {
     const [users, setUsers] = useState([])
-    const [credentials, setCredentials] = useState({ username: '', password: '', fullname: '' })
+    const [credentials, setCredentials] = useState({ username: '', password: '', name: '' })
 
     const navigate = useNavigate()
 
@@ -40,7 +40,7 @@ export function Login() {
                 value={credentials.username}
                 onChange={handleChange}>
                     <option value="">Select User</option>
-                    {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
+                    {users.map(user => <option key={user._id} value={user.username}>{user.name}</option>)}
             </select>
             <button>Login</button>
         </form>

@@ -62,6 +62,9 @@ export const Exclude = ({ className }) => (
 export const Report = ({ className }) => (
     <svg role='img' height='16' width='16' aria-hidden='true' className={className} viewBox='0 0 16 16'><path fill="currentColor" d="M4.069.967h7.855L15.98 8l-4.057 7.034H4.069L.01 8 4.069.967zm.866 1.5L1.743 8l3.192 5.534h6.122L14.25 8l-3.192-5.533H4.935z"></path><path fill="currentColor"  d="M7.246 9V4h1.5v5h-1.5zm0 3.025v-1.5h1.5v1.5h-1.5z"></path></svg>
 )
+export const Remove = ({ className }) => (
+    <svg role='img' height='16' width='16' aria-hidden='true' className={className} viewBox='0 0 16 16'><path fill="currentColor" d="M5.25 3v-.917C5.25.933 6.183 0 7.333 0h1.334c1.15 0 2.083.933 2.083 2.083V3h4.75v1.5h-.972l-1.257 9.544A2.25 2.25 0 0 1 11.041 16H4.96a2.25 2.25 0 0 1-2.23-1.956L1.472 4.5H.5V3h4.75zm1.5-.917V3h2.5v-.917a.583.583 0 0 0-.583-.583H7.333a.583.583 0 0 0-.583.583zM2.986 4.5l1.23 9.348a.75.75 0 0 0 .744.652h6.08a.75.75 0 0 0 .744-.652L13.015 4.5H2.985z"></path></svg>
+)
 
 
 export const Embed = ({ className }) => (
