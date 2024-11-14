@@ -14,13 +14,11 @@ export const stationService = {
   getById,
   save,
   remove,
-  getEmptyStation,
   addSongToStation,
   removeSongFromStation,
   getCurrentSong,
   getSearchResSong,
   getLikedSongsStation,
-  updatePlaylistImage,
 }
 _createDemoSong()
 _createDemoData()
@@ -33,11 +31,11 @@ async function query(filterBy = {}) {
       const regex = new RegExp(filterBy.txt, 'i')
       stations = stations.filter(
         (station) =>
-          regex.test(station.name) || regex.test(station.description) || station.tags.some((tag) => regex.test(tag))
+          regex.test(station.name) || regex.test(station.description) || station.genres.some((genres) => regex.test(genres))
       )
     }
-    if (filterBy.tag) {
-      stations = stations.filter((station) => station.tags.includes(filterBy.tag))
+    if (filterBy.genre) {
+      stations = stations.filter((station) => station.genres.includes(filterBy.genres))
     }
 
     return stations
@@ -68,14 +66,9 @@ async function remove(stationId) {
 
 async function save(station) {
   try {
-    if(!station) station= getEmptyStation()
-      
-    if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
-      const firstSong = station.songs[0]
-      station.imgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
-    }
-
     if (station._id) {
+      const {_id, name, imgUrl}= userService.getLoggedinUser()
+      station.createdBy={ _id, name, imgUrl }
       return await storageService.put(STORAGE_KEY, station)
     } else {
       return await storageService.post(STORAGE_KEY, station)
@@ -103,22 +96,6 @@ async function addSongToStation(stationId, song) {
     return await save(station)
   } catch (err) {
     console.error("station service - couldn't add song to station", err)
-    throw err
-  }
-}
-
-async function updatePlaylistImage(stationId) {
-  try {
-    const station = await getById(stationId)
-    if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
-      const firstSong = station.songs[0]
-      station.imgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
-
-      return await save(station)
-    }
-    return station
-  } catch (err) {
-    console.error('Failed to update playlist image', err)
     throw err
   }
 }
@@ -152,19 +129,6 @@ async function getLikedSongsStation() {
     }
   } catch (err) {
     console.log('station service- failed to create liked songs station')
-  }
-}
-
-function getEmptyStation() {
-  const { _id, name, imgUrl } = userService.getLoggedinUser()
-  return {
-    name: 'New Playlist',
-    description: '',
-    tags: [],
-    imgUrl: DEFAULT_IMG,
-    createdBy: { _id, name, imgUrl },
-    likedByUsers: [],
-    songs: [],
   }
 }
 

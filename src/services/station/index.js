@@ -5,13 +5,19 @@ import { getRandomIntInclusive, makeId } from '../util.service'
 import { stationService as local } from './station.service.local'
 import { stationService as remote } from './station.service.remote'
 
+export const DEFAULT_IMG =
+  'https://res.cloudinary.com/dtqfckufu/image/upload/c_crop,w_450,h_450,ar_1:1/v1731425735/empty_xye9w8.png'
+
 function getEmptyStation() {
-	return {
-		vendor: makeId(),
-		speed: getRandomIntInclusive(80, 240),
-		msgs: [],
-	}
-}
+    return {
+      name: 'New Playlist',
+      description: '',
+      tags: [],
+      imgUrl: DEFAULT_IMG,
+      likedByUsers: [],
+      songs: [],
+    }
+  }
 
 function getDefaultFilter() {
     return {
