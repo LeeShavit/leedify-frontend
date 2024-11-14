@@ -58,24 +58,15 @@ export function Library() {
     setAnchorEl(null)
   }
 
-  async function onPlayStation(stationId) {
-    try {
-      const station =
-        stationId === 'liked-songs'
-          ? await stationService.getLikedSongsStation()
-          : await stationService.getById(stationId)
-      addToQueue(station.songs, stationId)
-      playNext()
-      setIsPlaying(true)
-    } catch (error) {
-      console.error('Failed to play playlist:', err)
   async function onPlayPauseStation(stationId) {
-    if(stationId === currentStationId){
+    if (stationId === currentStationId) {
       isPlaying ? setIsPlaying(false) : setIsPlaying(true)
-    }
-    else{
+    } else {
       try {
-        const station = (stationId === 'liked-songs') ? await stationService.getLikedSongsStation() : await stationService.getById(stationId)
+        const station =
+          stationId === 'liked-songs'
+            ? await stationService.getLikedSongsStation()
+            : await stationService.getById(stationId)
         clearQueue()
         addToQueue(station.songs, stationId)
         playNext()
