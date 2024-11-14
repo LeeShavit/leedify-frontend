@@ -9,7 +9,7 @@ import { PauseIcon } from '../assets/img/player/icons'
 
 import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
-import { addToQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/station.service.local'
 
 export function Library() {
@@ -53,14 +53,20 @@ export function Library() {
     setAnchorEl(null)
   }
 
-  async function onPlayStation(stationId) {
-    try {
-      const station = (stationId === 'liked-songs') ? await stationService.getLikedSongsStation() : await stationService.getById(stationId)
-      addToQueue(station.songs, stationId)
-      playNext()
-      setIsPlaying(true)
-    } catch (error) {
-      console.error('Failed to play playlist:', err)
+  async function onPlayPauseStation(stationId) {
+    if(stationId === currentStationId){
+      isPlaying ? setIsPlaying(false) : setIsPlaying(true)
+    }
+    else{
+      try {
+        const station = (stationId === 'liked-songs') ? await stationService.getLikedSongsStation() : await stationService.getById(stationId)
+        clearQueue()
+        addToQueue(station.songs, stationId)
+        playNext()
+        setIsPlaying(true)
+      } catch (error) {
+        console.error('Failed to play playlist:', err)
+      }
     }
   }
 
@@ -129,10 +135,10 @@ export function Library() {
 
       <div className='library-list'>
         <div className={`library-item liked-songs ${(currentStationId === 'liked-songs') && 'current-station'}`} onClick={() => onNavigateToStation('liked-songs')}>
-          <button className='library-item__image-button' onClick={() => onPlayStation('liked-songs')}>
+          <button className='library-item__image-button' onClick={() => onPlayPauseStation('liked-songs')}>
             <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' alt='liked-songs' />
             <div className='library-item__image-overlay'>
-              <PlayIcon className='play-icon' />
+            {isPlaying && currentStationId === 'liked-songs' ? <PauseIcon /> : <PlayIcon />}
             </div>
           </button>
           <div className='library-item__info'>
@@ -145,10 +151,10 @@ export function Library() {
         </div>
         {stations?.map((station) => (
           <div key={station._id} className={`library-item ${(currentStationId === station._id) && 'current-station'}`} onClick={() => onNavigateToStation(station._id)}>
-            <button className='library-item__image-button' onClick={() => onPlayStation(station._id)}>
+            <button className='library-item__image-button' onClick={() => onPlayPauseStation(station._id)}>
               <img src={typeof station.imgUrl === 'string' ? station.imgUrl : station.imgUrl[2].url} alt={station.name} />
               <div className='library-item__image-overlay'>
-                {(currentStationId === station._id && isPlaying) ? <PauseIcon /> : <PlayIcon className='play-icon'/>}
+                  {isPlaying && currentStationId === station._id ? <PauseIcon /> : <PlayIcon />}
               </div>
             </button>
             <div className='library-item__info'>
