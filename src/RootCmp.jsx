@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
+import { useState } from 'react'
 
 import { HomePage } from './pages/HomePage'
 import { StationIndex } from './pages/StationIndex.jsx'
@@ -15,8 +16,14 @@ import { Login } from './pages/Login.jsx'
 import { Signup } from './pages/Signup.jsx'
 import { Explore } from './pages/Explore.jsx'
 import { Library } from './cmps/Library.jsx'
+import { MobileNav } from './cmps/MobileNav.jsx'
 
 export function RootCmp() {
+  // const [isLibraryExpanded, setIsLibraryExpanded] = useState(false)
+
+  // const toggleLibrary = () => {
+  //   setIsLibraryExpanded((prev) => !prev)
+  // }
   return (
     <div className='main-container'>
       <AppHeader />
@@ -34,6 +41,7 @@ export function RootCmp() {
             <Route path='signup' element={<Signup />} />
           </Route>
         </Routes>
+        <MobileNav />
       </main>
       <Player />
     </div>

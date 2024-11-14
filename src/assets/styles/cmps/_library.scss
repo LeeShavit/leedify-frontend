@@ -1,5 +1,5 @@
 .library {
-  transition: width 0.2s ease;
+  transition: width 0.1s ease;
   height: 100%;
   background-color: $background-dark;
   display: flex;
@@ -40,7 +40,7 @@
 
   .library-header {
     padding: 0 8px;
-
+width: max-content;
     &__top {
       display: flex;
       justify-content: space-between;
@@ -57,6 +57,7 @@
       font-weight: $font-basel;
       background: none;
       padding: 2px;
+      width: max-content;
 
       &:hover {
         color: $text-primary;
