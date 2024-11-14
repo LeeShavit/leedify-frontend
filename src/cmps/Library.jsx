@@ -17,7 +17,7 @@ import { PauseIcon } from '../assets/img/player/icons'
 import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
 import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
-import { stationService } from '../services/station/station.service.local'
+import { stationService } from '../services/station/'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')

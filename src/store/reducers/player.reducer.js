@@ -1,4 +1,5 @@
-import { stationService } from "../../services/station/station.service.local"
+import { stationService } from "../../services/station/"
+import { userService } from "../../services/user"
 
 export const LOADING_START = 'LOADING_START'
 export const LOADING_DONE = 'LOADING_DONE'
@@ -16,7 +17,7 @@ export const REPLACE_QUEUE = 'REPLACE_QUEUE'
 
 
 const initialState = {
-  currentSong: stationService.getCurrentSong(),
+  currentSong: userService.getLoggedinUser().likedSongs[0] || stationService.getCurrentSong(),
   currentStationId: null,
   isLoading: false,
   queue: [],

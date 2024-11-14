@@ -10,7 +10,7 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom'
 import { ProfileMenu } from './ProfileMenu'
 import { useState } from 'react'
-import { userService } from '../services/user/user.service.local'
+import { userService } from '../services/user/'
 export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
