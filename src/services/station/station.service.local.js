@@ -31,7 +31,9 @@ async function query(filterBy = {}) {
       const regex = new RegExp(filterBy.txt, 'i')
       stations = stations.filter(
         (station) =>
-          regex.test(station.name) || regex.test(station.description) || station.genres.some((genres) => regex.test(genres))
+          regex.test(station.name) ||
+          regex.test(station.description) ||
+          station.genres.some((genres) => regex.test(genres))
       )
     }
     if (filterBy.genre) {
@@ -47,7 +49,7 @@ async function query(filterBy = {}) {
 
 async function getById(stationId) {
   try {
-    if(stationId === 'liked-songs') return await getLikedSongsStation()
+    if (stationId === 'liked-songs') return await getLikedSongsStation()
     return await storageService.get(STORAGE_KEY, stationId)
   } catch (err) {
     console.error("station service - couldn't get station", err)
@@ -67,11 +69,30 @@ async function remove(stationId) {
 async function save(station) {
   try {
     if (station._id) {
-      const {_id, name, imgUrl}= userService.getLoggedinUser()
-      station.createdBy={ _id, name, imgUrl }
+      const loggedInUser = userService.getLoggedinUser()
+      if (!loggedInUser) throw new Error('No logged in user found')
+
+      station.createdBy = {
+        _id: loggedInUser._id,
+        name: loggedInUser.name || loggedInUser.username,
+        imgUrl: loggedInUser.imgUrl,
+      }
+
       return await storageService.put(STORAGE_KEY, station)
     } else {
-      return await storageService.post(STORAGE_KEY, station)
+      const loggedInUser = userService.getLoggedinUser()
+      if (!loggedInUser) throw new Error('No logged in user found')
+
+      const newStation = {
+        ...station,
+        createdBy: {
+          _id: loggedInUser._id,
+          name: loggedInUser.name || loggedInUser.username,
+          imgUrl: loggedInUser.imgUrl,
+        },
+      }
+
+      return await storageService.post(STORAGE_KEY, newStation)
     }
   } catch (err) {
     console.error("station service - couldn't save station", err)
@@ -81,8 +102,12 @@ async function save(station) {
 
 async function addSongToStation(stationId, song) {
   try {
+    console.log('hello')
     const station = await getById(stationId)
+    console.log('hello')
+    console.log('station', station)
     if (!station) throw new Error(`Station ${stationId} not found`)
+    console.log('station', station)
 
     const songExists = station.songs.some((s) => s._id === song._id)
     if (songExists) return station

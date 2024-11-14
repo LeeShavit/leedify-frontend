@@ -18,6 +18,7 @@ import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
 import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/'
+import { Logger } from 'sass'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
@@ -27,7 +28,7 @@ export function Library() {
   const user = useSelector((state) => state.userModule.user)
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-
+  console.log(stations)
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -187,7 +188,7 @@ export function Library() {
               <h3 className='library-item__title'>{station.name}</h3>
               <p className='library-item__details'>
                 <span className='playlist-tag'>Playlist</span>
-                <span>{station.createdBy.name}</span>
+                <span>{station.createdBy?.name || 'unknown'}</span>
               </p>
             </div>
           </div>

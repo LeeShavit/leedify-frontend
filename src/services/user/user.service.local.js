@@ -113,6 +113,7 @@ async function logout() {
 
 function getLoggedinUser() {
   const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+  console.log('user', user)
   return user
 }
 
