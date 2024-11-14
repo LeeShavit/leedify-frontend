@@ -16,6 +16,15 @@ export function ProfileMenu({ anchorEl, open, onClose }) {
       console.error('Logout failed:', err)
     }
   }
+  const handleSignup = async (userData) => {
+    try {
+      await userService.signup(userData)
+      setIsLoginModalOpen(false)
+      window.location.reload()
+    } catch (err) {
+      console.error('Signup failed:', err)
+    }
+  }
 
   const handleLogin = async (credentials) => {
     try {
@@ -65,7 +74,12 @@ export function ProfileMenu({ anchorEl, open, onClose }) {
         </MenuItem>
       </Menu>
 
-      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} onLogin={handleLogin} />
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLogin={handleLogin}
+        onSignup={handleSignup}
+      />
     </>
   )
 }
