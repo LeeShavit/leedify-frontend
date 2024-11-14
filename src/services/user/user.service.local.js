@@ -1,10 +1,18 @@
+import { LucideCloudLightning } from 'lucide-react'
 import { storageService } from '../async-storage.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 const STORAGE_KEY_USERS = 'users'
 
-_createDemoUser()
-login({ username: 'guest' })
+initialize()
+
+async function initialize() {
+  const loggedInUser = getLoggedinUser()
+  if (!loggedInUser) {
+    await _createDemoUser()
+    await login({ username: 'guest' })
+  }
+}
 
 export const userService = {
   login,
@@ -59,6 +67,7 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
+  console.log(userCred)
   if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
 
   const user = await storageService.post(STORAGE_KEY_USERS, userCred)

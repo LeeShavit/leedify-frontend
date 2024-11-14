@@ -17,6 +17,7 @@
     background-color: #000000;
     border-radius: 8px;
     width: 100%;
+    max-height: 100%;
 
     max-width: 450px;
     z-index: 1001;
@@ -27,7 +28,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 8px;
     }
   
     &__logo {
@@ -61,7 +62,7 @@
       background: transparent;
       color: #fff;
       font-weight: 700;
-      transition: border-color 0.3s;
+      transition: border-color 0.1s;
   
       &:hover {
         border-color: #fff;
@@ -140,11 +141,9 @@
       font-size: 16px;
       margin-top: 16px;
       cursor: pointer;
-      transition: transform 0.3s;
+      transition: transform 0.1s;
   
-      &:hover {
-        transform: scale(1.04);
-      }
+     
     }
   
     &__forgot {
@@ -172,4 +171,19 @@
         }
       }
     }
+
+    &__mode-toggle {
+        background: none;
+        border: none;
+        color: #fff;
+        text-decoration: underline;
+        font-size: 14px;
+        cursor: pointer;
+        padding: 0;
+        margin: 0;
+    
+        &:hover {
+          color: #1ed760;
+        }
+      }
   }
