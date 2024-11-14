@@ -17,15 +17,17 @@
     background-color: #000000;
     border-radius: 8px;
     width: 100%;
+
     max-width: 450px;
     z-index: 1001;
     padding: 32px;
+    margin: 24px;
   
     &__content {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: 12px;
     }
   
     &__logo {
