@@ -18,7 +18,7 @@ import { Button } from '@mui/material'
 import StationMenu from '../cmps/StationMenu'
 import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
-import { addToQueue, addToQueueNext, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService, DEFAULT_IMG } from '../services/station/station.service.local'
 
 
@@ -203,10 +203,12 @@ export function StationDetails() {
   function onPlayStation() {
     if (currentStationId === stationId) {
       isPlaying ? setIsPlaying(false) : setIsPlaying(true)
+    } else {
+      clearQueue()
+      addToQueue([...station.songs], stationId)
+      playNext()
+      setIsPlaying(true)
     }
-    addToQueue([...station.songs], stationId)
-    playNext()
-    setIsPlaying(true)
   }
 
   if (!station) return <div>Loading...</div>
@@ -300,7 +302,7 @@ export function StationDetails() {
             index={index}
             isUserStation={isUserStation}
             likedSongsIds={likedSongsIds}
-            onAddToQueue={() => addToQueue(station.songs.splice(index), stationId)}
+            onAddToQueue={() => addToQueue(station.songs.slice(index), stationId)}
             onLikeDislikeSong={onLikeDislikeSong}
             onRemoveSong={onRemoveSong}
           />

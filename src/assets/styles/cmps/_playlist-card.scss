@@ -66,6 +66,10 @@
     font-size: 1.1rem;
     color: #fff;
     margin-bottom: 0.3rem;
+
+    &:hover{
+      text-decoration: underline;
+    }
   }
 
   &__description {

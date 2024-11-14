@@ -283,6 +283,13 @@
         }
       }
     }
+
+    &.current-station{
+      .library-item__title {
+        color: $primary-color
+      }
+
+    }
   }
   .library.collapsed {
     .library-item {

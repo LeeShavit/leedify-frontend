@@ -16,7 +16,7 @@ import { PauseIcon } from '../assets/img/player/icons'
 
 import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
-import { addToQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/station.service.local'
 
 export function Library() {
@@ -69,6 +69,20 @@ export function Library() {
       setIsPlaying(true)
     } catch (error) {
       console.error('Failed to play playlist:', err)
+  async function onPlayPauseStation(stationId) {
+    if(stationId === currentStationId){
+      isPlaying ? setIsPlaying(false) : setIsPlaying(true)
+    }
+    else{
+      try {
+        const station = (stationId === 'liked-songs') ? await stationService.getLikedSongsStation() : await stationService.getById(stationId)
+        clearQueue()
+        addToQueue(station.songs, stationId)
+        playNext()
+        setIsPlaying(true)
+      } catch (error) {
+        console.error('Failed to play playlist:', err)
+      }
     }
   }
 
@@ -144,7 +158,7 @@ export function Library() {
           <button className='library-item__image-button' onClick={() => onPlayStation('liked-songs')}>
             <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' alt='liked-songs' />
             <div className='library-item__image-overlay'>
-              <PlayIcon className='play-icon' />
+              {isPlaying && currentStationId === 'liked-songs' ? <PauseIcon /> : <PlayIcon />}
             </div>
           </button>
           <div className='library-item__info'>
