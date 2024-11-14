@@ -129,6 +129,8 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    z-index: 2;
+
   }
 
   &__bell {
@@ -165,6 +167,9 @@
 
     &:hover {
       transform: scale(1.04);
+    }
+    &[aria-expanded="true"] {
+      box-shadow: 0 0 0 2px $text-primary;
     }
   }
 }

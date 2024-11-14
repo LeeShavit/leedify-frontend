@@ -128,7 +128,6 @@ async function dislikeStation(stationId) {
     await storageService.put(STORAGE_KEY_USERS, user)
     saveLoggedinUser(user)
     return user.likedStations
-
   } catch (err) {
     console.error("user service - couldn't add station from liked songs", err)
     throw err
@@ -182,7 +181,6 @@ async function dislikeSong(songId) {
 
 async function updateUsersLikedStation(station) {
   try {
-
     const { _id } = getLoggedinUser()
     if (!_id) throw new Error(`User not loggedIn found`)
     const user = await getById(_id)
@@ -199,7 +197,6 @@ async function updateUsersLikedStation(station) {
 
     await storageService.put(STORAGE_KEY, user)
     return user.likedStations
-    
   } catch (err) {
     console.error("station service - couldn't save station", err)
     throw err
@@ -213,7 +210,7 @@ async function _createDemoUser() {
   const user = {
     username: 'guest',
     password: 'guest',
-    name: 'Guest User',
+    name: 'guest User',
     imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
     likedSongs: [
       {
@@ -264,20 +261,20 @@ async function _createDemoUser() {
     likedStations: [
       {
         _id: '5Rjx8Pa0tyNSgkXMyINBAS',
-        name: "Pink Floyd Essentials",
-        imgUrl: "https://i.scdn.co/image/ab67616d0000b273ea7caaff71dea1051d49b2fe",
-        createdBy: "Admin",
+        name: 'Pink Floyd Essentials',
+        imgUrl: 'https://i.scdn.co/image/ab67616d0000b273ea7caaff71dea1051d49b2fe',
+        createdBy: 'Admin',
         songCount: 7,
-        addedAt: 1696789200000
+        addedAt: 1696789200000,
       },
       {
         _id: '37i9dQZF1DXbLMw3ry7d7k',
-        name: "Latin Hits",
-        imgUrl: "https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e",
-        createdBy: "Admin",
+        name: 'Latin Hits',
+        imgUrl: 'https://i.scdn.co/image/ab67616d0000b273491678beaffcefac517a699e',
+        createdBy: 'Admin',
         songCount: 7,
-        addedAt: 1698624000000
-      }
+        addedAt: 1698624000000,
+      },
     ],
   }
 

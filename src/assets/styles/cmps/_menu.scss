@@ -1,4 +1,4 @@
-// LibrarySortMenu.scss
+
 
 .menu {
     font-family: Spotify-mix, sans-serif;
@@ -10,6 +10,29 @@
         box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
         padding: 4px;
         align-items: center;
+    }
+
+    .MuiPaper-root {
+        min-width: 196px;
+        margin-top: 8px;
+      }
+
+      .MuiMenuItem-root {
+        svg {
+          color: $text-secondary;
+        }
+    
+        &:hover {
+          svg {
+            color: $text-primary;
+          }
+        }
+    
+        .nested-menu {
+          &-end {
+            margin-left: auto;
+          }
+        }
     }
 
     // Menu items
@@ -96,4 +119,12 @@
         margin: 4px 0;
         background-color: rgba(255, 255, 255, 0.1);
     }
-}
+
+    .MuiMenuItem-root:has(.nested-menu-end) {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+
