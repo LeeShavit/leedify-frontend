@@ -5,7 +5,7 @@ import { setPlayingSong, setIsPlaying } from '../store/actions/station.actions'
 import { Link } from 'react-router-dom'
 
 import { debounce } from '../services/util.service.js'
-import { stationService } from "../services/station/station.service.local.js";
+import { stationService } from '../services/station/'
 import { useSelector } from 'react-redux';
 import { XIcon } from 'lucide-react';
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons.jsx';

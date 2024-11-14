@@ -1,4 +1,4 @@
-import { stationService } from '../../services/station/station.service.local'
+import { stationService } from '../../services/station/'
 import { store } from '../store'
 import {
   ADD_STATION,
@@ -9,6 +9,7 @@ import {
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
 } from '../reducers/station.reducer'
+import { userService } from '../../services/user'
 
 export async function loadStations(filterBy) {
   try {
@@ -48,8 +49,9 @@ export async function removeStation(stationId) {
   }
 }
 
-export async function addStation(station) {
+export async function addStation() {
   try {
+    const station= stationService.getEmptyStation()
     const savedStation = await stationService.save(station)
     store.dispatch(getCmdAddStation(savedStation))
     return savedStation
@@ -62,8 +64,7 @@ export async function addStation(station) {
 export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
-    const finalStation = await stationService.updatePlaylistImage(savedStation._id)
-    store.dispatch(getCmdUpdateStation(finalStation))
+    store.dispatch(getCmdUpdateStation(savedStation))
     return finalStation
   } catch (err) {
     console.log('Cannot save station', err)

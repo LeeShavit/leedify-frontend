@@ -1,4 +1,3 @@
-import { stationService } from "../../services/station/station.service.local"
 
 export const SET_STATIONS = 'SET_STATIONS'
 export const SET_STATION = 'SET_STATION'

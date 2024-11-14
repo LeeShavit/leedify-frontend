@@ -12,6 +12,11 @@ export const userService = {
 	update,
     getLoggedinUser,
     saveLoggedinUser,
+
+	likeSong,
+	dislikeSong,
+	likeStation,
+	dislikeStation,
 }
 
 function getUsers() {
@@ -36,6 +41,27 @@ async function update({ _id, score }) {
 
 	return user
 }
+
+async function likeSong(song) {
+	const user= await httpService.post('user/song',song)
+	return user.likedSongs
+}
+
+async function dislikeSong(songId) {
+	const user= await httpService.delete(`user/song/${songId}`)
+	return user.likedSongs
+}
+
+async function likeStation(station) {
+	const user= await httpService.post('user/song',song)
+	return user.likedSongs
+}
+
+async function dislikeStation(stationId) {
+	const user= await httpService.delete(`user/song/${songId}`)
+	return user.likedSongs
+}
+
 
 async function login(userCred) {
 	const user = await httpService.post('auth/login', userCred)
