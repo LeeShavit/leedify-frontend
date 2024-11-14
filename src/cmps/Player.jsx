@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PlayerControls } from './PlayerControls.jsx'
@@ -14,6 +14,10 @@ export function Player() {
 
   const currentSong = useSelector((state) => state.playerModule.currentSong)
   const [likedSongsIds, setLikedSongsIds] = useState(getItemsIds(user.likedSongs))
+
+  useEffect(()=>{
+    
+  })
 
   function handleVolumeClick({ target }) {
     if (!playerRef.current) return

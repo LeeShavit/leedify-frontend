@@ -5,18 +5,12 @@ export const SET_STATION = 'SET_STATION'
 export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
-//playing a song in player
-export const SET_PLAYING_SONG = 'SET_PLAYING_SONG'
-export const SET_IS_PLAYING= 'SET_IS_PLAYING'
 // station crudl
 export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
 export const REMOVE_SONG_FROM_STATION = 'REMOVE_SONG_FROM_STATION'
 
 const initialState = {
-  stations: [],
-  currentStation: null,
-  currentSong: stationService.getCurrentSong(),
-  isPlaying: false,
+  stations: []
 }
 
 export function stationReducer(state = initialState, action) {
@@ -26,13 +20,9 @@ export function stationReducer(state = initialState, action) {
     case SET_STATIONS:
       newState = { ...state, stations: action.stations }
       break
-    case SET_STATION:
-      newState = { ...state, currentStation: action.station }
-      break
     case REMOVE_STATION:
-      const lastRemovedStation = state.stations.find((station) => station._id === action.stationId)
       stations = state.stations.filter((station) => station._id !== action.stationId)
-      newState = { ...state, stations, lastRemovedStation }
+      newState = { ...state, stations }
       break
     case ADD_STATION:
       newState = { ...state, stations: [...state.stations, action.station] }
@@ -41,33 +31,17 @@ export function stationReducer(state = initialState, action) {
       stations = state.stations.map((station) => (station._id === action.station._id ? action.station : station))
       newState = { ...state, stations }
       break
-    case SET_PLAYING_SONG:
-       newState = {...state, currentSong: action.currentSong}
-       break
-    case SET_IS_PLAYING:
-       newState = {...state, isPlaying: action.isPlaying}
-      break
     case ADD_SONG_TO_STATION:
-      const updatedStationAdd = { ...state.currentStation }
+      const updatedStationAdd = state.stations.find( station => station._id === action.stationId )
       updatedStationAdd.songs.push(action.song)
-      stations = state.stations.map((station) => (station._id === updatedStationAdd._id ? updatedStationAdd : station))
-      newState = {
-        ...state,
-        stations,
-        currentStation: updatedStationAdd,
-      }
+      stations = state.stations.map((station) => (station._id ===action.stationId ? updatedStationAdd : station))
+      newState = { ...state, stations }
       break
     case REMOVE_SONG_FROM_STATION:
-      const updatedStationRemove = { ...state.currentStation }
-      updatedStationRemove.songs = updatedStationRemove.songs.filter((song) => song._id !== action.songId)
-      stations = state.stations.map((station) =>
-        station._id === updatedStationRemove._id ? updatedStationRemove : station
-      )
-      newState = {
-        ...state,
-        stations,
-        currentStation: updatedStationRemove,
-      }
+      const stationToUpdate = state.stations.find( station => station._id === action.stationId )
+      stationToUpdate.songs = stationToUpdate.songs.filter((song) => song._id !== action.songId)
+      stations = state.stations.map((station) => station._id === action.stationId ? stationToUpdate : station )
+      newState = { ...state, stations}
       break
     default:
   }

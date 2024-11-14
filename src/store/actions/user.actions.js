@@ -113,7 +113,6 @@ export async function dislikeSong(songId) {
 export async function likeStation(station) {
     try {
         const likedStation  = await userService.likeStation(station)
-        console.log(likedStation)
         store.dispatch({ type: LIKE_STATION, likedStation })
 
     } catch (err) {

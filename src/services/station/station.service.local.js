@@ -49,6 +49,7 @@ async function query(filterBy = {}) {
 
 async function getById(stationId) {
   try {
+    if(stationId === 'liked-songs') return await getLikedSongsStation()
     return await storageService.get(STORAGE_KEY, stationId)
   } catch (err) {
     console.error("station service - couldn't get station", err)
@@ -67,6 +68,8 @@ async function remove(stationId) {
 
 async function save(station) {
   try {
+    if(!station) station= getEmptyStation()
+      
     if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
       const firstSong = station.songs[0]
       station.imgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
@@ -140,6 +143,7 @@ async function getLikedSongsStation() {
   try {
     const user = userService.getLoggedinUser()
     return {
+      _id: 'liked-songs',
       name: 'Liked Songs',
       description: '',
       imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',

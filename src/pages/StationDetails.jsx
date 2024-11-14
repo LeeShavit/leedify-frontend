@@ -2,18 +2,16 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  loadStation,
   addSongToStation,
-  loadLikedSongsStation,
-  updateStation,
   removeSongFromStation,
   removeStation,
+  updateStation,
 } from '../store/actions/station.actions'
+
 import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
-import { DEFAULT_IMG } from '../services/station/station.service.local'
 import { FastAverageColor } from 'fast-average-color'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { Button } from '@mui/material'
@@ -21,22 +19,23 @@ import StationMenu from '../cmps/StationMenu'
 import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { addToQueue, addToQueueNext, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { stationService, DEFAULT_IMG } from '../services/station/station.service.local'
 
 
 export function StationDetails() {
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const fac = new FastAverageColor()
   const fileInputRef = useRef(null)
-
   const { stationId } = useParams()
-  const station = useSelector((state) => state.stationModule.currentStation)
+
   const user = useSelector((state) => state.userModule.user)
 
-  const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
 
   const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
-  const [stationImage, setStationImage] = useState(stationService.DEFAULT_IMG)
-  const fac = new FastAverageColor()
+  const [station, setStation] = useState(null)
+  const [stationImage, setStationImage] = useState(DEFAULT_IMG)
   const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)')
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
@@ -46,45 +45,51 @@ export function StationDetails() {
 
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
+  const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
 
   useEffect(() => {
-    if (stationId === 'liked-songs') {
-      loadLikedSongsStation().catch((err) => navigate('/'))
-      return
+    loadStation()
+      .catch((err) => console.log(err))
+  }, [stationId])
+
+  useEffect(() => {
+    if (station) {
+      loadStationImage()
     }
-    loadStation(stationId).then(()=>{
-      if (station?.imgUrl === stationService.DEFAULT_IMG && station.songs.length > 0) {
-        const firstSong = station.songs[0]
-        const newImgUrl = typeof firstSong.imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
-        setStationImage(newImgUrl)
-      } else {
-        setStationImage(station.imgUrl)
-      }
-    })
-    .catch((err) => navigate('/'))
   }, [station])
 
 
-  useEffect(() => {
-    if (!stationImage) return
-    fac
-      .getColorAsync(stationImage)
-      .then((color) => {
-        setBackgroundColor(`rgb(${color.value[0]}, ${color.value[1]}, ${color.value[2]})`)
-      })
-      .catch((err) => {
-        console.log('Error getting average color:', err)
-        setBackgroundColor('rgb(18, 18, 18)')
-      })
-  }, [stationImage])
-
-
-  function handlePhotoClick() {
-    setIsEditModalOpen(true)
-    setTimeout(() => {
-      fileInputRef.current?.click()
-    }, 100)
+  function loadStationImage() {
+    if (!station) return
+    let img = station.imgUrl
+    if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
+      img = typeof station.songs[0].imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
+    }
+    setStationImage(img)
+    loadBackgroundColor(img)
   }
+
+  async function loadBackgroundColor(img) {
+    try {
+      const color = await fac.getColorAsync(img)
+      setBackgroundColor(`rgb(${color.value[0]}, ${color.value[1]}, ${color.value[2]})`)
+    } catch (err) {
+      console.log('Error getting average color:', err)
+      setBackgroundColor('rgb(18, 18, 18)')
+    }
+  }
+
+  async function loadStation() {
+    try {
+      const loadedStation = await stationService.getById(stationId)
+      setStation(loadedStation)
+      return loadedStation
+    } catch (err) {
+      console.log('Cannot load stations', err)
+      throw err
+    }
+  }
+
 
   async function handleSaveStation(updatedStationData) {
     try {
@@ -95,7 +100,8 @@ export function StationDetails() {
         imgUrl: updatedStationData.imgUrl,
       }
       const updatedStation = await updateStation(stationToUpdate)
-      await loadStation(stationId)
+      setStation(updatedStation)
+      loadStationImage()
       updateUsersLikedStation(updatedStation)
 
       setIsEditModalOpen(false)
@@ -103,6 +109,15 @@ export function StationDetails() {
       console.error('Failed to update station:', err)
     }
   }
+
+
+  function handlePhotoClick() {
+    setIsEditModalOpen(true)
+    setTimeout(() => {
+      fileInputRef.current?.click()
+    }, 100)
+  }
+
 
   const onDragEnd = async (result) => {
     const { destination, source } = result
@@ -132,6 +147,8 @@ export function StationDetails() {
   async function onAddSong(song) {
     try {
       const updatedStation = await addSongToStation(stationId, song)
+      setStation(updatedStation)
+      loadStationImage()
       updateUsersLikedStation(updatedStation)
     } catch {
       showErrorMsg(`failed to add song ${song.name}`)
@@ -141,6 +158,8 @@ export function StationDetails() {
   async function onRemoveSong(songId) {
     try {
       const updatedStation = await removeSongFromStation(stationId, songId)
+      setStation(updatedStation)
+      loadStationImage()
       updateUsersLikedStation(updatedStation)
     } catch {
       showErrorMsg(`failed to remove song ${songId}`)
@@ -161,9 +180,15 @@ export function StationDetails() {
     try {
       const likedSongs = !likedSongsIds.includes(song._id) ? await likeSong(song) : await dislikeSong(song._id)
       setLikedSongsIds(_getLikedSongsIds(likedSongs))
+
+      setStation(prevStation => ({ ...prevStation, likedSongs }))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
     }
+  }
+
+  async function onLikeDislikeStation() {
+    isInLibrary ? await dislikeStation(stationId) : likeStation(station)
   }
 
   function handleClick(event) {
@@ -174,13 +199,13 @@ export function StationDetails() {
     setStationMenuAnchor(null)
   }
 
-  function onPlayStation(){
-    if(currentStationId===stationId){
-      isPlaying? setIsPlaying(false) :  setIsPlaying(true)
+  function onPlayStation() {
+    if (currentStationId === stationId) {
+      isPlaying ? setIsPlaying(false) : setIsPlaying(true)
     }
     addToQueue([...station.songs], stationId)
     playNext()
-    setIsPlaying(true) 
+    setIsPlaying(true)
   }
 
   if (!station) return <div>Loading...</div>
@@ -222,7 +247,7 @@ export function StationDetails() {
       </header>
       <div className='station-controls'>
         <div className='station-controls__left'>
-          <button className='station-controls__play' onClick={()=>onPlayStation()}>
+          <button className='station-controls__play' onClick={() => onPlayStation()}>
             <span className='station-controls__play-icon'>▶</span>
           </button>
           <button className={`station-controls__add ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
@@ -244,7 +269,7 @@ export function StationDetails() {
             open={stationMenuOpen}
             isInLibrary={isInLibrary}
             onRemoveStation={onRemoveStation}
-            onAddToQueue={()=> addToQueueNext(station.songs)}
+            onAddToQueue={() => addToQueueNext(station.songs)}
             onClose={() => handleClose()}
             MenuListProps={{ 'aria-labelledby': 'station-menu' }}
           />
@@ -274,23 +299,23 @@ export function StationDetails() {
             index={index}
             isUserStation={isUserStation}
             likedSongsIds={likedSongsIds}
-            onAddToQueue={()=>addToQueue(station.songs.splice(index),stationId)}
+            onAddToQueue={() => addToQueue(station.songs.splice(index), stationId)}
             onLikeDislikeSong={onLikeDislikeSong}
             onRemoveSong={onRemoveSong}
           />
         ))}
       </DraggableSongContainer>
       {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}
-      <EditStationModal
+      {isEditModalOpen && <EditStationModal
         station={station}
         isOpen={isEditModalOpen}
+        onSave={handleSaveStation}
         onClose={() => setIsEditModalOpen(false)}
         onOverlayClick={() => setIsEditModalOpen(false)}
-        onSave={handleSaveStation}
         fileInputRef={fileInputRef}
         // onClose={() => handleClose('song')}
         MenuListProps={{ 'aria-labelledby': 'basic-button' }}
-      />
+      />}
     </div>
   )
 }
