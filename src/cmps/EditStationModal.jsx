@@ -3,29 +3,10 @@ import { X } from 'lucide-react'
 import { uploadService } from '../services/upload.service'
 import { TextField } from '@mui/material'
 
-export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRef, onOverlayClick }) {
-  const [editedStation, setEditedStation] = useState({
-    name: '',
-    description: '',
-    imgUrl: '',
-  })
-  const [isUploading, setIsUploading] = useState(false)
+export function EditStationModal({ station , onSave, onClose, fileInputRef, onOverlayClick }) {
 
-  useEffect(() => {
-    if (isOpen && station) {
-      setEditedStation({
-        name: station.name,
-        description: station.description,
-        imgUrl: station.imgUrl,
-      })
-    } else {
-      setEditedStation({
-        name: '',
-        description: '',
-        imgUrl: '',
-      })
-    }
-  }, [station, isOpen])
+  const [stationToEdit, setStationToEdit] = useState({ name: station.name ,description: station.description, imgUrl: station.imgUrl,})
+  const [isUploading, setIsUploading] = useState(false)
 
   async function handleImageUpload(event) {
     try {
@@ -33,10 +14,8 @@ export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRe
       const imgUrl = await uploadService.uploadImg(event)
 
       if (imgUrl) {
-        setEditedStation((prev) => ({
-          ...prev,
-          imgUrl,
-        }))
+        setStationToEdit((prev) => ({...prev, imgUrl,}))
+        onSave({...station, imgUrl})
       }
     } catch (err) {
       console.error('Failed to upload image:', err)
@@ -47,20 +26,9 @@ export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRe
 
   function handleSubmit(e) {
     e.preventDefault()
-    onSave(editedStation)
+    onSave(stationToEdit)
     onClose()
   }
-
-  function handleClose() {
-    setEditedStation({
-      name: '',
-      description: '',
-      imgUrl: '',
-    })
-    onClose()
-  }
-
-  if (!isOpen) return null
 
   return (
     <div className='modal-overlay' onClick={onOverlayClick}>
@@ -82,7 +50,7 @@ export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRe
             <div className='edit-modal__layout'>
               <div className='edit-modal__image-section'>
                 <div className='edit-modal__image-container'>
-                  <img src={editedStation.imgUrl} alt='Playlist cover' />
+                  <img src={stationToEdit.imgUrl} alt='Playlist cover' />
                   <div className='edit-modal__image-overlay'>
                     <label htmlFor='imageInput' className='edit-modal__image-label'>
                       <span>Choose photo</span>
@@ -102,9 +70,9 @@ export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRe
               <div className='edit-modal__fields'>
                 <TextField
                   className='edit-modal__input'
-                  value={editedStation.name}
+                  value={stationToEdit.name}
                   onChange={(e) =>
-                    setEditedStation((prev) => ({
+                    setStationToEdit((prev) => ({
                       ...prev,
                       name: e.target.value,
                     }))
@@ -115,9 +83,9 @@ export function EditStationModal({ station, isOpen, onClose, onSave, fileInputRe
                 />
                 <TextField
                   className='edit-modal__textarea'
-                  value={editedStation.description}
+                  value={stationToEdit.description}
                   onChange={(e) =>
-                    setEditedStation((prev) => ({
+                    setStationToEdit((prev) => ({
                       ...prev,
                       description: e.target.value,
                     }))

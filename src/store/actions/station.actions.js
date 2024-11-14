@@ -6,10 +6,8 @@ import {
   SET_STATIONS,
   SET_STATION,
   UPDATE_STATION,
-  SET_PLAYING_SONG,
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
-  SET_IS_PLAYING,
 } from '../reducers/station.reducer'
 
 export async function loadStations(filterBy) {
@@ -40,17 +38,6 @@ export async function reorderStationSongs(stationId, newSongOrder) {
   }
 }
 
-export async function loadStation(stationId) {
-  try {
-    const station = await stationService.getById(stationId)
-    store.dispatch(getCmdSetStation(station))
-    return station
-  } catch (err) {
-    console.log('Cannot load station', err)
-    throw err
-  }
-}
-
 export async function removeStation(stationId) {
   try {
     await stationService.remove(stationId)
@@ -77,11 +64,6 @@ export async function updateStation(station) {
     const savedStation = await stationService.save(station)
     const finalStation = await stationService.updatePlaylistImage(savedStation._id)
     store.dispatch(getCmdUpdateStation(finalStation))
-    store.dispatch({
-      type: SET_STATION,
-      station: finalStation,
-    })
-
     return finalStation
   } catch (err) {
     console.log('Cannot save station', err)
@@ -89,31 +71,9 @@ export async function updateStation(station) {
   }
 }
 
-export async function loadLikedSongsStation() {
-  try {
-    const likedSongsStation = await stationService.getLikedSongsStation()
-    store.dispatch({ type: SET_STATION, station: likedSongsStation })
-  } catch (err) {
-    console.log('Cannot load liked songs station', err)
-    throw err
-  }
-}
-
 export async function addSongToStation(stationId, song) {
   try {
     const updatedStation = await stationService.addSongToStation(stationId, song)
-
-    if (updatedStation.songs.length === 1 && updatedStation.imgUrl === stationService.DEFAULT_IMG) {
-      const songImg = typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[0].url
-      updatedStation.imgUrl = songImg
-      const savedStation = await stationService.save(updatedStation)
-
-      store.dispatch(getCmdAddSongToStation(song))
-      store.dispatch(getCmdUpdateStation(savedStation))
-      store.dispatch({ type: SET_STATION, station: savedStation })
-
-      return savedStation
-    }
     store.dispatch(getCmdAddSongToStation(song))
     store.dispatch(getCmdUpdateStation(updatedStation))
     store.dispatch({ type: SET_STATION, station: updatedStation })
@@ -174,18 +134,6 @@ function getCmdUpdateStation(station) {
   return {
     type: UPDATE_STATION,
     station,
-  }
-}
-function getCmdSetPlayingSong(currentSong) {
-  return {
-    type: SET_PLAYING_SONG,
-    currentSong,
-  }
-}
-function getCmdSetIsPlaying(isPlaying) {
-  return {
-    type: SET_IS_PLAYING,
-    isPlaying,
   }
 }
 

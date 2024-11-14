@@ -26,8 +26,8 @@ export function DraggableSongRow({
   const [songMenuAnchor, setSongMenuAnchor] = useState(null)
   const songMenuOpen = Boolean(songMenuAnchor)
 
-  const currentSong = useSelector((state) => state.stationModule.currentSong)
-  const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+  const currentSong = useSelector((state) => state.playerModule.currentSong)
+  const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   function onPlaySong(song) {
     if (currentSong._id !== song._id) {

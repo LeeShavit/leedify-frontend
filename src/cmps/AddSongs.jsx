@@ -14,8 +14,8 @@ import { PauseIcon, PlayIcon } from '../assets/img/player/icons.jsx';
 export function AddSong({ onAddSong }) {
 
     const [searchRes, setSearchRes] = useState(null)
-    const currentSong = useSelector(state => state.stationModule.currentSong)
-    const isPlaying = useSelector((state) => state.stationModule.isPlaying)
+    const currentSong = useSelector(state => state.playerModule.currentSong)
+    const isPlaying = useSelector((state) => state.playerModule.isPlaying)
     const onSearchDebounce = useRef(debounce(searchSongs, 1000)).current
 
     async function searchSongs({ target }) {

@@ -1,3 +1,5 @@
+import { stationService } from "../../services/station/station.service.local"
+
 export const LOADING_START = 'LOADING_START'
 export const LOADING_DONE = 'LOADING_DONE'
 export const SET_CURRENT_SONG = 'SET_CURRENT_SONG'
@@ -14,7 +16,7 @@ export const REPLACE_QUEUE = 'REPLACE_QUEUE'
 
 
 const initialState = {
-  currentSong: null,
+  currentSong: stationService.getCurrentSong(),
   currentStationId: null,
   isLoading: false,
   queue: [],

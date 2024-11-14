@@ -11,6 +11,7 @@ export function setCurrentSong(song){
 }
 export function setIsPlaying(isPlaying){
     store.dispatch({type: SET_IS_PLAYING, isPlaying})
+    console.log(store.getState())
 }
 export function addToQueue(songsToAdd,stationId){
     const cmd= {type: ADD_TO_QUEUE, songsToAdd}
