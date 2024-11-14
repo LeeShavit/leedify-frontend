@@ -16,6 +16,7 @@ export function PlayerControls({ playerRef, volume }) {
     const repeat = useSelector((state) => state.playerModule.repeat)
     const [videoId, setVideoId] = useState(null)
     const [currentTime, setCurrentTime] = useState(0)
+    
     useEffect(() => {
         loadVideoId()
     }, [currentSong])
