@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react'
-import { ArrowRightIcon, LibraryIcon, LibraryIconFull, LibrarySearchIcon, ListIcon, PlusIcon } from '../assets/img/library/icons'
-import { stationService } from '../services/station/station.service.local'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { addStation, loadStations } from '../store/actions/station.actions'
-import { useDispatch, useSelector } from 'react-redux'
+
+import { ArrowRightIcon, LibraryIcon, LibraryIconFull, LibrarySearchIcon, ListIcon, PlusIcon } from '../assets/img/library/icons'
 import { PlayIcon } from 'lucide-react'
-import LibrarySortMenu from './LibrarySortMenu'
 import { Button } from '@mui/material'
-import { likeStation } from '../store/actions/user.actions'
-import { addToQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { PauseIcon } from '../assets/img/player/icons'
-import { userService } from '../services/user'
+
+import LibrarySortMenu from './LibrarySortMenu'
+import { addStation, loadStations } from '../store/actions/station.actions'
+import { addToQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { stationService } from '../services/station/station.service.local'
 
 export function Library() {
+
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [isExpanded, setIsExpanded] = useState(true)
 
+  const stations = useSelector(state => state.stationModule.stations)
   const user = useSelector(state => state.userModule.user)
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-  const queue = useSelector((state) => state.playerModule.queue)
 
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
@@ -27,10 +28,14 @@ export function Library() {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
+  useEffect(()=>{
+    loadStations()
+  },[])
+
+
   async function handleCreatePlaylist() {
     try {
       const savedStation = await addStation()
-      await likeStation(savedStation)
       navigate(`/station/${savedStation._id}`)
     } catch (err) {
       console.error('Failed to create playlist:', err)
@@ -58,8 +63,6 @@ export function Library() {
       console.error('Failed to play playlist:', err)
     }
   }
-
-
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -140,7 +143,7 @@ export function Library() {
             </p>
           </div>
         </div>
-        {user?.likedStations.map((station) => (
+        {stations?.map((station) => (
           <div key={station._id} className={`library-item ${(currentStationId === station._id) && 'current-station'}`} onClick={() => onNavigateToStation(station._id)}>
             <button className='library-item__image-button' onClick={() => onPlayStation(station._id)}>
               <img src={typeof station.imgUrl === 'string' ? station.imgUrl : station.imgUrl[2].url} alt={station.name} />
@@ -152,7 +155,7 @@ export function Library() {
               <h3 className='library-item__title'>{station.name}</h3>
               <p className='library-item__details'>
                 <span className='playlist-tag'>Playlist</span>
-                <span>{station.createdBy}</span>
+                <span>{station.createdBy.name}</span>
               </p>
             </div>
           </div>

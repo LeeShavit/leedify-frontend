@@ -130,16 +130,17 @@ export function StationDetails() {
       const [removed] = newSongs.splice(source.index, 1)
       newSongs.splice(destination.index, 0, removed)
 
-      const updatedStation = {
+      const stationToSave = {
         ...station,
         songs: newSongs,
       }
+      
+      setStation(prevStation => ({...prevStation, songs: newSongs}))
+      const updatedStation = await updateStation(stationToSave)
 
-      dispatch({ type: 'SET_STATION', station: updatedStation })
-      await stationService.save(updatedStation)
     } catch (err) {
       console.error('Failed to reorder songs:', err)
-      dispatch({ type: 'SET_STATION', station })
+      
     }
   }
 
