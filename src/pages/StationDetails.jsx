@@ -1,12 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  addSongToStation,
-  removeSongFromStation,
-  removeStation,
-  updateStation,
-} from '../store/actions/station.actions'
+import { addSongToStation, removeSongFromStation, removeStation, updateStation } from '../store/actions/station.actions'
 
 import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
@@ -19,12 +14,9 @@ import StationMenu from '../cmps/StationMenu'
 import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
-import { stationService , DEFAULT_IMG } from '../services/station/'
-
-
+import { stationService, DEFAULT_IMG } from '../services/station/'
 
 export function StationDetails() {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const fac = new FastAverageColor()
@@ -32,7 +24,6 @@ export function StationDetails() {
   const { stationId } = useParams()
 
   const user = useSelector((state) => state.userModule.user)
-
 
   const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
   const [station, setStation] = useState(null)
@@ -49,21 +40,21 @@ export function StationDetails() {
   const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
 
   useEffect(() => {
-    loadStation()
-      .catch((err) => console.log(err))
+    loadStation().catch((err) => console.log(err))
   }, [stationId])
 
   useEffect(() => {
     if (station) {
       loadStationImage()
+      loadStation()
     }
   }, [station])
-
 
   function loadStationImage() {
     if (!station) return
     let img = station.imgUrl
     if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
+      const firstSong = station.songs[0]
       img = typeof station.songs[0].imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
     }
     setStationImage(img)
@@ -91,7 +82,6 @@ export function StationDetails() {
     }
   }
 
-
   async function handleSaveStation(updatedStationData) {
     try {
       const stationToUpdate = {
@@ -111,14 +101,12 @@ export function StationDetails() {
     }
   }
 
-
   function handlePhotoClick() {
     setIsEditModalOpen(true)
     setTimeout(() => {
       fileInputRef.current?.click()
     }, 100)
   }
-
 
   const onDragEnd = async (result) => {
     const { destination, source } = result
@@ -135,16 +123,13 @@ export function StationDetails() {
         ...station,
         songs: newSongs,
       }
-      
-      setStation(prevStation => ({...prevStation, songs: newSongs}))
-      const updatedStation = await updateStation(stationToSave)
 
+      setStation((prevStation) => ({ ...prevStation, songs: newSongs }))
+      const updatedStation = await updateStation(stationToSave)
     } catch (err) {
       console.error('Failed to reorder songs:', err)
-      
     }
   }
-
 
   async function onAddSong(song) {
     try {
@@ -183,7 +168,7 @@ export function StationDetails() {
       const likedSongs = !likedSongsIds.includes(song._id) ? await likeSong(song) : await dislikeSong(song._id)
       setLikedSongsIds(_getLikedSongsIds(likedSongs))
 
-      setStation(prevStation => ({ ...prevStation, likedSongs }))
+      setStation((prevStation) => ({ ...prevStation, likedSongs }))
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
     }
@@ -254,7 +239,10 @@ export function StationDetails() {
           <button className='station-controls__play' onClick={() => onPlayStation()}>
             <span className='station-controls__play-icon'>▶</span>
           </button>
-          <button className={`station-controls__add ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
+          <button
+            className={`station-controls__add ${isInLibrary ? 'liked' : ''}`}
+            onClick={() => onLikeDislikeStation()}
+          >
             {isInLibrary ? <Liked /> : <Like />}
           </button>
           <Button
@@ -310,16 +298,18 @@ export function StationDetails() {
         ))}
       </DraggableSongContainer>
       {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}
-      {isEditModalOpen && <EditStationModal
-        station={station}
-        isOpen={isEditModalOpen}
-        onSave={handleSaveStation}
-        onClose={() => setIsEditModalOpen(false)}
-        onOverlayClick={() => setIsEditModalOpen(false)}
-        fileInputRef={fileInputRef}
-        // onClose={() => handleClose('song')}
-        MenuListProps={{ 'aria-labelledby': 'basic-button' }}
-      />}
+      {isEditModalOpen && (
+        <EditStationModal
+          station={station}
+          isOpen={isEditModalOpen}
+          onSave={handleSaveStation}
+          onClose={() => setIsEditModalOpen(false)}
+          onOverlayClick={() => setIsEditModalOpen(false)}
+          fileInputRef={fileInputRef}
+          // onClose={() => handleClose('song')}
+          MenuListProps={{ 'aria-labelledby': 'basic-button' }}
+        />
+      )}
     </div>
   )
 }
