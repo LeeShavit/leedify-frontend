@@ -36,6 +36,8 @@ export function Player() {
     }
   }
 
+  if(!currentSong) return <div>Loading...</div>
+
   return (
     <section className='player full'>
       <div className='song-info'>
@@ -45,7 +47,7 @@ export function Player() {
           {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}
           <p className='song-info-name'>{currentSong?.name}</p>
           <p className='song-info-artist'>
-            {currentSong?.artists.map((artist) => (
+            {currentSong?.artists?.map((artist) => (
               <Link key={artist._id} to={`/artist/${artist._id}`}>
                 {artist.name}
               </Link>
@@ -54,9 +56,9 @@ export function Player() {
         </div>
         <button
           onClick={() => onLikeDislikeSong()}
-          className={`like-song ${likedSongsIds.includes(currentSong?._id) ? 'liked' : ''}`}
+          className={`like-song ${likedSongsIds?.includes(currentSong?._id) ? 'liked' : ''}`}
         >
-          {likedSongsIds.includes(currentSong?._id) ? <Liked /> : <Like />}
+          {likedSongsIds?.includes(currentSong?._id) ? <Liked /> : <Like />}
         </button>
       </div>
       <PlayerControls playerRef={playerRef} volume={volume} />

@@ -18,6 +18,7 @@ import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
 import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/'
+import { likeStation } from '../store/actions/user.actions'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
@@ -41,12 +42,13 @@ export function Library() {
   async function handleCreatePlaylist() {
     try {
       const savedStation = await addStation()
+      await likeStation(savedStation)
       navigate(`/station/${savedStation._id}`)
     } catch (err) {
       console.error('Failed to create playlist:', err)
     }
   }
-
+  
   function onNavigateToStation(stationId) {
     navigate(`/station/${stationId}`)
   }
@@ -76,6 +78,7 @@ export function Library() {
       }
     }
   }
+
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -187,7 +190,7 @@ export function Library() {
               <h3 className='library-item__title'>{station.name}</h3>
               <p className='library-item__details'>
                 <span className='playlist-tag'>Playlist</span>
-                <span>{station.createdBy.name}</span>
+                <span>{station.createdBy?.name}</span>
               </p>
             </div>
           </div>

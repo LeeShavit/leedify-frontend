@@ -4,12 +4,10 @@ import {
   ADD_STATION,
   REMOVE_STATION,
   SET_STATIONS,
-  SET_STATION,
   UPDATE_STATION,
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
 } from '../reducers/station.reducer'
-import { userService } from '../../services/user'
 
 export async function loadStations(filterBy) {
   try {
@@ -65,7 +63,7 @@ export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
     store.dispatch(getCmdUpdateStation(savedStation))
-    return finalStation
+    return savedStation
   } catch (err) {
     console.log('Cannot save station', err)
     throw err
@@ -75,10 +73,9 @@ export async function updateStation(station) {
 export async function addSongToStation(stationId, song) {
   try {
     const updatedStation = await stationService.addSongToStation(stationId, song)
-    store.dispatch(getCmdAddSongToStation(song))
-    store.dispatch(getCmdUpdateStation(updatedStation))
-    store.dispatch({ type: SET_STATION, station: updatedStation })
-
+    console.log(updatedStation)
+    store.dispatch(getCmdAddSongToStation(stationId, song))
+    
     return updatedStation
   } catch (err) {
     console.log('Cannot add song to station', err)
@@ -89,8 +86,7 @@ export async function addSongToStation(stationId, song) {
 export async function removeSongFromStation(stationId, songId) {
   try {
     const updatedStation = await stationService.removeSongFromStation(stationId, songId)
-    store.dispatch(getCmdRemoveSongFromStation(songId))
-    store.dispatch(getCmdUpdateStation(updatedStation))
+    store.dispatch(getCmdRemoveSongFromStation(stationId, songId))
     return updatedStation
   } catch (err) {
     console.log('Cannot remove song from station', err)
@@ -98,13 +94,6 @@ export async function removeSongFromStation(stationId, songId) {
   }
 }
 
-export function setPlayingSong(currentSong) {
-  store.dispatch(getCmdSetPlayingSong(currentSong))
-}
-
-export function setIsPlaying(isPlaying) {
-  store.dispatch(getCmdSetIsPlaying(isPlaying))
-}
 
 function getCmdSetStations(stations) {
   return {
@@ -113,12 +102,6 @@ function getCmdSetStations(stations) {
   }
 }
 
-function getCmdSetStation(station) {
-  return {
-    type: SET_STATION,
-    station,
-  }
-}
 function getCmdRemoveStation(stationId) {
   return {
     type: REMOVE_STATION,
@@ -138,15 +121,15 @@ function getCmdUpdateStation(station) {
   }
 }
 
-function getCmdAddSongToStation(song) {
+function getCmdAddSongToStation(stationId, song) {
   return {
     type: ADD_SONG_TO_STATION,
-    song,
+    stationId, song,
   }
 }
-function getCmdRemoveSongFromStation(songId) {
+function getCmdRemoveSongFromStation(stationId, songId) {
   return {
-    type: REMOVE_SONG_FROM_STATION,
+    type: REMOVE_SONG_FROM_STATION,stationId,
     songId,
   }
 }

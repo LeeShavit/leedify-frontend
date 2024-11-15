@@ -1,5 +1,7 @@
 import { httpService } from '../http.service'
 import { userService } from '../user'
+import { ApiService } from '../api.service'
+
 
 export const stationService = {
     query,
@@ -26,13 +28,11 @@ async function remove(stationId) {
 }
 
 async function save(station) {
-    var savedStation
     if (station._id) {
-        savedStation = await httpService.put(`station/${station._id}`, station)
+        return await httpService.put(`station/${station._id}`, station)
     } else {
-        savedStation = await httpService.post('station', station)
+        return await httpService.post('station', station)
     }
-    return savedStation
 }
 
 async function addSongToStation(stationId,song) {
@@ -53,6 +53,8 @@ async function getSearchResSong(txt) {
   }
 
 async function getCurrentSong() {
+    const user= await userService.getLoggedinUser()
+    if(user.likedSongs[0]) return user.likedSongs[0]
     return {
         _id: '2L9N0zZnd37dwF0clgxMGI',
         name: 'ceilings',

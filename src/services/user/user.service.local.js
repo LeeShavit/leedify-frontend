@@ -217,9 +217,10 @@ async function _createDemoUser() {
   if (users.length) return
 
   const user = {
+    _id: '673747e44f46d732f3578f0a',
     username: 'guest',
-    password: 'guest',
-    name: 'guest User',
+    password: 'guest123',
+    name: 'Guest User',
     imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
     likedSongs: [
       {
@@ -288,5 +289,4 @@ async function _createDemoUser() {
   }
 
   const newUser = await storageService.post(STORAGE_KEY_USERS, user)
-  console.log(newUser)
 }
