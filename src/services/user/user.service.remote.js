@@ -49,28 +49,32 @@ async function update({ _id, score }) {
 	// When admin updates other user's details, do not update loggedinUser
     const loggedinUser = getLoggedinUser() // Might not work because its defined in the main service???
     if (loggedinUser._id === user._id) saveLoggedinUser(user)
-
 	return user
 }
 
 async function likeSong(song) {
 	const user= await httpService.post('user/song',song)
+	saveLoggedinUser(user)
 	return user.likedSongs
 }
 
 async function dislikeSong(songId) {
 	const user= await httpService.delete(`user/song/${songId}`)
+	saveLoggedinUser(user)
 	return user.likedSongs
 }
 
 async function likeStation(station) {
+	console.log(station)
 	const user= await httpService.post('user/station',station)
-	return user.likeStations
+	saveLoggedinUser(user)
+	return user.likedStations
 }
 
 async function dislikeStation(stationId) {
 	const user= await httpService.delete(`user/station/${stationId}`)
-	return user.likeStations
+	saveLoggedinUser(user)
+	return user.likedStations
 }
 
 
@@ -91,19 +95,18 @@ async function logout() {
 	return await httpService.post('auth/logout')
 }
 
-async function getLoggedinUser() {
-    const {_id}= JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
-	const user= await getById(_id)
-	return user
+function getLoggedinUser() {
+    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
 function saveLoggedinUser(user) {
 	user = { 
         _id: user._id, 
+		username: user.username,
         name: user.name, 
         imgUrl: user.imgUrl, 
         likedSongs: user.likedSongs, 
-        likeStations: user.likedStations 
+        likedStations: user.likedStations 
     }
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 	return user

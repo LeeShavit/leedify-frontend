@@ -15,7 +15,11 @@ export const stationService = {
     getCurrentSong,
 }
 
-async function query(filterBy = { createdById: userService.getLoggedinUser()._id }) {
+async function query(filterBy) {
+    if (!filterBy) {
+        const { _id } = userService.getLoggedinUser()
+        filterBy= {createdById : _id}
+    }
     return httpService.get(`station`, filterBy)
 }
 
@@ -35,47 +39,48 @@ async function save(station) {
     }
 }
 
-async function addSongToStation(stationId,song) {
+async function addSongToStation(stationId, song) {
     return await httpService.post(`station/${stationId}/song`, song)
 }
 
-async function removeSongFromStation(stationId,songId) {
-    return await httpService.delete(`station/${stationId}/${songId}`)
+async function removeSongFromStation(stationId, songId) {
+    console.log(stationId ,songId)
+    return await httpService.delete(`station/${stationId}/song/${songId}`)
 }
 
-async function getLikedSongsStation(){
+async function getLikedSongsStation() {
     return await getById('liked-songs')
 }
 
 async function getSearchResSong(txt) {
     const res = await ApiService.getSpotifyItems({ type: 'songSearch', query: txt, market: 'US' })
     return res.songs
-  }
+}
 
 async function getCurrentSong() {
-    const user= await userService.getLoggedinUser()
-    if(user.likedSongs[0]) return user.likedSongs[0]
+    const user = await userService.getLoggedinUser()
+    if (user.likedSongs[0]) return user.likedSongs[0]
     return {
         _id: '2L9N0zZnd37dwF0clgxMGI',
         name: 'ceilings',
         artists: [
-          {
-            name: 'Lizzy McAlpine',
-            _id: '1GmsPCcpKgF9OhlNXjOsbS',
-          },
+            {
+                name: 'Lizzy McAlpine',
+                _id: '1GmsPCcpKgF9OhlNXjOsbS',
+            },
         ],
         album: {
-          name: 'five seconds flat',
-          _id: '68L5xVV9wydotfDXEik7eD',
+            name: 'five seconds flat',
+            _id: '68L5xVV9wydotfDXEik7eD',
         },
         duration: 181200,
         url: 'youtube/song.mp4',
         imgUrl: 'https://i.scdn.co/image/ab67616d00001e02d370fdc4dbc47778b9b667c3',
         likedBy: [],
         addedAt: 162521765262,
-      }
-  }
-  
+    }
+}
+
 
 
 

@@ -28,7 +28,6 @@ export function Library() {
   const user = useSelector((state) => state.userModule.user)
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-  console.log(stations)
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -161,7 +160,7 @@ export function Library() {
               <span className='playlist-tag'>Playlist</span>
               <span>
                 <span>
-                  {!user?.likedSongs
+                  {!user.likedSongs
                     ? 'No songs yet'
                     : user.likedSongs.length === 0
                     ? 'No songs yet'
