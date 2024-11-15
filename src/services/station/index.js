@@ -9,6 +9,7 @@ export const DEFAULT_IMG =
   'https://res.cloudinary.com/dtqfckufu/image/upload/c_crop,w_450,h_450,ar_1:1/v1731425735/empty_xye9w8.png'
 
 function getEmptyStation() {
+
     return {
       name: 'New Playlist',
       description: '',

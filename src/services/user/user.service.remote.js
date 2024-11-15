@@ -1,6 +1,17 @@
+import { Password } from '@mui/icons-material'
 import { httpService } from '../http.service'
+import { User2Icon } from 'lucide-react'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
+
+initialize()
+
+async function initialize() {
+	const loggedInUser = getLoggedinUser()
+	if (!loggedInUser) {
+	  await login({ username: 'guest', password:'guest123' })
+	}
+  }
 
 export const userService = {
 	login,
@@ -53,13 +64,13 @@ async function dislikeSong(songId) {
 }
 
 async function likeStation(station) {
-	const user= await httpService.post('user/song',song)
-	return user.likedSongs
+	const user= await httpService.post('user/station',station)
+	return user.likeStations
 }
 
 async function dislikeStation(stationId) {
-	const user= await httpService.delete(`user/song/${songId}`)
-	return user.likedSongs
+	const user= await httpService.delete(`user/station/${stationId}`)
+	return user.likeStations
 }
 
 
@@ -70,7 +81,6 @@ async function login(userCred) {
 
 async function signup(userCred) {
 	if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-	userCred.score = 10000
 
     const user = await httpService.post('auth/signup', userCred)
 	return saveLoggedinUser(user)
@@ -81,8 +91,10 @@ async function logout() {
 	return await httpService.post('auth/logout')
 }
 
-function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+async function getLoggedinUser() {
+    const {_id}= JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+	const user= await getById(_id)
+	return user
 }
 
 function saveLoggedinUser(user) {
@@ -90,8 +102,8 @@ function saveLoggedinUser(user) {
         _id: user._id, 
         name: user.name, 
         imgUrl: user.imgUrl, 
-        score: user.score, 
-        isAdmin: user.isAdmin 
+        likedSongs: user.likedSongs, 
+        likeStations: user.likedStations 
     }
 	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 	return user

@@ -67,7 +67,7 @@ async function remove(stationId) {
 async function save(station) {
   try {
     if (station._id) {
-      const {_id, name, imgUrl}= userService.getLoggedinUser()
+      const {_id, name, imgUrl} = userService.getLoggedinUser()
       station.createdBy={ _id, name, imgUrl }
       return await storageService.put(STORAGE_KEY, station)
     } else {
@@ -83,9 +83,6 @@ async function addSongToStation(stationId, song) {
   try {
     const station = await getById(stationId)
     if (!station) throw new Error(`Station ${stationId} not found`)
-
-    const songExists = station.songs.some((s) => s._id === song._id)
-    if (songExists) return station
 
     const songToAdd = {
       ...song,
