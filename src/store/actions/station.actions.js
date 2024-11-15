@@ -39,7 +39,8 @@ export async function reorderStationSongs(stationId, newSongOrder) {
 
 export async function removeStation(stationId) {
   try {
-    await stationService.remove(stationId)
+    console.log('here')
+    const res= await stationService.remove(stationId)
     store.dispatch(getCmdRemoveStation(stationId))
   } catch (err) {
     console.log('Cannot remove station', err)
