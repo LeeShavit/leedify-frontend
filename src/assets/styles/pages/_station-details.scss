@@ -5,6 +5,10 @@
   border-radius: 8px;
   position: relative;
 
+  @include for-mobile-layout {
+    padding: 16px 8px;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -30,6 +34,8 @@
     align-items: flex-end;
     margin-bottom: 10px;
     width: 100%;
+   
+    
 
     &__cover {
       width: clamp(180px, 25%, 220px);
@@ -128,6 +134,31 @@
       &::before {
         content: '•';
         margin: 0 4px;
+      }
+    }
+    @include for-mobile-layout {
+      padding: 16px 8px;
+      
+      &__cover {
+        width: 140px; 
+        height: 140px;
+      }
+  
+      &__info {
+        padding: 16px 0;
+        
+        &__title {
+          font-size: 24px;
+          margin-bottom: 8px;
+        }
+  
+        &__description {
+          font-size: 14px;
+        }
+  
+        &__meta {
+          font-size: 12px;
+        }
       }
     }
   }
@@ -246,7 +277,7 @@
     font-size: 13px;
     font-weight: 500;
     align-items: center;
-
+    
     &__number,
     &__title,
     &__album,
@@ -271,6 +302,17 @@
         margin-inline-end: 6px;
       }
     }
+    @include for-mobile-layout {
+      grid-template-columns: 1fr auto; // Only title and duration
+      padding: 0 8px;
+      
+      // Hide unnecessary columns
+      &__number,
+      &__album,
+      &__date {
+        display: none;
+      }
+    }
   }
 
   .station-song-row {
@@ -284,6 +326,90 @@
     border-radius: 4px;
     margin-bottom: 12px;
 
+    @include for-mobile-layout {
+      grid-template-columns: 1fr auto; 
+      padding: 0 8px;
+      
+      &__number,
+      &__album,
+      &__date {
+        display: none;
+      }
+    }
+  }
+  
+  .station-song-row {
+    display: grid;
+    grid-template-columns: 48px 4fr 3fr 2fr 1fr; 
+    padding: 8px 16px;
+    
+    @include for-mobile-layout {
+      grid-template-columns: 6fr 30px; 
+      padding: 8px;
+      gap: 8px;
+      
+
+      &__number,
+      &__album,
+      &__date {
+        display: none;
+      }
+  
+
+      &__title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 4px;
+        }
+        
+
+        div {
+          overflow: hidden;
+          
+          .song-title {
+            font-size: 14px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          
+          .song-artist {
+            font-size: 12px;
+            color: $text-secondary;
+          }
+        }
+      }
+  
+     
+      &__duration {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        .like-song {
+          padding-right: 8px;
+        }
+      }
+  
+
+      &__playPause {
+        opacity: 1; 
+        position: absolute;
+        left: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+    }
+  
     &.is-dragging {
       background-color: rgba(255, 255, 255, 0.1);
       border-radius: 4px;
