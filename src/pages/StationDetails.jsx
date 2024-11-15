@@ -40,6 +40,7 @@ export function StationDetails() {
   const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
 
   useEffect(() => {
+    if (station) return
     loadStation().catch((err) => console.log(err))
   }, [stationId])
 
