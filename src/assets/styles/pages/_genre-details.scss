@@ -1,0 +1,54 @@
+.genre-page {
+    padding: 50px 32px;
+    background-color: $background-dark;
+    min-height: 100vh;
+    
+    .section-header{
+            display: flex;
+            gap: 18px;
+            align-items: flex-end;
+            margin-bottom: 10px;
+            width: 100%;
+           
+            &__title {
+              font-size: clamp(2rem, 8vw, 8rem);
+              font-weight: 700;
+              line-height: 1.13;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 100%;
+              color: #fff;
+              margin: 0;
+              width: 100%;
+              min-width: 0;
+              flex-grow: 1;
+              display: block;
+            }
+        
+            
+            @include for-mobile-layout {
+              padding: 16px 8px;
+                &__title {
+                  font-size: 24px;
+                  margin-bottom: 8px;
+                }
+            }
+    }
+
+    @media (max-width: $breakpoint-md) {
+        .station-header {
+          &__title {
+            font-size: clamp(2rem, 7vw, 7rem);
+          }
+        }
+      }
+  
+      @media (max-width: $breakpoint-sm) {
+        .station-header {
+          &__title {
+            font-size: clamp(1.5rem, 6vw, 6rem);
+          }
+        }
+      }
+  }
+  
