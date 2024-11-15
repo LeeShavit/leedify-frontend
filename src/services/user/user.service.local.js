@@ -4,15 +4,36 @@ import { storageService } from '../async-storage.service'
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 const STORAGE_KEY_USERS = 'users'
 
-initialize()
-
 async function initialize() {
-  const loggedInUser = getLoggedinUser()
-  if (!loggedInUser) {
-    await _createDemoUser()
-    await login({ username: 'guest' })
+  try {
+    console.log('Starting initialization')
+    const loggedInUser = getLoggedinUser()
+
+    if (!loggedInUser) {
+      console.log('No logged in user, creating demo user')
+      const demoUser = await _createDemoUser()
+      console.log('Created demo user:', demoUser)
+
+      if (demoUser) {
+        console.log('Attempting to log in demo user')
+        const loginResult = await login({
+          username: 'guest',
+          password: 'guest',
+        })
+        console.log('Demo user logged in:', loginResult)
+        return loginResult
+      }
+    }
+
+    return loggedInUser
+  } catch (err) {
+    console.error('Failed to initialize:', err)
+    throw err
   }
 }
+
+initialize()
+// _createDemoUser()
 
 export const userService = {
   login,
@@ -52,7 +73,6 @@ async function update({ _id }) {
   user.score = score
   await storageService.put(STORAGE_KEY_USERS, user)
 
-  // When admin updates other user's details, do not update loggedinUser
   const loggedinUser = getLoggedinUser()
   if (loggedinUser._id === user._id) saveLoggedinUser(user)
 
@@ -60,18 +80,31 @@ async function update({ _id }) {
 }
 
 async function login(userCred) {
-  const users = await storageService.query(STORAGE_KEY_USERS)
-  const user = users.find((user) => user.username === userCred.username)
-  console.log(userCred)
-  if (user) return saveLoggedinUser(user)
-}
+  try {
+    const users = await storageService.query(STORAGE_KEY_USERS)
+    console.log('users in login:', users) // Debug log
 
-async function signup(userCred) {
-  console.log(userCred)
-  if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+    const user = users.find((user) => user.username === userCred.username && user.password === userCred.password)
 
-  const user = await storageService.post(STORAGE_KEY_USERS, userCred)
-  return saveLoggedinUser(user)
+    if (!user) throw new Error('Invalid username or password')
+
+    const validUser = {
+      _id: user._id,
+      name: user.name || user.username,
+      username: user.username,
+      password: user.password,
+      imgUrl: user.imgUrl,
+      likedSongs: user.likedSongs || [],
+      likedStations: user.likedStations || [],
+    }
+
+    const savedUser = saveLoggedinUser(validUser)
+    console.log('logged in user:', savedUser) // Debug log
+    return savedUser
+  } catch (err) {
+    console.error('Could not login:', err)
+    throw err
+  }
 }
 
 async function logout() {
@@ -80,19 +113,42 @@ async function logout() {
 
 function getLoggedinUser() {
   const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+  console.log('user', user)
   return user
 }
 
+async function signup(userCred) {
+  const userToSave = {
+    _id: '',
+    name: userCred.name || userCred.username,
+    username: userCred.username,
+    password: userCred.password,
+    email: userCred.email,
+    imgUrl: userCred.imgUrl || 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
+    likedSongs: [],
+    likedStations: [],
+  }
+
+  try {
+    const user = await storageService.post(STORAGE_KEY_USERS, userToSave)
+    return saveLoggedinUser(user)
+  } catch (err) {
+    console.error('Could not signup:', err)
+    throw err
+  }
+}
+
 function saveLoggedinUser(user) {
-  user = {
+  const userToSave = {
     _id: user._id,
     name: user.name,
+    username: user.username,
     imgUrl: user.imgUrl,
-    likedSongs: user.likedSongs,
-    likedStations: user.likedStations,
+    likedSongs: user.likedSongs || [],
+    likedStations: user.likedStations || [],
   }
-  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
-  return user
+  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(userToSave))
+  return userToSave
 }
 
 async function likeStation(station) {
@@ -213,8 +269,14 @@ async function updateUsersLikedStation(station) {
 }
 
 async function _createDemoUser() {
-  const users = await storageService.query(STORAGE_KEY_USERS)
-  if (users.length) return
+  try {
+    const users = await storageService.query(STORAGE_KEY_USERS)
+    console.log('Existing users:', users)
+
+    if (users.length) {
+      console.log('Users already exist, returning')
+      return users[0] // Return first user if exists
+    }
 
   const user = {
     _id: '673747e44f46d732f3578f0a',
@@ -288,5 +350,11 @@ async function _createDemoUser() {
     ],
   }
 
-  const newUser = await storageService.post(STORAGE_KEY_USERS, user)
+    const newUser = await storageService.post(STORAGE_KEY_USERS, user)
+    console.log('New demo user created:', newUser)
+    return newUser
+  } catch (err) {
+    console.error('Failed to create demo user:', err)
+    throw err
+  }
 }
