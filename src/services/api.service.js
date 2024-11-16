@@ -249,6 +249,7 @@ async function _cleanStationData(data) {
       name: data.owner?.display_name || 'Spotify',
     },
   }
+  console.log('station', data)
   console.log('Fetching station tracks...')
   const tracks = await getSpotifyItems({
     type: 'tracks',
@@ -298,7 +299,7 @@ function _cleanAlbumTracksData(data, imgUrls) {
 }
 
 function _cleanCategoryStationsData(data) {
-  const stations= data.playlists.items
+  const stations = data.playlists.items
     .filter((item) => item !== null)
     .map((item) => ({
       _id: item.id ? item.id : '0',
@@ -307,8 +308,8 @@ function _cleanCategoryStationsData(data) {
       description: item.description ? item.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
       snapshot_id: item.snapshot_id,
     }))
-    console.log(data.message)
-    return {name: data.message ,stations}
+  console.log(data.message)
+  return { name: data.message, stations }
 }
 
 function _cleanStationTracksData(data) {
