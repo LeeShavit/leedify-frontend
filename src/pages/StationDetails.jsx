@@ -40,7 +40,6 @@ export function StationDetails() {
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   useEffect(() => {
-
     socketService.on(SOCKET_EVENT_EDIT_STATION, editStation)
     return () => {
       socketService.off(SOCKET_EVENT_EDIT_STATION, editStation)
@@ -144,6 +143,7 @@ export function StationDetails() {
 
       setStation((prevStation) => ({ ...prevStation, songs: newSongs }))
       const updatedStation = await updateStation(stationToSave)
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, stationToSave)
     } catch (err) {
       console.error('Failed to reorder songs:', err)
     }
@@ -158,6 +158,8 @@ export function StationDetails() {
       setStation(updatedStation)
       loadStationImage()
       updateUsersLikedStation(updatedStation)
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
+
     } catch {
       showErrorMsg(`failed to add song ${song.name}`)
     }
@@ -168,7 +170,9 @@ export function StationDetails() {
       const updatedStation = await removeSongFromStation(stationId, songId)
       setStation(updatedStation)
       loadStationImage()
-      updateUsersLikedStation(updatedStation)
+      updateUsersLikedStation(updatedStation)      
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
+
     } catch {
       showErrorMsg(`failed to remove song ${songId}`)
     }
@@ -227,7 +231,6 @@ export function StationDetails() {
   }
 
   if (!station || !user._id) return <div>Loading...</div>
-
   const isUserStation = station.createdBy._id === user._id
 
   return (
@@ -297,7 +300,7 @@ export function StationDetails() {
           <button className='station-controls__list'>List</button>
         </div>
       </div>
-      {station.songs.length ? (
+      {station?.songs.length ? (
         <div className='station-table-header'>
           <div className='station-table-header__number'>#</div>
           <div className='station-table-header__title'>Title</div>
