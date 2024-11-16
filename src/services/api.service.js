@@ -240,6 +240,7 @@ async function _cleanPlaylistSearchData(data) {
   return { playlists }
 }
 
+
 async function _cleanStationData(data) {
   return {
     _id: data.id,
@@ -250,26 +251,10 @@ async function _cleanStationData(data) {
       _id: data.owner?.id || 'spotify',
       name: data.owner?.display_name || 'Spotify',
     },
+    songs: _cleanStationTracksData(data.tracks),
+    tags: [],
+    likedByUsers: [],
   }
-  console.log('Fetching station tracks...')
-  const tracks = await getSpotifyItems({
-    type: 'tracks',
-    id: data.id,
-  })
-
-  station.songs = tracks.map((song) => ({
-    _id: song._id,
-    name: song.name,
-    artists: song.artists,
-    album: song.album,
-    duration: song.duration,
-    imgUrl: Array.isArray(song.imgUrl) ? song.imgUrl[0]?.url : song.imgUrl,
-    addedAt: song.addedAt || new Date().toISOString(),
-    youtubeId: '',
-  }))
-
-  console.log('Cleaned station data:', station)
-  return station
 }
 
 function _cleanAlbumData(data) {
