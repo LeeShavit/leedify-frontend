@@ -22,7 +22,6 @@ export function DraggableSongRow({
   onRemoveSong,
   onAddToQueue,
 }) {
-
   const [songMenuAnchor, setSongMenuAnchor] = useState(null)
   const songMenuOpen = Boolean(songMenuAnchor)
 
@@ -47,7 +46,6 @@ export function DraggableSongRow({
   function handleClose() {
     setSongMenuAnchor(null)
   }
-
 
   return (
     <Draggable draggableId={song._id} index={index}>
@@ -82,10 +80,11 @@ export function DraggableSongRow({
             <div>
               <div className='song-title'>{song.name}</div>
               <div className='song-artist'>
-                {song.artists.map((artist) => (
-                  <Link key={artist._id} to={`/artist/${artist._id}`}>
-                    {artist.name}
-                  </Link>
+                {song.artists.map((artist, index) => (
+                  <React.Fragment key={artist._id || index}>
+                    <Link to={`/artist/${artist._id}`}>{artist.name}</Link>
+                    {index < song.artists.length - 1 && ', '}
+                  </React.Fragment>
                 ))}
               </div>
             </div>
