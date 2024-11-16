@@ -26,7 +26,6 @@ _createDemoData()
 async function query(filterBy = {}) {
   try {
     let stations = await storageService.query(STORAGE_KEY)
-
     if (filterBy.txt) {
       const regex = new RegExp(filterBy.txt, 'i')
       stations = stations.filter(
@@ -50,9 +49,55 @@ async function query(filterBy = {}) {
 async function getById(stationId) {
   try {
     if (stationId === 'liked-songs') return await getLikedSongsStation()
-    return await storageService.get(STORAGE_KEY, stationId)
+
+    let station = null
+    try {
+      station = await storageService.get(STORAGE_KEY, stationId)
+    } catch (err) {
+      console.log('Station not found in local DB')
+    }
+
+    if (!station) {
+      try {
+        console.log('Fetching station from Spotify...')
+        const spotifyStation = await ApiService.getSpotifyItems({
+          type: 'station',
+          id: stationId,
+          market: 'US',
+        })
+
+        if (spotifyStation) {
+          const formattedStation = {
+            _id: spotifyStation._id,
+            name: spotifyStation.name,
+            description: spotifyStation.description || '',
+            imgUrl: spotifyStation.imgUrl,
+            createdBy: { _id: 'spotify', name: 'Spotify' },
+            songs: spotifyStation.songs.map((song) => ({
+              ...song,
+              addedAt: song.addedAt || new Date().toISOString(),
+            })),
+            tags: [],
+            likedByUsers: [],
+          }
+
+          try {
+            station = await storageService.post(STORAGE_KEY, formattedStation)
+            console.log('Station saved to local DB')
+          } catch (saveErr) {
+            console.warn('Failed to save station to local DB:', saveErr)
+            station = formattedStation
+          }
+        }
+      } catch (spotifyErr) {
+        console.error('Failed to fetch from Spotify:', spotifyErr)
+      }
+    }
+
+    if (!station) throw new Error(`Station ${stationId} not found`)
+    return station
   } catch (err) {
-    console.error("station service - couldn't get station", err)
+    console.error('Failed to get station:', err)
     throw err
   }
 }
@@ -69,8 +114,19 @@ async function remove(stationId) {
 async function save(station) {
   try {
     if (station._id) {
-      const {_id, name, imgUrl} = userService.getLoggedinUser()
-      station.createdBy={ _id, name, imgUrl }
+      if (station.createdBy && station.createdBy._id === 'spotify') {
+        return await storageService.put(STORAGE_KEY, station)
+      }
+
+      const loggedInUser = userService.getLoggedinUser()
+      if (!loggedInUser) throw new Error('No logged in user found')
+
+      station.createdBy = {
+        _id: loggedInUser._id,
+        name: loggedInUser.name || loggedInUser.username,
+        imgUrl: loggedInUser.imgUrl,
+      }
+
       return await storageService.put(STORAGE_KEY, station)
     } else {
       const loggedInUser = userService.getLoggedinUser()
@@ -78,11 +134,14 @@ async function save(station) {
 
       const newStation = {
         ...station,
-        createdBy: {
-          _id: loggedInUser._id,
-          name: loggedInUser.name || loggedInUser.username,
-          imgUrl: loggedInUser.imgUrl,
-        },
+        createdBy:
+          station.createdBy?._id === 'spotify'
+            ? station.createdBy
+            : {
+                _id: loggedInUser._id,
+                name: loggedInUser.name || loggedInUser.username,
+                imgUrl: loggedInUser.imgUrl,
+              },
       }
 
       return await storageService.post(STORAGE_KEY, newStation)
@@ -133,6 +192,7 @@ async function removeSongFromStation(stationId, songId) {
 async function getLikedSongsStation() {
   try {
     const user = userService.getLoggedinUser()
+    console.log('user', user)
     return {
       _id: 'liked-songs',
       name: 'Liked Songs',

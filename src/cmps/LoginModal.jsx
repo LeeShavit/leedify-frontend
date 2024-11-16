@@ -1,15 +1,32 @@
 import { SpotifyIcon } from '../assets/img/app-header/icons'
 import { useState } from 'react'
+import { Google } from '@mui/icons-material'
+import { firebaseAuthService } from '../services/firebase.auth.service'
 
 export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
-  if (!isOpen) return null
-
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [formData, setFormData] = useState({
     email: '',
     username: '',
     password: '',
   })
+
+  const handleGoogleLogin = async () => {
+    try {
+      setIsLoading(true)
+      setError(null)
+      await firebaseAuthService.loginWithGoogle()
+      onClose()
+    } catch (err) {
+      setError('Failed to login with Google. Please try again.')
+      console.error('Google login failed:', err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  if (!isOpen) return null
 
   if (!isOpen) return null
 
@@ -48,15 +65,12 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
           <h1 className='login-modal__title'>{isLoginMode ? 'Log in to Spotify' : 'Sign up for Spotify'}</h1>
 
           <div className='login-modal__social-buttons'>
-            <button className='login-modal__social-button'>
-              <img src='/google-icon.png' alt='Google' />
-              Continue with Google
+            <button className='login-modal__social-button' onClick={handleGoogleLogin} disabled={isLoading}>
+              <Google />
+              {isLoading ? 'Connecting...' : 'Continue with Google'}
             </button>
 
-            <button className='login-modal__social-button'>
-              <img src='/apple-icon.png' alt='Apple' />
-              Continue with Apple
-            </button>
+            <button className='login-modal__social-button'>Continue with Apple</button>
           </div>
 
           <div className='login-modal__divider'>

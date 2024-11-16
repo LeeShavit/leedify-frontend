@@ -24,6 +24,7 @@ export const userService = {
   likeStation,
   dislikeStation,
   updateUsersLikedStation,
+  loginWithGoogle,
 }
 
 async function getUsers() {
@@ -90,10 +91,26 @@ async function login(userCred) {
     }
 
     const savedUser = saveLoggedinUser(validUser)
-    console.log('logged in user:', savedUser) // Debug log
+    console.log('logged in user:', savedUser)
     return savedUser
   } catch (err) {
     console.error('Could not login:', err)
+    throw err
+  }
+}
+
+async function loginWithGoogle(googleUser) {
+  try {
+    const users = await storageService.query(STORAGE_KEY_USERS)
+    let user = users.find((u) => u._id === googleUser._id)
+
+    if (!user) {
+      user = await storageService.post(STORAGE_KEY_USERS, googleUser)
+    }
+
+    return saveLoggedinUser(user)
+  } catch (err) {
+    console.error('Could not login with Google:', err)
     throw err
   }
 }
@@ -265,6 +282,7 @@ async function _createDemoUsers() {
     console.log('Existing users:', users)
 
     if (users.length > 0) return users
+
 
     users = [
       {

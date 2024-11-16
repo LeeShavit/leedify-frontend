@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { addSongToStation, removeSongFromStation, removeStation, updateStation } from '../store/actions/station.actions'
-
+import { ApiService } from '../services/api.service'
 import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
@@ -17,10 +17,7 @@ import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '
 import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
 
-
-
 export function StationDetails() {
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const fac = new FastAverageColor()
@@ -44,10 +41,11 @@ export function StationDetails() {
 
   useEffect(() => {
     loadStation().catch((err) => console.log(err))
-    if(user){
-      console.log(station)
+    if (user) {
       setLikedSongsIds(getItemsIds(user.likedSongs))
-      setIsInLibrary(user.likedStations.some(likedStation => likedStation._id === stationId) || station?.createdBy._id === user.id)
+      setIsInLibrary(
+        user.likedStations.some((likedStation) => likedStation._id === stationId) || station?.createdBy._id === user.id
+      )
     }
   }, [user, stationId])
 
@@ -56,8 +54,6 @@ export function StationDetails() {
       loadStationImage()
     }
   }, [station])
-
-
 
   function loadStationImage() {
     if (!station) return
@@ -81,15 +77,17 @@ export function StationDetails() {
 
   async function loadStation() {
     try {
+      if (!stationId) return
+      console.log('Attempting to load station:', stationId)
       const loadedStation = await stationService.getById(stationId)
       setStation(loadedStation)
       return loadedStation
     } catch (err) {
-      console.log('Cannot load stations', err)
+      console.error('Cannot load station', err)
+      navigate('/')
       throw err
     }
   }
-
   async function handleSaveStation(updatedStationData) {
     try {
       const stationToUpdate = {
@@ -166,7 +164,7 @@ export function StationDetails() {
 
   async function onRemoveStation() {
     try {
-      if(station.createdBy._id === user._id){
+      if (station.createdBy._id === user._id) {
         await removeStation(stationId)
       }
       dislikeStation(stationId)
