@@ -1,0 +1,114 @@
+.search-results {
+  padding: 24px 32px;
+  background-color: $background-dark;
+  &__filters {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  &__filter-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    color: $text-primary;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    &.active {
+      background: $text-primary;
+      color: $background-dark;
+    }
+  }
+
+  &__songs {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__song-row {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__song-img {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  }
+
+  &__song-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__song-name {
+    color: $text-primary;
+    font-size: 16px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__song-artist {
+    color: $text-secondary;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__playlists {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+  }
+
+  &__loading {
+    text-align: center;
+    color: $text-secondary;
+    padding: 32px;
+  }
+
+  &__empty {
+    text-align: center;
+    color: $text-secondary;
+    padding: 32px;
+  }
+
+  @include for-mobile-layout {
+    padding: 16px;
+
+    &__playlists {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+    }
+  }
+  button {
+    background: none;
+  }
+}

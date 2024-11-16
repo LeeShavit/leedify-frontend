@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { addSongToStation, removeSongFromStation, removeStation, updateStation } from '../store/actions/station.actions'
-
+import { ApiService } from '../services/api.service'
 import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
@@ -40,16 +40,20 @@ export function StationDetails() {
   const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
 
   useEffect(() => {
-    if (station) return
-    loadStation().catch((err) => console.log(err))
+    if (!stationId) return
+    loadStation().catch((err) => {
+      console.error('Failed to load station:', err)
+      if (err.response?.status === 404) {
+        navigate('/')
+      }
+    })
   }, [stationId])
 
   useEffect(() => {
     if (station) {
       loadStationImage()
-      loadStation()
     }
-  }, [station])
+  }, [station?._id])
 
   function loadStationImage() {
     if (!station) return
@@ -74,15 +78,17 @@ export function StationDetails() {
 
   async function loadStation() {
     try {
+      if (!stationId) return
+      console.log('Attempting to load station:', stationId)
       const loadedStation = await stationService.getById(stationId)
       setStation(loadedStation)
       return loadedStation
     } catch (err) {
-      console.log('Cannot load stations', err)
+      console.error('Cannot load station', err)
+      navigate('/')
       throw err
     }
   }
-
   async function handleSaveStation(updatedStationData) {
     try {
       const stationToUpdate = {

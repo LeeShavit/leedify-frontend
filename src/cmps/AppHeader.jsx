@@ -11,11 +11,13 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { ProfileMenu } from './ProfileMenu'
 import { useState } from 'react'
 import { userService } from '../services/user/'
+import { Search } from './Search'
+
 export function AppHeader() {
   const navigate = useNavigate()
   const location = useLocation()
-  const [profileAnchor, setProfileAnchor] = useState(null)
 
+  const [profileAnchor, setProfileAnchor] = useState(null)
   const user = userService.getLoggedinUser()
   const profileLetter = user?.name?.charAt(0).toUpperCase() || 'G'
 
@@ -37,19 +39,7 @@ export function AppHeader() {
         <button onClick={() => navigate('/')} className='app-header__nav-button app-header__nav-button--home'>
           {location.pathname === '/' ? <HomeIconFull /> : <HomeIcon />}
         </button>
-        <div className='app-header__search'>
-          <button className='app-header__search-icon'>
-            <SearchIcon className='text-[#b3b3b3] hover:text-white transition-colors' />
-          </button>
-          <input type='text' placeholder='What do you want to play?' className='app-header__search-input' />
-          <button onClick={() => navigate('/search')} className='app-header__search__collection-button'>
-            {location.pathname === '/search' ? (
-              <ExploreIconFull className='text-[#b3b3b3] hover:text-white transition-colors' />
-            ) : (
-              <ExploreIcon className='text-[#b3b3b3] hover:text-white transition-colors' />
-            )}
-          </button>
-        </div>
+        <Search />
       </div>
 
       <div className='app-header__controls'>
