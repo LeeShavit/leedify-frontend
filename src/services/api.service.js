@@ -172,17 +172,19 @@ function _cleanTrackData(data) {
   return {
     _id: data.id,
     name: data.name,
-    description: '',
     imgUrl: data.album.images[1].url,
     duration: data.duration_ms,
     owner: { name: data.artists[0].name },
     releaseDate: data.album.release_date.slice(0, 4),
+    addedAt: song.addedAt || Date.now(),
     artists: _cleanArtists(data.artists),
     album: { name: data.album.name, _id: data.album.id },
     isTrack: true,
     youtubeId: '',
   }
 }
+
+
 
 function _cleanArtistRelatedArtistsData(data) {
   return data.artists.map((artist) => {
@@ -238,37 +240,21 @@ async function _cleanPlaylistSearchData(data) {
   return { playlists }
 }
 
+
 async function _cleanStationData(data) {
-  const station = {
+  return {
     _id: data.id,
     name: data.name,
-    imgUrl: data.images?.[0]?.url || DEFAULT_IMG,
     description: data.description ? data.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
+    imgUrl: data.images?.[0]?.url || DEFAULT_IMG,
     createdBy: {
       _id: data.owner?.id || 'spotify',
       name: data.owner?.display_name || 'Spotify',
     },
+    songs: _cleanStationTracksData(data.tracks),
+    tags: [],
+    likedByUsers: [],
   }
-  console.log('station', data)
-  console.log('Fetching station tracks...')
-  const tracks = await getSpotifyItems({
-    type: 'tracks',
-    id: data.id,
-  })
-
-  station.songs = tracks.map((song) => ({
-    _id: song._id,
-    name: song.name,
-    artists: song.artists,
-    album: song.album,
-    duration: song.duration,
-    imgUrl: Array.isArray(song.imgUrl) ? song.imgUrl[0]?.url : song.imgUrl,
-    addedAt: song.addedAt || new Date().toISOString(),
-    youtubeId: '',
-  }))
-
-  console.log('Cleaned station data:', station)
-  return station
 }
 
 function _cleanAlbumData(data) {

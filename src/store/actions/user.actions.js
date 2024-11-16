@@ -2,7 +2,7 @@ import { userService } from '../../services/user'
 import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
-import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, LIKE_STATION, DISLIKE_STATION, UPDATE_USER_LIKED_STATIONS } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, UPDATE_USER_LIKED_STATIONS } from '../reducers/user.reducer'
 
 export async function loadUsers() {
     try {
@@ -107,27 +107,5 @@ export async function dislikeSong(songId) {
     } catch (err) {
         showErrorMsg('Cannot dislike song')
         console.log('Cannot dislike song', err)
-    }
-}
-
-export async function likeStation(station) {
-    try {
-        const likedStation  = await userService.likeStation(station)
-        store.dispatch({ type: LIKE_STATION, likedStation })
-
-    } catch (err) {
-        showErrorMsg('Cannot like station')
-        console.log('Cannot like station', err)
-    }
-}
-
-export async function dislikeStation(stationId) {
-    try {
-        await userService.dislikeStation(stationId)
-        store.dispatch({ type: DISLIKE_STATION, stationId })
-
-    } catch (err) {
-        showErrorMsg('Cannot dislike station')
-        console.log('Cannot dislike station', err)
     }
 }

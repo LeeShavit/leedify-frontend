@@ -1,9 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { addSongToStation, removeSongFromStation, removeStation, updateStation } from '../store/actions/station.actions'
-import { ApiService } from '../services/api.service'
-import { likeSong, dislikeSong, likeStation, dislikeStation } from '../store/actions/user.actions'
+import { addSongToStation, removeSongFromStation, removeStation, updateStation, likeStation, dislikeStation } from '../store/actions/station.actions'
+import { likeSong, dislikeSong, updateUsersLikedStation, } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
@@ -16,6 +15,7 @@ import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
+import { SOCKET_EMIT_SET_STATION_ID, SOCKET_EVENT_EDIT_STATION, SOCKET_EVENT_SAVE_STATION, socketService } from '../services/socket.service'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -40,13 +40,16 @@ export function StationDetails() {
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   useEffect(() => {
-    loadStation().catch((err) => console.log(err))
-    if (user) {
-      setLikedSongsIds(getItemsIds(user.likedSongs))
-      setIsInLibrary(
-        user.likedStations.some((likedStation) => likedStation._id === stationId) || station?.createdBy._id === user.id
-      )
+    socketService.on(SOCKET_EVENT_EDIT_STATION, editStation)
+    return () => {
+      socketService.off(SOCKET_EVENT_EDIT_STATION, editStation)
     }
+  }, [])
+
+  useEffect(() => {
+    loadStation().catch((err) => console.log(err))
+    socketService.emit(SOCKET_EMIT_SET_STATION_ID, stationId)
+
   }, [user, stationId])
 
   useEffect(() => {
@@ -54,6 +57,23 @@ export function StationDetails() {
       loadStationImage()
     }
   }, [station])
+
+  async function loadStation() {
+    try {
+      if (!stationId) return
+      console.log('Attempting to load station:', stationId)
+      const loadedStation = await stationService.getById(stationId)
+
+      setStation(loadedStation)
+      setLikedSongsIds(getItemsIds(user.likedSongs))
+      setIsInLibrary(user?.likedStations.some(likedStation => (likedStation._id === stationId) || (station?.createdBy._id === user.id)))
+      return loadedStation
+    } catch (err) {
+      console.error('Cannot load station', err)
+      navigate('/')
+      throw err
+    }
+  }
 
   function loadStationImage() {
     if (!station) return
@@ -75,19 +95,10 @@ export function StationDetails() {
     }
   }
 
-  async function loadStation() {
-    try {
-      if (!stationId) return
-      console.log('Attempting to load station:', stationId)
-      const loadedStation = await stationService.getById(stationId)
-      setStation(loadedStation)
-      return loadedStation
-    } catch (err) {
-      console.error('Cannot load station', err)
-      navigate('/')
-      throw err
-    }
+  function editStation(updatedStation) {
+    setStation(updatedStation)
   }
+
   async function handleSaveStation(updatedStationData) {
     try {
       const stationToUpdate = {
@@ -100,8 +111,8 @@ export function StationDetails() {
       setStation(updatedStation)
       loadStationImage()
       updateUsersLikedStation(updatedStation)
-
       setIsEditModalOpen(false)
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
     } catch (err) {
       console.error('Failed to update station:', err)
     }
@@ -132,6 +143,7 @@ export function StationDetails() {
 
       setStation((prevStation) => ({ ...prevStation, songs: newSongs }))
       const updatedStation = await updateStation(stationToSave)
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, stationToSave)
     } catch (err) {
       console.error('Failed to reorder songs:', err)
     }
@@ -146,6 +158,8 @@ export function StationDetails() {
       setStation(updatedStation)
       loadStationImage()
       updateUsersLikedStation(updatedStation)
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
+
     } catch {
       showErrorMsg(`failed to add song ${song.name}`)
     }
@@ -156,7 +170,9 @@ export function StationDetails() {
       const updatedStation = await removeSongFromStation(stationId, songId)
       setStation(updatedStation)
       loadStationImage()
-      updateUsersLikedStation(updatedStation)
+      updateUsersLikedStation(updatedStation)      
+      socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
+
     } catch {
       showErrorMsg(`failed to remove song ${songId}`)
     }
@@ -177,7 +193,7 @@ export function StationDetails() {
   async function onLikeDislikeSong(song) {
     try {
       const likedSongs = !likedSongsIds.includes(song._id) ? await likeSong(song) : await dislikeSong(song._id)
-      setLikedSongsIds(_getLikedSongsIds(likedSongs))
+      setLikedSongsIds(getItemsIds(likedSongs))
 
       setStation((prevStation) => ({ ...prevStation, likedSongs }))
     } catch (err) {
@@ -186,7 +202,13 @@ export function StationDetails() {
   }
 
   async function onLikeDislikeStation() {
-    isInLibrary ? await dislikeStation(stationId) : likeStation(station)
+    if (isInLibrary) {
+      await dislikeStation(stationId)
+      setIsInLibrary(false)
+    } else {
+      likeStation(station)
+      setIsInLibrary(true)
+    }
   }
 
   function handleClick(event) {
@@ -209,7 +231,6 @@ export function StationDetails() {
   }
 
   if (!station || !user._id) return <div>Loading...</div>
-
   const isUserStation = station.createdBy._id === user._id
 
   return (
@@ -250,12 +271,10 @@ export function StationDetails() {
           <button className='station-controls__play' onClick={() => onPlayStation()}>
             <span className='station-controls__play-icon'>▶</span>
           </button>
-          <button
-            className={`station-controls__add ${isInLibrary ? 'liked' : ''}`}
-            onClick={() => onLikeDislikeStation()}
-          >
-            {isInLibrary ? <Liked /> : <Like />}
-          </button>
+          {station.createdBy._id !== user._id &&
+            <button className={`station-controls__add ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
+              {isInLibrary ? <Liked /> : <Like />}
+            </button>}
           <Button
             className='list-icon'
             onClick={(event) => handleClick(event)}
@@ -281,7 +300,7 @@ export function StationDetails() {
           <button className='station-controls__list'>List</button>
         </div>
       </div>
-      {station.songs.length ? (
+      {station?.songs.length ? (
         <div className='station-table-header'>
           <div className='station-table-header__number'>#</div>
           <div className='station-table-header__title'>Title</div>
