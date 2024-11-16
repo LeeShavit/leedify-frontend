@@ -2,7 +2,19 @@ import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PlayerControls } from './PlayerControls.jsx'
-import { ConnectToDevice, FullScreen, Lyrics, NowPlayingView, OpenMiniplayer, QueueIcon, VolumeHigh, VolumeLow, VolumeMid, VolumeMute } from '../assets/img/player/icons.jsx'
+import { DEFAULT_IMG } from '../services/station/station.service.local.js'
+import {
+  ConnectToDevice,
+  FullScreen,
+  Lyrics,
+  NowPlayingView,
+  OpenMiniplayer,
+  QueueIcon,
+  VolumeHigh,
+  VolumeLow,
+  VolumeMid,
+  VolumeMute,
+} from '../assets/img/player/icons.jsx'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { getItemsIds } from '../services/util.service'
 import { Like, Liked } from '../assets/img/playlist-details/icons'
@@ -15,9 +27,7 @@ export function Player() {
   const currentSong = useSelector((state) => state.playerModule.currentSong)
   const [likedSongsIds, setLikedSongsIds] = useState(getItemsIds(user.likedSongs))
 
-  useEffect(()=>{
-    
-  })
+  useEffect(() => {})
 
   function handleVolumeClick({ target }) {
     if (!playerRef.current) return
@@ -36,12 +46,22 @@ export function Player() {
     }
   }
 
-  if(!currentSong) return <div>Loading...</div>
+  if (!currentSong) return <div>Loading...</div>
 
   return (
     <section className='player full'>
       <div className='song-info'>
-        <img className='cover-img' src={currentSong.imgUrl[2].url || ''}></img>
+        <img
+          className='cover-img'
+          src={
+            currentSong?.imgUrl && Array.isArray(currentSong.imgUrl)
+              ? currentSong.imgUrl[1]?.url
+              : typeof currentSong?.imgUrl === 'string'
+              ? currentSong.imgUrl
+              : DEFAULT_IMG
+          }
+          alt={currentSong?.name || 'Song cover'}
+        />
         <div className='song-info-details'>
           {/* <Link to={`/album/${nowPlayingSong.album._id}`}/> */}
           {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}
