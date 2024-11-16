@@ -1,13 +1,11 @@
 import React from 'react'
 import { Routes, Route } from 'react-router'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { HomePage } from './pages/HomePage'
-import { StationIndex } from './pages/StationIndex.jsx'
-
 import { StationDetails } from './pages/StationDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
-
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { Player } from './cmps/Player.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
@@ -20,15 +18,17 @@ import { SearchResults } from './cmps/SearchResults.jsx'
 import { GenreDetails } from './pages/GenreDetails.jsx'
 
 export function RootCmp() {
-  // const [isLibraryExpanded, setIsLibraryExpanded] = useState(false)
+  const [isLibraryExpanded, setIsLibraryExpanded] = useState(false)
+  const location = useLocation()
+  const showHeader = location.pathname === '/search'
 
-  // const toggleLibrary = () => {
-  //   setIsLibraryExpanded((prev) => !prev)
-  // }
+  const toggleLibrary = () => {
+    setIsLibraryExpanded((prev) => !prev)
+  }
   return (
     <div className='main-container'>
-      <AppHeader />
-      <Library />
+      <AppHeader className={showHeader ? 'show-header' : ''} />
+      <Library onToggleLibrary={toggleLibrary} isExpanded={isLibraryExpanded} />
       <UserMsg />
       <main className='main scroll-container'>
         <Routes>
@@ -43,9 +43,9 @@ export function RootCmp() {
             <Route path='signup' element={<Signup />} />
           </Route>
         </Routes>
-        <MobileNav />
       </main>
       <Player />
+      <MobileNav onLibraryClick={toggleLibrary} />
     </div>
   )
 }

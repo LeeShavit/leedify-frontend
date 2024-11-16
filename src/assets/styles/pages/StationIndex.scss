@@ -22,10 +22,24 @@
     display: grid;
     position: relative;
     @media (min-width: $mobile-breakpoint) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: $breakpoint-sm) {
-      grid-template-columns: repeat(2, 1fr);
+      // grid-template-columns: repeat(2, 1fr);s
+      display: flex;
+      overflow-x: auto;
+      gap: 4px;
+      padding: 0 16px;
+      scroll-snap-type: x mandatory;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      > * {
+        flex: 0 0 auto;
+        width: 160px;
+        scroll-snap-align: start;
+      }
     }
     @media (min-width: $breakpoint-md) {
       grid-template-columns: repeat(4, 1fr);
@@ -33,6 +47,25 @@
 
     @media (min-width: $breakpoint-lg) {
       grid-template-columns: repeat(6, 1fr);
+    }
+    @include for-mobile-layout {
+      display: flex;
+      overflow-x: auto;
+      gap: 4px;
+      padding: 0 16px;
+      scroll-snap-type: x mandatory;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      > * {
+        flex: 0 0 auto;
+        width: 160px;
+        scroll-snap-align: start;
+      }
     }
   }
 

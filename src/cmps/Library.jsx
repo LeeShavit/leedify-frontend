@@ -20,9 +20,9 @@ import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions
 import { stationService } from '../services/station/'
 import { likeStation } from '../store/actions/user.actions'
 
-export function Library() {
+export function Library({ isExpanded, onToggleLibrary }) {
   const [selectedTab, setSelectedTab] = useState('playlists')
-  const [isExpanded, setIsExpanded] = useState(true)
+  // const [isExpanded, setIsExpanded] = useState(true)
 
   const stations = useSelector((state) => state.stationModule.stations)
   const user = useSelector((state) => state.userModule.user)
@@ -47,7 +47,7 @@ export function Library() {
       console.error('Failed to create playlist:', err)
     }
   }
-  
+
   function onNavigateToStation(stationId) {
     navigate(`/station/${stationId}`)
   }
@@ -78,12 +78,11 @@ export function Library() {
     }
   }
 
-
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
       <div className='library-header'>
         <div className='library-header__top'>
-          <button onClick={() => setIsExpanded(!isExpanded)} className='library-header__title-btn'>
+          <button onClick={onToggleLibrary} className='library-header__title-btn'>
             {isExpanded ? <LibraryIconFull className='library-icon' /> : <LibraryIcon className='library-icon' />}
             {isExpanded && 'Your Library'}
           </button>

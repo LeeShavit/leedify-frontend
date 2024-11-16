@@ -13,7 +13,7 @@ import { useState } from 'react'
 import { userService } from '../services/user/'
 import { Search } from './Search'
 
-export function AppHeader() {
+export function AppHeader({ className }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -30,7 +30,7 @@ export function AppHeader() {
   }
 
   return (
-    <header className='app-header full'>
+    <header className={`app-header full ${className}`}>
       <div className='app-header__logo'>
         <SpotifyIcon />
       </div>

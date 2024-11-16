@@ -8,6 +8,36 @@
   border-radius: 8px;
   padding: 4px 0;
 
+  @include for-mobile-layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 65% !important;
+    height: 100vh;
+    z-index: 1001;
+    border-radius: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    padding-top: env(safe-area-inset-top);
+    border-radius: 8px;
+    &.expanded {
+      transform: translateX(0);
+    }
+
+    .library-header {
+      padding-top: 16px;
+
+      &__top {
+        padding: 0 16px;
+      }
+    }
+
+    .library-list {
+      padding: 0 16px;
+      padding-bottom: calc(72px + 48px);
+    }
+  }
+
   &.expanded {
     width: 280px;
   }
@@ -40,7 +70,7 @@
 
   .library-header {
     padding: 0 8px;
-width: max-content;
+    width: max-content;
     &__top {
       display: flex;
       justify-content: space-between;
@@ -259,7 +289,7 @@ width: max-content;
 
     &__title {
       color: $text-primary;
-      font-size: .95rem;
+      font-size: 0.95rem;
       font-weight: $font-book;
       margin-bottom: 4px;
       white-space: nowrap;
@@ -285,11 +315,10 @@ width: max-content;
       }
     }
 
-    &.current-station{
+    &.current-station {
       .library-item__title {
-        color: $primary-color
+        color: $primary-color;
       }
-
     }
   }
   .library.collapsed {
@@ -309,6 +338,28 @@ width: max-content;
         margin-left: 8px;
         white-space: nowrap;
         z-index: 1000;
+      }
+    }
+  }
+  .library-overlay {
+    display: none;
+
+    @include for-mobile-layout {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+
+      &.visible {
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   }
