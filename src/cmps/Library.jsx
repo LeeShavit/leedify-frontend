@@ -18,7 +18,7 @@ import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
 import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/'
-import { Logger } from 'sass'
+import { likeStation } from '../store/actions/user.actions'
 
 export function Library() {
   const [selectedTab, setSelectedTab] = useState('playlists')
@@ -28,7 +28,6 @@ export function Library() {
   const user = useSelector((state) => state.userModule.user)
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-  console.log(stations)
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(true)
 
@@ -42,12 +41,13 @@ export function Library() {
   async function handleCreatePlaylist() {
     try {
       const savedStation = await addStation()
+      await likeStation(savedStation)
       navigate(`/station/${savedStation._id}`)
     } catch (err) {
       console.error('Failed to create playlist:', err)
     }
   }
-
+  
   function onNavigateToStation(stationId) {
     navigate(`/station/${stationId}`)
   }
@@ -77,6 +77,7 @@ export function Library() {
       }
     }
   }
+
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -159,7 +160,7 @@ export function Library() {
               <span className='playlist-tag'>Playlist</span>
               <span>
                 <span>
-                  {!user?.likedSongs
+                  {!user.likedSongs
                     ? 'No songs yet'
                     : user.likedSongs.length === 0
                     ? 'No songs yet'

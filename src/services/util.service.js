@@ -93,6 +93,7 @@ export function formatDuration(ms) {
 }
 
 export function getItemsIds(items) {
+  if(!items) return null
   return items?.map((item) => item._id) || []
 }
 

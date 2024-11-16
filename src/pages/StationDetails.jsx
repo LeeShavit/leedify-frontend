@@ -15,6 +15,7 @@ import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService, DEFAULT_IMG } from '../services/station/'
+import { getItemsIds } from '../services/util.service'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -25,42 +26,40 @@ export function StationDetails() {
 
   const user = useSelector((state) => state.userModule.user)
 
-  const [likedSongsIds, setLikedSongsIds] = useState(_getLikedSongsIds(user.likedSongs))
   const [station, setStation] = useState(null)
   const [stationImage, setStationImage] = useState(DEFAULT_IMG)
   const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)')
+  const [likedSongsIds, setLikedSongsIds] = useState(null)
+  const [isInLibrary, setIsInLibrary] = useState(false)
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-
   const [stationMenuAnchor, setStationMenuAnchor] = useState(null)
   const stationMenuOpen = Boolean(stationMenuAnchor)
 
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-  const isInLibrary = user.likedStations.some((likedStation) => likedStation._id === stationId)
 
   useEffect(() => {
-    if (!stationId) return
-    loadStation().catch((err) => {
-      console.error('Failed to load station:', err)
-      if (err.response?.status === 404) {
-        navigate('/')
-      }
-    })
-  }, [stationId])
+    loadStation().catch((err) => console.log(err))
+    if (user) {
+      setLikedSongsIds(getItemsIds(user.likedSongs))
+      setIsInLibrary(
+        user.likedStations.some((likedStation) => likedStation._id === stationId) || station?.createdBy._id === user.id
+      )
+    }
+  }, [user, stationId])
 
   useEffect(() => {
     if (station) {
       loadStationImage()
     }
-  }, [station?._id])
+  }, [station])
 
   function loadStationImage() {
     if (!station) return
     let img = station.imgUrl
     if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
-      const firstSong = station.songs[0]
-      img = typeof station.songs[0].imgUrl === 'string' ? firstSong.imgUrl : firstSong.imgUrl[0].url
+      img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
     }
     setStationImage(img)
     loadBackgroundColor(img)
@@ -140,6 +139,9 @@ export function StationDetails() {
 
   async function onAddSong(song) {
     try {
+      const songExists = station.songs.some((s) => s._id === song._id)
+      if (songExists) return
+
       const updatedStation = await addSongToStation(stationId, song)
       setStation(updatedStation)
       loadStationImage()
@@ -162,7 +164,9 @@ export function StationDetails() {
 
   async function onRemoveStation() {
     try {
-      await removeStation(stationId)
+      if (station.createdBy._id === user._id) {
+        await removeStation(stationId)
+      }
       dislikeStation(stationId)
       navigate('/')
     } catch {
@@ -204,7 +208,7 @@ export function StationDetails() {
     }
   }
 
-  if (!station) return <div>Loading...</div>
+  if (!station || !user._id) return <div>Loading...</div>
 
   const isUserStation = station.createdBy._id === user._id
 
@@ -322,5 +326,6 @@ export function StationDetails() {
 }
 
 function _getLikedSongsIds(songs) {
+  if (!songs) return null
   return songs.map((likedSong) => likedSong._id)
 }

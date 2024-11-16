@@ -15,9 +15,8 @@ export const PLAY_NEXT = 'PLAY_NEXT'
 export const PLAY_PREV = 'PLAY_PREV'
 export const REPLACE_QUEUE = 'REPLACE_QUEUE'
 
-
 const initialState = {
-  currentSong: userService.getLoggedinUser().likedSongs[0] || stationService.getCurrentSong(),
+  currentSong: stationService.getCurrentSong(),
   currentStationId: null,
   isLoading: false,
   queue: [],
