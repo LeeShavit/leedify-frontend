@@ -172,17 +172,19 @@ function _cleanTrackData(data) {
   return {
     _id: data.id,
     name: data.name,
-    description: '',
     imgUrl: data.album.images[1].url,
     duration: data.duration_ms,
     owner: { name: data.artists[0].name },
     releaseDate: data.album.release_date.slice(0, 4),
+    addedAt: song.addedAt || Date.now(),
     artists: _cleanArtists(data.artists),
     album: { name: data.album.name, _id: data.album.id },
     isTrack: true,
     youtubeId: '',
   }
 }
+
+
 
 function _cleanArtistRelatedArtistsData(data) {
   return data.artists.map((artist) => {
@@ -239,35 +241,19 @@ async function _cleanPlaylistSearchData(data) {
 }
 
 async function _cleanStationData(data) {
-  const station = {
+  return {
     _id: data.id,
     name: data.name,
-    imgUrl: data.images?.[0]?.url || DEFAULT_IMG,
     description: data.description ? data.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
+    imgUrl: data.images?.[0]?.url || DEFAULT_IMG,
     createdBy: {
       _id: data.owner?.id || 'spotify',
       name: data.owner?.display_name || 'Spotify',
     },
+    songs: _cleanStationTracksData(data.tracks),
+    tags: [],
+    likedByUsers: [],
   }
-  console.log('Fetching station tracks...')
-  const tracks = await getSpotifyItems({
-    type: 'tracks',
-    id: data.id,
-  })
-
-  station.songs = tracks.map((song) => ({
-    _id: song._id,
-    name: song.name,
-    artists: song.artists,
-    album: song.album,
-    duration: song.duration,
-    imgUrl: Array.isArray(song.imgUrl) ? song.imgUrl[0]?.url : song.imgUrl,
-    addedAt: song.addedAt || new Date().toISOString(),
-    youtubeId: '',
-  }))
-
-  console.log('Cleaned station data:', station)
-  return station
 }
 
 function _cleanAlbumData(data) {
@@ -298,7 +284,7 @@ function _cleanAlbumTracksData(data, imgUrls) {
 }
 
 function _cleanCategoryStationsData(data) {
-  const stations= data.playlists.items
+  const stations = data.playlists.items
     .filter((item) => item !== null)
     .map((item) => ({
       _id: item.id ? item.id : '0',
@@ -307,8 +293,8 @@ function _cleanCategoryStationsData(data) {
       description: item.description ? item.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
       snapshot_id: item.snapshot_id,
     }))
-    console.log(data.message)
-    return {name: data.message ,stations}
+  console.log(data.message)
+  return { name: data.message, stations }
 }
 
 function _cleanStationTracksData(data) {
