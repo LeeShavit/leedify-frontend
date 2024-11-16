@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { loadFromStorage, saveToStorage } from './util.service.js'
 import { YT_API_KEY, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from './credentials.js'
+import { DEFAULT_IMG } from './station/station.service.local.js'
 
 const YT_STORAGE_KEY = 'youtube ids'
 
@@ -107,6 +108,7 @@ function _getEndpoints(id, query) {
     categoryStations: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=il&limit=50`,
     featured: `https://api.spotify.com/v1/browse/featured-playlists?country=IL&locale=he_IL&limit=50`,
     station: `https://api.spotify.com/v1/playlists/${id}`,
+    playlistSearch: `https://api.spotify.com/v1/search?q=${query}&type=playlist&limit=20`,
     tracks: `https://api.spotify.com/v1/playlists/${id}/tracks`,
     search: `https://api.spotify.com/v1/search?q=${query}&type=track,playlist,album,artist&limit=20`,
     songSearch: `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`,
@@ -133,6 +135,9 @@ async function _cleanResponseData(data, type) {
       break
     case 'station':
       cleanData = await _cleanStationData(data)
+      break
+    case 'playlistSearch':
+      cleanData = await _cleanPlaylistSearchData(data)
       break
     case 'search':
       cleanData = await _cleanSearchData(data)
@@ -175,7 +180,7 @@ function _cleanTrackData(data) {
     artists: _cleanArtists(data.artists),
     album: { name: data.album.name, _id: data.album.id },
     isTrack: true,
-    youtubeId: ''
+    youtubeId: '',
   }
 }
 
@@ -218,18 +223,50 @@ function _cleanArtistTopTracksData(data) {
     }
   })
 }
+async function _cleanPlaylistSearchData(data) {
+  if (!data.playlists || !data.playlists.items) {
+    return { playlists: [] }
+  }
+
+  const playlists = data.playlists.items.map((playlist) => ({
+    _id: playlist.id,
+    name: playlist.name,
+    imgUrl: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : DEFAULT_IMG,
+    description: playlist.description ? playlist.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
+  }))
+
+  return { playlists }
+}
 
 async function _cleanStationData(data) {
   const station = {
     _id: data.id,
     name: data.name,
-    imgUrl: data.images[0].url,
-    description: data.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, ''),
-    owner: { name: 'Leedify' },
-    songs: await getSpotifyItems({ type: 'tracks', id: data.id }),
-    snapshot_id: data.snapshot_id,
-    lastUpdate: Date.now(),
+    imgUrl: data.images?.[0]?.url || DEFAULT_IMG,
+    description: data.description ? data.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
+    createdBy: {
+      _id: data.owner?.id || 'spotify',
+      name: data.owner?.display_name || 'Spotify',
+    },
   }
+  console.log('Fetching station tracks...')
+  const tracks = await getSpotifyItems({
+    type: 'tracks',
+    id: data.id,
+  })
+
+  station.songs = tracks.map((song) => ({
+    _id: song._id,
+    name: song.name,
+    artists: song.artists,
+    album: song.album,
+    duration: song.duration,
+    imgUrl: Array.isArray(song.imgUrl) ? song.imgUrl[0]?.url : song.imgUrl,
+    addedAt: song.addedAt || new Date().toISOString(),
+    youtubeId: '',
+  }))
+
+  console.log('Cleaned station data:', station)
   return station
 }
 
@@ -277,18 +314,19 @@ function _cleanCategoryStationsData(data) {
 function _cleanStationTracksData(data) {
   return data.items
     .filter((item) => item.track !== null)
-    .map((item) => {
-      return {
-        addedAt: item.added_at,
-        _id: item.track.id,
-        name: item.track.name,
-        artists: _cleanArtists(item.track.artists),
-        imgUrl: item.track.album.images,
-        duration: item.track.duration_ms,
-        album: { name: item.track.album.name, _id: item.track.album.id, },
-        youtubeId: '',
-      }
-    })
+    .map((item) => ({
+      _id: item.track.id,
+      name: item.track.name,
+      artists: _cleanArtists(item.track.artists),
+      album: {
+        name: item.track.album.name,
+        _id: item.track.album.id,
+      },
+      duration: item.track.duration_ms,
+      imgUrl: item.track.album.images,
+      addedAt: item.added_at,
+      youtubeId: '',
+    }))
 }
 
 async function _cleanSearchData(data) {
@@ -297,7 +335,7 @@ async function _cleanSearchData(data) {
     _id: track.id,
     name: track.name,
     artists: _cleanArtists(track.artists),
-    imgUrl: track.album.images,
+    imgUrl: track.album?.images?.[0]?.url || DEFAULT_IMG,
     duration: track.duration_ms,
     album: { name: track.album.name, _id: track.album.id },
     youtubeId: '',
@@ -306,7 +344,7 @@ async function _cleanSearchData(data) {
   const stations = data.playlists.items.map((station) => ({
     _id: station.id,
     name: station.name,
-    imgUrl: station.images[0].url,
+    imgUrl: station.images?.[0]?.url || DEFAULT_IMG,
     description: station.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, ''),
   }))
 
@@ -314,7 +352,7 @@ async function _cleanSearchData(data) {
     _id: album.id,
     name: album.name,
     artists: _cleanArtists(album.artists),
-    imgUrl: album.images[0].url,
+    imgUrl: album.images?.[0]?.url || DEFAULT_IMG,
     releaseDate: album.release_date,
     isAlbum: true,
   }))
@@ -386,7 +424,7 @@ async function getStationsForHome(market) {
         stations = featured.map((item) => ({ ...item, category: category.name, categoryId: category.id }))
       } else {
         stations = await getSpotifyItems({ type: 'categoryStations', id: category.id, market })
-        stations = stations.map((station) => ({ ...station, category: {name: category.name, _id: category.id} }))
+        stations = stations.map((station) => ({ ...station, category: { name: category.name, _id: category.id } }))
       }
       results.push(stations)
     } catch (error) {
