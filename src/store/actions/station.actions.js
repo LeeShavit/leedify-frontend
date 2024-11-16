@@ -8,16 +8,18 @@ import {
   ADD_SONG_TO_STATION,
   REMOVE_SONG_FROM_STATION,
 } from '../reducers/station.reducer'
+import { userService } from '../../services/user'
 
-export async function loadStations(filterBy) {
+export async function loadStations() {
   try {
-    const stations = await stationService.query(filterBy)
+    const stations = await userService.getUsersStations()
     store.dispatch(getCmdSetStations(stations))
   } catch (err) {
     console.log('Cannot load stations', err)
     throw err
   }
 }
+
 export function setStationOptimistic(station) {
   return store.dispatch({ type: SET_STATION, station })
 }

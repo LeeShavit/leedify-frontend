@@ -95,7 +95,7 @@ export function DraggableSongRow({
 
           <div className='station-song-row__duration'>
             <button
-              className={`like-song ${likedSongsIds.includes(song._id) ? 'liked' : ''}`}
+              className={`like-song ${likedSongsIds?.includes(song._id) ? 'liked' : ''}`}
               onClick={() => onLikeDislikeSong(song)}
             >
               {likedSongsIds.includes(song._id) ? <Liked /> : <Like />}

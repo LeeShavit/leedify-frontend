@@ -24,11 +24,15 @@ export const userService = {
   update,
   getLoggedinUser,
   saveLoggedinUser,
+  getUsersStations,
   likeSong,
   dislikeSong,
   likeStation,
   dislikeStation,
+  updateUsersLikedStation,
 }
+
+//crudl
 
 function getUsers() {
   return httpService.get(`user`)
@@ -46,8 +50,7 @@ function remove(userId) {
 async function update({ _id, score }) {
   const user = await httpService.put(`user/${_id}`, { _id, score })
 
-  // When admin updates other user's details, do not update loggedinUser
-  const loggedinUser = getLoggedinUser() // Might not work because its defined in the main service???
+  const loggedinUser = getLoggedinUser()
   if (loggedinUser._id === user._id) saveLoggedinUser(user)
   return user
 }
@@ -64,6 +67,12 @@ async function dislikeSong(songId) {
   return user.likedSongs
 }
 
+async function getUsersStations() {
+  const { _id } = getLoggedinUser()
+  const stations = await httpService.get(`user/${_id}/station`)
+  return stations
+}
+
 async function likeStation(station) {
   console.log(station)
   const user = await httpService.post('user/station', station)
@@ -76,6 +85,14 @@ async function dislikeStation(stationId) {
   saveLoggedinUser(user)
   return user.likedStations
 }
+
+async function updateUsersLikedStation(station) {
+  const user = await httpService.put('user/station', station)
+  saveLoggedinUser(user)
+  return user.likedStations
+}
+
+//authentication
 
 async function login(userCred) {
   const user = await httpService.post('auth/login', userCred)
