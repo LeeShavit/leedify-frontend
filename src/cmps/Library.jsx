@@ -181,7 +181,7 @@ export function Library() {
             className={`library-item ${currentStationId === station._id && 'current-station'}`}
             onClick={() => onNavigateToStation(station._id)}
           >
-            <button className='library-item__image-button' onClick={() => onPlayStation(station._id)}>
+            <button className='library-item__image-button' onClick={() => onPlayPauseStation(station._id)}>
               <img
                 src={typeof station.imgUrl === 'string' ? station.imgUrl : station.imgUrl[2].url}
                 alt={station.name}
