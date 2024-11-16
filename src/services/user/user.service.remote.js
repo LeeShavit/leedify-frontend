@@ -109,10 +109,23 @@ async function loginWithGoogle(googleUser) {
 }
 
 async function signup(userCred) {
-  if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+  try {
+    const userToSave = {
+      name: userCred.name || userCred.username,
+      username: userCred.username,
+      password: userCred.password,
+      email: userCred.email,
+      imgUrl: userCred.imgUrl || 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
+      likedSongs: [],
+      likedStations: [],
+    }
 
-  const user = await httpService.post('auth/signup', userCred)
-  return saveLoggedinUser(user)
+    const user = await httpService.post('auth/signup', userToSave)
+    return saveLoggedinUser(user)
+  } catch (err) {
+    console.error('Could not signup:', err)
+    throw err
+  }
 }
 
 async function logout() {
