@@ -45,17 +45,6 @@ export function userReducer(state = initialState, action) {
                 }
             }
             break
-        case LIKE_STATION:
-            newState = { ...state, user: { ...state.user, likedStations: [...state.user.likedStations, action.likedStation] } }
-            break
-        case DISLIKE_STATION:
-            newState = {
-                ...state, user: {
-                    ...state.user,
-                    likedStations: state.user.likedStations.filter(station => station._id !== action.stationId)
-                }
-            }
-            break
         default:
     }
     // For debug:

@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Report, AddToQueue, Share, Embed, Copy, ArrowRight, Profile, Exclude } from '../assets/img/menu/icons';
 import { LikeIconLike, LikeIconLiked } from '../assets/img/player/icons';
 import { SpotifyIcon } from '../assets/img/app-header/icons';
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service';
 
 
 export default function StationMenu({ onClose, ...props }) {
@@ -31,17 +32,29 @@ export default function StationMenu({ onClose, ...props }) {
         onClose()
     }
 
+    async function copyLink() {
+        try {
+            const linkToCopy = `http://localhost:5173/station/${stationId}`
+            await navigator.clipboard.writeText(linkToCopy)
+
+            showSuccessMsg('Link copied to clipboard!')
+        } catch (err) {
+            console.error('Failed to copy link:', err)
+            showErrorMsg('Failed to copy link')
+        }
+    }
+
     return (
         <>
             <Menu  {...props} onClose={onClose} className="menu">
-                {props.isInLibrary ? 
-                <MenuItem onClick={()=>props.onRemoveStation()}>
-                    <LikeIconLiked />Remove from Your Library
-                </MenuItem>
-                :<MenuItem onClick={()=>props.onLikeStation()}>
-                    <LikeIconLike />Add to Your Library
-                </MenuItem>}
-                <MenuItem onClick={()=>props.onAddToQueue()}>
+                {props.isInLibrary ?
+                    <MenuItem onClick={() => props.onRemoveStation()}>
+                        <LikeIconLiked className={props.isInLibrary && 'liked'}/>Remove from Your Library
+                    </MenuItem>
+                    : <MenuItem onClick={() => props.onLikeStation()}>
+                        <LikeIconLike />Add to Your Library
+                    </MenuItem>}
+                <MenuItem onClick={() => props.onAddToQueue()}>
                     <AddToQueue /> Add to queue
                 </MenuItem>
                 <Divider />
@@ -56,26 +69,7 @@ export default function StationMenu({ onClose, ...props }) {
                     <Exclude /> Exclude from your taste profile
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleShareOpen} className="submenu-trigger">
-                    <div className="">
-                        <Share /> Share
-                        <ChevronRight className="h-4 w-4" />
-                    </div>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                    <SpotifyIcon /> Open in Desktop app
-                </MenuItem>
-            </Menu>
-            <Menu
-                anchorEl={shareAnchor}
-                open={Boolean(shareAnchor)}
-                onClose={handleClose}
-                className="menu submenu"
-                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'left' }}>
-                <MenuItem><Copy /> Copy song link</MenuItem>
-                <MenuItem> <Embed />Embed track</MenuItem>
+                <MenuItem onClick={copyLink}><Copy /> Copy song link</MenuItem>
             </Menu>
         </>
 

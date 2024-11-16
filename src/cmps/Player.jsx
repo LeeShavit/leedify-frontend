@@ -41,7 +41,7 @@ export function Player() {
   return (
     <section className='player full'>
       <div className='song-info'>
-        <img className='cover-img' src={currentSong?.imgUrl || ''}></img>
+        <img className='cover-img' src={currentSong.imgUrl[2].url || ''}></img>
         <div className='song-info-details'>
           {/* <Link to={`/album/${nowPlayingSong.album._id}`}/> */}
           {/* <Link to={`/artist/${nowPlayingSong.._id}`}/> */}

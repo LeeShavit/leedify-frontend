@@ -1,130 +1,130 @@
-
-
 .menu {
+  font-family: Spotify-mix, sans-serif;
+
+  .MuiPaper-root {
+    background-color: #282828;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+    padding: 4px;
+    align-items: center;
+  }
+
+  .MuiPaper-root {
+    min-width: 196px;
+    margin-top: 8px;
+  }
+
+  .MuiMenuItem-root {
+    svg {
+      color: $text-secondary;
+    }
+
+    &:hover {
+      svg {
+        color: $text-primary;
+      }
+    }
+
+    .nested-menu {
+      &-end {
+        margin-left: auto;
+      }
+    }
+  }
+
+  // Menu items
+  .MuiMenuItem-root {
+    font-size: 0.875rem;
+    padding: 12px 8px 12px 12px;
+    color: hsla(0, 0%, 100%, .9);
     font-family: Spotify-mix, sans-serif;
+    width: 100%;
 
-    .MuiPaper-root {
-        background-color: #282828;
-        color: #fff;
-        border-radius: 4px;
-        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
-        padding: 4px;
-        align-items: center;
-    }
+    align-items: center;
+    gap: 10px;
 
-    .MuiPaper-root {
-        min-width: 196px;
-        margin-top: 8px;
-      }
+    & .nested-menu {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      justify-content: start;
+      width: 100%;
+      gap: 10px;
 
-      .MuiMenuItem-root {
-        svg {
-          color: $text-secondary;
-        }
-    
-        &:hover {
-          svg {
-            color: $text-primary;
-          }
-        }
-    
-        .nested-menu {
-          &-end {
-            margin-left: auto;
-          }
-        }
-    }
-
-    // Menu items
-    .MuiMenuItem-root {
-        font-size: 0.875rem;
-        padding: 12px 8px 12px 12px;
-        color: hsla(0, 0%, 100%, .9);
-        font-family: Spotify-mix, sans-serif;
-        width: 100%;
-
-        align-items: center;
-        gap: 10px;
-
-        & .nested-menu {
-            display: grid;
-            grid-auto-flow: column;
-            align-items: center;
-            justify-content: start;
-            width: 100%;
-            gap: 10px;
-
-            &-end{
-                place-items: end;
-            }
-        }
-
-        // Hover state
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: $text-primary;
-        }
-
-        // Selected state
-        &.selected {
-            font-family: Spotify-mix, sans-serif;
-            font-size: 14px;
-            color: $primary-color;
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-
-            .MuiListItemIcon-root {
-                color: $primary-color;
-                min-width: auto;
-            }
-        }
-
-        &:has(input){
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        & input{
-            background-color: rgba(255, 255, 255, 0.1);
-            color: $text-primary;
-            border: 0;
-
-            &:focus-visible{
-                outline: 0;
-            }
-        }
-    }
-
-    .MuiTypography-root {
-        font-family: Spotify-mix, sans-serif;
-        font-size: 14px;
-
-    }
-
-
-    // Section headers
-    .menu-section-header {
-        font-size: 0.6875rem;
-        padding: 12px 8px 12px 12px;
-        color: hsla(0, 0%, 100%, .7);
-
-        &:hover {
-            background-color: transparent;
-            cursor: default;
-        }
-    }
-
-    // Divider
-    .MuiDivider-root {
-        margin: 4px 0;
-        background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .MuiMenuItem-root:has(.nested-menu-end) {
-        &:hover {
-          text-decoration: underline;
-        }
+      &-end {
+        place-items: end;
       }
     }
 
+    .liked {
+      color: $primary-color;
+    }
 
+    // Hover state
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: $text-primary;
+    }
+
+    // Selected state
+    &.selected {
+      font-family: Spotify-mix, sans-serif;
+      font-size: 14px;
+      color: $primary-color;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+
+      .MuiListItemIcon-root {
+        color: $primary-color;
+        min-width: auto;
+      }
+    }
+
+    &:has(input) {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    & input {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: $text-primary;
+      border: 0;
+
+      &:focus-visible {
+        outline: 0;
+      }
+    }
+  }
+
+  .MuiTypography-root {
+    font-family: Spotify-mix, sans-serif;
+    font-size: 14px;
+
+  }
+
+
+  // Section headers
+  .menu-section-header {
+    font-size: 0.6875rem;
+    padding: 12px 8px 12px 12px;
+    color: hsla(0, 0%, 100%, .7);
+
+    &:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+  }
+
+  // Divider
+  .MuiDivider-root {
+    margin: 4px 0;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .MuiMenuItem-root:has(.nested-menu-end) {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

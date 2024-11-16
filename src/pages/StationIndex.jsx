@@ -13,7 +13,8 @@ import { StationFilter } from '../cmps/StationFilter'
 export function StationIndex() {
   const [filterBy, setFilterBy] = useState(stationService.getDefaultFilter())
   const stations = useSelector((storeState) => storeState.stationModule.stations)
-
+  
+  
   useEffect(() => {
     loadStations(filterBy)
   }, [filterBy])
@@ -27,30 +28,6 @@ export function StationIndex() {
     }
   }
 
-  async function onAddStation() {
-    const station = stationService.getEmptyStation()
-    station.vendor = prompt('Vendor?')
-    try {
-      const savedStation = await addStation(station)
-      showSuccessMsg(`Station added (_id: ${savedStation._id})`)
-    } catch (err) {
-      showErrorMsg('Cannot add station')
-    }
-  }
-
-  async function onUpdateStation(station) {
-    const speed = +prompt('New speed?', station.speed)
-    if (speed === 0 || speed === station.speed) return
-
-    const stationToSave = { ...station, speed }
-    try {
-      const savedStation = await updateStation(stationToSave)
-      showSuccessMsg(`Station updated, new speed: ${savedStation.speed}`)
-    } catch (err) {
-      showErrorMsg('Cannot update station')
-    }
-  }
-
   return (
     <main className='station-index'>
       <header>
@@ -58,7 +35,7 @@ export function StationIndex() {
         {userService.getLoggedinUser() && <button onClick={onAddStation}>Add a Station</button>}
       </header>
       <StationFilter filterBy={filterBy} setFilterBy={setFilterBy} />
-      <StationList stations={stations} onRemoveStation={onRemoveStation} onUpdateStation={onUpdateStation} />
+      <StationList stations={stations} />
     </main>
   )
 }

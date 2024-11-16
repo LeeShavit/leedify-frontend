@@ -31,16 +31,16 @@ export function stationReducer(state = initialState, action) {
       newState = { ...state, stations }
       break
     case ADD_SONG_TO_STATION:
-      const updatedStationAdd = state.stations.find( station => station._id === action.stationId )
+      const updatedStationAdd = state.stations.find(station => station._id === action.stationId)
       updatedStationAdd.songs.push(action.song)
-      stations = state.stations.map((station) => (station._id ===action.stationId ? updatedStationAdd : station))
+      stations = state.stations.map((station) => (station._id === action.stationId ? updatedStationAdd : station))
       newState = { ...state, stations }
       break
     case REMOVE_SONG_FROM_STATION:
-      const stationToUpdate = state.stations.find( station => station._id === action.stationId )
+      const stationToUpdate = state.stations.find(station => station._id === action.stationId)
       stationToUpdate.songs = stationToUpdate.songs.filter((song) => song._id !== action.songId)
-      stations = state.stations.map((station) => station._id === action.stationId ? stationToUpdate : station )
-      newState = { ...state, stations}
+      stations = state.stations.map((station) => station._id === action.stationId ? stationToUpdate : station)
+      newState = { ...state, stations }
       break
     default:
   }
