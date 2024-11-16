@@ -17,6 +17,8 @@ import { Signup } from './pages/Signup.jsx'
 import { Library } from './cmps/Library.jsx'
 import { MobileNav } from './cmps/MobileNav.jsx'
 import { SearchResults } from './cmps/SearchResults.jsx'
+import { GenreDetails } from './pages/GenreDetails.jsx'
+
 export function RootCmp() {
   // const [isLibraryExpanded, setIsLibraryExpanded] = useState(false)
 
@@ -34,6 +36,7 @@ export function RootCmp() {
           <Route path='station' element={<StationDetails />} />
           <Route path='/station/:stationId' element={<StationDetails />} />
           <Route path='/search' element={<SearchResults />} />
+          <Route path='/genre/:genreId' element={<GenreDetails />} />
           <Route path='user/:id' element={<UserDetails />} />
           <Route path='login' element={<LoginSignup />}>
             <Route index element={<Login />} />

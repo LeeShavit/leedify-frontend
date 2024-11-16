@@ -1,12 +1,12 @@
-export function GenreCard({ category, onSelect }) {
+export function GenreCard({ genre, onSelect }) {
   const cardStyle = {
-    backgroundColor: category.backgroundColor || '#282828',
+    backgroundColor: genre.backgroundColor || '#282828',
   }
 
   return (
     <div className='genre-card' style={cardStyle} onClick={onSelect}>
-      <span className='genre-card__name'>{category.name}</span>
-      <img src={category.icons[0].url} alt={category.name} className='genre-card__image' />
+      <span className='genre-card__name'>{genre.name}</span>
+      <img src={genre.icons[0].url} alt={genre.name} className='genre-card__image' />
     </div>
   )
 }

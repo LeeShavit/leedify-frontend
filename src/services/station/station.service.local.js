@@ -159,10 +159,6 @@ async function addSongToStation(stationId, song) {
     console.log('hello')
     console.log('station', station)
     if (!station) throw new Error(`Station ${stationId} not found`)
-    console.log('station', station)
-
-    const songExists = station.songs.some((s) => s._id === song._id)
-    if (songExists) return station
 
     const songToAdd = {
       ...song,

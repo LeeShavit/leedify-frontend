@@ -491,19 +491,19 @@
         animation-fill-mode: both;
 
         &:nth-child(3) {
-          $delay: -1 * $animationLength/4;
+          $delay: calc(-1 * $animationLength / 4);
           animation-delay: $delay;
-        }
-
-        &:nth-child(2) {
-          $delay: -2 * $animationLength/4;
+         }
+         
+         &:nth-child(2) {
+          $delay: calc(-2 * $animationLength / 4); 
           animation-delay: $delay;
-        }
-
-        &:nth-child(4) {
-          $delay: -3 * $animationLength / 4;
+         }
+         
+         &:nth-child(4) {
+          $delay: calc(-3 * $animationLength / 4);
           animation-delay: $delay;
-        }
+         }
       }
     }
 

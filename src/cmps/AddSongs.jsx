@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { SearchIcon } from '../assets/img/app-header/icons'
-import { setPlayingSong, setIsPlaying } from '../store/actions/station.actions'
+import { setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
 
 import { Link } from 'react-router-dom'
 
@@ -35,7 +35,7 @@ export function AddSong({ onAddSong }) {
     }
 
     function onPlaySong(song) {
-        setPlayingSong(song)
+        setCurrentSong(song)
         setIsPlaying(true)
       }
     
