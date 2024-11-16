@@ -6,6 +6,10 @@ import { useSelector } from 'react-redux'
 import { Like, Liked } from '../assets/img/playlist-details/icons'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Explore } from '../pages/Explore'
+import { setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
+import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
+
+
 export function SearchResults() {
   const [activeFilter, setActiveFilter] = useState('songs')
   const [results, setResults] = useState({ songs: [], playlists: [] })
@@ -13,6 +17,8 @@ export function SearchResults() {
   const [likedSongsIds, setLikedSongsIds] = useState([])
 
   const user = useSelector((state) => state.userModule.user)
+  const currentSong = useSelector((state) => state.playerModule.currentSong)
+  const isPlaying = useSelector((state) => state.playerModule.isPlaying)
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search)
   const query = searchParams.get('q')
@@ -70,11 +76,28 @@ export function SearchResults() {
     }
   }
 
+  function onPlaySong(song) {
+    if (currentSong._id !== song._id) {
+      setCurrentSong(song)
+    }
+    setIsPlaying(true)
+  }
+
+  function onPauseSong() {
+    setIsPlaying(false)
+  }
+
+
   const renderSongRow = (song) => (
     <div key={song._id} className='search-results__song-row'>
-      <div className='search-results__song-img'>
+      
+      <button className='search-results__image-button' onClick={isPlaying && currentSong._id === song._id ? () => onPauseSong() : () => onPlaySong(song)}>
         <img src={song.imgUrl[2].url} alt={song.name} />
-      </div>
+        <div className='search-results__image-overlay'>
+          {isPlaying ? <PauseIcon className='play-icon' /> : <PlayIcon className='play-icon' />}
+        </div>
+      </button>
+
       <div className='search-results__song-info'>
         <div className='search-results__song-name'>{song.name}</div>
         <div className='search-results__song-artist'>{song.artists.map((artist) => artist.name).join(', ')}</div>
