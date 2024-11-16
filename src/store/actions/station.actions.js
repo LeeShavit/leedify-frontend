@@ -10,9 +10,10 @@ import {
 } from '../reducers/station.reducer'
 import { userService } from '../../services/user'
 
-export async function loadStations() {
+export async function loadStations(sortBy) {
   try {
-    const stations = await userService.getUsersStations()
+    const stations = await userService.getUsersStations(sortBy)
+    console.log(stations)
     store.dispatch(getCmdSetStations(stations))
   } catch (err) {
     console.log('Cannot load stations', err)
@@ -96,6 +97,27 @@ export async function removeSongFromStation(stationId, songId) {
     throw err
   }
 }
+
+export async function likeStation(station) {
+  try {
+      const likedStation  = await userService.likeStation(station)
+      store.dispatch(getCmdAddStation(likedStation))
+  } catch (err) {
+      showErrorMsg('Cannot like station')
+      console.log('Cannot like station', err)
+  }
+}
+
+export async function dislikeStation(stationId) {
+  try {
+      await userService.dislikeStation(stationId)
+      store.dispatch(getCmdRemoveStation(stationId))
+  } catch (err) {
+      showErrorMsg('Cannot dislike station')
+      console.log('Cannot dislike station', err)
+  }
+}
+
 
 
 function getCmdSetStations(stations) {

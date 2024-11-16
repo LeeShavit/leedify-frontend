@@ -18,25 +18,26 @@ import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
 import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/'
-import { likeStation } from '../store/actions/user.actions'
+import { likeStation } from '../store/actions/station.actions'
 
 export function Library() {
-  const [selectedTab, setSelectedTab] = useState('playlists')
-  const [isExpanded, setIsExpanded] = useState(true)
-
+  
   const stations = useSelector((state) => state.stationModule.stations)
   const user = useSelector((state) => state.userModule.user)
   const currentStationId = useSelector((state) => state.playerModule.currentStationId)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-  const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(true)
-
+  
   const [anchorEl, setAnchorEl] = useState(null)
+  const [selectedTab, setSelectedTab] = useState('playlists')
+  const [isExpanded, setIsExpanded] = useState(true)
+  const [sortBy, setSortBy] = useState('recently added')
+  const [view, setView] = useState('list')
+  const navigate = useNavigate()
   const open = Boolean(anchorEl)
 
   useEffect(() => {
-    loadStations()
-  }, [])
+    loadStations(sortBy)
+  }, [sortBy])
 
   async function handleCreatePlaylist() {
     try {
@@ -77,7 +78,7 @@ export function Library() {
       }
     }
   }
-
+  console.log(stations)
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -138,6 +139,10 @@ export function Library() {
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
+            setSortBy= {setSortBy}
+            sortBy= {sortBy}
+            setView= {setView}
+            view= {view}
             MenuListProps={{ 'aria-labelledby': 'basic-button' }}
           />
         </div>

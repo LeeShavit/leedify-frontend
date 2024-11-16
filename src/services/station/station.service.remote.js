@@ -18,14 +18,30 @@ export const stationService = {
 async function query(filterBy) {
     if (!filterBy) {
         const { _id } = userService.getLoggedinUser()
-        filterBy= {createdById : _id}
+        filterBy = { createdById: _id }
     }
     return httpService.get(`station`, filterBy)
 }
 
-function getById(stationId) {
-    return httpService.get(`station/${stationId}`)
+async function getById(stationId) {
+    if(stationId.length === 22){
+        try {
+            console.log('Fetching station from Spotify...')
+            const spotifyStation = await ApiService.getSpotifyItems({ type: 'station', id: stationId, market: 'US', })
+            return spotifyStation
+        } catch (spotifyErr) {
+            console.error('Failed to fetch from Spotify:', spotifyErr)
+        }
+    } else {
+        try {
+            const station = await httpService.get(`station/${stationId}`)
+            return station
+        } catch (err) {
+            console.error('Failed to get station:', err)
+        }
+    }  
 }
+
 
 async function remove(stationId) {
     return httpService.delete(`station/${stationId}`)
@@ -44,7 +60,7 @@ async function addSongToStation(stationId, song) {
 }
 
 async function removeSongFromStation(stationId, songId) {
-    console.log(stationId ,songId)
+    console.log(stationId, songId)
     return await httpService.delete(`station/${stationId}/song/${songId}`)
 }
 

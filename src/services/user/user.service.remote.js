@@ -67,9 +67,10 @@ async function dislikeSong(songId) {
 	return user.likedSongs
 }
 
-async function getUsersStations() {
+async function getUsersStations(sortBy) {
+	console.log(sortBy)
 	const {_id} = getLoggedinUser() 
-	const stations = await httpService.get(`user/${_id}/station`)
+	const stations = await httpService.get(`user/${_id}/station`,{sortBy})
 	return stations
   }
 
