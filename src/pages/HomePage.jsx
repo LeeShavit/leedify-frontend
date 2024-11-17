@@ -1,4 +1,3 @@
-// pages/HomePage.jsx
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadStations } from '../store/actions/station.actions'
@@ -9,23 +8,27 @@ import { loadUsers, login } from '../store/actions/user.actions'
 import { userService } from '../services/user'
 export function HomePage() {
   const stations = useSelector((state) => state.stationModule.stations)
+  const user = useSelector((state) => state.userModule.user)
 
   useEffect(() => {
-      loadData()
-  }, [])
+    loadData()
+  })
 
   async function loadData() {
     try {
       const loggedInUser = userService.getLoggedinUser()
-      if (!loggedInUser._id){
-         await login({ username: 'guest', password:'guest123' })
+      if (!loggedInUser._id) {
+        await login({ username: 'guest', password: 'guest123' })
+        await loadStations()
+        console.log(stations)
+        navigate('/', { replace: true })
       }
+      await loadUsers()
       await loadStations()
     } catch (err) {
       console.log('failed to load home page')
     }
   }
-
 
   return (
     <div className='home-page'>

@@ -1,15 +1,17 @@
 import { Menu, MenuItem, Divider } from '@mui/material'
 import { ExternalLink, User, LogOut } from 'lucide-react'
 import { useState } from 'react'
-import { userService } from '../services/user'
 import { LoginModal } from './LoginModal'
+import { loadStations } from '../store/actions/station.actions'
+import { useNavigate } from 'react-router-dom'
+import { login, signup, logout } from '../store/actions/user.actions'
 
 export function ProfileMenu({ anchorEl, open, onClose }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleLogout = async (e) => {
     try {
-      await userService.logout()
       setIsLoginModalOpen(true)
       onClose()
     } catch (err) {
@@ -18,8 +20,11 @@ export function ProfileMenu({ anchorEl, open, onClose }) {
   }
   const handleSignup = async (userData) => {
     try {
-      await userService.signup(userData)
+      await logout()
+      await signup(userData)
       setIsLoginModalOpen(false)
+      await loadStations()
+      navigate('/', { replace: true })
       window.location.reload()
     } catch (err) {
       console.error('Signup failed:', err)
@@ -28,8 +33,11 @@ export function ProfileMenu({ anchorEl, open, onClose }) {
 
   const handleLogin = async (credentials) => {
     try {
-      await userService.login(credentials)
+      await logout()
+      await login(credentials)
       setIsLoginModalOpen(false)
+      await loadStations()
+      navigate('/', { replace: true })
       window.location.reload()
     } catch (err) {
       console.error('Login failed:', err)
