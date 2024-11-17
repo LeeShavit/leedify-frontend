@@ -1,7 +1,8 @@
+import { Loader } from '../assets/img/library/icons'
 import { PlaylistCard } from './PlaylistCard'
 
 export function StationList({ stations }) {
-  if (!stations) return <div>Loading...</div>
+  if (!stations) return <Loader/>
 
   return (
     <div className='station-list home-page__grid'>

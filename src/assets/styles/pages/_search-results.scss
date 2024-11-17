@@ -11,13 +11,14 @@
   &__filter-btn {
     background: rgba(255, 255, 255, 0.1);
     border: none;
-    border-radius: 20px;
-    padding: 8px 16px;
+    border-radius: 9999px;
+    padding: 6px 12px;
     color: $text-primary;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin: 0;
 
     &:hover {
       background: rgba(255, 255, 255, 0.2);
@@ -75,49 +76,11 @@
         display: none;
       }
 
-      .search-results__image-button {
-        display: block;
+      .search-results__image-overlay {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
-  }
-  &__song-number {
-    width: 16px;
-    text-align: left;
-    margin-right: 16px;
-  }
-
-  &__image-button {
-    display: none;
-    position: absolute;
-    left: 16px;
-  }
-
-  &__song-info {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 4px;
-    }
-
-    &-details {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  &__song-album {
-    color: $text-secondary;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__song-duration {
-    text-align: right;
   }
 
   &__image-button {
@@ -207,9 +170,5 @@
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 16px;
     }
-  }
-
-  button {
-    background: none;
   }
 }

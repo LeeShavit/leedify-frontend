@@ -8,6 +8,7 @@ import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Explore } from '../pages/Explore'
 import { setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
+import { Loader } from '../assets/img/library/icons'
 
 export function SearchResults() {
   const [activeFilter, setActiveFilter] = useState('songs')
@@ -143,7 +144,7 @@ export function SearchResults() {
         </button>
       </div>
 
-      {isLoading && <div className='search-results__loading'>Loading...</div>}
+      {isLoading && <div className='search-results__loading'><Loader/></div>}
 
       {!isLoading && (
         <div className='search-results__content'>
