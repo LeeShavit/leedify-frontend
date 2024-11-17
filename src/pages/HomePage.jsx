@@ -16,7 +16,7 @@ export function HomePage() {
   useEffect(() => {
     loadData()
     loadSections()
-  },[])
+  }, [])
 
   async function loadData() {
     try {
@@ -47,16 +47,16 @@ export function HomePage() {
         <button className='filter-buttons__button'>Podcasts</button>
       </div>
       <QuickAccess />
-      {sections?.map(section => 
-        <section className='home-page__section'>
-          {console.log(section)}
+      {sections?.map((section, index) => (
+        <section key={index} className='home-page__section'>
           <SectionHeader title={section.category} />
           <div className='home-page__grid'>
-            {section?.stations.map((station) => 
+            {section?.stations.map((station) => (
               <PlaylistCard key={station._id} station={station} />
-            )}
+            ))}
           </div>
-        </section>)}
+        </section>
+      ))}
     </div>
   )
 }
