@@ -29,7 +29,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [sortBy, setSortBy] = useState('recently added')
-  const [view, setView] = useState('list')
+  const [view, setView] = useState('compact')
   const navigate = useNavigate()
   const open = Boolean(anchorEl)
 
