@@ -20,17 +20,14 @@ export function UserMsg() {
 		}
 	}, [])
 
-	function closeMsg() {
-		setMsg(null)
-	}
 
     function msgClass() {
         return msg ? 'visible' : ''
     }
 	return (
 		<section className={`user-msg ${msg?.type} ${msgClass()}`}>
-			<button onClick={closeMsg}>x</button>
-			{msg?.txt}
+			{/* {msg?.txt} */}
+			User deleted Sucssfully
 		</section>
 	)
 }

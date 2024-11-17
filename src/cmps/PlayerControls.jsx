@@ -16,7 +16,7 @@ export function PlayerControls({ playerRef, volume }) {
     const repeat = useSelector((state) => state.playerModule.repeat)
     const [videoId, setVideoId] = useState(null)
     const [currentTime, setCurrentTime] = useState(0)
-    
+
     useEffect(() => {
         loadVideoId()
     }, [currentSong])
@@ -97,10 +97,10 @@ export function PlayerControls({ playerRef, volume }) {
         setCurrentTime(newTime)
     }
 
-    function onSetRepeatMode(){
-        if(repeat === 'OFF') return setRepeatMode('SONG') 
-        if(repeat === 'SONG') return setRepeatMode('QUEUE')
-        if(repeat === 'QUEUE') return setRepeatMode('OFF')
+    function onSetRepeatMode() {
+        if (repeat === 'OFF') return setRepeatMode('SONG')
+        if (repeat === 'SONG') return setRepeatMode('QUEUE')
+        if (repeat === 'QUEUE') return setRepeatMode('OFF')
     }
 
     function formatTime(seconds) {
@@ -130,10 +130,10 @@ export function PlayerControls({ playerRef, volume }) {
             </div>
             <div className="player-controls-content">
                 <div className="player-controls-buttons">
-                    <button onClick={() => toggleShuffle()}>
+                    <button onClick={() => toggleShuffle()} className={`shuffle ${shuffle && 'on'}`}>
                         <Shuffle />
                     </button>
-                    <button onClick={()=>playPrev()}>
+                    <button onClick={() => playPrev()}>
                         <PrevSong />
                     </button>
                     <button
@@ -141,11 +141,11 @@ export function PlayerControls({ playerRef, volume }) {
                         className={`play ${isPlaying ? 'is-playing' : ''}`}>
                         {isPlaying ? <PauseIcon /> : <PlayIcon />}
                     </button>
-                    <button onClick={()=>playNext()}>
-                        <NextSong/>
+                    <button onClick={() => playNext()}>
+                        <NextSong />
                     </button>
-                    <button onClick={()=>onSetRepeatMode()} className={`repeat ${(repeat !== 'OFF') &&'on'}`}>
-                       {repeat==='SONG' ? <RepeatOne/> : <Repeat/>}
+                    <button onClick={() => onSetRepeatMode()} className={`repeat ${(repeat !== 'OFF') && 'on'}`}>
+                        {repeat === 'SONG' ? <RepeatOne /> : <Repeat />}
                     </button>
                 </div>
 

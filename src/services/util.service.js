@@ -115,9 +115,13 @@ export function getRelativeTime(ts) {
   } else if (elapsed < msPerDay) {
     return Math.round(elapsed / msPerHour) + ' hours ago'
   } else if (elapsed < msPerMonth) {
-    return 'approximately ' + Math.round(elapsed / msPerDay) + ' days ago'
+    return + Math.round(elapsed / msPerDay) + ' days ago'
   } else {
     const date = new Date(ts)
     return `${date.toLocaleString('default', { month: 'short' })} ${date.getDate()},${date.getFullYear()} `
   }
+}
+
+export function capitalizeFirstLetters(text) {
+  return text.split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
 }
