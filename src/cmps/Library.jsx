@@ -57,6 +57,12 @@ export function Library({ isExpanded, onToggleLibrary }) {
   function handleClose() {
     setAnchorEl(null)
   }
+  function formatSortText(text) {
+    return text
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
 
   async function onPlayPauseStation(stationId) {
     if (stationId === currentStationId) {
@@ -128,7 +134,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
             aria-expanded={open ? 'true' : undefined}
             sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif' }}
           >
-            Recently Added
+            {formatSortText(sortBy)}
             <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} />
           </Button>
           <LibrarySortMenu
@@ -137,7 +143,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
             open={open}
             onClose={handleClose}
             setSortBy={setSortBy}
-            sortBy={sortBy}
+            sortBy={sortBy || 'recently added'}
             setView={setView}
             view={view}
             MenuListProps={{ 'aria-labelledby': 'basic-button' }}

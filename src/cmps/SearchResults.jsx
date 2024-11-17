@@ -9,7 +9,6 @@ import { Explore } from '../pages/Explore'
 import { setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 
-
 export function SearchResults() {
   const [activeFilter, setActiveFilter] = useState('songs')
   const [results, setResults] = useState({ songs: [], playlists: [] })
@@ -86,28 +85,38 @@ export function SearchResults() {
   function onPauseSong() {
     setIsPlaying(false)
   }
+  function formatDuration(ms) {
+    const minutes = Math.floor(ms / 60000)
+    const seconds = ((ms % 60000) / 1000).toFixed(0)
+    return `${minutes}:${seconds.padStart(2, '0')}`
+  }
 
-
-  const renderSongRow = (song) => (
+  const renderSongRow = (song, index) => (
     <div key={song._id} className='search-results__song-row'>
-      
-      <button className='search-results__image-button' onClick={isPlaying && currentSong._id === song._id ? () => onPauseSong() : () => onPlaySong(song)}>
-        <img src={song.imgUrl[2].url} alt={song.name} />
-        <div className='search-results__image-overlay'>
-          {isPlaying ? <PauseIcon className='play-icon' /> : <PlayIcon className='play-icon' />}
-        </div>
+      <div className='search-results__song-number'>{index + 1}</div>
+      <button
+        className='search-results__image-button'
+        onClick={isPlaying && currentSong._id === song._id ? onPauseSong : () => onPlaySong(song)}
+      >
+        {isPlaying && currentSong._id === song._id ? <PauseIcon /> : <PlayIcon />}
       </button>
 
       <div className='search-results__song-info'>
-        <div className='search-results__song-name'>{song.name}</div>
-        <div className='search-results__song-artist'>{song.artists.map((artist) => artist.name).join(', ')}</div>
+        <img src={song.imgUrl[2].url} alt={song.name} />
+        <div className='search-results__song-info-details'>
+          <div className='search-results__song-name'>{song.name}</div>
+          <div className='search-results__song-artist'>{song.artists.map((artist) => artist.name).join(', ')}</div>
+        </div>
       </div>
+
+      <div className='search-results__song-album'>{song.album.name}</div>
       <button
         className={`like-song ${likedSongsIds.includes(song._id) ? 'liked' : ''}`}
         onClick={() => handleLikeDislikeSong(song)}
       >
         {likedSongsIds.includes(song._id) ? <Liked /> : <Like />}
       </button>
+      <div className='search-results__song-duration'>{formatDuration(song.duration)}</div>
     </div>
   )
 
@@ -138,7 +147,19 @@ export function SearchResults() {
 
       {!isLoading && (
         <div className='search-results__content'>
-          {activeFilter === 'songs' && <div className='search-results__songs'>{results.songs.map(renderSongRow)}</div>}
+          {activeFilter === 'songs' && (
+            <>
+              <div className='search-results__table-header'>
+                <div className='search-results__table-header__number'>#</div>
+                <div className='search-results__table-header__title'>Title</div>
+                <div className='search-results__table-header__album'>Album</div>
+                <div className='search-results__table-header__duration'>Duration</div>
+              </div>
+              <div className='search-results__songs'>
+                {results.songs.map((song, index) => renderSongRow(song, index))}
+              </div>
+            </>
+          )}
 
           {activeFilter === 'playlists' && (
             <div className='search-results__playlists'>
