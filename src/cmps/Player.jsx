@@ -18,6 +18,7 @@ import {
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { getItemsIds } from '../services/util.service'
 import { Like, Liked } from '../assets/img/playlist-details/icons'
+import { Loader } from '../assets/img/library/icons.jsx'
 
 export function Player() {
   const playerRef = useRef(null)
@@ -46,7 +47,7 @@ export function Player() {
     }
   }
 
-  if (!currentSong) return <div>Loading...</div>
+  if (!currentSong || !user) return <Loader/>
 
   return (
     <section className='player full'>

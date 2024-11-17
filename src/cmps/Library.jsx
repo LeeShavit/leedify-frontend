@@ -10,7 +10,7 @@ import {
   ListIcon,
   PlusIcon,
 } from '../assets/img/library/icons'
-import { PlayIcon } from 'lucide-react'
+import { Loader, PlayIcon } from 'lucide-react'
 import { Button } from '@mui/material'
 import { PauseIcon } from '../assets/img/player/icons'
 
@@ -82,6 +82,8 @@ export function Library({ isExpanded, onToggleLibrary }) {
       }
     }
   }
+
+  if(!user) return <Loader/>
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>

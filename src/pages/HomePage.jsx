@@ -6,14 +6,17 @@ import { QuickAccess } from '../cmps/AccessItems'
 import { PlaylistCard } from '../cmps/PlaylistCard'
 import { loadUser, login } from '../store/actions/user.actions'
 import { userService } from '../services/user'
+import { stationService } from '../services/station'
 
 export function HomePage() {
   const stations = useSelector((state) => state.stationModule.stations)
+  const [sections, setSections] = useState(null)
   const user = useSelector((state) => state.userModule.user)
 
   useEffect(() => {
     loadData()
-  })
+    loadSections()
+  },[])
 
   async function loadData() {
     try {
@@ -31,6 +34,11 @@ export function HomePage() {
     }
   }
 
+  async function loadSections() {
+    const newSections = await stationService.getSections()
+    setSections(newSections)
+  }
+
   return (
     <div className='home-page'>
       <div className='filter-buttons'>
@@ -39,14 +47,16 @@ export function HomePage() {
         <button className='filter-buttons__button'>Podcasts</button>
       </div>
       <QuickAccess />
-      <section className='home-page__section'>
-        <SectionHeader title='Your Library' />
-        <div className='home-page__grid'>
-          {stations.map((station) => (
-            <PlaylistCard key={station._id} station={station} />
-          ))}
-        </div>
-      </section>
+      {sections?.map(section => 
+        <section className='home-page__section'>
+          {console.log(section)}
+          <SectionHeader title={section.category} />
+          <div className='home-page__grid'>
+            {section?.stations.map((station) => 
+              <PlaylistCard key={station._id} station={station} />
+            )}
+          </div>
+        </section>)}
     </div>
   )
 }

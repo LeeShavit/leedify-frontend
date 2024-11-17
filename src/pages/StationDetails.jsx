@@ -16,6 +16,7 @@ import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '
 import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
 import { SOCKET_EMIT_SET_STATION_ID, SOCKET_EVENT_EDIT_STATION, SOCKET_EVENT_SAVE_STATION, socketService } from '../services/socket.service'
+import { ListIcon, Loader } from '../assets/img/library/icons'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -233,7 +234,7 @@ export function StationDetails() {
     }
   }
 
-  if (!station || !user._id) return <div>Loading...</div>
+  if (!station || !user._id) return <Loader/>
   const isUserStation = station.createdBy._id === user._id
 
   return (
@@ -300,7 +301,7 @@ export function StationDetails() {
           />
         </div>
         <div className='station-controls__right'>
-          <button className='station-controls__list'>List</button>
+          <button className='station-controls__list'><span>List</span><ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} /></button>
         </div>
       </div>
       {station?.songs.length ? (

@@ -11,6 +11,7 @@ export const stationService = {
   removeSongFromStation,
   getLikedSongsStation,
   getSearchResSong,
+  getSections,
   getCurrentSong,
 }
 
@@ -71,6 +72,10 @@ async function getLikedSongsStation() {
 async function getSearchResSong(txt) {
   const res = await ApiService.getSpotifyItems({ type: 'songSearch', query: txt, market: 'US' })
   return res.songs
+}
+
+async function getSections(){
+  return await ApiService.getStationsForHome('US')
 }
 
 async function getCurrentSong() {
