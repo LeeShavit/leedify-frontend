@@ -2,9 +2,12 @@ import { SpotifyIcon } from '../assets/img/app-header/icons'
 import { useState } from 'react'
 import { Google } from '@mui/icons-material'
 import { firebaseAuthService } from '../services/firebase.auth.service'
+import { loadStations } from '../store/actions/station.actions'
+import { useNavigate } from 'react-router-dom'
 
 export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
   const [error, setError] = useState(null)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [formData, setFormData] = useState({
@@ -19,6 +22,9 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
       setError(null)
       await firebaseAuthService.loginWithGoogle()
       onClose()
+      await loadStations()
+      navigate('/', { replace: true })
+      window.location.reload()
     } catch (err) {
       setError('Failed to login with Google. Please try again.')
       console.error('Google login failed:', err)
