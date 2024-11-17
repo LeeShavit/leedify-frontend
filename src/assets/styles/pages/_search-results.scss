@@ -4,7 +4,7 @@
 
   &__filters {
     display: flex;
-    // gap: 4px;
+    gap: 4px;
     margin-bottom: 12px;
   }
 
@@ -37,7 +37,7 @@
 
   &__table-header {
     display: grid;
-    grid-template-columns: 16px 4fr 3fr 1fr;
+    grid-template-columns: 20px 4fr 3fr 1fr;
     padding: 0 16px;
     height: 36px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -76,11 +76,49 @@
         display: none;
       }
 
-      .search-results__image-overlay {
-        opacity: 1;
-        transform: translateY(0);
+      .search-results__image-button {
+        display: block;
       }
     }
+  }
+  &__song-number {
+    width: 16px;
+    text-align: left;
+    margin-right: 16px;
+  }
+
+  &__image-button {
+    display: none;
+    position: absolute;
+    left: 16px;
+  }
+
+  &__song-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+    }
+
+    &-details {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__song-album {
+    color: $text-secondary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__song-duration {
+    text-align: right;
   }
 
   &__image-button {
@@ -170,5 +208,9 @@
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 16px;
     }
+  }
+
+  button {
+    background: none;
   }
 }
