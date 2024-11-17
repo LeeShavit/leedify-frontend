@@ -258,7 +258,7 @@
         color: #fff;
 
         .list-icon {
-          color: $text-primary;;
+          color: $text-primary;
         }
       }
     }
@@ -275,6 +275,9 @@
     font-weight: 500;
     align-items: center;
 
+    &__number {
+      margin-left: 6px;
+    }
     &__number,
     &__title,
     &__album,
@@ -400,6 +403,9 @@
         width: 40px;
         height: 40px;
       }
+    }
+    &__number {
+      margin-left: 6px;
     }
 
     &.is-dragging {
@@ -588,7 +594,7 @@
       display: none;
       position: absolute;
       right: -15px;
-      top: 9px;
+      top: 6px;
       color: $text-secondary;
 
       &:hover {
