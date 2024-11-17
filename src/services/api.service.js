@@ -106,7 +106,7 @@ async function getSpotifyItems(req) {
 function _getEndpoints(id, query) {
   return {
     categoryStations: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=il&limit=50`,
-    featured: `https://api.spotify.com/v1/browse/featured-playlists?country=IL&locale=he_IL&limit=50`,
+    featured: `https://api.spotify.com/v1/browse/featured-playlists?country=US&locale=en_US&limit=10`,
     station: `https://api.spotify.com/v1/playlists/${id}`,
     playlistSearch: `https://api.spotify.com/v1/search?q=${query}&type=playlist&limit=20`,
     tracks: `https://api.spotify.com/v1/playlists/${id}/tracks`,
@@ -294,7 +294,6 @@ function _cleanCategoryStationsData(data) {
       description: item.description ? item.description.replace(/<a\b[^>]*>(.*?)<\/a>/gi, '') : '',
       snapshot_id: item.snapshot_id,
     }))
-  console.log(data.message)
   return { name: data.message, stations }
 }
 
@@ -387,42 +386,33 @@ function _cleanArtists(artists) {
 
 async function getStationsForHome(market) {
   const categories = [
-    { _id: 'toplists', name: 'Top Lists' },
     { _id: 'featured', name: 'Featured Playlists' },
     { _id: '0JQ5DAqbMKFLVaM30PMBm4', name: 'Summer' },
     { _id: '0JQ5DAqbMKFAXlCG6QvYQ4', name: 'Workout' },
     { _id: '0JQ5DAqbMKFzHmL4tf05da', name: 'Mood' },
     { _id: '0JQ5DAqbMKFQIL0AXnG5AK', name: 'Trending' },
-    { _id: '0JQ5DAqbMKFAQy4HL4XU2D', name: 'Travel' },
-    { _id: '0JQ5DAqbMKFRKBHIxJ5hMm', name: 'Tastemakers' },
-    { _id: '0JQ5DAqbMKFIVNxQgRNSg0', name: 'Decades' },
-    { _id: '0JQ5DAqbMKFEC4WFtoNRpw', name: 'Pop' },
-    { _id: '0JQ5DAqbMKFPrEiAOxgac3', name: 'Classical' },
-    { _id: '0JQ5DAqbMKFCfObibaOZbv', name: 'Gaming' },
   ]
 
   const results = []
 
   for (const category of categories) {
     try {
-      let stations
+      let section
       if (category._id === 'featured') {
         const featured = await getSpotifyItems({ type: 'featured', market })
-        stations = featured.map((item) => ({ ...item, category: category.name, categoryId: category.id }))
-      } else {
-        stations = await getSpotifyItems({ type: 'categoryStations', id: category.id, market })
-        stations = stations.map((station) => ({ ...station, category: { name: category.name, _id: category.id } }))
+        section = { category: category.name, categoryId: category._id , stations: featured.stations}
+      }  else {
+        const res = await getSpotifyItems({ type: 'categoryStations', id: category._id, market })
+        section = { category: res.name, categoryId: category._id , stations: res.stations}
       }
-      results.push(stations)
+      results.push(section)
     } catch (error) {
       console.error(`Error fetching data for category ${category.name}: ${error.message}`)
       results.push([])
     }
   }
 
-  const filteredResults = results.filter((stationsArray) => stationsArray.length > 8)
-  _cleanDescriptions(filteredResults)
-  return filteredResults
+  return results
 }
 
 function _cleanDescriptions(arr) {
