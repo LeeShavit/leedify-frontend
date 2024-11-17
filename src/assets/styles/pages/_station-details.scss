@@ -241,15 +241,11 @@
       & svg {
         width: 32px;
       }
-
-      &:hover {
-        transform: scale(1.04);
-        color: $text-primary;
-        background: none;
-      }
     }
 
     &__list {
+      display: flex;
+      align-items: center;
       color: $text-secondary;
       background: none;
       border: none;
@@ -260,6 +256,10 @@
 
       &:hover {
         color: #fff;
+
+        .list-icon {
+          color: $text-primary;;
+        }
       }
     }
   }
