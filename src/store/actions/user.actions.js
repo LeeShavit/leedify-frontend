@@ -2,7 +2,8 @@ import { userService } from '../../services/user'
 import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
-import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, UPDATE_USER_LIKED_STATIONS } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, UPDATE_USER_LIKED_STATION } from '../reducers/user.reducer'
+import { loadStations } from './station.actions'
 
 export async function loadUsers() {
     try {
@@ -69,7 +70,7 @@ export async function logout() {
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)
-        store.dispatch({ type: SET_WATCHED_USER, user })
+        store.dispatch({ type: SET_USER, user })
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)
@@ -78,9 +79,10 @@ export async function loadUser(userId) {
 
 export async function updateUsersLikedStation(station) {
     try {
-        const likedStations = await userService.updateUsersLikedStation(station)
-        store.dispatch({ type: UPDATE_USER_LIKED_STATIONS, likedStations })
-        return likedStations
+        // const likedStations = await userService.updateUsersLikedStation(station)
+        // console.log('user actions updateUsersLikedStation liked stations:', likedStations)
+        await loadStations()
+        store.dispatch({ type: UPDATE_USER_LIKED_STATION, station })
     } catch (err) {
         showErrorMsg('Cannot like song')
         console.log('Cannot like song', err)

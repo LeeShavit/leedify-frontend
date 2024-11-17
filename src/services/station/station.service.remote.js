@@ -48,7 +48,8 @@ async function remove(stationId) {
 
 async function save(station) {
   if (station._id) {
-    return await httpService.put(`station/${station._id}`, station)
+    const res= await httpService.put(`station/${station._id}`, station)
+    return res
   } else {
     return await httpService.post('station', station)
   }

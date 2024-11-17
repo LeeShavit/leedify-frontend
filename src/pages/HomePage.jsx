@@ -5,8 +5,9 @@ import { loadStations } from '../store/actions/station.actions'
 import { SectionHeader } from '../cmps/SectionHeader'
 import { QuickAccess } from '../cmps/AccessItems'
 import { PlaylistCard } from '../cmps/PlaylistCard'
-import { loadUsers, login } from '../store/actions/user.actions'
+import { loadUser, login } from '../store/actions/user.actions'
 import { userService } from '../services/user'
+
 export function HomePage() {
   const stations = useSelector((state) => state.stationModule.stations)
 
@@ -20,6 +21,7 @@ export function HomePage() {
       if (!loggedInUser._id){
          await login({ username: 'guest', password:'guest123' })
       }
+      
       await loadStations()
     } catch (err) {
       console.log('failed to load home page')

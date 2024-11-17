@@ -89,6 +89,7 @@ async function dislikeStation(stationId) {
 
 async function updateUsersLikedStation(station) {
   const user = await httpService.put('user/station', station)
+  console.log('user service updateUsersLikedStation user after server:', user)
   saveLoggedinUser(user)
   return user.likedStations
 }
@@ -139,6 +140,8 @@ function getLoggedinUser() {
 }
 
 function saveLoggedinUser(user) {
+  console.log('user service saveLoggedinUser after server:', user)
+
   user = {
     _id: user._id,
     username: user.username,

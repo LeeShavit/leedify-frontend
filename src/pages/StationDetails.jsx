@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { addSongToStation, removeSongFromStation, removeStation, updateStation, likeStation, dislikeStation } from '../store/actions/station.actions'
+import { addSongToStation, removeSongFromStation, removeStation, updateStation, likeStation, dislikeStation, loadStations } from '../store/actions/station.actions'
 import { likeSong, dislikeSong, updateUsersLikedStation, } from '../store/actions/user.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
@@ -75,11 +75,14 @@ export function StationDetails() {
     }
   }
 
-  function loadStationImage() {
+  function loadStationImage(img) {
     if (!station) return
-    let img = station.imgUrl
-    if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
-      img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
+
+    if(!img){
+      img = station.imgUrl
+      if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
+        img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
+      }
     }
     setStationImage(img)
     loadBackgroundColor(img)
@@ -109,7 +112,7 @@ export function StationDetails() {
       }
       const updatedStation = await updateStation(stationToUpdate)
       setStation(updatedStation)
-      loadStationImage()
+      loadStationImage(updatedStation.imgUrl)
       updateUsersLikedStation(updatedStation)
       setIsEditModalOpen(false)
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
