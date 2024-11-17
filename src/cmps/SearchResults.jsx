@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { ApiService } from '../services/api.service'
 import { PlaylistCard } from './PlaylistCard'
 import { useSelector } from 'react-redux'
-import { Like, Liked } from '../assets/img/playlist-details/icons'
+import { Like, Liked, Time } from '../assets/img/playlist-details/icons'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Explore } from '../pages/Explore'
 import { setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
@@ -89,9 +89,9 @@ export function SearchResults() {
   }
 
 
-  const renderSongRow = (song) => (
+  const renderSongRow = (song, index) => (
     <div key={song._id} className='search-results__song-row'>
-      
+       <div className='search-results__number'>{index + 1}</div>
       <button className='search-results__image-button' onClick={isPlaying && currentSong._id === song._id ? () => onPauseSong() : () => onPlaySong(song)}>
         <img src={song.imgUrl[2].url} alt={song.name} />
         <div className='search-results__image-overlay'>
@@ -135,11 +135,27 @@ export function SearchResults() {
         </button>
       </div>
 
-      {isLoading && <div className='search-results__loading'><Loader/></div>}
+      {isLoading && <div className='search-results__loading'><Loader /></div>}
 
       {!isLoading && (
         <div className='search-results__content'>
-          {activeFilter === 'songs' && <div className='search-results__songs'>{results.songs.map(renderSongRow)}</div>}
+          {activeFilter === 'songs'
+            &&
+            <div>
+              <div className='station-table-header'>
+                <div className='station-table-header__number'>#</div>
+                <div className='station-table-header__title'>Name</div>
+                <div className='station-table-header__album'></div>
+                <div className='station-table-header__date'></div>
+                <div className='station-table-header__duration'>
+                  {/* <Time /> */}
+                </div>
+              </div>
+              <div className='search-results__songs'>
+                {results.songs.map(renderSongRow)}
+              </div>
+            </div>
+          }
 
           {activeFilter === 'playlists' && (
             <div className='search-results__playlists'>
