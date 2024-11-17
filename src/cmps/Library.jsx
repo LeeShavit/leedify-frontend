@@ -30,7 +30,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
   const [anchorEl, setAnchorEl] = useState(null)
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [sortBy, setSortBy] = useState('recently added')
-  const [view, setView] = useState('list')
+  const [view, setView] = useState('compact')
   const navigate = useNavigate()
   const open = Boolean(anchorEl)
 
@@ -58,6 +58,16 @@ export function Library({ isExpanded, onToggleLibrary }) {
   function handleClose() {
     setAnchorEl(null)
   }
+  function formatSortText(text) {
+    return text
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
+  function getLibraryListClassName() {
+    if (!isExpanded) return 'library-list library-list--collapsed'
+    return `library-list ${view === 'list' ? 'library-list--compact' : ''}`
+  }
 
   async function onPlayPauseStation(stationId) {
     if (stationId === currentStationId) {
@@ -77,8 +87,64 @@ export function Library({ isExpanded, onToggleLibrary }) {
       }
     }
   }
+  function renderLibraryItem(item, index) {
+    const isCurrentStation = currentStationId === item._id
+    const isLikedSongs = item === 'liked-songs'
+    const itemName = isLikedSongs ? 'Liked Songs' : item.name
+    const itemImage = isLikedSongs
+      ? 'https://misc.scdn.co/liked-songs/liked-songs-300.png'
+      : typeof item.imgUrl === 'string'
+      ? item.imgUrl
+      : item.imgUrl[2].url
 
-  if(!user) return <Loader/>
+    return (
+      <div
+        key={isLikedSongs ? 'liked-songs' : item._id}
+        className={`library-item ${isCurrentStation ? 'current-station' : ''}`}
+        onClick={() => onNavigateToStation(isLikedSongs ? 'liked-songs' : item._id)}
+        data-name={itemName}
+      >
+        <button
+          className='library-item__image-button'
+          onClick={(e) => {
+            e.stopPropagation()
+            onPlayPauseStation(isLikedSongs ? 'liked-songs' : item._id)
+          }}
+        >
+          <img src={itemImage} alt={itemName} />
+          {!isExpanded && (
+            <div className='library-item__image-overlay'>
+              {isCurrentStation && isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} className='play-icon' />}
+            </div>
+          )}
+        </button>
+
+        {isExpanded && (
+          <div className='library-item__info'>
+            <span className='library-item__title'>{itemName}</span>
+            <div className='library-item__details'>
+              <span className='playlist-tag'>Playlist</span>
+              <span>{isLikedSongs ? `${user.likedSongs?.length || 0} songs` : item.createdBy?.name || 'Unknown'}</span>
+            </div>
+
+            {view === 'list' && (
+              <button
+                className='play-button'
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onPlayPauseStation(isLikedSongs ? 'liked-songs' : item._id)
+                }}
+              >
+                {isCurrentStation && isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // if (!user) return <Loader />
 
   return (
     <aside className={`library ${isExpanded ? 'expanded' : 'collapsed'}`}>
@@ -140,65 +206,16 @@ export function Library({ isExpanded, onToggleLibrary }) {
             open={open}
             onClose={handleClose}
             setSortBy={setSortBy}
-            sortBy={sortBy}
+            sortBy={sortBy || 'recently added'}
             setView={setView}
             view={view}
             MenuListProps={{ 'aria-labelledby': 'basic-button' }}
           />
         </div>
       </div>
-
-      <div className='library-list'>
-        <div
-          className={`library-item liked-songs ${currentStationId === 'liked-songs' && 'current-station'}`}
-          onClick={() => onNavigateToStation('liked-songs')}
-        >
-          <button className='library-item__image-button' onClick={() => onPlayStation('liked-songs')}>
-            <img src='https://misc.scdn.co/liked-songs/liked-songs-300.png' alt='liked-songs' />
-            <div className='library-item__image-overlay'>
-              {isPlaying && currentStationId === 'liked-songs' ? <PauseIcon /> : <PlayIcon />}
-            </div>
-          </button>
-          <div className='library-item__info'>
-            <h3 className='library-item__title'>Liked Songs</h3>
-            <p className='library-item__details'>
-              <span className='playlist-tag'>Playlist</span>
-              <span>
-                <span>
-                  {!user.likedSongs
-                    ? 'No songs yet'
-                    : user.likedSongs.length === 0
-                    ? 'No songs yet'
-                    : `${user.likedSongs.length} ${user.likedSongs.length === 1 ? 'song' : 'songs'}`}
-                </span>
-              </span>
-            </p>
-          </div>
-        </div>
-        {stations?.map((station) => (
-          <div
-            key={station._id}
-            className={`library-item ${currentStationId === station._id && 'current-station'}`}
-            onClick={() => onNavigateToStation(station._id)}
-          >
-            <button className='library-item__image-button' onClick={() => onPlayPauseStation(station._id)}>
-              <img
-                src={typeof station.imgUrl === 'string' ? station.imgUrl : station.imgUrl[2].url}
-                alt={station.name}
-              />
-              <div className='library-item__image-overlay'>
-                {currentStationId === station._id && isPlaying ? <PauseIcon /> : <PlayIcon className='play-icon' />}
-              </div>
-            </button>
-            <div className='library-item__info'>
-              <h3 className='library-item__title'>{station.name}</h3>
-              <p className='library-item__details'>
-                <span className='playlist-tag'>Playlist</span>
-                <span>{station.createdBy?.name || 'unknown'}</span>
-              </p>
-            </div>
-          </div>
-        ))}
+      <div className={getLibraryListClassName()}>
+        {renderLibraryItem('liked-songs')}
+        {stations?.map((station) => renderLibraryItem(station))}
       </div>
     </aside>
   )

@@ -43,7 +43,7 @@ export async function reorderStationSongs(stationId, newSongOrder) {
 export async function removeStation(stationId) {
   try {
     console.log('here')
-    const res= await stationService.remove(stationId)
+    const res = await stationService.remove(stationId)
     store.dispatch(getCmdRemoveStation(stationId))
   } catch (err) {
     console.log('Cannot remove station', err)
@@ -66,7 +66,7 @@ export async function addStation() {
 export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
-    console.log('station actions updateStation saved Station:',savedStation)
+    console.log('station actions updateStation saved Station:', savedStation)
     store.dispatch(getCmdUpdateStation(savedStation))
     return savedStation
   } catch (err) {
@@ -80,7 +80,7 @@ export async function addSongToStation(stationId, song) {
     const updatedStation = await stationService.addSongToStation(stationId, song)
     console.log(updatedStation)
     store.dispatch(getCmdAddSongToStation(stationId, song))
-    
+
     return updatedStation
   } catch (err) {
     console.log('Cannot add song to station', err)
@@ -101,25 +101,23 @@ export async function removeSongFromStation(stationId, songId) {
 
 export async function likeStation(station) {
   try {
-      const likedStation  = await userService.likeStation(station)
-      store.dispatch(getCmdAddStation(likedStation))
+    await userService.likeStation(station)
+    store.dispatch(getCmdAddStation(station))
   } catch (err) {
-      showErrorMsg('Cannot like station')
-      console.log('Cannot like station', err)
+    showErrorMsg('Cannot like station')
+    console.log('Cannot like station', err)
   }
 }
 
 export async function dislikeStation(stationId) {
   try {
-      await userService.dislikeStation(stationId)
-      store.dispatch(getCmdRemoveStation(stationId))
+    await userService.dislikeStation(stationId)
+    store.dispatch(getCmdRemoveStation(stationId))
   } catch (err) {
-      showErrorMsg('Cannot dislike station')
-      console.log('Cannot dislike station', err)
+    showErrorMsg('Cannot dislike station')
+    console.log('Cannot dislike station', err)
   }
 }
-
-
 
 function getCmdSetStations(stations) {
   return {
@@ -150,12 +148,14 @@ function getCmdUpdateStation(station) {
 function getCmdAddSongToStation(stationId, song) {
   return {
     type: ADD_SONG_TO_STATION,
-    stationId, song,
+    stationId,
+    song,
   }
 }
 function getCmdRemoveSongFromStation(stationId, songId) {
   return {
-    type: REMOVE_SONG_FROM_STATION,stationId,
+    type: REMOVE_SONG_FROM_STATION,
+    stationId,
     songId,
   }
 }

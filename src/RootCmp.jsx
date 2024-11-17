@@ -18,7 +18,7 @@ import { SearchResults } from './cmps/SearchResults.jsx'
 import { GenreDetails } from './pages/GenreDetails.jsx'
 
 export function RootCmp() {
-  const [isLibraryExpanded, setIsLibraryExpanded] = useState(false)
+  const [isLibraryExpanded, setIsLibraryExpanded] = useState(true)
   const location = useLocation()
   const showHeader = location.pathname === '/search'
 
