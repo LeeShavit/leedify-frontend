@@ -66,6 +66,7 @@ export async function addStation() {
 export async function updateStation(station) {
   try {
     const savedStation = await stationService.save(station)
+    console.log('station actions updateStation saved Station:',savedStation)
     store.dispatch(getCmdUpdateStation(savedStation))
     return savedStation
   } catch (err) {
