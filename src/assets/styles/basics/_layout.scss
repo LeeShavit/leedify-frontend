@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 8px;
-  padding: 8px;
+  padding: 8px 0px;
 
   @include for-mobile-layout {
     grid-template-columns: 1fr;

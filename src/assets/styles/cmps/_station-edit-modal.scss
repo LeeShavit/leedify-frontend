@@ -173,7 +173,6 @@
     }
   }
 
-  // Textarea specific styles
   &__textarea {
     .MuiOutlinedInput-root {
       min-height: 124px;
@@ -189,6 +188,7 @@
     background-color: $text-primary;
     color: $background-dark;
     border: none;
+    margin-top: -18px;
     border-radius: 500px;
     padding: 12px 32px;
     font-weight: $font-basel;
