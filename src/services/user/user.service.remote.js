@@ -4,15 +4,6 @@ import { User2Icon } from 'lucide-react'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
-initialize()
-
-async function initialize() {
-  const loggedInUser = getLoggedinUser()
-  if (!loggedInUser) {
-    await login({ username: 'guest', password: 'guest123' })
-  }
-}
-
 export const userService = {
   login,
   loginWithGoogle,
@@ -68,11 +59,11 @@ async function dislikeSong(songId) {
 }
 
 async function getUsersStations(sortBy) {
-	console.log(sortBy)
-	const {_id} = getLoggedinUser() 
-	const stations = await httpService.get(`user/${_id}/station`,{sortBy})
-	return stations
-  }
+  console.log(sortBy)
+  const { _id } = getLoggedinUser()
+  const stations = await httpService.get(`user/${_id}/station`, { sortBy })
+  return stations
+}
 
 async function likeStation(station) {
   console.log(station)
@@ -97,8 +88,32 @@ async function updateUsersLikedStation(station) {
 //authentication
 
 async function login(userCred) {
-  const user = await httpService.post('auth/login', userCred)
-  if (user) return saveLoggedinUser(user)
+  try {
+    const user = await httpService.post('auth/login', userCred)
+    console.log('user', user)
+    if (user) {
+      saveLoggedinUser(user)
+      return { success: true, user }
+    } else {
+      return {
+        success: false,
+        error: 'Login failed. Please try again.',
+      }
+    }
+  } catch (err) {
+    console.error('Login error:', err)
+    if (err.response?.status === 401) {
+      return {
+        success: false,
+        error: 'Invalid username or password',
+      }
+    } else {
+      return {
+        success: false,
+        error: 'An error occurred. Please try again.',
+      }
+    }
+  }
 }
 
 async function loginWithGoogle(googleUser) {

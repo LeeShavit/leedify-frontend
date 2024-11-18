@@ -42,17 +42,19 @@ async function getById(userId) {
 async function getUsersStations() {
   const loggedinUser = getLoggedinUser()
   const { likedStations } = await storageService.get(STORAGE_KEY_USERS, loggedinUser._id)
-  const stations = Promise.all(likedStations.map(likedStation => {
-    return stationService.getById(likedStation._id).then(station => {
-      return {
-        _id: station._id,
-        name: station.name,
-        imgUrl: station.imgUrl,
-        createdBy: station.createdBy,
-        addedAt: likedStation.addedAt
-      }
+  const stations = Promise.all(
+    likedStations.map((likedStation) => {
+      return stationService.getById(likedStation._id).then((station) => {
+        return {
+          _id: station._id,
+          name: station.name,
+          imgUrl: station.imgUrl,
+          createdBy: station.createdBy,
+          addedAt: likedStation.addedAt,
+        }
+      })
     })
-  }))
+  )
   return stations
 }
 
@@ -139,9 +141,9 @@ async function signup(userCred) {
 
   try {
     const user = await storageService.post(STORAGE_KEY_USERS, userToSave)
-    user.likedSongs= _getDemoSongs()
+    user.likedSongs = _getDemoSongs()
     user.likedStations = await _getDemoStationsForNewUser(user._id, user.name, user.imgUrl)
-    const updatedUser= await update(user)
+    const updatedUser = await update(user)
     return saveLoggedinUser(updatedUser)
   } catch (err) {
     console.error('Could not signup:', err)
@@ -286,7 +288,6 @@ async function _createDemoUsers() {
 
     if (users.length > 0) return users
 
-
     users = [
       {
         _id: '673747e44f46d732f3578f0a',
@@ -360,610 +361,610 @@ async function _createDemoUsers() {
         ],
       },
       {
-        _id: "6734ad1b80e09674b9b8e09b",
-        name: "Lee Shavit",
-        username: "lee",
-        password: "lee123",
+        _id: '6734ad1b80e09674b9b8e09b',
+        name: 'Lee Shavit',
+        username: 'lee',
+        password: 'lee123',
         likedSongs: [
           {
-            _id: "1CsMKhwEmNnmvHUuO5nryA",
-            name: "SKINNY",
+            _id: '1CsMKhwEmNnmvHUuO5nryA',
+            name: 'SKINNY',
             artists: [
               {
-                name: "Billie Eilish",
-                _id: "6qqNVTkY8uBg9cP3Jd7DAH"
-              }
+                name: 'Billie Eilish',
+                _id: '6qqNVTkY8uBg9cP3Jd7DAH',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62',
+                width: 64,
+              },
             ],
             duration: 219733,
             album: {
-              name: "HIT ME HARD AND SOFT",
-              _id: "7aJuG4TFXa2hmE4z1yxc3n"
+              name: 'HIT ME HARD AND SOFT',
+              _id: '7aJuG4TFXa2hmE4z1yxc3n',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "19kHhX6f6EfLU7rcO3RqjO",
-            name: "Back On 74",
+            _id: '19kHhX6f6EfLU7rcO3RqjO',
+            name: 'Back On 74',
             artists: [
               {
-                name: "Jungle",
-                _id: "59oA5WbbQvomJz2BuRG071"
-              }
+                name: 'Jungle',
+                _id: '59oA5WbbQvomJz2BuRG071',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27377619f14cb03e11baf5761d1",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27377619f14cb03e11baf5761d1',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0277619f14cb03e11baf5761d1",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0277619f14cb03e11baf5761d1',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485177619f14cb03e11baf5761d1",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485177619f14cb03e11baf5761d1',
+                width: 64,
+              },
             ],
             duration: 209482,
             album: {
-              name: "Volcano",
-              _id: "5xnXOCf5aZgZ43DgGN4EDv"
+              name: 'Volcano',
+              _id: '5xnXOCf5aZgZ43DgGN4EDv',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "6TGd66r0nlPaYm3KIoI7ET",
-            name: "THE GREATEST",
+            _id: '6TGd66r0nlPaYm3KIoI7ET',
+            name: 'THE GREATEST',
             artists: [
               {
-                name: "Billie Eilish",
-                _id: "6qqNVTkY8uBg9cP3Jd7DAH"
-              }
+                name: 'Billie Eilish',
+                _id: '6qqNVTkY8uBg9cP3Jd7DAH',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62',
+                width: 64,
+              },
             ],
             duration: 293840,
             album: {
-              name: "HIT ME HARD AND SOFT",
-              _id: "7aJuG4TFXa2hmE4z1yxc3n"
+              name: 'HIT ME HARD AND SOFT',
+              _id: '7aJuG4TFXa2hmE4z1yxc3n',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "629DixmZGHc7ILtEntuiWE",
-            name: "LUNCH",
+            _id: '629DixmZGHc7ILtEntuiWE',
+            name: 'LUNCH',
             artists: [
               {
-                name: "Billie Eilish",
-                _id: "6qqNVTkY8uBg9cP3Jd7DAH"
-              }
+                name: 'Billie Eilish',
+                _id: '6qqNVTkY8uBg9cP3Jd7DAH',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62',
+                width: 64,
+              },
             ],
             duration: 179586,
             album: {
-              name: "HIT ME HARD AND SOFT",
-              _id: "7aJuG4TFXa2hmE4z1yxc3n"
+              name: 'HIT ME HARD AND SOFT',
+              _id: '7aJuG4TFXa2hmE4z1yxc3n',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "1GGpgUDxD5bjEq0OSEDTvc",
-            name: "No Vas a Encontrar",
+            _id: '1GGpgUDxD5bjEq0OSEDTvc',
+            name: 'No Vas a Encontrar',
             artists: [
               {
-                name: "Jalil Lopez",
-                _id: "1lE4AVltTIHnpsWVdN58jN"
-              }
+                name: 'Jalil Lopez',
+                _id: '1lE4AVltTIHnpsWVdN58jN',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b273c3979196aec7c62ab34d0f5f",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b273c3979196aec7c62ab34d0f5f',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e02c3979196aec7c62ab34d0f5f",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e02c3979196aec7c62ab34d0f5f',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d00004851c3979196aec7c62ab34d0f5f",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d00004851c3979196aec7c62ab34d0f5f',
+                width: 64,
+              },
             ],
             duration: 192253,
             album: {
-              name: "No Vas a Encontrar",
-              _id: "7LEOqYU7W9dFTLwq7xoBd0"
+              name: 'No Vas a Encontrar',
+              _id: '7LEOqYU7W9dFTLwq7xoBd0',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "4tKGFmENO69tZR9ahgZu48",
-            name: "Murder On The Dancefloor",
+            _id: '4tKGFmENO69tZR9ahgZu48',
+            name: 'Murder On The Dancefloor',
             artists: [
               {
-                name: "Sophie Ellis-Bextor",
-                _id: "2cBh5lVMg222FFuRU7EfDE"
-              }
+                name: 'Sophie Ellis-Bextor',
+                _id: '2cBh5lVMg222FFuRU7EfDE',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b273b736151ed1c04f2d41d5f69e",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b273b736151ed1c04f2d41d5f69e',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e02b736151ed1c04f2d41d5f69e",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e02b736151ed1c04f2d41d5f69e',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d00004851b736151ed1c04f2d41d5f69e",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d00004851b736151ed1c04f2d41d5f69e',
+                width: 64,
+              },
             ],
             duration: 230013,
             album: {
-              name: "Read My Lips (Deluxe Version)",
-              _id: "68ishLKwqH5oH79kUteEHG"
+              name: 'Read My Lips (Deluxe Version)',
+              _id: '68ishLKwqH5oH79kUteEHG',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "7DpUoxGSdlDHfqCYj0otzU",
-            name: "BITTERSUITE",
+            _id: '7DpUoxGSdlDHfqCYj0otzU',
+            name: 'BITTERSUITE',
             artists: [
               {
-                name: "Billie Eilish",
-                _id: "6qqNVTkY8uBg9cP3Jd7DAH"
-              }
+                name: 'Billie Eilish',
+                _id: '6qqNVTkY8uBg9cP3Jd7DAH',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62',
+                width: 64,
+              },
             ],
             duration: 298440,
             album: {
-              name: "HIT ME HARD AND SOFT",
-              _id: "7aJuG4TFXa2hmE4z1yxc3n"
+              name: 'HIT ME HARD AND SOFT',
+              _id: '7aJuG4TFXa2hmE4z1yxc3n',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "1ACA277B6f46DYCgZW8di3",
+            _id: '1ACA277B6f46DYCgZW8di3',
             name: "if u think i'm pretty",
             artists: [
               {
-                name: "Artemas",
-                _id: "0PCCGZ0wGLizHt2KZ7hhA2"
-              }
+                name: 'Artemas',
+                _id: '0PCCGZ0wGLizHt2KZ7hhA2',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b273fabe0943f6dd962a792b42a1",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b273fabe0943f6dd962a792b42a1',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e02fabe0943f6dd962a792b42a1",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e02fabe0943f6dd962a792b42a1',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d00004851fabe0943f6dd962a792b42a1",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d00004851fabe0943f6dd962a792b42a1',
+                width: 64,
+              },
             ],
             duration: 128205,
             album: {
-              name: "pretty",
-              _id: "2xpgb8R0BXVS2e1XnXI9xZ"
+              name: 'pretty',
+              _id: '2xpgb8R0BXVS2e1XnXI9xZ',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "43iIQbw5hx986dUEZbr3eN",
-            name: "From The Start",
+            _id: '43iIQbw5hx986dUEZbr3eN',
+            name: 'From The Start',
             artists: [
               {
-                name: "Laufey",
-                _id: "7gW0r5CkdEUMm42w9XpyZO"
-              }
+                name: 'Laufey',
+                _id: '7gW0r5CkdEUMm42w9XpyZO',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27374c732f8aa0e0ccbb3d17d96",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27374c732f8aa0e0ccbb3d17d96',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0274c732f8aa0e0ccbb3d17d96",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0274c732f8aa0e0ccbb3d17d96',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485174c732f8aa0e0ccbb3d17d96",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485174c732f8aa0e0ccbb3d17d96',
+                width: 64,
+              },
             ],
             duration: 169573,
             album: {
-              name: "Bewitched",
-              _id: "1rpCHilZQkw84A3Y9czvMO"
+              name: 'Bewitched',
+              _id: '1rpCHilZQkw84A3Y9czvMO',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "7j3zZ2jAjzFD60UjhldhHo",
+            _id: '7j3zZ2jAjzFD60UjhldhHo',
             name: "I've Been In Love",
             artists: [
               {
-                name: "Jungle",
-                _id: "59oA5WbbQvomJz2BuRG071"
-              }
+                name: 'Jungle',
+                _id: '59oA5WbbQvomJz2BuRG071',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27377619f14cb03e11baf5761d1",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27377619f14cb03e11baf5761d1',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0277619f14cb03e11baf5761d1",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0277619f14cb03e11baf5761d1',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485177619f14cb03e11baf5761d1",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485177619f14cb03e11baf5761d1',
+                width: 64,
+              },
             ],
             duration: 169472,
             album: {
-              name: "Volcano",
-              _id: "5xnXOCf5aZgZ43DgGN4EDv"
+              name: 'Volcano',
+              _id: '5xnXOCf5aZgZ43DgGN4EDv',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "3QaPy1KgI7nu9FJEQUgn6h",
-            name: "WILDFLOWER",
+            _id: '3QaPy1KgI7nu9FJEQUgn6h',
+            name: 'WILDFLOWER',
             artists: [
               {
-                name: "Billie Eilish",
-                _id: "6qqNVTkY8uBg9cP3Jd7DAH"
-              }
+                name: 'Billie Eilish',
+                _id: '6qqNVTkY8uBg9cP3Jd7DAH',
+              },
             ],
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27371d62ea7ea8a5be92d3c1f62',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0271d62ea7ea8a5be92d3c1f62',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485171d62ea7ea8a5be92d3c1f62',
+                width: 64,
+              },
             ],
             duration: 261466,
             album: {
-              name: "HIT ME HARD AND SOFT",
-              _id: "7aJuG4TFXa2hmE4z1yxc3n"
+              name: 'HIT ME HARD AND SOFT',
+              _id: '7aJuG4TFXa2hmE4z1yxc3n',
             },
-            youtubeId: ""
-          }
+            youtubeId: '',
+          },
         ],
         likedStations: [
           {
-            _id: "3KG8kwO0epkgTLFGEpTf9h",
-            name: "Remastered hits of the 80s",
+            _id: '3KG8kwO0epkgTLFGEpTf9h',
+            name: 'Remastered hits of the 80s',
             imgUrl: [
               {
                 height: 640,
-                url: "https://mosaic.scdn.co/640/ab67616d0000b2732f124b6b8b940e378b41c1d1ab67616d0000b273a7865e686c36a4adda6c9978ab67616d0000b273b414c63fb435b622238c15edab67616d0000b273e2e8f804c2cdd5b3815adbf9",
-                width: 640
+                url: 'https://mosaic.scdn.co/640/ab67616d0000b2732f124b6b8b940e378b41c1d1ab67616d0000b273a7865e686c36a4adda6c9978ab67616d0000b273b414c63fb435b622238c15edab67616d0000b273e2e8f804c2cdd5b3815adbf9',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://mosaic.scdn.co/300/ab67616d0000b2732f124b6b8b940e378b41c1d1ab67616d0000b273a7865e686c36a4adda6c9978ab67616d0000b273b414c63fb435b622238c15edab67616d0000b273e2e8f804c2cdd5b3815adbf9",
-                width: 300
+                url: 'https://mosaic.scdn.co/300/ab67616d0000b2732f124b6b8b940e378b41c1d1ab67616d0000b273a7865e686c36a4adda6c9978ab67616d0000b273b414c63fb435b622238c15edab67616d0000b273e2e8f804c2cdd5b3815adbf9',
+                width: 300,
               },
               {
                 height: 60,
-                url: "https://mosaic.scdn.co/60/ab67616d0000b2732f124b6b8b940e378b41c1d1ab67616d0000b273a7865e686c36a4adda6c9978ab67616d0000b273b414c63fb435b622238c15edab67616d0000b273e2e8f804c2cdd5b3815adbf9",
-                width: 60
-              }
+                url: 'https://mosaic.scdn.co/60/ab67616d0000b2732f124b6b8b940e378b41c1d1ab67616d0000b273a7865e686c36a4adda6c9978ab67616d0000b273b414c63fb435b622238c15edab67616d0000b273e2e8f804c2cdd5b3815adbf9',
+                width: 60,
+              },
             ],
             createdBy: {
-              _id: "6734ad1b80e09674b9b8e09b",
-              name: "Lee Shavit",
-              imgUrl: null
+              _id: '6734ad1b80e09674b9b8e09b',
+              name: 'Lee Shavit',
+              imgUrl: null,
             },
             songCount: 369,
-            addedAt: "2024-03-15T09:23:12Z"
+            addedAt: '2024-03-15T09:23:12Z',
           },
           {
-            _id: "4HrvOxnSDAJ9ZdxqmiuNM4",
-            name: "Remastered",
+            _id: '4HrvOxnSDAJ9ZdxqmiuNM4',
+            name: 'Remastered',
             imgUrl: [
               {
                 height: null,
-                url: "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebbe7d19999e77cb33d22533259",
-                width: null
-              }
+                url: 'https://image-cdn-fa.spotifycdn.com/image/ab67706c0000bebbe7d19999e77cb33d22533259',
+                width: null,
+              },
             ],
             createdBy: {
-              _id: "6734ad1b80e09674b9b8e09b",
-              name: "Lee Shavit",
-              imgUrl: null
+              _id: '6734ad1b80e09674b9b8e09b',
+              name: 'Lee Shavit',
+              imgUrl: null,
             },
             songCount: 220,
-            addedAt: "2023-08-22T14:45:30Z"
+            addedAt: '2023-08-22T14:45:30Z',
           },
           {
-            _id: "37i9dQZF1E8PQHa6zKqm86",
-            name: "1979 - Remastered 2012 Radio",
+            _id: '37i9dQZF1E8PQHa6zKqm86',
+            name: '1979 - Remastered 2012 Radio',
             imgUrl: [
               {
                 height: null,
-                url: "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/track/5QLHGv0DfpeXLNFo7SFEy1/en",
-                width: null
-              }
+                url: 'https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/track/5QLHGv0DfpeXLNFo7SFEy1/en',
+                width: null,
+              },
             ],
             createdBy: {
-              _id: "6734ad1b80e09674b9b8e09b",
-              name: "Lee Shavit",
-              imgUrl: null
+              _id: '6734ad1b80e09674b9b8e09b',
+              name: 'Lee Shavit',
+              imgUrl: null,
             },
             songCount: 50,
-            addedAt: "2023-11-30T18:12:45Z"
+            addedAt: '2023-11-30T18:12:45Z',
           },
           {
-            _id: "37i9dQZF1E8zUAqMx5LMW6",
-            name: "Today - 2011 Remaster Radio",
+            _id: '37i9dQZF1E8zUAqMx5LMW6',
+            name: 'Today - 2011 Remaster Radio',
             imgUrl: [
               {
                 height: null,
-                url: "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/track/0u5aO1GYsIhAWCPuXdwnak/en",
-                width: null
-              }
+                url: 'https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/track/0u5aO1GYsIhAWCPuXdwnak/en',
+                width: null,
+              },
             ],
             createdBy: {
-              _id: "6734ad1b80e09674b9b8e09b",
-              name: "Lee Shavit",
-              imgUrl: null
+              _id: '6734ad1b80e09674b9b8e09b',
+              name: 'Lee Shavit',
+              imgUrl: null,
             },
             songCount: 50,
-            addedAt: "2024-01-05T11:34:22Z"
+            addedAt: '2024-01-05T11:34:22Z',
           },
           {
-            _id: "37i9dQZF1E8IG3MWt4dEsJ",
-            name: "Dreams - 2004 Remaster Radio",
+            _id: '37i9dQZF1E8IG3MWt4dEsJ',
+            name: 'Dreams - 2004 Remaster Radio',
             imgUrl: [
               {
                 height: null,
-                url: "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/track/0ofHAoxe9vBkTCp2UQIavz/en",
-                width: null
-              }
+                url: 'https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/track/0ofHAoxe9vBkTCp2UQIavz/en',
+                width: null,
+              },
             ],
             createdBy: {
-              _id: "6734ad1b80e09674b9b8e09b",
-              name: "Lee Shavit",
-              imgUrl: null
+              _id: '6734ad1b80e09674b9b8e09b',
+              name: 'Lee Shavit',
+              imgUrl: null,
             },
             songCount: 50,
-            addedAt: "2023-07-12T08:55:15Z"
-          }
-        ]
+            addedAt: '2023-07-12T08:55:15Z',
+          },
+        ],
       },
       {
-        name: "lidor nissim",
-        username: "lidor",
-        password: "$2b$10$BJhCeVm/18qCbzGBqWIFW.WOI7fufI/xUbVRdqt.RH8BcZpXph2u6",
+        name: 'lidor nissim',
+        username: 'lidor',
+        password: '$2b$10$BJhCeVm/18qCbzGBqWIFW.WOI7fufI/xUbVRdqt.RH8BcZpXph2u6',
         likedSongs: [
           {
-            _id: "7ne4VBA60CxGM75vw0EYad",
+            _id: '7ne4VBA60CxGM75vw0EYad',
             name: "That's So True",
             artists: {
-              name: "Gracie Abrams",
-              _id: "4tuJ0bMpJh08umKkEXKUI5"
+              name: 'Gracie Abrams',
+              _id: '4tuJ0bMpJh08umKkEXKUI5',
             },
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b2731dac3694b3289cd903cb3acf",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b2731dac3694b3289cd903cb3acf',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e021dac3694b3289cd903cb3acf",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e021dac3694b3289cd903cb3acf',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d000048511dac3694b3289cd903cb3acf",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d000048511dac3694b3289cd903cb3acf',
+                width: 64,
+              },
             ],
             duration: 166300,
             album: {
-              name: "The Secret of Us (Deluxe)",
-              _id: "0hBRqPYPXhr1RkTDG3n4Mk"
+              name: 'The Secret of Us (Deluxe)',
+              _id: '0hBRqPYPXhr1RkTDG3n4Mk',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "2plbrEY59IikOBgBGLjaoe",
-            name: "Die With A Smile",
+            _id: '2plbrEY59IikOBgBGLjaoe',
+            name: 'Die With A Smile',
             artists: {
-              name: "Lady Gaga",
-              _id: "1HY2Jd0NmPuamShAr6KMms"
+              name: 'Lady Gaga',
+              _id: '1HY2Jd0NmPuamShAr6KMms',
             },
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b27382ea2e9e1858aa012c57cd45",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b27382ea2e9e1858aa012c57cd45',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e0282ea2e9e1858aa012c57cd45",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e0282ea2e9e1858aa012c57cd45',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d0000485182ea2e9e1858aa012c57cd45",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d0000485182ea2e9e1858aa012c57cd45',
+                width: 64,
+              },
             ],
             duration: 251667,
             album: {
-              name: "Die With A Smile",
-              _id: "10FLjwfpbxLmW8c25Xyc2N"
+              name: 'Die With A Smile',
+              _id: '10FLjwfpbxLmW8c25Xyc2N',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "1d7Ptw3qYcfpdLNL5REhtJ",
-            name: "Taste",
+            _id: '1d7Ptw3qYcfpdLNL5REhtJ',
+            name: 'Taste',
             artists: {
-              name: "Sabrina Carpenter",
-              _id: "74KM79TiuVKeVCqs8QtB0B"
+              name: 'Sabrina Carpenter',
+              _id: '74KM79TiuVKeVCqs8QtB0B',
             },
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b2735e1ec3f6b114e4e4924f006f",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b2735e1ec3f6b114e4e4924f006f',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e025e1ec3f6b114e4e4924f006f",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e025e1ec3f6b114e4e4924f006f',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d000048515e1ec3f6b114e4e4924f006f",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d000048515e1ec3f6b114e4e4924f006f',
+                width: 64,
+              },
             ],
             duration: 157279,
             album: {
               name: "Short n' Sweet",
-              _id: "4B4Elma4nNDUyl6D5PvQkj"
+              _id: '4B4Elma4nNDUyl6D5PvQkj',
             },
-            youtubeId: ""
+            youtubeId: '',
           },
           {
-            _id: "5vNRhkKd0yEAg8suGBpjeY",
-            name: "APT.",
+            _id: '5vNRhkKd0yEAg8suGBpjeY',
+            name: 'APT.',
             artists: {
-              name: "ROSÉ",
-              _id: "3eVa5w3URK5duf6eyVDbu9"
+              name: 'ROSÉ',
+              _id: '3eVa5w3URK5duf6eyVDbu9',
             },
             imgUrl: [
               {
                 height: 640,
-                url: "https://i.scdn.co/image/ab67616d0000b273f8c8297efc6022534f1357e1",
-                width: 640
+                url: 'https://i.scdn.co/image/ab67616d0000b273f8c8297efc6022534f1357e1',
+                width: 640,
               },
               {
                 height: 300,
-                url: "https://i.scdn.co/image/ab67616d00001e02f8c8297efc6022534f1357e1",
-                width: 300
+                url: 'https://i.scdn.co/image/ab67616d00001e02f8c8297efc6022534f1357e1',
+                width: 300,
               },
               {
                 height: 64,
-                url: "https://i.scdn.co/image/ab67616d00004851f8c8297efc6022534f1357e1",
-                width: 64
-              }
+                url: 'https://i.scdn.co/image/ab67616d00004851f8c8297efc6022534f1357e1',
+                width: 64,
+              },
             ],
             duration: 169917,
             album: {
-              name: "APT.",
-              _id: "2IYQwwgxgOIn7t3iF6ufFD"
+              name: 'APT.',
+              _id: '2IYQwwgxgOIn7t3iF6ufFD',
             },
-            youtubeId: ""
-          }
+            youtubeId: '',
+          },
         ],
-        likedStations: []
-      }
+        likedStations: [],
+      },
     ]
 
     saveToStorage(STORAGE_KEY_USERS, users)
@@ -978,111 +979,111 @@ async function _createDemoUsers() {
 function _getDemoSongs() {
   return [
     {
-      _id: "3Z2tPWiNiIpg8UMMoowHIk",
-      name: "We Are The World",
+      _id: '3Z2tPWiNiIpg8UMMoowHIk',
+      name: 'We Are The World',
       artists: [
         {
-          name: "U.S.A. For Africa",
-          _id: "7sF6m3PpW6G6m6J2gzzmzM"
-        }
+          name: 'U.S.A. For Africa',
+          _id: '7sF6m3PpW6G6m6J2gzzmzM',
+        },
       ],
       album: {
-        name: "We Are The World",
-        _id: "2O6gXGWFJcNrLYAqDINrDa"
+        name: 'We Are The World',
+        _id: '2O6gXGWFJcNrLYAqDINrDa',
       },
       duration: 427333,
       imgUrl: [
         {
           height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b273920f421260033ee54865d673",
-          width: 640
+          url: 'https://i.scdn.co/image/ab67616d0000b273920f421260033ee54865d673',
+          width: 640,
         },
         {
           height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e02920f421260033ee54865d673",
-          width: 300
+          url: 'https://i.scdn.co/image/ab67616d00001e02920f421260033ee54865d673',
+          width: 300,
         },
         {
           height: 64,
-          url: "https://i.scdn.co/image/ab67616d00004851920f421260033ee54865d673",
-          width: 64
-        }
+          url: 'https://i.scdn.co/image/ab67616d00004851920f421260033ee54865d673',
+          width: 64,
+        },
       ],
       addedAt: 1731851718157,
-      youtubeId: ""
+      youtubeId: '',
     },
     {
-      _id: "4PTG3Z6ehGkBFwjybzWkR8",
-      name: "Never Gonna Give You Up",
+      _id: '4PTG3Z6ehGkBFwjybzWkR8',
+      name: 'Never Gonna Give You Up',
       artists: [
         {
-          name: "Rick Astley",
-          _id: "0gxyHStUsqpMadRV0Di1Qt"
-        }
+          name: 'Rick Astley',
+          _id: '0gxyHStUsqpMadRV0Di1Qt',
+        },
       ],
       album: {
-        name: "Whenever You Need Somebody",
-        _id: "6eUW0wxWtzkFdaEFsTJto6"
+        name: 'Whenever You Need Somebody',
+        _id: '6eUW0wxWtzkFdaEFsTJto6',
       },
       duration: 213573,
       imgUrl: [
         {
           height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b27315ebbedaacef61af244262a8",
-          width: 640
+          url: 'https://i.scdn.co/image/ab67616d0000b27315ebbedaacef61af244262a8',
+          width: 640,
         },
         {
           height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e0215ebbedaacef61af244262a8",
-          width: 300
+          url: 'https://i.scdn.co/image/ab67616d00001e0215ebbedaacef61af244262a8',
+          width: 300,
         },
         {
           height: 64,
-          url: "https://i.scdn.co/image/ab67616d0000485115ebbedaacef61af244262a8",
-          width: 64
-        }
+          url: 'https://i.scdn.co/image/ab67616d0000485115ebbedaacef61af244262a8',
+          width: 64,
+        },
       ],
       addedAt: 1731851930306,
-      youtubeId: ""
+      youtubeId: '',
     },
     {
-      _id: "7JkZ2hQdDonRURJjlMuh8q",
-      name: "What Is Love - 7\" Mix",
+      _id: '7JkZ2hQdDonRURJjlMuh8q',
+      name: 'What Is Love - 7" Mix',
       artists: [
         {
-          name: "Haddaway",
-          _id: "0Suv0tRrNrUlRzAy8aXjma"
-        }
+          name: 'Haddaway',
+          _id: '0Suv0tRrNrUlRzAy8aXjma',
+        },
       ],
       album: {
-        name: "What Is Love",
-        _id: "5IrMfIT621GidGPuOSRTB4"
+        name: 'What Is Love',
+        _id: '5IrMfIT621GidGPuOSRTB4',
       },
       duration: 270373,
       imgUrl: [
         {
           height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b2739c783e96159db6857816809e",
-          width: 640
+          url: 'https://i.scdn.co/image/ab67616d0000b2739c783e96159db6857816809e',
+          width: 640,
         },
         {
           height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e029c783e96159db6857816809e",
-          width: 300
+          url: 'https://i.scdn.co/image/ab67616d00001e029c783e96159db6857816809e',
+          width: 300,
         },
         {
           height: 64,
-          url: "https://i.scdn.co/image/ab67616d000048519c783e96159db6857816809e",
-          width: 64
-        }
+          url: 'https://i.scdn.co/image/ab67616d000048519c783e96159db6857816809e',
+          width: 64,
+        },
       ],
       addedAt: 1731851942001,
-      youtubeId: ""
-    }
+      youtubeId: '',
+    },
   ]
 }
 
-async function _getDemoStationsForNewUser( _id, name, imgUrl ) {
+async function _getDemoStationsForNewUser(_id, name, imgUrl) {
   let station1 = {
     name: 'Happy songs',
     imgUrl: 'https://res.cloudinary.com/dsymwlagn/image/upload/v1731852449/uus7rijw5s7npwhjjehl.jpg',
@@ -1092,108 +1093,110 @@ async function _getDemoStationsForNewUser( _id, name, imgUrl ) {
     songCount: 3,
     likedByUsers: [],
     addedAt: 1696789200000,
-    songs: [{
-      _id: "0bRXwKfigvpKZUurwqAlEh",
-      name: "Lovely Day",
-      artists: [
-        {
-          name: "Bill Withers",
-          _id: "1ThoqLcyIYvZn7iWbj8fsj"
-        }
-      ],
-      album: {
-        name: "Menagerie",
-        _id: "3QjPTUI6UcPr5m9RujkO3c"
+    songs: [
+      {
+        _id: '0bRXwKfigvpKZUurwqAlEh',
+        name: 'Lovely Day',
+        artists: [
+          {
+            name: 'Bill Withers',
+            _id: '1ThoqLcyIYvZn7iWbj8fsj',
+          },
+        ],
+        album: {
+          name: 'Menagerie',
+          _id: '3QjPTUI6UcPr5m9RujkO3c',
+        },
+        duration: 254560,
+        imgUrl: [
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000b2735ade9b4d547203c9061fc340',
+            width: 640,
+            height: 640,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00001e025ade9b4d547203c9061fc340',
+            width: 300,
+            height: 300,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d000048515ade9b4d547203c9061fc340',
+            width: 64,
+            height: 64,
+          },
+        ],
+        addedAt: 1731853016255,
+        youtubeId: '',
       },
-      duration: 254560,
-      imgUrl: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b2735ade9b4d547203c9061fc340",
-          width: 640,
-          height: 640
+      {
+        _id: '2hKdd3qO7cWr2Jo0Bcs0MA',
+        name: 'Drops of Jupiter (Tell Me)',
+        artists: [
+          {
+            name: 'Train',
+            _id: '3FUY2gzHeIiaesXtOAdB7A',
+          },
+        ],
+        album: {
+          name: 'Drops Of Jupiter',
+          _id: '6j6Zgm7vzAZegr48UppFVT',
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e025ade9b4d547203c9061fc340",
-          width: 300,
-          height: 300
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d000048515ade9b4d547203c9061fc340",
-          width: 64,
-          height: 64
-        }
-      ],
-      addedAt: 1731853016255,
-      youtubeId: ""
-    },
-    {
-      _id: "2hKdd3qO7cWr2Jo0Bcs0MA",
-      name: "Drops of Jupiter (Tell Me)",
-      artists: [
-        {
-          name: "Train",
-          _id: "3FUY2gzHeIiaesXtOAdB7A"
-        }
-      ],
-      album: {
-        name: "Drops Of Jupiter",
-        _id: "6j6Zgm7vzAZegr48UppFVT"
+        duration: 259933,
+        imgUrl: [
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000b273a65df73c4011b6a9357c89f0',
+            width: 640,
+            height: 640,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00001e02a65df73c4011b6a9357c89f0',
+            width: 300,
+            height: 300,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00004851a65df73c4011b6a9357c89f0',
+            width: 64,
+            height: 64,
+          },
+        ],
+        addedAt: 1731853027080,
+        youtubeId: '',
       },
-      duration: 259933,
-      imgUrl: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b273a65df73c4011b6a9357c89f0",
-          width: 640,
-          height: 640
+      {
+        _id: '2M9ro2krNb7nr7HSprkEgo',
+        name: 'Fast Car',
+        artists: [
+          {
+            name: 'Tracy Chapman',
+            _id: '7oPgCQqMMXEXrNau5vxYZP',
+          },
+        ],
+        album: {
+          name: 'Tracy Chapman',
+          _id: '6hmmX5UP4rIvOpGSaPerV8',
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e02a65df73c4011b6a9357c89f0",
-          width: 300,
-          height: 300
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00004851a65df73c4011b6a9357c89f0",
-          width: 64,
-          height: 64
-        }
-      ],
-      addedAt: 1731853027080,
-      youtubeId: ""
-    },
-    {
-      _id: "2M9ro2krNb7nr7HSprkEgo",
-      name: "Fast Car",
-      artists: [
-        {
-          name: "Tracy Chapman",
-          _id: "7oPgCQqMMXEXrNau5vxYZP"
-        }
-      ],
-      album: {
-        name: "Tracy Chapman",
-        _id: "6hmmX5UP4rIvOpGSaPerV8"
+        duration: 296800,
+        imgUrl: [
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000b27390b8a540137ee2a718a369f9',
+            width: 640,
+            height: 640,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00001e0290b8a540137ee2a718a369f9',
+            width: 300,
+            height: 300,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000485190b8a540137ee2a718a369f9',
+            width: 64,
+            height: 64,
+          },
+        ],
+        addedAt: 1731853030328,
+        youtubeId: '',
       },
-      duration: 296800,
-      imgUrl: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b27390b8a540137ee2a718a369f9",
-          width: 640,
-          height: 640
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e0290b8a540137ee2a718a369f9",
-          width: 300,
-          height: 300
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d0000485190b8a540137ee2a718a369f9",
-          width: 64,
-          height: 64
-        }
-      ],
-      addedAt: 1731853030328,
-      youtubeId: ""
-    }]
+    ],
   }
   station1 = await stationService.post(station1)
   let station2 = {
@@ -1204,108 +1207,110 @@ async function _getDemoStationsForNewUser( _id, name, imgUrl ) {
     description: '',
     songCount: 7,
     addedAt: 1698624000000,
-    songs: [{
-      _id: "0HPD5WQqrq7wPWR7P7Dw1i",
-      name: "TiK ToK",
-      artists: [
-        {
-          name: "Kesha",
-          _id: "6LqNN22kT3074XbTVUrhzX"
-        }
-      ],
-      album: {
-        name: "Animal",
-        _id: "4Fts9DL8sj5UQ0TkN4SvMK"
+    songs: [
+      {
+        _id: '0HPD5WQqrq7wPWR7P7Dw1i',
+        name: 'TiK ToK',
+        artists: [
+          {
+            name: 'Kesha',
+            _id: '6LqNN22kT3074XbTVUrhzX',
+          },
+        ],
+        album: {
+          name: 'Animal',
+          _id: '4Fts9DL8sj5UQ0TkN4SvMK',
+        },
+        duration: 199693,
+        imgUrl: [
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000b27365836b344b9d983462d5f1a7',
+            width: 640,
+            height: 640,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00001e0265836b344b9d983462d5f1a7',
+            width: 300,
+            height: 300,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000485165836b344b9d983462d5f1a7',
+            width: 64,
+            height: 64,
+          },
+        ],
+        addedAt: 1731853045580,
+        youtubeId: '',
       },
-      duration: 199693,
-      imgUrl: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b27365836b344b9d983462d5f1a7",
-          width: 640,
-          height: 640
+      {
+        _id: '2CEgGE6aESpnmtfiZwYlbV',
+        name: 'Dynamite',
+        artists: [
+          {
+            name: 'Taio Cruz',
+            _id: '6MF9fzBmfXghAz953czmBC',
+          },
+        ],
+        album: {
+          name: 'The Rokstarr Hits Collection',
+          _id: '0eGvq1J5Ke7VlLLOYIlY4k',
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e0265836b344b9d983462d5f1a7",
-          width: 300,
-          height: 300
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d0000485165836b344b9d983462d5f1a7",
-          width: 64,
-          height: 64
-        }
-      ],
-      addedAt: 1731853045580,
-      youtubeId: ""
-    },
-    {
-      _id: "2CEgGE6aESpnmtfiZwYlbV",
-      name: "Dynamite",
-      artists: [
-        {
-          name: "Taio Cruz",
-          _id: "6MF9fzBmfXghAz953czmBC"
-        }
-      ],
-      album: {
-        name: "The Rokstarr Hits Collection",
-        _id: "0eGvq1J5Ke7VlLLOYIlY4k"
+        duration: 202613,
+        imgUrl: [
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000b27366c3eb32692a0ae487079cf1',
+            width: 640,
+            height: 640,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00001e0266c3eb32692a0ae487079cf1',
+            width: 300,
+            height: 300,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000485166c3eb32692a0ae487079cf1',
+            width: 64,
+            height: 64,
+          },
+        ],
+        addedAt: 1731853047178,
+        youtubeId: '',
       },
-      duration: 202613,
-      imgUrl: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b27366c3eb32692a0ae487079cf1",
-          width: 640,
-          height: 640
+      {
+        _id: '0nrRP2bk19rLc0orkWPQk2',
+        name: 'Wake Me Up',
+        artists: [
+          {
+            name: 'Avicii',
+            _id: '1vCWHaC5f2uS3yhpwWbIA6',
+          },
+        ],
+        album: {
+          name: 'True',
+          _id: '2H6i2CrWgXE1HookLu8Au0',
         },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e0266c3eb32692a0ae487079cf1",
-          width: 300,
-          height: 300
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d0000485166c3eb32692a0ae487079cf1",
-          width: 64,
-          height: 64
-        }
-      ],
-      addedAt: 1731853047178,
-      youtubeId: ""
-    },
-    {
-      _id: "0nrRP2bk19rLc0orkWPQk2",
-      name: "Wake Me Up",
-      artists: [
-        {
-          name: "Avicii",
-          _id: "1vCWHaC5f2uS3yhpwWbIA6"
-        }
-      ],
-      album: {
-        name: "True",
-        _id: "2H6i2CrWgXE1HookLu8Au0"
+        duration: 247426,
+        imgUrl: [
+          {
+            url: 'https://i.scdn.co/image/ab67616d0000b273e14f11f796cef9f9a82691a7',
+            width: 640,
+            height: 640,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00001e02e14f11f796cef9f9a82691a7',
+            width: 300,
+            height: 300,
+          },
+          {
+            url: 'https://i.scdn.co/image/ab67616d00004851e14f11f796cef9f9a82691a7',
+            width: 64,
+            height: 64,
+          },
+        ],
+        addedAt: 1731853052088,
+        youtubeId: '',
       },
-      duration: 247426,
-      imgUrl: [
-        {
-          url: "https://i.scdn.co/image/ab67616d0000b273e14f11f796cef9f9a82691a7",
-          width: 640,
-          height: 640
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e02e14f11f796cef9f9a82691a7",
-          width: 300,
-          height: 300
-        },
-        {
-          url: "https://i.scdn.co/image/ab67616d00004851e14f11f796cef9f9a82691a7",
-          width: 64,
-          height: 64
-        }
-      ],
-      addedAt: 1731853052088,
-      youtubeId: ""
-    }]
+    ],
   }
   station2 = await stationService.post(station2)
   return [
@@ -1315,7 +1320,7 @@ async function _getDemoStationsForNewUser( _id, name, imgUrl ) {
       imgUrl: station1.imgUrl,
       createdBy: station1.createdBy,
       songCount: station1.songCount,
-      addedAt: station1.addedAt
+      addedAt: station1.addedAt,
     },
     {
       _id: station2._id,
@@ -1323,7 +1328,7 @@ async function _getDemoStationsForNewUser( _id, name, imgUrl ) {
       imgUrl: station2.imgUrl,
       createdBy: station2.createdBy,
       songCount: station2.songCount,
-      addedAt: station2.addedAt
-    }
+      addedAt: station2.addedAt,
+    },
   ]
 }
