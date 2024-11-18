@@ -74,7 +74,7 @@ async function update(user) {
 async function login(userCred) {
   try {
     const users = await storageService.query(STORAGE_KEY_USERS)
-    console.log('users in login:', users) // Debug log
+    console.log('users in login:', users)
 
     if (!users) users = await _createDemoUsers()
 

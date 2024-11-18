@@ -13,6 +13,7 @@ import { Library } from './cmps/Library.jsx'
 import { MobileNav } from './cmps/MobileNav.jsx'
 import { SearchResults } from './cmps/SearchResults.jsx'
 import { GenreDetails } from './pages/GenreDetails.jsx'
+import { LoginPage } from './pages/LoginPage.jsx'
 
 export function RootCmp() {
   const [isLibraryExpanded, setIsLibraryExpanded] = useState(true)
@@ -30,6 +31,7 @@ export function RootCmp() {
         <main className='main scroll-container'>
           <Routes>
             <Route path='' element={<HomePage />} />
+            <Route path='/login' element={<LoginPage />} />
             <Route path='station' element={<StationDetails />} />
             <Route path='/station/:stationId' element={<StationDetails />} />
             <Route path='/search' element={<SearchResults />} />
