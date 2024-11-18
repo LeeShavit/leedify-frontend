@@ -2,7 +2,14 @@ import { userService } from '../../services/user'
 import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
-import { REMOVE_USER, SET_USER, SET_USERS, LIKE_SONG, DISLIKE_SONG, UPDATE_USER_LIKED_STATION } from '../reducers/user.reducer'
+import {
+  REMOVE_USER,
+  SET_USER,
+  SET_USERS,
+  LIKE_SONG,
+  DISLIKE_SONG,
+  UPDATE_USER_LIKED_STATION,
+} from '../reducers/user.reducer'
 import { loadStations } from './station.actions'
 
 export async function loadUsers() {
@@ -25,16 +32,18 @@ export async function removeUser(userId) {
 
 export async function login(credentials) {
   try {
-    const user = await userService.login(credentials)
-    console.log(user)
-    store.dispatch({
-      type: SET_USER,
-      user,
-    })
-    // socketService.login(user._id)
-    return user
+    const response = await userService.login(credentials)
+    if (response.success) {
+      store.dispatch({
+        type: SET_USER,
+        user: response.user,
+      })
+      return response
+    } else {
+      throw new Error(response.error)
+    }
   } catch (err) {
-    console.log('Cannot login', err)
+    console.error('Cannot login', err)
     throw err
   }
 }
@@ -72,13 +81,13 @@ export async function logout() {
 }
 
 export async function loadUser(userId) {
-    try {
-        const user = await userService.getById(userId)
-        store.dispatch({ type: SET_USER, user })
-    } catch (err) {
-        showErrorMsg('Cannot load user')
-        console.log('Cannot load user', err)
-    }
+  try {
+    const user = await userService.getById(userId)
+    store.dispatch({ type: SET_USER, user })
+  } catch (err) {
+    showErrorMsg('Cannot load user')
+    console.log('Cannot load user', err)
+  }
 }
 
 export async function updateUsersLikedStation(station) {

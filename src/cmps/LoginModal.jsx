@@ -1,6 +1,7 @@
 import { SpotifyIcon } from '../assets/img/app-header/icons'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Google } from '@mui/icons-material'
+import { User } from 'lucide-react'
 import { firebaseAuthService } from '../services/firebase.auth.service'
 import { loadStations } from '../store/actions/station.actions'
 import { useNavigate } from 'react-router-dom'
@@ -16,6 +17,31 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
     password: '',
   })
 
+  useEffect(() => {
+    setError(null)
+  }, [isOpen])
+
+  const handleGuestLogin = async () => {
+    try {
+      setIsLoading(true)
+      setError(null)
+      const result = await onLogin({
+        username: 'guest',
+        password: 'guest123',
+      })
+      if (result.success) {
+        await loadStations()
+        onClose()
+      } else {
+        setError(result.error)
+      }
+    } catch (err) {
+      console.error('Guest login failed:', err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   const handleGoogleLogin = async () => {
     try {
       setIsLoading(true)
@@ -26,7 +52,6 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
       navigate('/', { replace: true })
       window.location.reload()
     } catch (err) {
-      setError('Failed to login with Google. Please try again.')
       console.error('Google login failed:', err)
     } finally {
       setIsLoading(false)
@@ -34,14 +59,35 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
   }
   if (!isOpen) return null
 
-  if (!isOpen) return null
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    if (isLoginMode) {
-      onLogin({ username: formData.username, password: formData.password })
-    } else {
-      onSignup(formData)
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      if (isLoginMode) {
+        await onLogin({
+          username: formData.username,
+          password: formData.password,
+        })
+      } else {
+        await onSignup(formData)
+      }
+    } catch (err) {
+      if (err.response?.status === 401) {
+        setError('Invalid username or password')
+        setFormData((prev) => ({
+          ...prev,
+          password: '',
+        }))
+      } else if (err.response?.status === 409) {
+        setError('Username already exists')
+      } else {
+        setError(err.message || 'An error occurred. Please try again.')
+      }
+      navigate('/login', { replace: true })
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -51,6 +97,7 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
       ...prev,
       [name]: value,
     }))
+    if (error) setError(null)
   }
 
   const toggleMode = () => {
@@ -76,7 +123,10 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
               {isLoading ? 'Connecting...' : 'Continue with Google'}
             </button>
 
-            <button className='login-modal__social-button'>Continue with Apple</button>
+            <button className='login-modal__social-button' onClick={handleGuestLogin} disabled={isLoading}>
+              <User size={20} />
+              {isLoading ? 'Connecting...' : 'Continue as Guest'}
+            </button>
           </div>
 
           <div className='login-modal__divider'>

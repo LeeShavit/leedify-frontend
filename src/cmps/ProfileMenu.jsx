@@ -10,24 +10,26 @@ export function ProfileMenu({ anchorEl, open, onClose }) {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const navigate = useNavigate()
 
-  const handleLogout = async (e) => {
+  const handleLogout = async () => {
     try {
-      setIsLoginModalOpen(true)
+      // await logout()
       onClose()
+      navigate('/login')
     } catch (err) {
       console.error('Logout failed:', err)
     }
   }
+
   const handleSignup = async (userData) => {
     try {
       await logout()
       await signup(userData)
       setIsLoginModalOpen(false)
       await loadStations()
-      navigate('/', { replace: true })
-      window.location.reload()
+      // navigate('/', { replace: true })
+      // window.location.reload()
     } catch (err) {
-      console.error('Signup failed:', err)
+      throw err
     }
   }
 
@@ -37,10 +39,10 @@ export function ProfileMenu({ anchorEl, open, onClose }) {
       await login(credentials)
       setIsLoginModalOpen(false)
       await loadStations()
-      navigate('/', { replace: true })
-      window.location.reload()
+      // navigate('/', { replace: true })
+      // window.location.reload()
     } catch (err) {
-      console.error('Login failed:', err)
+      throw err
     }
   }
 
