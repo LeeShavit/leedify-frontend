@@ -9,7 +9,6 @@ function getEmptyUser() {
     imgUrl: '',
     likedSongs: [],
     likedStations: [],
-    createdStations: [],
   }
 }
 

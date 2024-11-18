@@ -7,6 +7,7 @@ import {
   ConnectToDevice,
   FullScreen,
   Lyrics,
+  Minimize,
   NowPlayingView,
   OpenMiniplayer,
   QueueIcon,
@@ -19,6 +20,8 @@ import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { getItemsIds } from '../services/util.service'
 import { Like, Liked } from '../assets/img/playlist-details/icons'
 import { Loader } from '../assets/img/library/icons.jsx'
+import { ArrowDown, ChevronDown } from 'lucide-react'
+import { FastAverageColor } from 'fast-average-color'
 
 export function Player() {
   const playerRef = useRef(null)
@@ -28,7 +31,14 @@ export function Player() {
   const currentSong = useSelector((state) => state.playerModule.currentSong)
   const [likedSongsIds, setLikedSongsIds] = useState(getItemsIds(user.likedSongs))
 
-  useEffect(() => {})
+  const fac = new FastAverageColor()
+  const [isFullScreen, setIfFullScreen] = useState(false)
+
+  useEffect(() => {
+    if (currentSong) {
+      loadBackgroundColor()
+    }
+  }, [currentSong])
 
   function handleVolumeClick({ target }) {
     if (!playerRef.current) return
@@ -47,19 +57,36 @@ export function Player() {
     }
   }
 
-  if (!currentSong || !user) return <Loader/>
+  async function loadBackgroundColor() {
+    try {
+      const song = await currentSong
+      if (!song) return
+      const img = typeof song.imgUrl === 'string' ? song.imgUrl :song.imgUrl[0].url
+      const color = await fac.getColorAsync(img)
+      document.documentElement.style.setProperty(
+        '--dynamic-background',
+        `rgb(${color.value[0]}, ${color.value[1]}, ${color.value[2]})`
+      )
+    } catch (err) {
+      console.log('Error getting average color:', err)
+      document.documentElement.style.setProperty('--dynamic-background', 'rgb(18, 18, 18)')
+    }
+  }
+
+  if (!currentSong || !user) return <Loader />
 
   return (
-    <section className='player full'>
-      <div className='song-info'>
+    <section className={`player full ${isFullScreen ? 'full-screen' : 'minimized'} dynamic-bg`}>
+      <button className='minimize' onClick={() => setIfFullScreen(false)}><ChevronDown /></button>
+      <div className='song-info' onClick={() => setIfFullScreen(true)}>
         <img
           className='cover-img'
           src={
             currentSong?.imgUrl && Array.isArray(currentSong.imgUrl)
               ? currentSong.imgUrl[1]?.url
               : typeof currentSong?.imgUrl === 'string'
-              ? currentSong.imgUrl
-              : DEFAULT_IMG
+                ? currentSong.imgUrl
+                : DEFAULT_IMG
           }
           alt={currentSong?.name || 'Song cover'}
         />
@@ -82,15 +109,15 @@ export function Player() {
           {likedSongsIds?.includes(currentSong?._id) ? <Liked /> : <Like />}
         </button>
       </div>
-      <PlayerControls playerRef={playerRef} volume={volume} />
-      <div className='player-buttons'>
+      <PlayerControls playerRef={playerRef} volume={volume} className={isFullScreen ? 'full-screen' : ''} />
+      <div className='player-buttons '>
         <button>
           <NowPlayingView />
         </button>
         <button>
           <Lyrics />
         </button>
-        <button>
+        <button className='queue'>
           <QueueIcon />
         </button>
         <button>

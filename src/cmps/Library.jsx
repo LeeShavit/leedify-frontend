@@ -19,6 +19,7 @@ import { addStation, loadStations } from '../store/actions/station.actions'
 import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/'
 import { likeStation } from '../store/actions/station.actions'
+import { capitalizeFirstLetters } from '../services/util.service'
 
 export function Library({ isExpanded, onToggleLibrary }) {
   const stations = useSelector((state) => state.stationModule.stations)
@@ -196,7 +197,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
             aria-expanded={open ? 'true' : undefined}
             sx={{ textTransform: 'none', fontFamily: 'Spotify-mix, sans-serif' }}
           >
-            {formatSortText(sortBy)}
+            {capitalizeFirstLetters(sortBy)}
             <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} />
           </Button>
           <LibrarySortMenu

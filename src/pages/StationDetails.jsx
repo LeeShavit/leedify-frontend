@@ -17,6 +17,7 @@ import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
 import { SOCKET_EMIT_SET_STATION_ID, SOCKET_EVENT_EDIT_STATION, SOCKET_EVENT_SAVE_STATION, socketService } from '../services/socket.service'
 import { ListIcon, Loader } from '../assets/img/library/icons'
+import { showUserMsg } from '../services/event-bus.service'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -117,6 +118,7 @@ export function StationDetails() {
       updateUsersLikedStation(updatedStation)
       setIsEditModalOpen(false)
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
+      showUserMsg('Playlist Updated Successfully')
     } catch (err) {
       console.error('Failed to update station:', err)
     }
@@ -189,6 +191,7 @@ export function StationDetails() {
       }
       dislikeStation(stationId)
       navigate('/')
+      showUserMsg('Playlist Removed Successfully')
     } catch {
       showErrorMsg(`failed to remove station`)
     }
