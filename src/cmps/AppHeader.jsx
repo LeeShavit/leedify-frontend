@@ -31,7 +31,7 @@ export function AppHeader({ className }) {
 
   return (
     <header className={`app-header full ${className}`}>
-      <div className='app-header__logo'>
+      <div onClick={() => navigate('/')} className='app-header__logo'>
         <SpotifyIcon />
       </div>
 

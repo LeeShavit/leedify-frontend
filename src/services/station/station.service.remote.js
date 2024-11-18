@@ -1,6 +1,7 @@
 import { httpService } from '../http.service'
 import { userService } from '../user'
 import { ApiService } from '../api.service'
+import { recentlyPlayedService } from '../recently-played.service'
 
 export const stationService = {
   query,
@@ -16,32 +17,31 @@ export const stationService = {
 }
 
 async function query(filterBy) {
-    if (!filterBy) {
-        const { _id } = userService.getLoggedinUser()
-        filterBy = { createdById: _id }
-    }
-    return httpService.get(`station`, filterBy)
+  if (!filterBy) {
+    const { _id } = userService.getLoggedinUser()
+    filterBy = { createdById: _id }
+  }
+  return httpService.get(`station`, filterBy)
 }
 
 async function getById(stationId) {
-    if(stationId.length === 22){
-        try {
-            console.log('Fetching station from Spotify...')
-            const spotifyStation = await ApiService.getSpotifyItems({ type: 'station', id: stationId, market: 'US', })
-            return spotifyStation
-        } catch (spotifyErr) {
-            console.error('Failed to fetch from Spotify:', spotifyErr)
-        }
-    } else {
-        try {
-            const station = await httpService.get(`station/${stationId}`)
-            return station
-        } catch (err) {
-            console.error('Failed to get station:', err)
-        }
-    }  
+  if (stationId.length === 22) {
+    try {
+      console.log('Fetching station from Spotify...')
+      const spotifyStation = await ApiService.getSpotifyItems({ type: 'station', id: stationId, market: 'US' })
+      return spotifyStation
+    } catch (spotifyErr) {
+      console.error('Failed to fetch from Spotify:', spotifyErr)
+    }
+  } else {
+    try {
+      const station = await httpService.get(`station/${stationId}`)
+      return station
+    } catch (err) {
+      console.error('Failed to get station:', err)
+    }
+  }
 }
-
 
 async function remove(stationId) {
   return httpService.delete(`station/${stationId}`)
@@ -49,7 +49,7 @@ async function remove(stationId) {
 
 async function save(station) {
   if (station._id) {
-    const res= await httpService.put(`station/${station._id}`, station)
+    const res = await httpService.put(`station/${station._id}`, station)
     return res
   } else {
     return await httpService.post('station', station)
@@ -61,8 +61,8 @@ async function addSongToStation(stationId, song) {
 }
 
 async function removeSongFromStation(stationId, songId) {
-    console.log(stationId, songId)
-    return await httpService.delete(`station/${stationId}/song/${songId}`)
+  console.log(stationId, songId)
+  return await httpService.delete(`station/${stationId}/song/${songId}`)
 }
 
 async function getLikedSongsStation() {
@@ -74,7 +74,7 @@ async function getSearchResSong(txt) {
   return res.songs
 }
 
-async function getSections(){
+async function getSections() {
   return await ApiService.getStationsForHome('US')
 }
 
