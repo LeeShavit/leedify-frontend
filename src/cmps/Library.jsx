@@ -35,6 +35,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
   const open = Boolean(anchorEl)
 
   useEffect(() => {
+    if (!user) return
     loadStations(sortBy)
   }, [sortBy])
 
@@ -124,7 +125,13 @@ export function Library({ isExpanded, onToggleLibrary }) {
             <span className='library-item__title'>{itemName}</span>
             <div className='library-item__details'>
               <span className='playlist-tag'>Playlist</span>
-              <span>{isLikedSongs ? `${user.likedSongs?.length || 0} songs` : item.createdBy?.name || 'Unknown'}</span>
+              <span>
+                {user
+                  ? isLikedSongs
+                    ? `${user.likedSongs?.length || 0} songs`
+                    : item.createdBy?.name || 'Unknown'
+                  : 'Guest'}
+              </span>
             </div>
 
             {view === 'list' && (
