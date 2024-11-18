@@ -7,6 +7,7 @@ import { PlaylistCard } from '../cmps/PlaylistCard'
 import { loadUser, login } from '../store/actions/user.actions'
 import { userService } from '../services/user'
 import { stationService } from '../services/station'
+import { makeId } from '../services/util.service'
 
 export function HomePage() {
   const stations = useSelector((state) => state.stationModule.stations)
@@ -21,7 +22,7 @@ export function HomePage() {
   async function loadData() {
     try {
       const loggedInUser = userService.getLoggedinUser()
-      if (!loggedInUser._id) {
+      if (!loggedInUser) {
         await login({ username: 'guest', password: 'guest123' })
         await loadStations()
         navigate('/', { replace: true })
@@ -35,23 +36,19 @@ export function HomePage() {
 
   async function loadSections() {
     const newSections = await stationService.getSections()
+    console.log(newSections)
     setSections(newSections)
   }
 
   return (
     <div className='home-page'>
-      <div className='filter-buttons'>
-        <button className='filter-buttons__button filter-buttons__button--active'>All</button>
-        <button className='filter-buttons__button'>Music</button>
-        <button className='filter-buttons__button'>Podcasts</button>
-      </div>
       <QuickAccess />
-      {sections?.map((section, index) => (
-        <section key={index} className='home-page__section'>
-          <SectionHeader title={section.category} />
+      {sections?.map((section) => (
+        <section key={section.categoryId} className='home-page__section'>
+          <SectionHeader title={section.category} categoryId={section.categoryId} />
           <div className='home-page__grid'>
             {section?.stations.map((station) => (
-              <PlaylistCard key={station._id} station={station} />
+              <PlaylistCard key={makeId()} station={station} />
             ))}
           </div>
         </section>

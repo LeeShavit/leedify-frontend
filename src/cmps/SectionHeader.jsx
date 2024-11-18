@@ -1,6 +1,16 @@
+import { lightGreen } from '@mui/material/colors'
 import React from 'react'
 
-export function SectionHeader({ title, onShowAll }) {
+import { useNavigate } from 'react-router'
+
+export function SectionHeader({ title, categoryId }) {
+  const navigate = useNavigate()
+
+  function onShowAll() {
+    if (categoryId) {
+      navigate(`/genre/${categoryId}`)
+    }
+  }
   return (
     <div className='section-header'>
       <h2 className='section-header__title'>{title}</h2>

@@ -28,7 +28,7 @@ export function Player() {
   const user = useSelector((state) => state.userModule.user)
 
   const currentSong = useSelector((state) => state.playerModule.currentSong)
-  const [likedSongsIds, setLikedSongsIds] = useState(getItemsIds(user.likedSongs))
+  const [likedSongsIds, setLikedSongsIds] = useState(user?.likedSongs ? getItemsIds(user.likedSongs) : [])
 
   const fac = new FastAverageColor()
   const [isFullScreen, setIfFullScreen] = useState(false)
@@ -61,7 +61,7 @@ export function Player() {
     try {
       const song = await currentSong
       if (!song) return
-      const img = typeof song.imgUrl === 'string' ? song.imgUrl :song.imgUrl[0].url
+      const img = typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[0].url
       const color = await fac.getColorAsync(img)
       document.documentElement.style.setProperty(
         '--dynamic-background',
@@ -77,7 +77,9 @@ export function Player() {
 
   return (
     <section className={`player full ${isFullScreen ? 'full-screen' : 'minimized'} dynamic-bg`}>
-      <button className='minimize' onClick={() => setIfFullScreen(false)}><ChevronDown /></button>
+      <button className='minimize' onClick={() => setIfFullScreen(false)}>
+        <ChevronDown />
+      </button>
       <div className='song-info' onClick={() => setIfFullScreen(true)}>
         <img
           className='cover-img'
@@ -85,8 +87,8 @@ export function Player() {
             currentSong?.imgUrl && Array.isArray(currentSong.imgUrl)
               ? currentSong.imgUrl[1]?.url
               : typeof currentSong?.imgUrl === 'string'
-                ? currentSong.imgUrl
-                : DEFAULT_IMG
+              ? currentSong.imgUrl
+              : DEFAULT_IMG
           }
           alt={currentSong?.name || 'Song cover'}
         />
