@@ -106,7 +106,7 @@ async function getSpotifyItems(req) {
 function _getEndpoints(id, query) {
   return {
     categoryStations: `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=il&limit=50`,
-    featured: `https://api.spotify.com/v1/browse/featured-playlists?country=US&locale=en_US&limit=10`,
+    featured: `https://api.spotify.com/v1/browse/featured-playlists?country=US&locale=en_US&limit=20`,
     station: `https://api.spotify.com/v1/playlists/${id}`,
     playlistSearch: `https://api.spotify.com/v1/search?q=${query}&type=playlist&limit=20`,
     tracks: `https://api.spotify.com/v1/playlists/${id}/tracks`,
@@ -184,8 +184,6 @@ function _cleanTrackData(data) {
   }
 }
 
-
-
 function _cleanArtistRelatedArtistsData(data) {
   return data.artists.map((artist) => {
     return {
@@ -239,7 +237,6 @@ async function _cleanPlaylistSearchData(data) {
 
   return { playlists }
 }
-
 
 async function _cleanStationData(data) {
   return {
@@ -400,10 +397,10 @@ async function getStationsForHome(market) {
       let section
       if (category._id === 'featured') {
         const featured = await getSpotifyItems({ type: 'featured', market })
-        section = { category: category.name, categoryId: category._id , stations: featured.stations}
-      }  else {
+        section = { category: category.name, categoryId: category._id, stations: featured.stations }
+      } else {
         const res = await getSpotifyItems({ type: 'categoryStations', id: category._id, market })
-        section = { category: res.name, categoryId: category._id , stations: res.stations}
+        section = { category: res.name, categoryId: category._id, stations: res.stations }
       }
       results.push(section)
     } catch (error) {
