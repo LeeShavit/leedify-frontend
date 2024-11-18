@@ -97,6 +97,8 @@ export function Library({ isExpanded, onToggleLibrary }) {
       ? item.imgUrl
       : item.imgUrl[2].url
 
+      if(!stations) return <Loader/>
+
     return (
       <div
         key={isLikedSongs ? 'liked-songs' : item._id}

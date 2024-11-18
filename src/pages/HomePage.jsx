@@ -24,7 +24,6 @@ export function HomePage() {
       if (!loggedInUser._id) {
         await login({ username: 'guest', password: 'guest123' })
         await loadStations()
-        console.log(stations)
         navigate('/', { replace: true })
       }
       await loadUsers()

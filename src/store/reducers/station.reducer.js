@@ -5,8 +5,6 @@ export const REMOVE_STATION = 'REMOVE_STATION'
 export const ADD_STATION = 'ADD_STATION'
 export const UPDATE_STATION = 'UPDATE_STATION'
 // station crudl
-export const ADD_SONG_TO_STATION = 'ADD_SONG_TO_STATION'
-export const REMOVE_SONG_FROM_STATION = 'REMOVE_SONG_FROM_STATION'
 
 const initialState = {
   stations: []
@@ -14,6 +12,7 @@ const initialState = {
 
 export function stationReducer(state = initialState, action) {
   var newState = state
+
   var stations
   switch (action.type) {
     case SET_STATIONS:
@@ -30,19 +29,9 @@ export function stationReducer(state = initialState, action) {
       stations = state.stations.map((station) => (station._id === action.station._id ? action.station : station))
       newState = { ...state, stations }
       break
-    case ADD_SONG_TO_STATION:
-      const updatedStationAdd = state.stations.find(station => station._id === action.stationId)
-      updatedStationAdd.songs.push(action.song)
-      stations = state.stations.map((station) => (station._id === action.stationId ? updatedStationAdd : station))
-      newState = { ...state, stations }
-      break
-    case REMOVE_SONG_FROM_STATION:
-      const stationToUpdate = state.stations.find(station => station._id === action.stationId)
-      stationToUpdate.songs = stationToUpdate.songs.filter((song) => song._id !== action.songId)
-      stations = state.stations.map((station) => station._id === action.stationId ? stationToUpdate : station)
-      newState = { ...state, stations }
-      break
     default:
   }
+
+
   return newState
 }

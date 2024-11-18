@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
-import { useParams, Link, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { addSongToStation, removeSongFromStation, removeStation, updateStation, likeStation, dislikeStation, loadStations } from '../store/actions/station.actions'
-import { likeSong, dislikeSong, updateUsersLikedStation, } from '../store/actions/user.actions'
+import { likeSong, dislikeSong } from '../store/actions/user.actions'
+import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
@@ -12,7 +13,6 @@ import { Button } from '@mui/material'
 import StationMenu from '../cmps/StationMenu'
 import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
-import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
 import { SOCKET_EMIT_SET_STATION_ID, SOCKET_EVENT_EDIT_STATION, SOCKET_EVENT_SAVE_STATION, socketService } from '../services/socket.service'
@@ -20,8 +20,8 @@ import { ListIcon, Loader } from '../assets/img/library/icons'
 import { showUserMsg } from '../services/event-bus.service'
 
 export function StationDetails() {
+
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const fac = new FastAverageColor()
   const fileInputRef = useRef(null)
   const { stationId } = useParams()
@@ -34,6 +34,7 @@ export function StationDetails() {
   const [likedSongsIds, setLikedSongsIds] = useState(null)
   const [isInLibrary, setIsInLibrary] = useState(false)
 
+  const [isAddSong, setIsAddSong] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [stationMenuAnchor, setStationMenuAnchor] = useState(null)
   const stationMenuOpen = Boolean(stationMenuAnchor)
@@ -52,7 +53,7 @@ export function StationDetails() {
     loadStation().catch((err) => console.log(err))
     socketService.emit(SOCKET_EMIT_SET_STATION_ID, stationId)
 
-  }, [user, stationId])
+  }, [user._id, stationId])
 
   useEffect(() => {
     if (station) {
@@ -63,12 +64,12 @@ export function StationDetails() {
   async function loadStation() {
     try {
       if (!stationId) return
-      console.log('Attempting to load station:', stationId)
+      if(!user) return
       const loadedStation = await stationService.getById(stationId)
-
       setStation(loadedStation)
       setLikedSongsIds(getItemsIds(user.likedSongs))
-      setIsInLibrary(user?.likedStations.some(likedStation => (likedStation._id === stationId) || (station?.createdBy._id === user.id)))
+      setIsInLibrary(user?.likedStations.some(likedStation => likedStation._id === stationId))
+      setIsAddSong(loadedStation.songs.length === 0)
       return loadedStation
     } catch (err) {
       console.error('Cannot load station', err)
@@ -80,11 +81,12 @@ export function StationDetails() {
   function loadStationImage(img) {
     if (!station) return
 
-    if(!img){
+    if (!img) {
       img = station.imgUrl
       if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
         img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
       }
+      updateStation({...station, imgUrl: img})
     }
     setStationImage(img)
     loadBackgroundColor(img)
@@ -115,7 +117,6 @@ export function StationDetails() {
       const updatedStation = await updateStation(stationToUpdate)
       setStation(updatedStation)
       loadStationImage(updatedStation.imgUrl)
-      updateUsersLikedStation(updatedStation)
       setIsEditModalOpen(false)
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
       showUserMsg('Playlist Updated Successfully')
@@ -148,7 +149,7 @@ export function StationDetails() {
       }
 
       setStation((prevStation) => ({ ...prevStation, songs: newSongs }))
-      const updatedStation = await updateStation(stationToSave)
+      await updateStation(stationToSave)
       socketService.emit(SOCKET_EVENT_SAVE_STATION, stationToSave)
     } catch (err) {
       console.error('Failed to reorder songs:', err)
@@ -158,16 +159,16 @@ export function StationDetails() {
   async function onAddSong(song) {
     try {
       const songExists = station.songs.some((s) => s._id === song._id)
-      if (songExists) return
-
+      if (songExists) {
+        showUserMsg('Song is in playlist')
+        return
+      }
       const updatedStation = await addSongToStation(stationId, song)
       setStation(updatedStation)
       loadStationImage()
-      updateUsersLikedStation(updatedStation)
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
-
     } catch {
-      showErrorMsg(`failed to add song ${song.name}`)
+      showUserMsg(`failed to add song ${song.name}`)
     }
   }
 
@@ -176,11 +177,10 @@ export function StationDetails() {
       const updatedStation = await removeSongFromStation(stationId, songId)
       setStation(updatedStation)
       loadStationImage()
-      updateUsersLikedStation(updatedStation)      
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
 
     } catch {
-      showErrorMsg(`failed to remove song ${songId}`)
+      showUserMsg(`failed to remove song ${songId}`)
     }
   }
 
@@ -193,7 +193,7 @@ export function StationDetails() {
       navigate('/')
       showUserMsg('Playlist Removed Successfully')
     } catch {
-      showErrorMsg(`failed to remove station`)
+      showUserMsg(`failed to remove station`)
     }
   }
 
@@ -237,7 +237,7 @@ export function StationDetails() {
     }
   }
 
-  if (!station || !user._id) return <Loader/>
+  if (!station || !user._id) return <Loader />
   const isUserStation = station.createdBy._id === user._id
 
   return (
@@ -334,7 +334,11 @@ export function StationDetails() {
           />
         ))}
       </DraggableSongContainer>
-      {station.songs.length < 3 && <AddSong onAddSong={onAddSong} />}
+      {isAddSong
+        ? <AddSong onAddSong={onAddSong} onClose={()=>setIsAddSong(false)}/>
+        : <div className='add-song-open'>
+          <button onClick={() => setIsAddSong(true)} >Find more</button>
+        </div>}
       {isEditModalOpen && (
         <EditStationModal
           station={station}

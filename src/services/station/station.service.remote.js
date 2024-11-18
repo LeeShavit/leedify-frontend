@@ -78,9 +78,7 @@ async function getSections(){
   return await ApiService.getStationsForHome('US')
 }
 
-async function getCurrentSong() {
-  const user = await userService.getLoggedinUser()
-  if (user.likedSongs[0]) return user.likedSongs[0]
+function getCurrentSong() {
   return {
     _id: '2L9N0zZnd37dwF0clgxMGI',
     name: 'ceilings',

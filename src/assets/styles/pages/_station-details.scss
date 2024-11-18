@@ -630,4 +630,14 @@
       transform: translatey(0%);
     }
   }
+
+  .add-song-open{
+    margin-top: 32px;
+    text-align: end;
+    button{
+      background:none;
+      color: $text-primary;
+      font-size: .9rem;
+    }
+  }
 }

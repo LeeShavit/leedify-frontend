@@ -35,7 +35,7 @@ export function userReducer(state = initialState, action) {
     case UPDATE_USER_LIKED_STATION:
       newState = { ...state, 
                 user: { ...state.user, 
-                    likedStations: state.likedStations.map((likedStation) => (likedStation._id === action.station._id ? action.station : likedStations)) } }
+                    likedStations: state.user.likedStations.map((likedStation) => (likedStation._id === action.station._id ? action.station : likedStation)) } }
       break
     case SET_USERS:
       newState = { ...state, users: action.users }

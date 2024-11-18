@@ -15,16 +15,16 @@ export const ApiService = {
 }
 
 async function getYTVideoId(currentSong) {
-  const songName = currentSong.name
+  const songData = `${currentSong.name} ${currentSong.artists[0].name}`
   const ytIdsMap = loadFromStorage(YT_STORAGE_KEY) || {}
-  if (typeof ytIdsMap[songName] === 'string') return ytIdsMap[songName]
+  if (typeof ytIdsMap[songData] === 'string') return ytIdsMap[songData]
   try {
     const res = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songName}&type=video&maxResults=1&key=${YT_API_KEY}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songData}&type=video&maxResults=1&key=${YT_API_KEY}`
     )
     const ytId = res.data.items[0].id.videoId
 
-    ytIdsMap[songName] = ytId
+    ytIdsMap[songData] = ytId
     saveToStorage(YT_STORAGE_KEY, ytIdsMap)
     return ytId
   } catch (err) {

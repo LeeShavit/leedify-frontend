@@ -28,6 +28,7 @@ const initialState = {
 }
 
 export function playerReducer(state = initialState, action = {}) {
+  console.log(state)
   switch (action.type) {
     case LOADING_START:
       return { ...state, isLoading: true }
