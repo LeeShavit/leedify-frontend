@@ -1,5 +1,5 @@
 import { SpotifyIcon } from '../assets/img/app-header/icons'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Google } from '@mui/icons-material'
 import { User } from 'lucide-react'
 import { firebaseAuthService } from '../services/firebase.auth.service'
@@ -17,19 +17,25 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
     password: '',
   })
 
+  useEffect(() => {
+    setError(null)
+  }, [isOpen])
+
   const handleGuestLogin = async () => {
     try {
       setIsLoading(true)
       setError(null)
-      await onLogin({
+      const result = await onLogin({
         username: 'guest',
         password: 'guest123',
       })
-      onClose()
-      await loadStations()
-      navigate('/', { replace: true })
+      if (result.success) {
+        await loadStations()
+        onClose()
+      } else {
+        setError(result.error)
+      }
     } catch (err) {
-      setError('Failed to login as guest. Please try again.')
       console.error('Guest login failed:', err)
     } finally {
       setIsLoading(false)
@@ -46,14 +52,11 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
       navigate('/', { replace: true })
       window.location.reload()
     } catch (err) {
-      setError('Failed to login with Google. Please try again.')
       console.error('Google login failed:', err)
     } finally {
       setIsLoading(false)
     }
   }
-  if (!isOpen) return null
-
   if (!isOpen) return null
 
   const handleSubmit = async (event) => {
@@ -63,33 +66,26 @@ export function LoginModal({ isOpen, onClose, onLogin, onSignup }) {
 
     try {
       if (isLoginMode) {
-        await onLogin({ username: formData.username, password: formData.password })
-        onClose()
-        await loadStations()
-        navigate('/', { replace: true })
+        await onLogin({
+          username: formData.username,
+          password: formData.password,
+        })
       } else {
         await onSignup(formData)
-        onClose()
-        await loadStations()
-        navigate('/', { replace: true })
       }
     } catch (err) {
       if (err.response?.status === 401) {
         setError('Invalid username or password')
+        setFormData((prev) => ({
+          ...prev,
+          password: '',
+        }))
       } else if (err.response?.status === 409) {
         setError('Username already exists')
       } else {
-        setError(
-          isLoginMode
-            ? 'Failed to log in. Please check your credentials and try again.'
-            : 'Failed to sign up. Please try again.'
-        )
+        setError(err.message || 'An error occurred. Please try again.')
       }
-      if (err.response?.status === 401) {
-        formData.password = ''
-        setFormData({ ...formData })
-        document.querySelector('input[name="password"]')?.focus()
-      }
+      navigate('/login', { replace: true })
     } finally {
       setIsLoading(false)
     }

@@ -31,18 +31,19 @@ export async function removeUser(userId) {
 }
 
 export async function login(credentials) {
-  console.log('credentials', credentials)
   try {
-    const user = await userService.login(credentials)
-    console.log('user', user)
-    store.dispatch({
-      type: SET_USER,
-      user,
-    })
-    // socketService.login(user._id)
-    return user
+    const response = await userService.login(credentials)
+    if (response.success) {
+      store.dispatch({
+        type: SET_USER,
+        user: response.user,
+      })
+      return response
+    } else {
+      throw new Error(response.error)
+    }
   } catch (err) {
-    console.log('Cannot login', err)
+    console.error('Cannot login', err)
     throw err
   }
 }
