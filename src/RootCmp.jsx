@@ -26,10 +26,10 @@ export function RootCmp() {
     setIsLibraryExpanded((prev) => !prev)
   }
   return (
+    <>
     <div className='main-container'>
       <AppHeader className={showHeader ? 'show-header' : ''} />
       <Library onToggleLibrary={toggleLibrary} isExpanded={isLibraryExpanded} />
-      <UserMsg />
       <main className='main scroll-container'>
         <Routes>
           <Route path='' element={<HomePage />} />
@@ -47,5 +47,7 @@ export function RootCmp() {
       <Player />
       <MobileNav onLibraryClick={toggleLibrary} />
     </div>
+      <UserMsg />
+    </>
   )
 }

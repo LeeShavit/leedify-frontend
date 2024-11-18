@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { ApiService } from '../services/api.service'
 import { PlaylistCard } from './PlaylistCard'
 import { useSelector } from 'react-redux'
-import { Like, Liked } from '../assets/img/playlist-details/icons'
+import { Like, Liked, Time } from '../assets/img/playlist-details/icons'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { Explore } from '../pages/Explore'
 import { setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
@@ -144,7 +144,7 @@ export function SearchResults() {
         </button>
       </div>
 
-      {isLoading && <div className='search-results__loading'><Loader/></div>}
+      {isLoading && <div className='search-results__loading'><Loader /></div>}
 
       {!isLoading && (
         <div className='search-results__content'>

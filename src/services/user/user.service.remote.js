@@ -100,6 +100,7 @@ async function login(userCred) {
   const user = await httpService.post('auth/login', userCred)
   if (user) return saveLoggedinUser(user)
 }
+
 async function loginWithGoogle(googleUser) {
   try {
     const user = await httpService.post('auth/google', googleUser)
