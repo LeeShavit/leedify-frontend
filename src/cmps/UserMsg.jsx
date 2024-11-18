@@ -12,7 +12,7 @@ export function UserMsg() {
 				timeoutIdRef.current = null
 				clearTimeout(timeoutIdRef.current)
 			}
-			timeoutIdRef.current = setTimeout(closeMsg, 3000)
+			timeoutIdRef.current = setTimeout(()=>setMsg(false), 3000)
 		})
 
 		return () => {
@@ -25,9 +25,8 @@ export function UserMsg() {
         return msg ? 'visible' : ''
     }
 	return (
-		<section className={`user-msg ${msg?.type} ${msgClass()}`}>
-			{/* {msg?.txt} */}
-			User deleted Sucssfully
+		<section className={`user-msg`}>
+			{msg?.txt}
 		</section>
 	)
 }

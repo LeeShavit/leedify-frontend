@@ -26,6 +26,7 @@ export async function removeUser(userId) {
 export async function login(credentials) {
   try {
     const user = await userService.login(credentials)
+    console.log(user)
     store.dispatch({
       type: SET_USER,
       user,
@@ -82,10 +83,9 @@ export async function loadUser(userId) {
 
 export async function updateUsersLikedStation(station) {
     try {
-        // const likedStations = await userService.updateUsersLikedStation(station)
-        // console.log('user actions updateUsersLikedStation liked stations:', likedStations)
-        await loadStations()
-        store.dispatch({ type: UPDATE_USER_LIKED_STATION, station })
+      const updatedStation =await userService.updateUsersLikedStation(station)
+      store.dispatch({ type: UPDATE_USER_LIKED_STATION, station: updatedStation })
+      return updatedStation
     } catch (err) {
         showErrorMsg('Cannot like song')
         console.log('Cannot like song', err)

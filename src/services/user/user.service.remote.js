@@ -68,14 +68,12 @@ async function dislikeSong(songId) {
 }
 
 async function getUsersStations(sortBy) {
-	console.log(sortBy)
 	const {_id} = getLoggedinUser() 
 	const stations = await httpService.get(`user/${_id}/station`,{sortBy})
 	return stations
   }
 
 async function likeStation(station) {
-  console.log(station)
   const user = await httpService.post('user/station', station)
   saveLoggedinUser(user)
   return user.likedStations
@@ -88,10 +86,9 @@ async function dislikeStation(stationId) {
 }
 
 async function updateUsersLikedStation(station) {
-  const user = await httpService.put('user/station', station)
-  console.log('user service updateUsersLikedStation user after server:', user)
-  saveLoggedinUser(user)
-  return user.likedStations
+  const res = await httpService.put('user/station', station)
+  saveLoggedinUser(res.user)
+  return res.station
 }
 
 //authentication
@@ -141,7 +138,6 @@ function getLoggedinUser() {
 }
 
 function saveLoggedinUser(user) {
-  console.log('user service saveLoggedinUser after server:', user)
 
   user = {
     _id: user._id,

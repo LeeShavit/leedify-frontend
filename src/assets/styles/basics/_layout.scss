@@ -47,10 +47,10 @@
           left: 0;
           width: 85%;
           height: 100vh;
-          z-index: 1001;
+          z-index: 50;
           background-color: $background-dark;
           box-shadow: 2px 0 8px rgba(0, 0, 0, 0.5);
-          animation: slideIn 0.3s ease;
+          // animation: slideIn 0.3s ease;
         }
       }
     }

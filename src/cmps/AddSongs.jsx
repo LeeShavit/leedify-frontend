@@ -11,7 +11,7 @@ import { XIcon } from 'lucide-react';
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons.jsx';
 
 
-export function AddSong({ onAddSong }) {
+export function AddSong({ onAddSong, onClose }) {
 
     const [searchRes, setSearchRes] = useState(null)
     const currentSong = useSelector(state => state.playerModule.currentSong)
@@ -52,7 +52,7 @@ export function AddSong({ onAddSong }) {
                     </input>
                     <SearchIcon className='add-song-search-icon' />
                 </div>
-                <button><XIcon /></button>
+                <button onClick={onClose}><XIcon /></button>
             </div>
             {(searchRes && searchRes.length > 0) &&
                 <ul className="search-res-list">

@@ -45,7 +45,7 @@ export function RootCmp() {
         </Routes>
       </main>
       <Player />
-      <MobileNav onLibraryClick={toggleLibrary} />
+      <MobileNav setIsLibraryExpanded={setIsLibraryExpanded} />
     </div>
       <UserMsg />
     </>

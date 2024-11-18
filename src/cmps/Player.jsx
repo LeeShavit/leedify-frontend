@@ -7,7 +7,6 @@ import {
   ConnectToDevice,
   FullScreen,
   Lyrics,
-  Minimize,
   NowPlayingView,
   OpenMiniplayer,
   QueueIcon,
@@ -36,6 +35,7 @@ export function Player() {
 
   useEffect(() => {
     if (currentSong) {
+      
       loadBackgroundColor()
     }
   }, [currentSong])
@@ -73,7 +73,7 @@ export function Player() {
     }
   }
 
-  if (!currentSong || !user) return <Loader />
+  if (!currentSong || !user) return <Loader/>
 
   return (
     <section className={`player full ${isFullScreen ? 'full-screen' : 'minimized'} dynamic-bg`}>
