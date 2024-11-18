@@ -41,15 +41,10 @@ export function HomePage() {
 
   return (
     <div className='home-page'>
-      <div className='filter-buttons'>
-        <button className='filter-buttons__button filter-buttons__button--active'>All</button>
-        <button className='filter-buttons__button'>Music</button>
-        <button className='filter-buttons__button'>Podcasts</button>
-      </div>
       <QuickAccess />
-      {sections?.map((section, index) => (
-        <section key={index} className='home-page__section'>
-          <SectionHeader title={section.category} />
+      {sections?.map((section) => (
+        <section className='home-page__section'>
+          <SectionHeader title={section.category} id={section.category._id} />
           <div className='home-page__grid'>
             {section?.stations.map((station) => (
               <PlaylistCard key={station._id} station={station} />

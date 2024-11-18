@@ -4,7 +4,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     margin-bottom: 2rem;
-    padding: 0px 8px;
+    padding: 20px 8px 0px 8px;
 
     @media (min-width: 768px) {
       grid-template-columns: repeat(3, 1fr);
@@ -24,6 +24,7 @@
     height: 48px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     @media (min-width: $breakpoint-xl) {
       height: 64px;
