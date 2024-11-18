@@ -7,5 +7,9 @@ export default defineConfig({
 	build: {
 		outDir: '../backend/public',
 		emptyOutDir: true,
+		target: 'es2022',
+		rollupOptions: {
+			external: ['./src/services/credentials.js']
+		  }
 	},
 })

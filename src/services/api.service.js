@@ -5,6 +5,13 @@ import { DEFAULT_IMG } from './station/station.service.local.js'
 
 const YT_STORAGE_KEY = 'youtube ids'
 
+process.env.YT_API_KEY
+
+const youtubeKey= process.env.YT_API_KEY || YT_API_KEY
+const spotifyId= process.env.SPOTIFY_CLIENT_ID || SPOTIFY_CLIENT_ID
+const spotifySecret= process.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SECRET
+
+
 let gAccessToken = await getAccessToken()
 setTokenRefreshInterval()
 
@@ -20,7 +27,7 @@ async function getYTVideoId(currentSong) {
   if (typeof ytIdsMap[songData] === 'string') return ytIdsMap[songData]
   try {
     const res = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songData}&type=video&maxResults=1&key=${YT_API_KEY}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songData}&type=video&maxResults=1&key=${youtubeKey}`
     )
     const ytId = res.data.items[0].id.videoId
 
@@ -36,7 +43,7 @@ async function getYTVideoId(currentSong) {
 async function getAccessToken() {
   try {
     // Encode client credentials (Client ID and Client Secret)
-    const credentials = `${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`
+    const credentials = `${spotifyId}:${spotifySecret}`
     const encodedCredentials = btoa(credentials)
 
     // Make a POST request to the token endpoint
