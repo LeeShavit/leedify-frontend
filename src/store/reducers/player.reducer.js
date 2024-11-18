@@ -67,14 +67,6 @@ export function playerReducer(state = initialState, action = {}) {
         queue: !state.shuffle ? [...state.queue].sort(() => Math.random + 0.5) : [...state.originalQueue],
         originalQueue: !state.shuffle ? [...state.queue] : [...state.originalQueue]
       }
-    case TOGGLE_SHUFFLE:
-      const newShuffle= !state.shuffle
-      return {
-        ...state,
-        shuffle: newShuffle,
-        queue: newShuffle ? [...state.queue].sort(() => Math.random - 0.5) : [...state.originalQueue],
-        originalQueue: newShuffle ? [...state.queue] : state.originalQueue
-      }
     case SET_REPEAT_MODE:
       return { ...state, repeat: action.mode }
     case PLAY_NEXT:
