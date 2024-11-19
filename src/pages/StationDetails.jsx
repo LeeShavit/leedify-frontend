@@ -11,7 +11,14 @@ import {
   loadStations,
 } from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
-import { addToQueue, addToQueueNext, clearQueue, playNext, replaceQueue, setIsPlaying } from '../store/actions/player.actions'
+import {
+  addToQueue,
+  addToQueueNext,
+  clearQueue,
+  playNext,
+  replaceQueue,
+  setIsPlaying,
+} from '../store/actions/player.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
@@ -55,17 +62,16 @@ export function StationDetails() {
   const currentStation = useSelector((state) => state.playerModule.currentStation)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
-  const isEditable= (stationId !== 'liked-songs' && stationId.length !== 22)
+  const isEditable = stationId !== 'liked-songs' && stationId.length !== 22
 
   useEffect(() => {
     socketService.on(SOCKET_EVENT_EDIT_STATION, editStation)
-    console.log(stationId , stationId.length)
+    console.log(stationId, stationId.length)
 
     return () => {
       socketService.off(SOCKET_EVENT_EDIT_STATION, editStation)
     }
   }, [])
-
 
   useEffect(() => {
     loadStation().catch((err) => console.log(err))
@@ -86,7 +92,7 @@ export function StationDetails() {
       const loadedStation = await stationService.getById(stationId)
       setStation(loadedStation)
       setLikedSongsIds(getItemsIds(user.likedSongs))
-      setIsInLibrary(user?.likedStations.some(likedStation => likedStation._id === stationId))
+      setIsInLibrary(user?.likedStations.some((likedStation) => likedStation._id === stationId))
       setIsAddSong(loadedStation.songs.length === 0 && isEditable)
       return loadedStation
     } catch (err) {
@@ -112,7 +118,6 @@ export function StationDetails() {
     loadBackgroundColor(img)
   }
 
-
   async function loadBackgroundColor(img) {
     try {
       const color = await fac.getColorAsync(img)
@@ -128,7 +133,7 @@ export function StationDetails() {
   }
 
   async function handleSaveStation(updatedStationData) {
-    if(!isEditable) return
+    if (!isEditable) return
     try {
       const stationToUpdate = {
         ...station,
@@ -136,8 +141,8 @@ export function StationDetails() {
         description: updatedStationData.description,
         imgUrl: updatedStationData.imgUrl,
       }
-      setStation(updatedStation)
       const updatedStation = await updateStation(stationToUpdate)
+      setStation(updatedStation)
       setIsEditModalOpen(false)
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
       showUserMsg('Playlist Updated Successfully')
@@ -147,7 +152,7 @@ export function StationDetails() {
   }
 
   function handlePhotoClick() {
-    if(!isEditable) return
+    if (!isEditable) return
     setIsEditModalOpen(true)
     setTimeout(() => {
       fileInputRef.current?.click()
@@ -155,7 +160,7 @@ export function StationDetails() {
   }
 
   const onDragEnd = async (result) => {
-    if(!isEditable) return 
+    if (!isEditable) return
     const { destination, source } = result
     if (!destination || (destination.droppableId === source.droppableId && destination.index === source.index)) {
       return
@@ -180,7 +185,7 @@ export function StationDetails() {
   }
 
   async function onAddSong(song) {
-    if(!isEditable) return
+    if (!isEditable) return
     try {
       const songExists = station.songs.some((s) => s._id === song._id)
       if (songExists) {
@@ -198,7 +203,7 @@ export function StationDetails() {
   }
 
   async function onRemoveSong(songId) {
-    if(!isEditable) return
+    if (!isEditable) return
     try {
       const updatedStation = await removeSongFromStation(stationId, songId)
       setStation(updatedStation)
@@ -229,9 +234,12 @@ export function StationDetails() {
       const likedSongs = isToLike ? await likeSong(song) : await dislikeSong(song._id)
       setLikedSongsIds(getItemsIds(likedSongs))
 
-      if(stationId === 'liked-songs') setStation((prevStation) => ({ ...prevStation, songs: likedSongs }))
+      if (stationId === 'liked-songs') setStation((prevStation) => ({ ...prevStation, songs: likedSongs }))
 
-      showUserMsg(`${isToLike ? 'Added To' : 'Removed From'} Liked Songs`, 'https://misc.scdn.co/liked-songs/liked-songs-300.png')
+      showUserMsg(
+        `${isToLike ? 'Added To' : 'Removed From'} Liked Songs`,
+        'https://misc.scdn.co/liked-songs/liked-songs-300.png'
+      )
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
       showUserMsg(`Added To ${station.name}`, station.imgUrl)
@@ -370,16 +378,18 @@ export function StationDetails() {
             onAddToQueue={() => replaceQueue(station.songs.slice(index), station)}
             onLikeDislikeSong={onLikeDislikeSong}
             onRemoveSong={onRemoveSong}
-            isEditable= {isEditable}
+            isEditable={isEditable}
           />
         ))}
       </DraggableSongContainer>
-      {isAddSong
-        ? <AddSong onAddSong={onAddSong} onClose={() => setIsAddSong(false)} />
-        : <div className='add-song-open'>
-          {isEditable && <button onClick={() => setIsAddSong(true)} >Find more</button>}
-        </div>}
-      {(isEditModalOpen && isEditable) && (
+      {isAddSong ? (
+        <AddSong onAddSong={onAddSong} onClose={() => setIsAddSong(false)} />
+      ) : (
+        <div className='add-song-open'>
+          {isEditable && <button onClick={() => setIsAddSong(true)}>Find more</button>}
+        </div>
+      )}
+      {isEditModalOpen && isEditable && (
         <EditStationModal
           station={station}
           isOpen={isEditModalOpen}

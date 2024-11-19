@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { SET_QUEUE_OPEN } from '../store/reducers/player.reducer'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
-import { setIsPlaying, playNext } from '../store/actions/player.actions'
+import { setIsPlaying, replaceQueue, setCurrentSong } from '../store/actions/player.actions'
 
 export function NowPlaying() {
   const dispatch = useDispatch()
