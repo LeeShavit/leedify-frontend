@@ -1,5 +1,6 @@
-import { eventBus, showSuccessMsg } from '../services/event-bus.service'
+import { eventBus } from '../services/event-bus.service'
 import { useState, useEffect, useRef } from 'react'
+
 
 export function UserMsg() {
 	const [msg, setMsg] = useState(null)
@@ -12,8 +13,9 @@ export function UserMsg() {
 				timeoutIdRef.current = null
 				clearTimeout(timeoutIdRef.current)
 			}
-			timeoutIdRef.current = setTimeout(()=>setMsg(false), 3000)
+			timeoutIdRef.current = setTimeout(() => setMsg(false), 7000)
 		})
+
 
 		return () => {
 			unsubscribe()
@@ -21,12 +23,16 @@ export function UserMsg() {
 	}, [])
 
 
-    function msgClass() {
-        return msg ? 'visible' : ''
-    }
+
+	function msgClass() {
+		return msg ? 'visible' : ''
+	}
+
+	if (!msg) return null
+
 	return (
-		<section className={`user-msg`}>
-			{msg?.txt}
+		<section className={`user-msg ${msgClass()}`}>
+			{msg?.imgUrl && <img src={msg.imgUrl}></img>}{msg?.txt}
 		</section>
 	)
 }
