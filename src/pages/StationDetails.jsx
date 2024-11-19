@@ -109,7 +109,7 @@ export function StationDetails() {
     if (station.songs.length === 0 && station.imgUrl !== DEFAULT_IMG && !img.includes('cloudinary')) {
       img = DEFAULT_IMG
       updateStation({ ...station, imgUrl: img })
-    } else if (station.songs.length > 0 && (station.imgUrl === DEFAULT_IMG || !img.includes('cloudinary'))) {
+    } else if (isEditable && station.songs.length > 0 && (station.imgUrl === DEFAULT_IMG || !img.includes('cloudinary'))) {
       img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
       updateStation({ ...station, imgUrl: img })
     }

@@ -7,9 +7,11 @@
   display: flex;
   flex-direction: column;
   width: 280px;
+  padding: 8px 16px;
 
   &__header {
-    padding: 8px 16px;
+    padding: 0;
+    margin-block-end: 24px;
   }
 
   &__title {
@@ -41,15 +43,14 @@
   }
 
   &__current {
-    padding: 8px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-block-end: 24px;
+    padding-block: 8px;
 
     h3 {
-      font-size: 0.8rem;
+      font-size: .9rem;
       color: $text-primary;
       margin: 0 0 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: .7px;
     }
   }
 
@@ -60,8 +61,8 @@
   }
 
   &__cover {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
     border-radius: 4px;
     object-fit: cover;
   }
@@ -75,7 +76,7 @@
     display: block;
     font-size: 0.875rem;
     font-weight: $font-book;
-    color: $text-primary;
+    color: $primary-color;
     @include text-truncate;
   }
 
@@ -112,15 +113,13 @@
 
   &__queue {
     flex: 1;
-    padding: 8px 8px;
     overflow-y: auto;
 
     h3 {
-      font-size: 0.8rem;
+      font-size: .9rem;
       color: $text-primary;
       margin: 0 0 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: .7px;
     }
 
     &::-webkit-scrollbar {
@@ -138,7 +137,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px;
+    padding-block: 8px;
     border-radius: 4px;
     cursor: pointer;
 
@@ -147,8 +146,8 @@
     }
     &__cover-container {
       position: relative;
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       flex-shrink: 0;
 
       &:hover {
