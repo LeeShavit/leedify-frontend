@@ -17,7 +17,7 @@ export const REPLACE_QUEUE = 'REPLACE_QUEUE'
 
 const initialState = {
   currentSong: stationService.getCurrentSong(),
-  currentStationId: null,
+  currentStation: null,
   isLoading: false,
   queue: [],
   history: [],
@@ -43,20 +43,25 @@ export function playerReducer(state = initialState, action = {}) {
     case SET_IS_PLAYING:
       return { ...state, isPlaying: action.isPlaying }
     case ADD_TO_QUEUE:
-      let songsToAdd = Array.isArray(action.songsToAdd) ? action.songsToAdd : [action.songsToAdd]
-      return { ...state, queue: [...state.queue, ...songsToAdd], currentStationId: action.stationId || state.currentStationId }
-    case ADD_TO_QUEUE_NEXT:
-      songsToAdd = Array.isArray(action.songsToAdd) ? action.songsToAdd : [action.songsToAdd]
+      const songsToAdd = Array.isArray(action.songsToAdd) ? action.songsToAdd : [action.songsToAdd]
       return {
         ...state,
-        queue: [...songsToAdd, ...state.queue],
-        originalQueue: state.shuffle ? state.originalQueue : [...songsToAdd, ...state.originalQueue]
+        queue: [...state.queue, ...songsToAdd],
+        originalQueue: state.shuffle ? state.originalQueue : [...songsToAdd, ...state.originalQueue],
+        currentStation: action.station || state.currentStation
+      }
+    case ADD_TO_QUEUE_NEXT:
+      const songsToAddNext = Array.isArray(action.songsToAdd) ? action.songsToAdd : [action.songsToAdd]
+      return {
+        ...state,
+        queue: [...songsToAddNext, ...state.queue],
+        originalQueue: state.shuffle ? state.originalQueue : [...songsToAddNext, ...state.originalQueue]
       }
     case REMOVE_FROM_QUEUE:
       return {
         ...state,
-        queue: state.queue.filter(song => song._id === action.songId),
-        originalQueue: state.originalQueue.filter(song => song._id === action.songId)
+        queue: state.queue.filter(song => song._id !== action.songId),
+        originalQueue: state.originalQueue.filter(song => song._id !== action.songId)
       }
     case CLEAR_QUEUE:
       return { ...state, queue: [], originalQueue: [] }
@@ -64,19 +69,33 @@ export function playerReducer(state = initialState, action = {}) {
       return {
         ...state,
         shuffle: !state.shuffle,
-        queue: !state.shuffle ? [...state.queue].sort(() => Math.random + 0.5) : [...state.originalQueue],
-        originalQueue: !state.shuffle ? [...state.queue] : [...state.originalQueue]
+        queue: !state.shuffle ? [...state.queue].sort(() => Math.random() - 0.5) : [...state.originalQueue],
+        originalQueue: !state.shuffle ? [...state.queue] : [...state.originalQueue],
+        currentStation: null
       }
     case SET_REPEAT_MODE:
       return { ...state, repeat: action.mode }
     case PLAY_NEXT:
-      if (state.queue.length === 0) return { ...state, isPlaying: false, currentSong: null }
-      
+      if (state.queue.length === 0) {
+        return {
+          ...state,
+          currentSong: state.currentSong
+        }
+      }
       let [nextSong, ...remainingQueue] = state.queue
       if (state.repeat === 'SONG') {
-        remainingQueue.unshift(nextSong)
-      } else if (state.repeat === 'QUEUE' && remainingQueue.length === 0) {
-        remainingQueue = state.shuffle ? [...state.originalQueue].sort(() => Math.random + 0.5) : [...state.originalQueue]
+        return { ...state, currentSong: state.currentSong, queue: state.queue }
+      }
+      if (remainingQueue.length === 0) {
+        if (state.repeat === 'QUEUE') {
+          const newQueue = state.shuffle ? [...state.originalQueue].sort(() => Math.random() - 0.5) : [...state.originalQueue]
+          return {
+            ...state,
+            currentSong: nextSong,
+            queue: newQueue,
+            history: state.currentSong ? [state.currentSong, ...state.history] : [...state.history]
+          }
+        }
       }
       return {
         ...state,
@@ -97,13 +116,13 @@ export function playerReducer(state = initialState, action = {}) {
         history: remainingHistory
       }
     case REPLACE_QUEUE:
+      const songsToReplace = Array.isArray(action.songs) ? action.songs : [action.songs]
       return {
         ...state,
-        currentSong: action.songs[0],
-        queue: songs.slice(1),
-        originalQueue: songs.slice(1),
+        queue: state.shuffle ? songsToReplace.sort(() => Math.random() - 0.5) : songsToReplace,
+        originalQueue: songsToReplace,
         history: [],
-        isPlaying: true
+        currentStation: action.station || state.currentStation
       }
     default: return state
   }

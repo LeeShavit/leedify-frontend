@@ -16,7 +16,7 @@ import { PauseIcon } from '../assets/img/player/icons'
 
 import LibrarySortMenu from './LibrarySortMenu'
 import { addStation, loadStations } from '../store/actions/station.actions'
-import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, clearQueue, playNext, replaceQueue, setIsPlaying } from '../store/actions/player.actions'
 import { stationService } from '../services/station/'
 import { likeStation } from '../store/actions/station.actions'
 import { capitalizeFirstLetters } from '../services/util.service'
@@ -24,7 +24,7 @@ import { capitalizeFirstLetters } from '../services/util.service'
 export function Library({ isExpanded, onToggleLibrary }) {
   const stations = useSelector((state) => state.stationModule.stations)
   const user = useSelector((state) => state.userModule.user)
-  const currentStationId = useSelector((state) => state.playerModule.currentStationId)
+  const currentStation = useSelector((state) => state.playerModule.currentStation)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   const [anchorEl, setAnchorEl] = useState(null)
@@ -84,7 +84,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
   }
 
   async function onPlayPauseStation(stationId) {
-    if (stationId === currentStationId) {
+    if (stationId === currentStation._id) {
       isPlaying ? setIsPlaying(false) : setIsPlaying(true)
     } else {
       try {
@@ -92,8 +92,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
           stationId === 'liked-songs'
             ? await stationService.getLikedSongsStation()
             : await stationService.getById(stationId)
-        clearQueue()
-        addToQueue(station.songs, stationId)
+        replaceQueue(station.songs, station)
         playNext()
         setIsPlaying(true)
       } catch (error) {
@@ -102,7 +101,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
     }
   }
   function renderLibraryItem(item, index) {
-    const isCurrentStation = currentStationId === item._id
+    const isCurrentStation = currentStation?._id === item._id
     const isLikedSongs = item === 'liked-songs'
     const itemName = isLikedSongs ? 'Liked Songs' : item.name
     const itemImage = isLikedSongs

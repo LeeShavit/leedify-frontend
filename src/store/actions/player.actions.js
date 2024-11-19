@@ -23,10 +23,10 @@ export function setIsPlaying(isPlaying) {
   store.dispatch({ type: SET_IS_PLAYING, isPlaying })
   console.log(store.getState())
 }
-export function addToQueue(songsToAdd, stationId) {
+export function addToQueue(songsToAdd, station) {
   const cmd = { type: ADD_TO_QUEUE, songsToAdd }
-  if (stationId) cmd.stationId = stationId
-  recentlyPlayedService.addStation(stationId)
+  if (station) cmd.station =  {_id: station._id, name: station.name}
+  recentlyPlayedService.addStation(station)
   store.dispatch(cmd)
 }
 
@@ -51,6 +51,8 @@ export function playNext() {
 export function playPrev() {
   store.dispatch({ type: PLAY_PREV })
 }
-export function replaceQueue(songs) {
-  store.dispatch({ type: REPLACE_QUEUE, songs })
+export function replaceQueue(songs, station) {
+  const cmd = { type: REPLACE_QUEUE, songs }
+  if (station) cmd.station = {_id: station._id, name: station.name}
+  store.dispatch(cmd)
 }

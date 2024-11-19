@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Play, Pause } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { recentlyPlayedService } from '../services/recently-played.service'
-import { addToQueue, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, clearQueue, playNext, replaceQueue, setIsPlaying } from '../store/actions/player.actions'
 import { useNavigate } from 'react-router'
 
 const QuickAccessItem = ({ station, isPlaying, isCurrentStation, onPlay }) => {
@@ -32,7 +32,7 @@ const QuickAccessItem = ({ station, isPlaying, isCurrentStation, onPlay }) => {
 
 export function QuickAccess() {
   const [recentStations, setRecentStations] = useState([])
-  const currentStationId = useSelector((state) => state.playerModule.currentStationId)
+  const currentStation = useSelector((state) => state.playerModule.currentStation)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   useEffect(() => {
@@ -49,12 +49,11 @@ export function QuickAccess() {
   }
 
   async function onPlayStation(station) {
-    if (station._id === currentStationId) {
+    if (station._id === currentStation._id) {
       setIsPlaying(!isPlaying)
     } else {
       try {
-        clearQueue()
-        addToQueue(station.songs, station._id)
+        replaceQueue(station.songs, station)
         playNext()
         setIsPlaying(true)
       } catch (error) {
@@ -72,7 +71,7 @@ export function QuickAccess() {
           key={station._id}
           station={station}
           isPlaying={isPlaying}
-          isCurrentStation={station._id === currentStationId}
+          isCurrentStation={station._id === currentStation._id}
           onPlay={onPlayStation}
         />
       ))}
