@@ -11,7 +11,7 @@ import {
   loadStations,
 } from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
-import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, addToQueueNext, clearQueue, playNext, replaceQueue, setIsPlaying } from '../store/actions/player.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
 import { EditStationModal } from '../cmps/EditStationModal'
 import { AddSong } from '../cmps/AddSongs'
@@ -31,6 +31,7 @@ import {
 } from '../services/socket.service'
 import { ListIcon, Loader } from '../assets/img/library/icons'
 import { showUserMsg } from '../services/event-bus.service'
+import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 
 export function StationDetails() {
   const navigate = useNavigate()
@@ -51,7 +52,7 @@ export function StationDetails() {
   const [stationMenuAnchor, setStationMenuAnchor] = useState(null)
   const stationMenuOpen = Boolean(stationMenuAnchor)
 
-  const currentStationId = useSelector((state) => state.playerModule.currentStationId)
+  const currentStation = useSelector((state) => state.playerModule.currentStation)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
 
   useEffect(() => {
@@ -238,11 +239,10 @@ export function StationDetails() {
   }
 
   function onPlayStation() {
-    if (currentStationId === stationId) {
+    if (currentStation?._id === stationId) {
       isPlaying ? setIsPlaying(false) : setIsPlaying(true)
     } else {
-      clearQueue()
-      addToQueue([...station.songs], stationId)
+      replaceQueue([...station.songs], station)
       playNext()
       setIsPlaying(true)
     }
@@ -287,7 +287,7 @@ export function StationDetails() {
       <div className='station-controls'>
         <div className='station-controls__left'>
           <button className='station-controls__play' onClick={() => onPlayStation()}>
-            <span className='station-controls__play-icon'>▶</span>
+           {currentStation?._id === stationId && isPlaying ? <PauseIcon/> : <PlayIcon/>}
           </button>
           {station.createdBy._id !== user._id && (
             <button
@@ -346,7 +346,7 @@ export function StationDetails() {
             index={index}
             isUserStation={isUserStation}
             likedSongsIds={likedSongsIds}
-            onAddToQueue={() => addToQueue(station.songs.slice(index), stationId)}
+            onAddToQueue={() => replaceQueue(station.songs.slice(index), station)}
             onLikeDislikeSong={onLikeDislikeSong}
             onRemoveSong={onRemoveSong}
           />
