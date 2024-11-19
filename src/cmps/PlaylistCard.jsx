@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Play, Pause } from 'lucide-react'
-import { addToQueue, clearQueue, playNext, replaceQueue, setIsPlaying } from '../store/actions/player.actions'
+import { addToQueue, clearQueue, playNext, replaceQueue, setCurrentSong, setIsPlaying } from '../store/actions/player.actions'
 import { useSelector } from 'react-redux'
 import { stationService } from '../services/station'
 
@@ -18,7 +18,9 @@ export function PlaylistCard({ station }) {
     } else {
       try {
         const { songs } = await stationService.getById(station._id)
-        replaceQueue(songs, station)
+        const [song , remainingSongs] = songs
+        setCurrentSong(song)
+        replaceQueue(remainingSongs, station)
         setIsPlaying(true)
       } catch (error) {
         console.error('Failed to play playlist:', error)

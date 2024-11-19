@@ -1,8 +1,12 @@
 .main-container {
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 8px;
+  row-gap: 8px;
   padding: 8px 0px;
+
+  main.main.scroll-container{
+    border-radius: 8px;
+  }
 
   @include for-mobile-layout {
     grid-template-columns: 1fr;
@@ -59,15 +63,17 @@
 
     &.library {
       grid-column: 1/2;
+      margin-inline: 8px;
     }
     &.now-playing {
       grid-column: 3;
-      width: 340px;
+      width: 295px;
       background-color: $background-dark;
       border-radius: 8px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      margin-inline-end: 8px;
 
       @include for-mobile-layout {
         display: none;
