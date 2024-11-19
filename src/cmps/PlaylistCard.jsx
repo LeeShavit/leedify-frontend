@@ -13,7 +13,7 @@ export function PlaylistCard({ station }) {
   async function onPlayPauseStation(event) {
     event.stopPropagation()
 
-    if (station._id === currentStation._id) {
+    if (station._id === currentStation?._id) {
       isPlaying ? setIsPlaying(false) : setIsPlaying(true)
     } else {
       try {
@@ -31,7 +31,7 @@ export function PlaylistCard({ station }) {
       <div className='playlist-card__image-container'>
         <img src={station.imgUrl} alt={station.name} />
         <button className='playlist-card__play-button' aria-label='Play' onClick={(event) => onPlayPauseStation(event)}>
-          {isPlaying && currentStation._id === station._id ? <Pause size={24} color='black' fill='black' /> : <Play size={24} color='black' fill='black' />}
+          {isPlaying && currentStation?._id === station._id ? <Pause size={24} color='black' fill='black' /> : <Play size={24} color='black' fill='black' />}
         </button>
       </div>
 

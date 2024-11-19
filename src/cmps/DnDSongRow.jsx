@@ -21,6 +21,7 @@ export function DraggableSongRow({
   isUserStation,
   onRemoveSong,
   onAddToQueue,
+  isEditable
 }) {
   const [songMenuAnchor, setSongMenuAnchor] = useState(null)
   const songMenuOpen = Boolean(songMenuAnchor)
@@ -47,8 +48,10 @@ export function DraggableSongRow({
     setSongMenuAnchor(null)
   }
 
+  console.log(isEditable)
+
   return (
-    <Draggable draggableId={song._id} index={index}>
+    <Draggable draggableId={song._id} index={index} isDragDisabled={!isEditable}>
       {(provided, snapshot) => (
         <div
           className={`station-song-row ${currentSong._id === song._id ? 'current-song' : ''} 

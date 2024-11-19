@@ -71,7 +71,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
   }
 
   async function onPlayPauseStation(stationId) {
-    if (stationId === currentStation._id) {
+    if (stationId === currentStation?._id) {
       isPlaying ? setIsPlaying(false) : setIsPlaying(true)
     } else {
       try {

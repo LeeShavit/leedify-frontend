@@ -49,7 +49,7 @@ export function QuickAccess() {
   }
 
   async function onPlayStation(station) {
-    if (station._id === currentStation._id) {
+    if (station._id === currentStation?._id) {
       setIsPlaying(!isPlaying)
     } else {
       try {
@@ -66,12 +66,12 @@ export function QuickAccess() {
 
   return (
     <div className='quick-access__grid'>
-      {recentStations.map((station) => (
+      {recentStations?.map((station) => (
         <QuickAccessItem
           key={station._id}
           station={station}
           isPlaying={isPlaying}
-          isCurrentStation={station._id === currentStation._id}
+          isCurrentStation={station._id === currentStation?._id}
           onPlay={onPlayStation}
         />
       ))}
