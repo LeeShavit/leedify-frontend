@@ -1,0 +1,198 @@
+.now-playing {
+  height: calc(100vh - 152px);
+  background-color: $background-dark;
+  color: $text-primary;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+
+  &__header {
+    padding: 8px 16px;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  &__close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-secondary;
+    border-radius: 50%;
+    background: none;
+
+    &:hover {
+      color: $text-primary;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__current {
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    h3 {
+      font-size: 0.875rem;
+      color: $text-secondary;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  &__song-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__cover {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+
+  &__details {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: $font-book;
+    color: $text-primary;
+    @include text-truncate;
+  }
+
+  &__artist {
+    display: block;
+    font-size: 0.75rem;
+    color: $text-secondary;
+    @include text-truncate;
+
+    a {
+      color: inherit;
+      &:hover {
+        color: $text-primary;
+        text-decoration: underline;
+      }
+    }
+  }
+  &__play-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: $primary-color;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+
+  &__queue {
+    flex: 1;
+    padding: 8px 8px;
+    overflow-y: auto;
+
+    h3 {
+      font-size: 0.875rem;
+      color: $text-secondary;
+      margin: 0 0 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+  }
+
+  .queue-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &__cover {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+
+    &__details {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__name {
+      display: block;
+      font-size: 0.875rem;
+      color: $text-primary;
+      @include text-truncate;
+    }
+
+    &__artist {
+      display: block;
+      font-size: 0.75rem;
+      color: $text-secondary;
+      @include text-truncate;
+
+      a {
+        color: inherit;
+        &:hover {
+          color: $text-primary;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &__play-button {
+      opacity: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: $text-primary;
+        transform: scale(1.04);
+      }
+    }
+  }
+}

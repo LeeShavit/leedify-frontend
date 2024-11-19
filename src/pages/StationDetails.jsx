@@ -1,7 +1,15 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { addSongToStation, removeSongFromStation, removeStation, updateStation, likeStation, dislikeStation, loadStations } from '../store/actions/station.actions'
+import {
+  addSongToStation,
+  removeSongFromStation,
+  removeStation,
+  updateStation,
+  likeStation,
+  dislikeStation,
+  loadStations,
+} from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { addToQueue, addToQueueNext, clearQueue, playNext, replaceQueue, setIsPlaying } from '../store/actions/player.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
@@ -15,13 +23,17 @@ import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
-import { SOCKET_EMIT_SET_STATION_ID, SOCKET_EVENT_EDIT_STATION, SOCKET_EVENT_SAVE_STATION, socketService } from '../services/socket.service'
+import {
+  SOCKET_EMIT_SET_STATION_ID,
+  SOCKET_EVENT_EDIT_STATION,
+  SOCKET_EVENT_SAVE_STATION,
+  socketService,
+} from '../services/socket.service'
 import { ListIcon, Loader } from '../assets/img/library/icons'
 import { showUserMsg } from '../services/event-bus.service'
 import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 
 export function StationDetails() {
-
   const navigate = useNavigate()
   const fac = new FastAverageColor()
   const fileInputRef = useRef(null)
@@ -58,11 +70,11 @@ export function StationDetails() {
   useEffect(() => {
     loadStation().catch((err) => console.log(err))
     socketService.emit(SOCKET_EMIT_SET_STATION_ID, stationId)
-
   }, [user._id, stationId])
 
   useEffect(() => {
     if (station) {
+      console.log(station)
       loadStationImage()
     }
   }, [station])
@@ -297,10 +309,14 @@ export function StationDetails() {
           <button className='station-controls__play' onClick={() => onPlayStation()}>
             {currentStation?._id === stationId && isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
-          {station.createdBy._id !== user._id &&
-            <button className={`station-controls__add ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
+          {station.createdBy._id !== user._id && (
+            <button
+              className={`station-controls__add ${isInLibrary ? 'liked' : ''}`}
+              onClick={() => onLikeDislikeStation()}
+            >
               {isInLibrary ? <Liked /> : <Like />}
-            </button>}
+            </button>
+          )}
           <Button
             className='list-icon'
             onClick={(event) => handleClick(event)}
@@ -324,7 +340,10 @@ export function StationDetails() {
           />
         </div>
         <div className='station-controls__right'>
-          <button className='station-controls__list'><span>List</span><ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} /></button>
+          <button className='station-controls__list'>
+            <span>List</span>
+            <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} />
+          </button>
         </div>
       </div>
       {station?.songs.length ? (

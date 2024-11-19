@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PlayerControls } from './PlayerControls.jsx'
 import { DEFAULT_IMG } from '../services/station/station.service.local.js'
@@ -20,12 +19,16 @@ import { getItemsIds } from '../services/util.service'
 import { Like, Liked } from '../assets/img/playlist-details/icons'
 import { Loader } from '../assets/img/library/icons.jsx'
 import { ArrowDown, ChevronDown } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { SET_QUEUE_OPEN } from '../store/reducers/player.reducer'
 import { FastAverageColor } from 'fast-average-color'
 
 export function Player() {
   const playerRef = useRef(null)
+  const dispatch = useDispatch()
   const [volume, setVolume] = useState(100)
   const user = useSelector((state) => state.userModule.user)
+  const isQueueOpen = useSelector((state) => state.playerModule.isQueueOpen)
 
   const currentSong = useSelector((state) => state.playerModule.currentSong)
   const [likedSongsIds, setLikedSongsIds] = useState(user?.likedSongs ? getItemsIds(user.likedSongs) : [])
@@ -35,10 +38,13 @@ export function Player() {
 
   useEffect(() => {
     if (currentSong) {
-      
       loadBackgroundColor()
     }
   }, [currentSong])
+
+  const toggleQueue = () => {
+    dispatch({ type: SET_QUEUE_OPEN, isOpen: !isQueueOpen })
+  }
 
   function handleVolumeClick({ target }) {
     if (!playerRef.current) return
@@ -73,7 +79,7 @@ export function Player() {
     }
   }
 
-  if (!currentSong || !user) return <Loader/>
+  if (!currentSong || !user) return <Loader />
 
   return (
     <section className={`player full ${isFullScreen ? 'full-screen' : 'minimized'} dynamic-bg`}>
@@ -119,7 +125,7 @@ export function Player() {
         <button>
           <Lyrics />
         </button>
-        <button className='queue'>
+        <button onClick={toggleQueue} className={`player-buttons__queue ${isQueueOpen ? 'active' : ''}`}>
           <QueueIcon />
         </button>
         <button>

@@ -1,5 +1,5 @@
-import { stationService } from "../../services/station/"
-import { userService } from "../../services/user"
+import { stationService } from '../../services/station/'
+import { userService } from '../../services/user'
 
 export const LOADING_START = 'LOADING_START'
 export const LOADING_DONE = 'LOADING_DONE'
@@ -14,6 +14,7 @@ export const SET_REPEAT_MODE = 'SET_REPEAT_MODE'
 export const PLAY_NEXT = 'PLAY_NEXT'
 export const PLAY_PREV = 'PLAY_PREV'
 export const REPLACE_QUEUE = 'REPLACE_QUEUE'
+export const SET_QUEUE_OPEN = 'SET_QUEUE_OPEN'
 
 const initialState = {
   currentSong: stationService.getCurrentSong(),
@@ -25,6 +26,7 @@ const initialState = {
   repeat: 'OFF', //SONG , QUEUE
   shuffle: false,
   originalQueue: [],
+  isQueueOpen: false,
 }
 
 export function playerReducer(state = initialState, action = {}) {
@@ -38,7 +40,7 @@ export function playerReducer(state = initialState, action = {}) {
       return {
         ...state,
         currentSong: action.currentSong,
-        history: action.currentSong ? [action.currentSong, ...state.history] : [...state.history]
+        history: action.currentSong ? [action.currentSong, ...state.history] : [...state.history],
       }
     case SET_IS_PLAYING:
       return { ...state, isPlaying: action.isPlaying }
@@ -48,20 +50,20 @@ export function playerReducer(state = initialState, action = {}) {
         ...state,
         queue: [...state.queue, ...songsToAdd],
         originalQueue: state.shuffle ? state.originalQueue : [...songsToAdd, ...state.originalQueue],
-        currentStation: action.station || state.currentStation
+        currentStation: action.station || state.currentStation,
       }
     case ADD_TO_QUEUE_NEXT:
       const songsToAddNext = Array.isArray(action.songsToAdd) ? action.songsToAdd : [action.songsToAdd]
       return {
         ...state,
         queue: [...songsToAddNext, ...state.queue],
-        originalQueue: state.shuffle ? state.originalQueue : [...songsToAddNext, ...state.originalQueue]
+        originalQueue: state.shuffle ? state.originalQueue : [...songsToAddNext, ...state.originalQueue],
       }
     case REMOVE_FROM_QUEUE:
       return {
         ...state,
-        queue: state.queue.filter(song => song._id !== action.songId),
-        originalQueue: state.originalQueue.filter(song => song._id !== action.songId)
+        queue: state.queue.filter((song) => song._id !== action.songId),
+        originalQueue: state.originalQueue.filter((song) => song._id !== action.songId),
       }
     case CLEAR_QUEUE:
       return { ...state, queue: [], originalQueue: [] }
@@ -71,7 +73,7 @@ export function playerReducer(state = initialState, action = {}) {
         shuffle: !state.shuffle,
         queue: !state.shuffle ? [...state.queue].sort(() => Math.random() - 0.5) : [...state.originalQueue],
         originalQueue: !state.shuffle ? [...state.queue] : [...state.originalQueue],
-        currentStation: null
+        currentStation: null,
       }
     case SET_REPEAT_MODE:
       return { ...state, repeat: action.mode }
@@ -79,7 +81,7 @@ export function playerReducer(state = initialState, action = {}) {
       if (state.queue.length === 0) {
         return {
           ...state,
-          currentSong: state.currentSong
+          currentSong: state.currentSong,
         }
       }
       let [nextSong, ...remainingQueue] = state.queue
@@ -88,12 +90,14 @@ export function playerReducer(state = initialState, action = {}) {
       }
       if (remainingQueue.length === 0) {
         if (state.repeat === 'QUEUE') {
-          const newQueue = state.shuffle ? [...state.originalQueue].sort(() => Math.random() - 0.5) : [...state.originalQueue]
+          const newQueue = state.shuffle
+            ? [...state.originalQueue].sort(() => Math.random() - 0.5)
+            : [...state.originalQueue]
           return {
             ...state,
             currentSong: nextSong,
             queue: newQueue,
-            history: state.currentSong ? [state.currentSong, ...state.history] : [...state.history]
+            history: state.currentSong ? [state.currentSong, ...state.history] : [...state.history],
           }
         }
       }
@@ -101,7 +105,7 @@ export function playerReducer(state = initialState, action = {}) {
         ...state,
         currentSong: nextSong,
         queue: remainingQueue,
-        history: state.currentSong ? [state.currentSong, ...state.history] : [...state.history]
+        history: state.currentSong ? [state.currentSong, ...state.history] : [...state.history],
       }
     case PLAY_PREV:
       console.log(state)
@@ -113,7 +117,7 @@ export function playerReducer(state = initialState, action = {}) {
         ...state,
         currentSong: prevSong,
         queue: state.currentSong ? [state.currentSong, ...state.queue] : state.queue,
-        history: remainingHistory
+        history: remainingHistory,
       }
     case REPLACE_QUEUE:
       const songsToReplace = Array.isArray(action.songs) ? action.songs : [action.songs]
@@ -122,8 +126,11 @@ export function playerReducer(state = initialState, action = {}) {
         queue: state.shuffle ? songsToReplace.sort(() => Math.random() - 0.5) : songsToReplace,
         originalQueue: songsToReplace,
         history: [],
-        currentStation: action.station || state.currentStation
+        currentStation: action.station || state.currentStation,
       }
-    default: return state
+    case SET_QUEUE_OPEN:
+      return { ...state, isQueueOpen: action.isOpen }
+    default:
+      return state
   }
 }

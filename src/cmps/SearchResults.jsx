@@ -110,7 +110,7 @@ export function SearchResults() {
         </div>
       </div>
 
-      <div className='search-results__song-album'>{song.album.name}</div>
+      <div className='search-results__song-album hide-on-mobile'>{song.album.name}</div>
       <button
         className={`like-song ${likedSongsIds.includes(song._id) ? 'liked' : ''}`}
         onClick={() => handleLikeDislikeSong(song)}
@@ -144,7 +144,11 @@ export function SearchResults() {
         </button>
       </div>
 
-      {isLoading && <div className='search-results__loading'><Loader /></div>}
+      {isLoading && (
+        <div className='search-results__loading'>
+          <Loader />
+        </div>
+      )}
 
       {!isLoading && (
         <div className='search-results__content'>
@@ -153,7 +157,7 @@ export function SearchResults() {
               <div className='search-results__table-header'>
                 <div className='search-results__table-header__number'>#</div>
                 <div className='search-results__table-header__title'>Title</div>
-                <div className='search-results__table-header__album'>Album</div>
+                <div className='search-results__table-header__album hide-on-mobile'>Album</div>
                 <div className='search-results__table-header__duration'>Duration</div>
               </div>
               <div className='search-results__songs'>
