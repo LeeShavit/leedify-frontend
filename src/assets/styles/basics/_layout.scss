@@ -1,6 +1,6 @@
 .main-container {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: 8px;
   padding: 8px 0px;
 
@@ -59,6 +59,19 @@
 
     &.library {
       grid-column: 1/2;
+    }
+    &.now-playing {
+      grid-column: 3;
+      width: 340px;
+      background-color: $background-dark;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+
+      @include for-mobile-layout {
+        display: none;
+      }
     }
 
     &.end {

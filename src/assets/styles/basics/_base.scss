@@ -46,7 +46,6 @@ main {
   @include for-mobile-layout {
     height: 100%;
     overflow-y: scroll;
-
   }
   @include for-narrow-layout {
     height: calc(100vh - 152px);
