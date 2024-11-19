@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 import { loadUser } from '../store/actions/user.actions'
 import { store } from '../store/store'
-import { showSuccessMsg } from '../services/event-bus.service'
+import { showUserMsg } from '../services/event-bus.service'
 
 export function UserDetails() {
 
@@ -21,7 +21,7 @@ export function UserDetails() {
   }, [params.id])
 
   function onUserUpdate(user) {
-    showSuccessMsg(`This user ${user.name} just got updated from socket`)
+    showUserMsg(`This user ${user.name} just got updated from socket`)
     store.dispatch({ type: 'SET_WATCHED_USER', user })
   }
 

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Report, AddToQueue, Share, Embed, Copy, ArrowRight, Profile, Exclude } from '../assets/img/menu/icons';
 import { LikeIconLike, LikeIconLiked } from '../assets/img/player/icons';
 import { SpotifyIcon } from '../assets/img/app-header/icons';
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service';
+import {  showUserMsg } from '../services/event-bus.service';
 
 
 export default function StationMenu({ onClose, ...props }) {
@@ -37,10 +37,10 @@ export default function StationMenu({ onClose, ...props }) {
             const linkToCopy = `http://localhost:5173/station/${stationId}`
             await navigator.clipboard.writeText(linkToCopy)
 
-            showSuccessMsg('Link copied to clipboard!')
+            showUserMsg('Link copied to clipboard')
         } catch (err) {
             console.error('Failed to copy link:', err)
-            showErrorMsg('Failed to copy link')
+            showUserMsg('Failed to copy link')
         }
     }
 

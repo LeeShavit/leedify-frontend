@@ -1,7 +1,7 @@
 import { userService } from '../../services/user'
 import { store } from '../store'
 
-import { showErrorMsg } from '../../services/event-bus.service'
+import { showUserMsg } from '../../services/event-bus.service'
 import {
   REMOVE_USER,
   SET_USER,
@@ -85,7 +85,7 @@ export async function loadUser(userId) {
     const user = await userService.getById(userId)
     store.dispatch({ type: SET_USER, user })
   } catch (err) {
-    showErrorMsg('Cannot load user')
+    showUserMsg('Cannot load user')
     console.log('Cannot load user', err)
   }
 }
@@ -96,7 +96,7 @@ export async function updateUsersLikedStation(station) {
       store.dispatch({ type: UPDATE_USER_LIKED_STATION, station: updatedStation })
       return updatedStation
     } catch (err) {
-        showErrorMsg('Cannot like song')
+        showUserMsg('Cannot like song')
         console.log('Cannot like song', err)
     }
 }
@@ -107,7 +107,7 @@ export async function likeSong(song) {
     store.dispatch({ type: LIKE_SONG, song })
     return likedSongs
   } catch (err) {
-    showErrorMsg('Cannot like song')
+    showUserMsg('Cannot like song')
     console.log('Cannot like song', err)
   }
 }

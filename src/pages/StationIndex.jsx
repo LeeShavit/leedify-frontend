@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 
 // import { loadStations, addStation, updateStation, removeStation, addStationMsg } from '../store/actions/station.actions'
 
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
+import { showUserMsg } from '../services/event-bus.service'
 import { stationService } from '../services/station/'
 import { userService } from '../services/user'
 
@@ -22,9 +22,9 @@ export function StationIndex() {
   async function onRemoveStation(stationId) {
     try {
       await removeStation(stationId)
-      showSuccessMsg('Station removed')
+      showUserMsg('Station removed')
     } catch (err) {
-      showErrorMsg('Cannot remove station')
+      showUserMsg('Cannot remove station')
     }
   }
 
