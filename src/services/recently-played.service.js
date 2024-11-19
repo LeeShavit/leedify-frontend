@@ -19,7 +19,8 @@ export const recentlyPlayedService = {
   getRecentlyPlayed,
 }
 
-function addStation(stationId) {
+function addStation(station) {
+  const stationId= station._id
   let recentlyPlayed = JSON.parse(localStorage.getItem(RECENTLY_PLAYED_KEY) || '[]')
   recentlyPlayed = recentlyPlayed.filter((id) => id !== stationId)
   recentlyPlayed.unshift(stationId)

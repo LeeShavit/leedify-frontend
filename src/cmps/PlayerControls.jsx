@@ -53,6 +53,7 @@ export function PlayerControls({ playerRef, volume }) {
     }
 
     function handleStateChange(event) {
+        console.log(event.data)
         if (event.data === 5 && isPlaying) {
             event.target.playVideo()
         }
@@ -62,6 +63,10 @@ export function PlayerControls({ playerRef, volume }) {
                     playerRef.current.playVideo()
                 }
             }, 500)
+        }
+        if(event.data === 0){
+            playNext()
+            setIsPlaying(true)
         }
     }
 
@@ -87,6 +92,13 @@ export function PlayerControls({ playerRef, volume }) {
         if (!playerRef.current) return
         playerRef.current.pauseVideo()
         setIsPlaying(false)
+    }
+
+    function handlePlayNext(){
+        if (!playerRef.current) return
+        if (repeat === 'SONG') playerRef.current.seekTo(0, true)
+        playNext()
+
     }
 
     function handleProgressClick({ target }) {
@@ -141,7 +153,7 @@ export function PlayerControls({ playerRef, volume }) {
                         className={`play ${isPlaying ? 'is-playing' : ''}`}>
                         {isPlaying ? <PauseIcon /> : <PlayIcon />}
                     </button>
-                    <button onClick={() => playNext()}>
+                    <button onClick={handlePlayNext}>
                         <NextSong />
                     </button>
                     <button onClick={() => onSetRepeatMode()} className={`repeat ${(repeat !== 'OFF') && 'on'}`}>
