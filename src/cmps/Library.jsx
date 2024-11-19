@@ -101,22 +101,21 @@ export function Library({ isExpanded, onToggleLibrary }) {
     }
   }
   function renderLibraryItem(item, index) {
-    const isCurrentStation = currentStation?._id === item._id
-    const isLikedSongs = item === 'liked-songs'
+    const isLikedSongs = (item._id === 'liked-songs')
     const itemName = isLikedSongs ? 'Liked Songs' : item.name
     const itemImage = isLikedSongs
       ? 'https://misc.scdn.co/liked-songs/liked-songs-300.png'
       : typeof item.imgUrl === 'string'
-      ? item.imgUrl
-      : item.imgUrl[2].url
+        ? item.imgUrl
+        : item.imgUrl[2].url
 
     if (!stations) return <Loader />
 
     return (
       <div
         key={isLikedSongs ? 'liked-songs' : item._id}
-        className={`library-item ${isCurrentStation ? 'current-station' : ''}`}
-        onClick={() => onNavigateToStation(isLikedSongs ? 'liked-songs' : item._id)}
+        className={`library-item ${(currentStation?._id === item._id) ? 'current-station' : ''}`}
+        onClick={() => onNavigateToStation(item._id)}
         data-name={itemName}
       >
         <button
@@ -127,11 +126,9 @@ export function Library({ isExpanded, onToggleLibrary }) {
           }}
         >
           <img src={itemImage} alt={itemName} />
-          {!isExpanded && (
-            <div className='library-item__image-overlay'>
-              {isCurrentStation && isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} className='play-icon' />}
-            </div>
-          )}
+          <div className='library-item__image-overlay'>
+            {(currentStation?._id === item._id) && isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} className='play-icon' />}
+          </div>
         </button>
 
         {isExpanded && (
@@ -156,7 +153,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
                   onPlayPauseStation(isLikedSongs ? 'liked-songs' : item._id)
                 }}
               >
-                {isCurrentStation && isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
+                {(currentStation?._id === item._id) && isPlaying ? <PauseIcon size={16} /> : <PlayIcon size={16} />}
               </button>
             )}
           </div>
@@ -235,7 +232,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
         </div>
       </div>
       <div className={getLibraryListClassName()}>
-        {renderLibraryItem('liked-songs')}
+        {renderLibraryItem({ _id: 'liked-songs' })}
         {stations?.map((station) => renderLibraryItem(station))}
       </div>
     </aside>
