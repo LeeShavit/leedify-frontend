@@ -31,8 +31,19 @@ export function Library({ isExpanded, onToggleLibrary }) {
   const [selectedTab, setSelectedTab] = useState('playlists')
   const [sortBy, setSortBy] = useState('recently added')
   const [view, setView] = useState('compact')
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500)
+
   const navigate = useNavigate()
   const open = Boolean(anchorEl)
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 500)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     if (!user) return
@@ -44,6 +55,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
       const savedStation = await addStation()
       await likeStation(savedStation)
       navigate(`/station/${savedStation._id}`)
+      if (isMobile) onToggleLibrary()
     } catch (err) {
       console.error('Failed to create playlist:', err)
     }
@@ -51,6 +63,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
 
   function onNavigateToStation(stationId) {
     navigate(`/station/${stationId}`)
+    if (isMobile) onToggleLibrary()
   }
 
   function handleClick(event) {
@@ -98,7 +111,7 @@ export function Library({ isExpanded, onToggleLibrary }) {
       ? item.imgUrl
       : item.imgUrl[2].url
 
-      if(!stations) return <Loader/>
+    if (!stations) return <Loader />
 
     return (
       <div
