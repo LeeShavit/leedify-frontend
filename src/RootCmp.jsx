@@ -14,7 +14,7 @@ import { MobileNav } from './cmps/MobileNav.jsx'
 import { SearchResults } from './cmps/SearchResults.jsx'
 import { GenreDetails } from './pages/GenreDetails.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
-
+import { NowPlaying } from './cmps/NowPlaying.jsx'
 export function RootCmp() {
   const [isLibraryExpanded, setIsLibraryExpanded] = useState(true)
   const location = useLocation()
@@ -39,6 +39,7 @@ export function RootCmp() {
             <Route path='user/:id' element={<UserDetails />} />
           </Routes>
         </main>
+        <NowPlaying />
         <Player />
         <MobileNav setIsLibraryExpanded={setIsLibraryExpanded} />
       </div>
