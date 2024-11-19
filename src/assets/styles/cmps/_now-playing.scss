@@ -18,7 +18,7 @@
     justify-content: space-between;
 
     h2 {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       margin: 0;
     }
@@ -45,8 +45,8 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
     h3 {
-      font-size: 0.875rem;
-      color: $text-secondary;
+      font-size: 0.8rem;
+      color: $text-primary;
       margin: 0 0 12px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -94,16 +94,17 @@
     }
   }
   &__play-button {
-    opacity: 0;
+    opacity: 1;
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: $primary-color;
-    color: black;
+    // background-color: $primary-color;
+    background: none;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-
+    position: relative;
     &:hover {
       transform: scale(1.04);
     }
@@ -115,8 +116,8 @@
     overflow-y: auto;
 
     h3 {
-      font-size: 0.875rem;
-      color: $text-secondary;
+      font-size: 0.8rem;
+      color: $text-primary;
       margin: 0 0 12px;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -144,10 +145,27 @@
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
     }
-
-    &__cover {
+    &__cover-container {
+      position: relative;
       width: 40px;
       height: 40px;
+      flex-shrink: 0;
+
+      &:hover {
+        .queue-item__cover {
+          filter: brightness(0.7);
+        }
+
+        .queue-item__cover-play {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    &__cover {
+      width: 100%;
+      height: 100%;
       border-radius: 4px;
       object-fit: cover;
     }
@@ -178,21 +196,24 @@
         }
       }
     }
-
-    &__play-button {
-      opacity: 0;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: $primary-color;
-      color: black;
+    &__cover-play {
+      position: absolute;
+      top: -5px;
+      left: -5px;
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0;
+      transform: translateY(5px);
+      background: none;
+      width: 100%;
+      height: 100%;
 
-      &:hover {
+      svg {
+        width: 16px;
+        height: 16px;
         color: $text-primary;
-        transform: scale(1.04);
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
       }
     }
   }
