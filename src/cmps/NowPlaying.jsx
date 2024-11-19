@@ -11,9 +11,17 @@ export function NowPlaying() {
   const queue = useSelector((state) => state.playerModule?.queue || [])
   const isOpen = useSelector((state) => state.playerModule?.isQueueOpen)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
+  const currentStation = useSelector((state) => state.playerModule.currentStation)
 
   const closeQueue = () => {
     dispatch({ type: SET_QUEUE_OPEN, isOpen: false })
+  }
+
+  const handlePlayFromQueue = (index) => {
+    const selectedSong = queue[index]
+    dispatch(setCurrentSong(selectedSong))
+    dispatch(replaceQueue(queue.slice(index + 1), currentStation))
+    dispatch(setIsPlaying(true))
   }
 
   if (!isOpen) return null
@@ -48,7 +56,7 @@ export function NowPlaying() {
               ))}
             </span>
           </div>
-          <button className='now-playing__play-button' onClick={() => setIsPlaying(!isPlaying)}>
+          <button className='now-playing__play-button' onClick={() => dispatch(setIsPlaying(!isPlaying))}>
             {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
         </div>
@@ -59,11 +67,16 @@ export function NowPlaying() {
         <div className='now-playing__queue-list'>
           {queue.map((song, index) => (
             <div key={song.id || index} className='queue-item'>
-              <img
-                src={typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[2].url}
-                alt={song.name}
-                className='queue-item__cover'
-              />
+              <div className='queue-item__cover-container'>
+                <img
+                  src={typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[2].url}
+                  alt={song.name}
+                  className='queue-item__cover'
+                />
+                <button className='queue-item__cover-play' onClick={() => handlePlayFromQueue(index)}>
+                  <PlayIcon />
+                </button>
+              </div>
               <div className='queue-item__details'>
                 <span className='queue-item__name'>{song.name}</span>
                 <span className='queue-item__artist'>
@@ -75,9 +88,6 @@ export function NowPlaying() {
                   ))}
                 </span>
               </div>
-              <button className='queue-item__play-button' onClick={() => playNext(index)}>
-                <PlayIcon />
-              </button>
             </div>
           ))}
         </div>

@@ -18,7 +18,7 @@
     border: none;
     background: transparent;
     padding: 0.5rem;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     position: relative;
 
     &::after {
@@ -30,7 +30,7 @@
       height: 1px;
       background-color: $text-primary;
       transform: scaleX(0);
-      transition: transform 0.3s ease;
+      transition: transform 0.1s ease;
       transform-origin: center;
     }
 
