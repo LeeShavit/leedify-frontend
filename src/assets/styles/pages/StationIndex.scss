@@ -3,7 +3,7 @@
   min-height: 100%;
   color: $text-primary;
   padding: 0.5rem;
-  border-radius: 8px;
+
   background: linear-gradient(180deg, #5028f0 -30%, #121212 20%);
   color: $text-primary;
   border-radius: 8px;
@@ -18,12 +18,12 @@
     background: linear-gradient(rgba(18, 18, 18, 0.3) 0%, transparent 100%);
     pointer-events: none;
   }
-  
+
   &__grid {
     display: grid;
     position: relative;
     @media (min-width: $mobile-breakpoint) {
-      // grid-template-columns: repeat(2, 1fr);s
+      // grid-template-columns: repeat(2, 1fr);
       display: flex;
       overflow-x: auto;
       gap: 4px;
