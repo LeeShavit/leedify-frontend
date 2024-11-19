@@ -38,7 +38,7 @@
   &__content {
     .station-table-header {
       display: grid;
-      grid-template-columns: 34px 4fr 3fr 2fr auto;
+      grid-template-columns: 30px minmax(0, 4fr) minmax(0, 3fr) 30px 80px;
       padding: 0 16px;
       height: 36px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -46,14 +46,24 @@
       font-size: 13px;
       font-weight: 500;
       align-items: center;
+      @include for-mobile-layout {
+        grid-template-columns: 30px minmax(0, 1fr) 30px 80px;
+        padding: 0 8px;
+
+        .hide-on-mobile {
+          display: none;
+        }
+      }
 
       &__number,
       &__title,
       &__album,
-      &__date,
       &__duration {
         display: flex;
         align-items: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       &__date {
@@ -73,10 +83,9 @@
       }
 
       @include for-mobile-layout {
-        grid-template-columns: 1fr auto; // Only title and duration
+        grid-template-columns: 1fr auto;
         padding: 0 8px;
 
-        // Hide unnecessary columns
         &__number,
         &__album,
         &__date {
@@ -88,7 +97,7 @@
 
   &__table-header {
     display: grid;
-    grid-template-columns: 20px 4fr 3fr 1fr;
+    grid-template-columns: 30px 2fr 250px 80px;
     padding: 0 16px;
     height: 36px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -109,27 +118,48 @@
     &__duration {
       justify-content: flex-end;
     }
+    @include for-mobile-layout {
+      grid-template-columns: 30px minmax(0, 1fr) 1px;
+      padding: 8px;
+      &__number {
+        display: none;
+      }
+    }
   }
 
   &__song-row {
     display: grid;
-    grid-template-columns: 16px 4fr 3fr 30px 1fr;
+    grid-template-columns: 30px 2fr 200px 30px 80px;
     padding: 8px 16px;
     color: $text-secondary;
     font-size: 14px;
     border-radius: 4px;
     align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
 
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
 
-      .search-results__song-number {
+        .search-results__song-number {
+          display: none;
+        }
+
+        .search-results__image-button {
+          display: flex;
+        }
+      }
+    }
+    @include for-mobile-layout {
+      grid-template-columns: 1fr 30px 80px;
+      padding: 8px;
+      gap: 8px;
+      &__song-number {
         display: none;
       }
-
-      .search-results__image-button {
-        display: block;
-      
+      .hide-on-mobile {
+        display: none;
       }
     }
   }
@@ -137,34 +167,45 @@
     width: 16px;
     text-align: left;
     margin-right: 16px;
+    @include for-mobile-layout {
+      display: none;
+    }
   }
 
   &__image-button {
     display: none;
     position: absolute;
-    left: 16px;
+    left: -18px;
+    margin: 0;
+    height: 30px;
+    width: 30px;
   }
 
   &__song-info {
     display: flex;
     align-items: center;
     gap: 16px;
+    height: 40px;
+
+    // width: 100%;
+    min-width: 0;
+    text-overflow: ellipsis;
 
     img {
       width: 40px;
       height: 40px;
       border-radius: 4px;
+      flex-shrink: 0;
     }
 
     &-details {
-      display: flex;
-      flex-direction: column;
+      min-width: 0;
+      flex: 1;
     }
   }
 
   &__song-album {
     color: $text-secondary;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -183,18 +224,21 @@
   }
 
   &__image-button {
-    place-self: start;
-    position: relative;
-    width: 40px;
+    display: none;
+    width: 30px;
     height: 40px;
-    padding: 0;
-    border: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 16px;
     background: none;
-    cursor: pointer;
-    flex-shrink: 0;
-    overflow: hidden;
-    border-radius: 4px;
-    margin-inline-end: 1em;
+    border: none;
+    padding: 0;
+    z-index: 1;
+
+    @include for-mobile-layout {
+      left: 28px;
+    }
 
     img {
       width: 100%;
@@ -224,25 +268,39 @@
   }
 
   &__song-info {
-    flex: 1;
+    width: 100%;
+
     min-width: 0;
   }
 
   &__song-name {
+    display: block;
+    width: 100%;
     color: $text-primary;
     font-size: 16px;
     margin-bottom: 4px;
+    padding-right: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   &__song-artist {
+    display: block;
+    width: 100%;
     color: $text-secondary;
     font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  &__song-album {
+    color: $text-secondary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
   }
 
   &__playlists {
@@ -274,5 +332,10 @@
 
   button {
     background: none;
+  }
+  .hide-on-mobile {
+    @include for-mobile-layout {
+      display: none !important;
+    }
   }
 }

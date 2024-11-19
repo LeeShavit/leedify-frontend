@@ -1,7 +1,15 @@
 import { useEffect, useState, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { addSongToStation, removeSongFromStation, removeStation, updateStation, likeStation, dislikeStation, loadStations } from '../store/actions/station.actions'
+import {
+  addSongToStation,
+  removeSongFromStation,
+  removeStation,
+  updateStation,
+  likeStation,
+  dislikeStation,
+  loadStations,
+} from '../store/actions/station.actions'
 import { likeSong, dislikeSong } from '../store/actions/user.actions'
 import { addToQueue, addToQueueNext, clearQueue, playNext, setIsPlaying } from '../store/actions/player.actions'
 import { Time, Like, Liked } from '../assets/img/playlist-details/icons'
@@ -15,12 +23,16 @@ import { DraggableSongContainer } from '../cmps/DnDSongContainer'
 import { DraggableSongRow } from '../cmps/DnDSongRow'
 import { stationService, DEFAULT_IMG } from '../services/station/'
 import { getItemsIds } from '../services/util.service'
-import { SOCKET_EMIT_SET_STATION_ID, SOCKET_EVENT_EDIT_STATION, SOCKET_EVENT_SAVE_STATION, socketService } from '../services/socket.service'
+import {
+  SOCKET_EMIT_SET_STATION_ID,
+  SOCKET_EVENT_EDIT_STATION,
+  SOCKET_EVENT_SAVE_STATION,
+  socketService,
+} from '../services/socket.service'
 import { ListIcon, Loader } from '../assets/img/library/icons'
 import { showUserMsg } from '../services/event-bus.service'
 
 export function StationDetails() {
-
   const navigate = useNavigate()
   const fac = new FastAverageColor()
   const fileInputRef = useRef(null)
@@ -52,11 +64,11 @@ export function StationDetails() {
   useEffect(() => {
     loadStation().catch((err) => console.log(err))
     socketService.emit(SOCKET_EMIT_SET_STATION_ID, stationId)
-
   }, [user._id, stationId])
 
   useEffect(() => {
     if (station) {
+      console.log(station)
       loadStationImage()
     }
   }, [station])
@@ -64,11 +76,11 @@ export function StationDetails() {
   async function loadStation() {
     try {
       if (!stationId) return
-      if(!user) return
+      if (!user) return
       const loadedStation = await stationService.getById(stationId)
       setStation(loadedStation)
       setLikedSongsIds(getItemsIds(user.likedSongs))
-      setIsInLibrary(user?.likedStations.some(likedStation => likedStation._id === stationId))
+      setIsInLibrary(user?.likedStations.some((likedStation) => likedStation._id === stationId))
       setIsAddSong(loadedStation.songs.length === 0)
       return loadedStation
     } catch (err) {
@@ -86,7 +98,7 @@ export function StationDetails() {
       if (station.imgUrl === DEFAULT_IMG && station.songs.length > 0) {
         img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
       }
-      updateStation({...station, imgUrl: img})
+      updateStation({ ...station, imgUrl: img })
     }
     setStationImage(img)
     loadBackgroundColor(img)
@@ -178,7 +190,6 @@ export function StationDetails() {
       setStation(updatedStation)
       loadStationImage()
       socketService.emit(SOCKET_EVENT_SAVE_STATION, updatedStation)
-
     } catch {
       showUserMsg(`failed to remove song ${songId}`)
     }
@@ -278,10 +289,14 @@ export function StationDetails() {
           <button className='station-controls__play' onClick={() => onPlayStation()}>
             <span className='station-controls__play-icon'>▶</span>
           </button>
-          {station.createdBy._id !== user._id &&
-            <button className={`station-controls__add ${isInLibrary ? 'liked' : ''}`} onClick={() => onLikeDislikeStation()}>
+          {station.createdBy._id !== user._id && (
+            <button
+              className={`station-controls__add ${isInLibrary ? 'liked' : ''}`}
+              onClick={() => onLikeDislikeStation()}
+            >
               {isInLibrary ? <Liked /> : <Like />}
-            </button>}
+            </button>
+          )}
           <Button
             className='list-icon'
             onClick={(event) => handleClick(event)}
@@ -304,7 +319,10 @@ export function StationDetails() {
           />
         </div>
         <div className='station-controls__right'>
-          <button className='station-controls__list'><span>List</span><ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} /></button>
+          <button className='station-controls__list'>
+            <span>List</span>
+            <ListIcon className='list-icon' sx={{ fontSize: '24px', opacity: 0.7 }} />
+          </button>
         </div>
       </div>
       {station?.songs.length ? (
@@ -334,11 +352,13 @@ export function StationDetails() {
           />
         ))}
       </DraggableSongContainer>
-      {isAddSong
-        ? <AddSong onAddSong={onAddSong} onClose={()=>setIsAddSong(false)}/>
-        : <div className='add-song-open'>
-          <button onClick={() => setIsAddSong(true)} >Find more</button>
-        </div>}
+      {isAddSong ? (
+        <AddSong onAddSong={onAddSong} onClose={() => setIsAddSong(false)} />
+      ) : (
+        <div className='add-song-open'>
+          <button onClick={() => setIsAddSong(true)}>Find more</button>
+        </div>
+      )}
       {isEditModalOpen && (
         <EditStationModal
           station={station}
