@@ -33,7 +33,6 @@ export async function addStation() {
   try {
     const station = stationService.getEmptyStation()
     const savedStation = await stationService.save(station)
-    store.dispatch(getCmdAddStation(savedStation))
     return savedStation
   } catch (err) {
     console.log('Cannot add station', err)
