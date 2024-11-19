@@ -38,7 +38,7 @@
   &__content {
     .station-table-header {
       display: grid;
-      grid-template-columns: 30px minmax(0, 4fr) minmax(0, 3fr) 30px 80px;
+      grid-template-columns: 30px 2fr 1.1fr 80px;
       padding: 0 16px;
       height: 36px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -47,7 +47,7 @@
       font-weight: 500;
       align-items: center;
       @include for-mobile-layout {
-        grid-template-columns: 30px minmax(0, 1fr) 30px 80px;
+        grid-template-columns: 30px minmax(0, 1fr) 1px;
         padding: 0 8px;
 
         .hide-on-mobile {
@@ -97,7 +97,7 @@
 
   &__table-header {
     display: grid;
-    grid-template-columns: 30px 2fr 250px 80px;
+    grid-template-columns: 30px 2fr 1.1fr 80px;
     padding: 0 16px;
     height: 36px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -129,7 +129,7 @@
 
   &__song-row {
     display: grid;
-    grid-template-columns: 30px 2fr 200px 30px 80px;
+    grid-template-columns: 30px 2fr 1fr 30px 80px;
     padding: 8px 16px;
     color: $text-secondary;
     font-size: 14px;
@@ -137,13 +137,14 @@
     align-items: center;
     gap: 8px;
     box-sizing: border-box;
+    position: relative;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         background-color: rgba(255, 255, 255, 0.1);
 
         .search-results__song-number {
-          display: none;
+          visibility: hidden;
         }
 
         .search-results__image-button {
@@ -175,10 +176,7 @@
   &__image-button {
     display: none;
     position: absolute;
-    left: -18px;
-    margin: 0;
-    height: 30px;
-    width: 30px;
+    left: 16px;
   }
 
   &__song-info {
@@ -186,8 +184,7 @@
     align-items: center;
     gap: 16px;
     height: 40px;
-
-    // width: 100%;
+    position: relative;
     min-width: 0;
     text-overflow: ellipsis;
 
@@ -230,14 +227,15 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: 16px;
+    left: 8px;
     background: none;
     border: none;
     padding: 0;
     z-index: 1;
+    margin: 0; // Add this
 
     @include for-mobile-layout {
-      left: 28px;
+      opacity: 0;
     }
 
     img {
@@ -262,6 +260,7 @@
       height: 16px;
       color: $text-primary;
       fill: $text-primary;
+      left: 20px;
 
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
