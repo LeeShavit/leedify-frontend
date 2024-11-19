@@ -5,10 +5,9 @@ import { DEFAULT_IMG } from './station/station.service.local.js'
 
 const YT_STORAGE_KEY = 'youtube ids'
 
-const youtubeKey= import.meta.env.YT_API_KEY || YT_API_KEY
-const spotifyId= import.meta.env.SPOTIFY_CLIENT_ID || SPOTIFY_CLIENT_ID
-const spotifySecret= import.meta.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SECRET
-
+const youtubeKey = import.meta.env.YT_API_KEY || YT_API_KEY
+const spotifyId = import.meta.env.SPOTIFY_CLIENT_ID || SPOTIFY_CLIENT_ID
+const spotifySecret = import.meta.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SECRET
 
 let gAccessToken = await getAccessToken()
 setTokenRefreshInterval()
@@ -116,7 +115,7 @@ function _getEndpoints(id, query) {
     playlistSearch: `https://api.spotify.com/v1/search?q=${query}&type=playlist&limit=20`,
     tracks: `https://api.spotify.com/v1/playlists/${id}/tracks`,
     search: `https://api.spotify.com/v1/search?q=${query}&type=track,playlist,album,artist&limit=20`,
-    songSearch: `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`,
+    songSearch: `https://api.spotify.com/v1/search?q=${query}&type=track&limit=30`,
     artist: `https://api.spotify.com/v1/artists/${id}`,
     album: `https://api.spotify.com/v1/albums/${id}`,
     artistTopTracks: `https://api.spotify.com/v1/artists/${id}/top-tracks?market=IL`,
