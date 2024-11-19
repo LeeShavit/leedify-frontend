@@ -1,24 +1,42 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Play, Pause } from 'lucide-react'
+import { X } from 'lucide-react'
+import { SET_QUEUE_OPEN } from '../store/reducers/player.reducer'
+import { PauseIcon, PlayIcon } from '../assets/img/player/icons'
 import { setIsPlaying, playNext } from '../store/actions/player.actions'
 
 export function NowPlaying() {
-  const currentSong = useSelector((state) => state.playerModule.currentSong)
+  const dispatch = useDispatch()
+  const currentSong = useSelector((state) => state.playerModule?.currentSong)
+  const queue = useSelector((state) => state.playerModule?.queue || [])
+  const isOpen = useSelector((state) => state.playerModule?.isQueueOpen)
   const isPlaying = useSelector((state) => state.playerModule.isPlaying)
-  const queue = useSelector((state) => state.playerModule.queue)
 
-  if (!currentSong) return null
+  const closeQueue = () => {
+    dispatch({ type: SET_QUEUE_OPEN, isOpen: false })
+  }
+
+  if (!isOpen) return null
 
   return (
     <div className='now-playing'>
       <div className='now-playing__header'>
-        <h2>Now playing</h2>
+        <div className='now-playing__title'>
+          <h2>Queue</h2>
+          <button className='now-playing__close' onClick={closeQueue}>
+            <X size={20} />
+          </button>
+        </div>
       </div>
 
       <div className='now-playing__current'>
+        <h3>Now playing</h3>
         <div className='now-playing__song-info'>
-          <img src={currentSong.imgUrl} alt={currentSong.name} className='now-playing__cover' />
+          <img
+            src={typeof currentSong.imgUrl === 'string' ? currentSong.imgUrl : currentSong.imgUrl[2].url}
+            alt={currentSong.name}
+            className='now-playing__cover'
+          />
           <div className='now-playing__details'>
             <span className='now-playing__name'>{currentSong.name}</span>
             <span className='now-playing__artist'>
@@ -31,7 +49,7 @@ export function NowPlaying() {
             </span>
           </div>
           <button className='now-playing__play-button' onClick={() => setIsPlaying(!isPlaying)}>
-            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
           </button>
         </div>
       </div>
@@ -40,8 +58,12 @@ export function NowPlaying() {
         <h3>Next in queue</h3>
         <div className='now-playing__queue-list'>
           {queue.map((song, index) => (
-            <div key={song.id} className='queue-item'>
-              <img src={song.imgUrl} alt={song.name} className='queue-item__cover' />
+            <div key={song.id || index} className='queue-item'>
+              <img
+                src={typeof song.imgUrl === 'string' ? song.imgUrl : song.imgUrl[2].url}
+                alt={song.name}
+                className='queue-item__cover'
+              />
               <div className='queue-item__details'>
                 <span className='queue-item__name'>{song.name}</span>
                 <span className='queue-item__artist'>
@@ -54,7 +76,7 @@ export function NowPlaying() {
                 </span>
               </div>
               <button className='queue-item__play-button' onClick={() => playNext(index)}>
-                <Play size={16} />
+                <PlayIcon />
               </button>
             </div>
           ))}
