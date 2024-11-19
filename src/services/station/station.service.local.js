@@ -197,7 +197,7 @@ async function getLikedSongsStation() {
       _id: 'liked-songs',
       name: 'Liked Songs',
       description: '',
-      imgUrl: 'https://misc.scdn.co/liked-songs/liked-songs-300.png',
+      imgUrl: 'https://res.cloudinary.com/dsymwlagn/image/upload/v1732025935/ejl22wx2eyqjwccuvzta.png',
       createdBy: { name: user.name, _id: user._id },
       songs: [...user.likedSongs].sort((a, b) => a.AddedAt - b.AddedAt),
     }

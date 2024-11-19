@@ -98,7 +98,6 @@ export function PlayerControls({ playerRef, volume }) {
         if (!playerRef.current) return
         if (repeat === 'SONG') playerRef.current.seekTo(0, true)
         playNext()
-
     }
 
     function handleProgressClick({ target }) {
