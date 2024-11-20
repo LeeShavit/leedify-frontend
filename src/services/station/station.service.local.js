@@ -1,7 +1,7 @@
 import { storageService } from '../async-storage.service'
 import { ApiService } from '../api.service'
 import { userService } from '../user'
-import { makeId, saveToStorage } from '../util.service'
+import { loadFromStorage, saveToStorage } from '../util.service'
 
 const STORAGE_KEY = 'stations_db'
 const SONG_STORAGE_KEY = 'current-playing-song'
@@ -408,25 +408,29 @@ function _createDemoData() {
   saveToStorage(STORAGE_KEY, demoStations)
 }
 function _createDemoSong() {
+  const ytIdsMap = loadFromStorage('youtube ids') || {}
+  ytIdsMap[`La Bachata`] = 'D6Ju9CyOB-I'
+  saveToStorage('youtube ids', ytIdsMap)
+
   let currentSong = JSON.parse(localStorage.getItem(SONG_STORAGE_KEY))
   if (currentSong) return
 
   currentSong = {
-    _id: '2L9N0zZnd37dwF0clgxMGI',
-    name: 'ceilings',
+    _id: '5ww2BF9slyYgNOk37BlC4u',
+    name: 'La Bachata',
     artists: [
       {
-        name: 'Lizzy McAlpine',
-        _id: '1GmsPCcpKgF9OhlNXjOsbS',
+        name: 'Manuel Turizo',
+        _id: '0tmwSHipWxN12fsoLcFU3B',
       },
     ],
     album: {
-      name: 'five seconds flat',
-      _id: '68L5xVV9wydotfDXEik7eD',
+      name: '2000',
+      _id: '7ubO2LZJZFpyhiWMZkRwcH',
     },
-    duration: 181200,
+    duration: 145200,
     url: 'youtube/song.mp4',
-    imgUrl: 'https://i.scdn.co/image/ab67616d00001e02d370fdc4dbc47778b9b667c3',
+    imgUrl: 'https://i.scdn.co/image/ab67616d00004851c9f744b0d62da795bc21d04a',
     likedBy: [],
     addedAt: 162521765262,
   }
