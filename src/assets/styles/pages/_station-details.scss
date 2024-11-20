@@ -86,6 +86,10 @@
       min-width: 0;
       flex-grow: 1;
       display: block;
+
+      &.editable{
+        cursor: pointer;
+      }
     }
 
     @media (max-width: $breakpoint-md) {

@@ -298,7 +298,7 @@ export function StationDetails() {
 
         <div className='station-header__info'>
           <span className='station-header__type'>Playlist</span>
-          <h1 onClick={() => isEditable && setIsEditModalOpen(true)} className='station-header__title'>
+          <h1 onClick={() => isEditable && setIsEditModalOpen(true)} className={`station-header__title ${isEditable && 'editable'}`}>
             {station.name}
           </h1>
           <span className='station-header__description'>{station.description}</span>

@@ -18,7 +18,8 @@ export function PlaylistCard({ station }) {
     } else {
       try {
         const { songs } = await stationService.getById(station._id)
-        const [song , remainingSongs] = songs
+        const [song , ...remainingSongs] = songs
+        console.log(songs, song, remainingSongs)
         setCurrentSong(song)
         replaceQueue(remainingSongs, station)
         setIsPlaying(true)
