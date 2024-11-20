@@ -69,7 +69,7 @@ export default function StationMenu({ onClose, ...props }) {
                     <Exclude /> Exclude from your taste profile
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={copyLink}><Copy /> Copy song link</MenuItem>
+                <MenuItem onClick={copyLink}><Copy /> Copy Playlist link</MenuItem>
             </Menu>
         </>
 
