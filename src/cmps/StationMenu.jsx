@@ -62,13 +62,6 @@ export default function StationMenu({ onClose, ...props }) {
                     <Profile /> Add to profile
                 </MenuItem>
                 <Divider />
-                <MenuItem>
-                    <Report /> Report
-                </MenuItem>
-                <MenuItem>
-                    <Exclude /> Exclude from your taste profile
-                </MenuItem>
-                <Divider />
                 <MenuItem onClick={copyLink}><Copy /> Copy Playlist link</MenuItem>
             </Menu>
         </>

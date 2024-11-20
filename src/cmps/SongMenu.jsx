@@ -62,20 +62,12 @@ export default function SongMenu({ onClose, ...props }) {
                 <MenuItem>
                     <GoToAlbum/> Go to album
                 </MenuItem>
-                <MenuItem>
-                    <ViewCredits/> View credits
-                </MenuItem>
-                <Divider />
+                {/* <Divider />
                 <MenuItem onClick={handleShareOpen} className="submenu-trigger">
                     <div className="">
                         <Share/> Share
-                        <ChevronRight className="h-4 w-4" />
                     </div>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                    <SpotifyIcon/> Open in Desktop app
-                </MenuItem>
+                </MenuItem> */}
             </Menu>
             <Menu
                 anchorEl={playlistAnchor}
