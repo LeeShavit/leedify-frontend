@@ -81,7 +81,7 @@ async function getSections() {
 }
 
 function getCurrentSong() {
-  const ytIdsMap = loadFromStorage(YT_STORAGE_KEY) || {}
+  const ytIdsMap = loadFromStorage('youtube ids') || {}
   ytIdsMap[`La Bachata`] = 'D6Ju9CyOB-I'
   saveToStorage('youtube ids', ytIdsMap)
 
