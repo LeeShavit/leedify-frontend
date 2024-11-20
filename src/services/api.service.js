@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { loadFromStorage, saveToStorage } from './util.service.js'
-import { YT_API_KEY, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from './credentials.js'
+import { YT_API_KEY, YT_API_KEY1, SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } from './credentials.js'
 import { DEFAULT_IMG } from './station/station.service.local.js'
 
 const YT_STORAGE_KEY = 'youtube ids'
 
 const youtubeKey = import.meta.env.YT_API_KEY || YT_API_KEY
+const youtubeKey1 = import.meta.env.YT_API_KEY1 || YT_API_KEY1
 const spotifyId = import.meta.env.SPOTIFY_CLIENT_ID || SPOTIFY_CLIENT_ID
 const spotifySecret = import.meta.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SECRET
 
@@ -19,21 +20,31 @@ export const ApiService = {
 }
 
 async function getYTVideoId(currentSong) {
-  const songData = `${currentSong.name} ${currentSong.artists[0].name}`
+  const songData = `${currentSong.name}`
   const ytIdsMap = loadFromStorage(YT_STORAGE_KEY) || {}
+  
   if (typeof ytIdsMap[songData] === 'string') return ytIdsMap[songData]
   try {
     const res = await axios.get(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songData}&type=video&maxResults=1&key=${youtubeKey}`
     )
     const ytId = res.data.items[0].id.videoId
-
     ytIdsMap[songData] = ytId
     saveToStorage(YT_STORAGE_KEY, ytIdsMap)
     return ytId
   } catch (err) {
-    console.log('YT API-> failed to get id from youtube')
-    throw err
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${songData}&type=video&maxResults=1&key=${youtubeKey1}`
+      )
+      const ytId = res.data.items[0].id.videoId
+      ytIdsMap[songData] = ytId
+      saveToStorage(YT_STORAGE_KEY, ytIdsMap)
+      return ytId
+    } catch (error) {
+      console.log('YT API-> failed to get id from youtube')
+      throw err
+    }
   }
 }
 
