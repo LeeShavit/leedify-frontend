@@ -83,10 +83,10 @@ export function playerReducer(state = initialState, action = {}) {
           currentSong: state.currentSong,
         }
       }
-      let [nextSong, ...remainingQueue] = state.queue
       if (state.repeat === 'SONG') {
         return { ...state, currentSong: state.currentSong, queue: state.queue }
       }
+      const [nextSong, ...remainingQueue] = state.queue
       if (remainingQueue.length === 0) {
         if (state.repeat === 'QUEUE') {
           const newQueue = state.shuffle
