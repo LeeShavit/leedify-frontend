@@ -30,7 +30,8 @@ export default function StationMenu({ onClose, ...props }) {
 
     const handleMenuItemClick = () => {
         onClose()
-    }
+    } 
+
 
     async function copyLink() {
         try {

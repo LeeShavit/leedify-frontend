@@ -430,7 +430,7 @@ function _createDemoSong() {
     },
     duration: 145200,
     url: 'youtube/song.mp4',
-    imgUrl: 'https://i.scdn.co/image/ab67616d00004851c9f744b0d62da795bc21d04a',
+    imgUrl: 'https://i.scdn.co/image/ab67616d0000b273c9f744b0d62da795bc21d04a',
     likedBy: [],
     addedAt: 162521765262,
   }
