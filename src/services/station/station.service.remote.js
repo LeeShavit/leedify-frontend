@@ -4,7 +4,6 @@ import { ApiService } from '../api.service'
 import { recentlyPlayedService } from '../recently-played.service'
 import { loadFromStorage, saveToStorage } from '../util.service'
 
-
 export const stationService = {
   query,
   getById,
@@ -81,7 +80,7 @@ async function getSections() {
 }
 
 function getCurrentSong() {
-  const ytIdsMap = loadFromStorage(YT_STORAGE_KEY) || {}
+  const ytIdsMap = loadFromStorage('youtube ids') || {}
   ytIdsMap[`La Bachata`] = 'D6Ju9CyOB-I'
   saveToStorage('youtube ids', ytIdsMap)
 
