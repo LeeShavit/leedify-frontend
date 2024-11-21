@@ -125,7 +125,11 @@ export function Player() {
         <button>
           <Lyrics />
         </button>
-        <button onClick={toggleQueue} className={`player-buttons__queue ${isQueueOpen ? 'active' : ''}`}>
+        <button
+          onClick={toggleQueue}
+          className={`player-buttons__queue ${isQueueOpen ? 'active' : ''}`}
+          aria-label='Queue'
+        >
           <QueueIcon />
         </button>
         <button>
