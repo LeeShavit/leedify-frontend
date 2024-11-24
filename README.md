@@ -1,8 +1,27 @@
-# React + Vite
+leedify 🎵🎮
+A web application that combines YouTube and Spotify APIs to create a unique music experience. Create playlists, discover music.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Seamless integration with Spotify and YouTube APIs
+Create and manage custom playlists
+User authentication and profile management
+Responsive design for all devices
 
-Currently, two official plugins are available:
+Tech Stack
+Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React.js
+JavaScript (ES6+)
+CSS3/SCSS
+Material UI
+
+Backend
+
+Node.js
+Express.js
+MongoDB
+Mongoose ODM
+
+
+Contact
+Your Name - Lee Shavit lee.shavit10@gmail.com
+Project Link: https://leedify.onrender.com/
