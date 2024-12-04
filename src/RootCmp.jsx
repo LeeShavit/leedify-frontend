@@ -15,6 +15,7 @@ import { SearchResults } from './cmps/SearchResults.jsx'
 import { GenreDetails } from './pages/GenreDetails.jsx'
 import { LoginPage } from './pages/LoginPage.jsx'
 import { NowPlaying } from './cmps/NowPlaying.jsx'
+import { Lyrics } from './pages/LyricsPage.jsx'
 export function RootCmp() {
   const [isLibraryExpanded, setIsLibraryExpanded] = useState(true)
   const location = useLocation()
@@ -37,6 +38,7 @@ export function RootCmp() {
             <Route path='/search' element={<SearchResults />} />
             <Route path='/genre/:genreId' element={<GenreDetails />} />
             <Route path='user/:id' element={<UserDetails />} />
+            <Route path='/lyrics' element={<Lyrics />} />
           </Routes>
         </main>
         <NowPlaying />

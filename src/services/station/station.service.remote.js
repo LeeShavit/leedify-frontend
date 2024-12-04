@@ -4,7 +4,6 @@ import { ApiService } from '../api.service'
 import { recentlyPlayedService } from '../recently-played.service'
 import { loadFromStorage, saveToStorage } from '../util.service'
 
-
 export const stationService = {
   query,
   getById,

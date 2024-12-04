@@ -1,0 +1,43 @@
+.lyrics-page {
+  padding: 24px;
+  min-height: 100%;
+  overflow-y: auto;
+  margin-right: 8px;
+  border-radius: 8px;
+  .lyrics-content {
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 16px;
+
+    .lyrics-loading,
+    .lyrics-error {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .lyrics-text {
+      font-family: inherit;
+      white-space: pre-line;
+      line-height: 2;
+      font-size: 1.1rem;
+      text-align: center;
+
+      [Verse],
+      [Chorus],
+      [Bridge],
+      [Intro],
+      [Outro],
+      [Pre-Chorus] {
+        font-size: 0.9rem;
+        margin: 24px 0 8px;
+        font-weight: 500;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+main.main.scroll-container {
+  &:has(.lyrics-page) {
+    overflow: hidden;
+  }
+}
