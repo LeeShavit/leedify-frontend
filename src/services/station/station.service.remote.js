@@ -77,8 +77,10 @@ async function getSearchResSong(txt) {
 }
 
 async function getSections() {
-  return await ApiService.getStationsForHome('US')
+  return await httpService.get(`category`)
 }
+
+
 
 function getCurrentSong() {
   const ytIdsMap = loadFromStorage('youtube ids') || {}

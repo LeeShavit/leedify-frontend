@@ -18,6 +18,7 @@ export const stationService = {
   removeSongFromStation,
   getCurrentSong,
   getSearchResSong,
+  getSections,
   getLikedSongsStation,
 }
 _createDemoSong()
@@ -60,11 +61,11 @@ async function getById(stationId) {
     if (!station) {
       try {
         console.log('Fetching station from Spotify...')
-        const spotifyStation = await ApiService.getSpotifyItems({
-          type: 'station',
-          id: stationId,
-          market: 'US',
-        })
+        const spotifyStation = null
+        // const spotifyStation = await ApiService.getSpotifyItems({
+        //   type: 'station',
+        //   id: stationId,
+        // })
 
         if (spotifyStation) {
           const formattedStation = {
@@ -138,10 +139,10 @@ async function save(station) {
           station.createdBy?._id === 'spotify'
             ? station.createdBy
             : {
-                _id: loggedInUser._id,
-                name: loggedInUser.name || loggedInUser.username,
-                imgUrl: loggedInUser.imgUrl,
-              },
+              _id: loggedInUser._id,
+              name: loggedInUser.name || loggedInUser.username,
+              imgUrl: loggedInUser.imgUrl,
+            },
       }
 
       return await storageService.post(STORAGE_KEY, newStation)
@@ -204,6 +205,11 @@ async function getLikedSongsStation() {
   } catch (err) {
     console.log('station service- failed to create liked songs station')
   }
+}
+
+async function getSections() {
+
+  return _createCategories
 }
 
 function _createDemoData() {
@@ -450,4 +456,113 @@ function getCurrentSong() {
 async function getSearchResSong(txt) {
   const res = await ApiService.getSpotifyItems({ type: 'songSearch', query: txt, market: 'US' })
   return res.songs
+}
+
+
+function _createCategories() {
+  return [
+    {
+      _id: "674efad517a4289ef3daf44f",
+      name: "Workout",
+      stations: [
+        {
+          _id: "2SM6rniZl84fEyMCB5KMQB",
+          name: "WORKOUT PLAYLIST 2025",
+          description: "Workout Playlist 2025 - Running Songs - Fitness Hits - Gym Motivation …",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c8044a608529aa74d59cd0917",
+        },
+
+        {
+          _id: "3U7mEmGXnG3RJ1lrC2Jhvz",
+          name: "GYM SONGS🎀 (for girlies)",
+          description: "2025 gym playlist for a better performance at the gym🏋🏻‍♀️| workout …",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8434430f6f631c264334e19852",
+        },
+        {
+          _id: "5h1oEk4W9KVMHkOd8WWWlC",
+          name: "DEEP HOUSE 2025 (TOP 100) 🔴 Electronic Dance Hits & Remixes for Worko…",
+          description: "THE BEST DEEP HOUSE &amp; ELECTRONIC DANCE MIX IN 2025 | Updated weekl…",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84cb49bc61dc5b4289d46b2849",
+        },
+        {
+          _id: "44imBReuLDHuIP0j4UmCtm",
+          name: "BEAST MODE - Motivation for sports GYM and bodybuilding",
+          description: "BEAST MODE - Motivational music playlist for gym, workout, bodybuildin…",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da841fd145dfa6e3337c21b277c8"
+        }
+      ]
+    },
+    {
+      _id: "674efad517a4289ef3daf450",
+      name: "Mood",
+      stations: [
+        {
+          _id: "7INcD4lmarWTQiDVodjVt4",
+          name: "Feel Good Songs 💛🌻💛",
+          description: "",
+          imgUrl: "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000da847295ca31da597bb86a06c2a0"
+        },
+        {
+          _id: "7GhawGpb43Ctkq3PRP1fOL",
+          name: "Happy Vibes 2024 ☀️",
+          description: "​​Happy and Feel Good Music ☀️ Good vibes only!",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8454617b35aac20687bd93ab25"
+        },
+        {
+          _id: "4Fh0313D3PitYzICKHhZ7r",
+          name: "Feel Good Songs 💛 Happy Vibes only 🌞 ",
+          description: "good vibes - mood booster - happy songs everyone knows - songs to make you feel good - beautiful day - music for breakfast - waking up happy 😄",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da843ad93ed995a788b26d6bcc81"
+        },
+        {
+          _id: "3IBrsav3Sh8AImtaGoaP07",
+          name: "Good Mornings - Happily Positive Music to Start The Day",
+          description: "Good morning music to wake up happy and start your day right! We’ve put together the perfect playlist of upbeat pop classics and positive songs to carry your stress away and start with a smile - Playlist Cover: Picture © Free",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84cccc520dba9c72571a6a43ff"
+        },
+        {
+          _id: "6hXwzaSaiiWUazPjpQn0Yl",
+          name: "Happy Music from 1980-2024s",
+          description: "Happy songs that everyone knows. Perfect for road trip, cleaning, cooking, good feelings, music QUIZ, or just do things that need this feelings. popular hits and famous songs, use it for training music and workout music",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da8421e49f8ce8dd184616491e68"
+        },
+        {
+          _id: "1pmsMvJXvQ6s55bz4FsqCy",
+          name: "Love Songs 2024 💕 ",
+          description: "",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da842fcc7e9b41b94f4c290a302d"
+        }
+      ]
+    },
+    {
+      _id: "674efad517a4289ef3daf452",
+      name: "Features",
+      stations: [
+        {
+          _id: "0LbJei7i44UxH9AdhnMuyF",
+          name: "Daily Mix",
+          description: "Decades of random Pop, Rock, Indie, Dance, RnB, Disco, Motown etc... UK Charts edition with lots of US influence too!",
+          imgUrl: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84d2652a91ce1b7c9120b832b8"
+        },
+        {
+          _id: "3FFOAuiLSkJbNjE68eFQNN",
+          name: "Daily Mix 1",
+          description: "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da849c2dc5e2b529b46ec2d4e362",
+          imgUrl:  "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da849c2dc5e2b529b46ec2d4e362"
+        },
+        {
+          _id: "096em1z0OErabmwqafVeZg",
+          name: "Daily Mix 2",
+          description: "Bruno Mars, Ed Sheeran, Lady Gaga and more",
+          imgUrl:  "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da846d89dd3fdd672a4414d50f2d"
+        },
+        {
+          _id: "6UG2y1EBrMSm0VzT1x648x",
+          name: "Ibiza Sounds 2024",
+          description: "Stay in the mood for summer with this musical heatwave of house, tech house and disco house tracks. Ibiza Lounge | Summer 2023 | Summer 23 | Summer House | Beach House",
+          imgUrl:  "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c893336b18ccfc9f25f27c373"
+        }
+      ]
+    }
+  ]
 }
