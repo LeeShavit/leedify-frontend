@@ -13,6 +13,7 @@ const spotifySecret = import.meta.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SE
 let gAccessToken = await getAccessToken()
 setTokenRefreshInterval()
 
+
 export const ApiService = {
   getYTVideoId,
   getSpotifyItems,
@@ -22,7 +23,7 @@ export const ApiService = {
 async function getYTVideoId(currentSong) {
   const songData = `${currentSong.name}`
   const ytIdsMap = loadFromStorage(YT_STORAGE_KEY) || {}
-  
+
   if (typeof ytIdsMap[songData] === 'string') return ytIdsMap[songData]
   try {
     const res = await axios.get(
@@ -50,6 +51,18 @@ async function getYTVideoId(currentSong) {
 
 async function getAccessToken() {
   try {
+    const encodedToken = localStorage.getItem('spotify_access_token')
+    const encodedExpiration = localStorage.getItem('spotify_token_expiration')
+    const currentTime = Date.now()
+
+    if (encodedToken && encodedExpiration) {
+      const cachedToken = atob(encodedToken)
+      const tokenExpiration = parseInt(atob(encodedExpiration))
+
+      if (cachedToken && tokenExpiration && currentTime < tokenExpiration) {
+        return cachedToken
+      }
+    }
     // Encode client credentials (Client ID and Client Secret)
     const credentials = `${spotifyId}:${spotifySecret}`
     const encodedCredentials = btoa(credentials)
@@ -67,10 +80,17 @@ async function getAccessToken() {
         },
       }
     )
-    // Extract and return the access token from the response
-    const { data } = response
 
-    return data.access_token
+    const { access_token } = response.data
+    // Extract and return the access token from the response
+    const encodedAccessToken = btoa(access_token)
+    const encodedExpirationTime = btoa(String(currentTime + 3250000))
+
+    localStorage.setItem('spotify_access_token', encodedAccessToken)
+    localStorage.setItem('spotify_token_expiration', encodedExpirationTime)
+
+    return access_token
+
   } catch (err) {
     console.error('Error retrieving access token:', err.response ? err.response.data : err.message)
     throw err
@@ -102,10 +122,12 @@ async function getSpotifyItems(req) {
         market,
       },
     })
+
     // Clean and return the data from response
     let cleanData = await _cleanResponseData(response.data, type)
     return cleanData
   } catch (error) {
+
     console.error(
       'Error retrieving data:',
       error.response ? error.response.data : error.message,
@@ -328,7 +350,6 @@ function _cleanStationTracksData(data) {
 }
 
 async function _cleanSearchData(data) {
-  console.log(data.tracks.items)
   const tracks = data.tracks.items.map((track) => ({
     _id: track.id,
     name: track.name,
@@ -397,39 +418,43 @@ function _cleanArtists(artists) {
 }
 
 async function getStationsForHome(market) {
-  const categories = [
-    { _id: 'featured', name: 'Featured Playlists' },
-    { _id: '0JQ5DAqbMKFLVaM30PMBm4', name: 'Summer' },
-    { _id: '0JQ5DAqbMKFAXlCG6QvYQ4', name: 'Workout' },
-    { _id: '0JQ5DAqbMKFzHmL4tf05da', name: 'Mood' },
-    { _id: '0JQ5DAqbMKFQIL0AXnG5AK', name: 'Trending' },
-  ]
 
-  const results = []
-
-  for (const category of categories) {
-    try {
-      let section
-      if (category._id === 'featured') {
-        const featured = await getSpotifyItems({ type: 'featured', market })
-        section = { category: category.name, categoryId: category._id, stations: featured.stations }
-      } else {
-        const res = await getSpotifyItems({ type: 'categoryStations', id: category._id, market })
-        section = { category: res.name, categoryId: category._id, stations: res.stations }
-      }
-      results.push(section)
-    } catch (error) {
-      console.error(`Error fetching data for category ${category.name}: ${error.message}`)
-      results.push([])
-    }
-  }
-
-  return results
 }
 
-function _cleanDescriptions(arr) {
-  arr.forEach((item) => {
-    if (Array.isArray(item)) _cleanDescriptions(item)
-    else if (typeof item === 'object') item.description = item.description.replace(/<a\b[^>]*>.*?<\/a>/gi, '')
-  })
-}
+// async function getStationsForHome(market) {
+//   const categories = [
+//     { _id: 'featured', name: 'Featured Playlists' },
+//     { _id: '0JQ5DAqbMKFLVaM30PMBm4', name: 'Summer' },
+//     { _id: '0JQ5DAqbMKFAXlCG6QvYQ4', name: 'Workout' },
+//     { _id: '0JQ5DAqbMKFzHmL4tf05da', name: 'Mood' },
+//     { _id: '0JQ5DAqbMKFQIL0AXnG5AK', name: 'Trending' },
+//   ]
+
+//   const results = []
+
+//   for (const category of categories) {
+//     try {
+//       let section
+//       if (category._id === 'featured') {
+//         const featured = await getSpotifyItems({ type: 'featured', market })
+//         section = { category: category.name, categoryId: category._id, stations: featured.stations }
+//       } else {
+//         const res = await getSpotifyItems({ type: 'categoryStations', id: category._id, market })
+//         section = { category: res.name, categoryId: category._id, stations: res.stations }
+//       }
+//       results.push(section)
+//     } catch (error) {
+//       console.error(`Error fetching data for category ${category.name}: ${error.message}`)
+//       results.push([])
+//     }
+//   }
+
+//   return results
+// }
+
+// function _cleanDescriptions(arr) {
+//   arr.forEach((item) => {
+//     if (Array.isArray(item)) _cleanDescriptions(item)
+//     else if (typeof item === 'object') item.description = item.description.replace(/<a\b[^>]*>.*?<\/a>/gi, '')
+//   })
+// }

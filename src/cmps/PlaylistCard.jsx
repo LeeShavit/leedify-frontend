@@ -28,7 +28,7 @@ export function PlaylistCard({ station }) {
       }
     }
   }
-
+  
   return (
     <div className='playlist-card' onClick={() => navigate(`/station/${station._id}`)}>
       <div className='playlist-card__image-container'>

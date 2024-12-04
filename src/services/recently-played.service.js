@@ -4,14 +4,14 @@ const RECENTLY_PLAYED_KEY = 'recently_played_stations'
 const MAX_RECENT_STATIONS = 8
 
 const DEFAULT_STATION_IDS = [
-  '37i9dQZF1DX10zKzsJ2jva',
-  '37i9dQZEVXbv80hRxuEhT9',
-  '37i9dQZF1DX76Wlfdnj7AP',
-  '37i9dQZF1DXbIeCFU20wRm',
-  '37i9dQZF1DWSYF6geMtQMW',
-  '37i9dQZF1DX7Qo2zphj7u3',
-  '37i9dQZF1DX8WzB1Rs2vkz',
-  '37i9dQZEVXbMDoHDwVN2tF',
+  '7jJmLeloy4ZrjJ4thCCgMe',
+  '6WjtRWXqU8SenEhZhTkUfc',
+  '44imBReuLDHuIP0j4UmCtm',
+  '02Jjjt6CHQW3lBq5Co5SCW',
+  '1F7kVQP5qMmjbecZev5pth',
+  '7fQjOBRbDPJlGAc8UOMDFY',
+  '3bEWBSKpBX6UpbNkDIbszK',
+  '3qwyQJzNAt4BDfnijpKkbi',
 ]
 
 export const recentlyPlayedService = {

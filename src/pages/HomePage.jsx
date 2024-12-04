@@ -36,18 +36,17 @@ export function HomePage() {
 
   async function loadSections() {
     const newSections = await stationService.getSections()
-    console.log(newSections)
     setSections(newSections)
   }
 
   return (
     <div className='home-page'>
       <QuickAccess />
-      {sections?.map((section) => (
-        <section key={section.categoryId} className='home-page__section'>
-          <SectionHeader title={section.category} categoryId={section.categoryId} />
+      {sections?.map((category) => (
+        <section key={category._id} className='home-page__section'>
+          <SectionHeader title={category.name} categoryId={category._id} />
           <div className='home-page__grid'>
-            {section?.stations.map((station) => (
+            {category?.stations.map((station) => (
               <PlaylistCard key={makeId()} station={station} />
             ))}
           </div>
