@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { PlayerControls } from './PlayerControls.jsx'
 import { DEFAULT_IMG } from '../services/station/station.service.local.js'
 import {
@@ -22,8 +22,10 @@ import { ArrowDown, ChevronDown } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SET_QUEUE_OPEN } from '../store/reducers/player.reducer'
 import { FastAverageColor } from 'fast-average-color'
+import { lyricsService } from '../services/lyrics.service'
 
 export function Player() {
+  const navigate = useNavigate()
   const playerRef = useRef(null)
   const dispatch = useDispatch()
   const [volume, setVolume] = useState(100)
@@ -61,6 +63,14 @@ export function Player() {
     } catch (err) {
       console.error('Failed to like/dislike song:', err)
     }
+  }
+
+  const handleLyricsClick = async () => {
+    if (!currentSong) return
+    console.log('Fetching lyrics for:', currentSong.name)
+    const lyrics = await lyricsService.getLyrics(currentSong.name, currentSong.artists[0].name)
+    console.log('Lyrics result:', lyrics)
+    navigate('/lyrics')
   }
 
   async function loadBackgroundColor() {
@@ -122,7 +132,7 @@ export function Player() {
         <button>
           <NowPlayingView />
         </button>
-        <button>
+        <button onClick={handleLyricsClick}>
           <Lyrics />
         </button>
         <button
