@@ -22,6 +22,7 @@ export function HomePage() {
   async function loadData() {
     try {
       const loggedInUser = userService.getLoggedinUser()
+      console.log('🚀 ~ loadData ~ loggedInUser:', loggedInUser)
       if (!loggedInUser) {
         await login({ username: 'guest', password: 'guest123' })
         await loadStations()
