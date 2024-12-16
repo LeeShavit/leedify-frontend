@@ -1,14 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
-import {
-  FB_API_KEY,
-  AUTH_DOMAIN,
-  PROJECT_ID,
-  STORAGE_BUCKET,
-  MESSAGING_SENDER_ID,
-  APP_ID,
-  MEASUREMENT_ID,
-} from './credentials'
+import { FB_API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID } from './credentials'
 
 export const FIREBASE_CONFIG = {
   apiKey: import.meta.env.FB_API_KEY || FB_API_KEY,
@@ -17,7 +9,6 @@ export const FIREBASE_CONFIG = {
   storageBucket: import.meta.env.STORAGE_BUCKET || STORAGE_BUCKET,
   messagingSenderId: import.meta.env.MESSAGING_SENDER_ID || MESSAGING_SENDER_ID,
   appId: import.meta.env.APP_ID || APP_ID,
-  measurementId: import.meta.env.MEASUREMENT_ID || MEASUREMENT_ID,
 }
 
 const app = initializeApp(FIREBASE_CONFIG)
