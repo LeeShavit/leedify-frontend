@@ -7,6 +7,12 @@
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(5px);
   z-index: 1000;
+  @include for-mobile-layout {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .login-modal {
@@ -23,6 +29,14 @@
   z-index: 1001;
   padding: 32px;
   margin: 24px;
+
+  @include for-mobile-layout {
+    width: 100%;
+    margin: 0;
+    padding: 24px;
+    height: 100%;
+    overflow-y: auto;
+  }
 
   &__content {
     display: flex;

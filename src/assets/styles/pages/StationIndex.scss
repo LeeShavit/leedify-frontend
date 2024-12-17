@@ -3,7 +3,6 @@
   min-height: 100%;
   color: $text-primary;
   padding: 0.5rem;
-
   background: linear-gradient(180deg, #5028f0 -30%, #121212 20%);
   color: $text-primary;
   border-radius: 8px;
@@ -23,7 +22,6 @@
     display: grid;
     position: relative;
     @media (min-width: $mobile-breakpoint) {
-      // grid-template-columns: repeat(2, 1fr);
       display: flex;
       overflow-x: auto;
       gap: 4px;
@@ -94,5 +92,24 @@
 
   &__section {
     position: relative;
+  }
+  .mobile-profile-button {
+    display: none;
+
+    @include for-mobile-layout {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: $primary-color;
+      color: black;
+      font-size: 14px;
+      font-weight: bold;
+      border: none;
+      margin: 16px 0 0 16px;
+      transition: transform 0.2s;
+    }
   }
 }

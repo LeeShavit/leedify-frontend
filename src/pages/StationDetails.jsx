@@ -66,7 +66,6 @@ export function StationDetails() {
 
   useEffect(() => {
     socketService.on(SOCKET_EVENT_EDIT_STATION, editStation)
-    console.log(stationId, stationId.length)
 
     return () => {
       socketService.off(SOCKET_EVENT_EDIT_STATION, editStation)
@@ -80,7 +79,6 @@ export function StationDetails() {
 
   useEffect(() => {
     if (station) {
-      console.log(station)
       loadStationImage()
     }
   }, [station])
@@ -109,7 +107,11 @@ export function StationDetails() {
     if (station.songs.length === 0 && station.imgUrl !== DEFAULT_IMG && !img.includes('cloudinary')) {
       img = DEFAULT_IMG
       updateStation({ ...station, imgUrl: img })
-    } else if (isEditable && station.songs.length > 0 && (station.imgUrl === DEFAULT_IMG || !img.includes('cloudinary'))) {
+    } else if (
+      isEditable &&
+      station.songs.length > 0 &&
+      (station.imgUrl === DEFAULT_IMG || !img.includes('cloudinary'))
+    ) {
       img = typeof station.songs[0].imgUrl === 'string' ? station.songs[0].imgUrl : station.songs[0].imgUrl[0].url
       updateStation({ ...station, imgUrl: img })
     }
@@ -123,7 +125,6 @@ export function StationDetails() {
       const color = await fac.getColorAsync(img)
       setBackgroundColor(`rgb(${color.value[0]}, ${color.value[1]}, ${color.value[2]})`)
     } catch (err) {
-      console.log('Error getting average color:', err)
       setBackgroundColor('rgb(18, 18, 18)')
     }
   }
@@ -298,7 +299,10 @@ export function StationDetails() {
 
         <div className='station-header__info'>
           <span className='station-header__type'>Playlist</span>
-          <h1 onClick={() => isEditable && setIsEditModalOpen(true)} className={`station-header__title ${isEditable && 'editable'}`}>
+          <h1
+            onClick={() => isEditable && setIsEditModalOpen(true)}
+            className={`station-header__title ${isEditable && 'editable'}`}
+          >
             {station.name}
           </h1>
           <span className='station-header__description'>{station.description}</span>

@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { useNavigate } from 'react-router-dom'
 import { loadStations } from '../store/actions/station.actions'
 import { SectionHeader } from '../cmps/SectionHeader'
 import { QuickAccess } from '../cmps/AccessItems'
 import { PlaylistCard } from '../cmps/PlaylistCard'
-import { loadUser, login } from '../store/actions/user.actions'
+import { login } from '../store/actions/user.actions'
 import { userService } from '../services/user'
 import { stationService } from '../services/station'
 import { makeId } from '../services/util.service'
 
 export function HomePage() {
-  const stations = useSelector((state) => state.stationModule.stations)
   const [sections, setSections] = useState(null)
   const user = useSelector((state) => state.userModule.user)
+  const profileLetter = user?.name?.charAt(0).toUpperCase() || 'G'
+  const navigate = useNavigate()
 
   useEffect(() => {
     loadData()
@@ -22,7 +25,6 @@ export function HomePage() {
   async function loadData() {
     try {
       const loggedInUser = userService.getLoggedinUser()
-      console.log('🚀 ~ loadData ~ loggedInUser:', loggedInUser)
       if (!loggedInUser) {
         await login({ username: 'guest', password: 'guest123' })
         await loadStations()
@@ -42,6 +44,9 @@ export function HomePage() {
 
   return (
     <div className='home-page'>
+      <button className='mobile-profile-button' onClick={() => navigate('/login')}>
+        {profileLetter}
+      </button>
       <QuickAccess />
       {sections?.map((category) => (
         <section key={category._id} className='home-page__section'>

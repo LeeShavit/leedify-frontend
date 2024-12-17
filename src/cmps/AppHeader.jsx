@@ -1,12 +1,4 @@
-import {
-  BellIcon,
-  ExploreIcon,
-  ExploreIconFull,
-  HomeIcon,
-  HomeIconFull,
-  SearchIcon,
-  SpotifyIcon,
-} from '../assets/img/app-header/icons'
+import { BellIcon, HomeIcon, HomeIconFull, SpotifyIcon } from '../assets/img/app-header/icons'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { ProfileMenu } from './ProfileMenu'
 import { useState } from 'react'

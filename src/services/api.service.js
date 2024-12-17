@@ -13,7 +13,6 @@ const spotifySecret = import.meta.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SE
 let gAccessToken = await getAccessToken()
 setTokenRefreshInterval()
 
-
 export const ApiService = {
   getYTVideoId,
   getSpotifyItems,
@@ -90,7 +89,6 @@ async function getAccessToken() {
     localStorage.setItem('spotify_token_expiration', encodedExpirationTime)
 
     return access_token
-
   } catch (err) {
     console.error('Error retrieving access token:', err.response ? err.response.data : err.message)
     throw err
@@ -127,7 +125,6 @@ async function getSpotifyItems(req) {
     let cleanData = await _cleanResponseData(response.data, type)
     return cleanData
   } catch (error) {
-
     console.error(
       'Error retrieving data:',
       error.response ? error.response.data : error.message,
@@ -417,9 +414,7 @@ function _cleanArtists(artists) {
   }))
 }
 
-async function getStationsForHome(market) {
-
-}
+async function getStationsForHome(market) {}
 
 // async function getStationsForHome(market) {
 //   const categories = [
