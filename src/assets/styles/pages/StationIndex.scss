@@ -7,6 +7,10 @@
   color: $text-primary;
   border-radius: 8px;
 
+  @include for-mobile-layout {
+    padding-bottom: 5.5rem;
+  }
+
   &::before {
     content: '';
     position: absolute;
@@ -26,6 +30,7 @@
       overflow-x: auto;
       gap: 4px;
       padding: 0 8px;
+
       scroll-snap-type: x mandatory;
 
       &::-webkit-scrollbar {
@@ -53,6 +58,7 @@
       gap: 4px;
       padding: 0 8px;
       scroll-snap-type: x mandatory;
+      // margin-bottom: 40px;
 
       &::-webkit-scrollbar {
         display: none;

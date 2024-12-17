@@ -6,7 +6,7 @@
   position: relative;
 
   @include for-mobile-layout {
-    padding: 16px 8px;
+    padding: 16px 8px 4rem 8px;
   }
 
   &::before {
@@ -87,7 +87,7 @@
       flex-grow: 1;
       display: block;
 
-      &.editable{
+      &.editable {
         cursor: pointer;
       }
     }
@@ -635,13 +635,13 @@
     }
   }
 
-  .add-song-open{
+  .add-song-open {
     margin-top: 32px;
     text-align: end;
-    button{
-      background:none;
+    button {
+      background: none;
       color: $text-primary;
-      font-size: .9rem;
+      font-size: 0.9rem;
     }
   }
 }

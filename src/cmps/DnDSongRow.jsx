@@ -21,7 +21,7 @@ export function DraggableSongRow({
   isUserStation,
   onRemoveSong,
   onAddToQueue,
-  isEditable
+  isEditable,
 }) {
   const [songMenuAnchor, setSongMenuAnchor] = useState(null)
   const songMenuOpen = Boolean(songMenuAnchor)
@@ -103,7 +103,7 @@ export function DraggableSongRow({
             >
               {likedSongsIds.includes(song._id) ? <Liked /> : <Like />}
             </button>
-            <div>{formatDuration(song.duration)}</div>
+            <div className='__time'>{formatDuration(song.duration)}</div>
           </div>
 
           <Button
