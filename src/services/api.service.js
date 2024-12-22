@@ -5,10 +5,10 @@ import { DEFAULT_IMG } from './station/station.service.local.js'
 
 const YT_STORAGE_KEY = 'youtube ids'
 
-const youtubeKey = import.meta.env.YT_API_KEY || YT_API_KEY
-const youtubeKey1 = import.meta.env.YT_API_KEY1 || YT_API_KEY1
-const spotifyId = import.meta.env.SPOTIFY_CLIENT_ID || SPOTIFY_CLIENT_ID
-const spotifySecret = import.meta.env.SPOTIFY_CLIENT_SECRET || SPOTIFY_CLIENT_SECRET
+const youtubeKey = import.meta.env.VITE_YT_API_KEY
+const youtubeKey1 = import.meta.env.VITE_YT_API_KEY1
+const spotifyId = import.meta.env.VITE_SPOTIFY_CLIENT_ID
+const spotifySecret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
 
 let gAccessToken = await getAccessToken()
 setTokenRefreshInterval()
